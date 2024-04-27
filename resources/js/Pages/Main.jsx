@@ -4,6 +4,7 @@ import HubungiKami from "@/Components/shared/user/HubungiKami";
 import Layanan from "@/Components/shared/user/Layanan";
 import Profil from "@/Components/shared/user/Profil";
 import ProfileDropdown from "@/Components/shared/user/ProfileDropdown";
+import Menu from "@/Components/shared/user/Menu";
 import { Link, Head } from "@inertiajs/react";
 import { FaChevronDown } from "react-icons/fa";
 
@@ -24,29 +25,29 @@ export default function Main({ auth }) {
     return (
         <>
             <Head title="Home" />
-            <main className="flex flex-col items-center bg-customWhite">
-                <div className="px-8 md:px-0 w-full md:w-4/5">
+            <main className="flex flex-col items-center lg:bg-customWhite">
+                <div className="px-8 md:px-0 w-full md:w-4/5 max-w-[1300px]">
 
                     {/* Nav */}
                     <nav className="flex justify-between py-8">
                         <Link className="flex gap-4 items-center" src="/">
                             <img
                                 className="h-10 unselectable"
-                                src="/logo.png"
+                                src="/assets/logo.png"
                             />
                             <p className="text-lg font-semibold unselectable">
                                 Klinik Sri Hartati
                             </p>
                         </Link>
 
-                        <div className="hidden md:flex items-center space-x-8 unselectable">
+                        <div className="hidden lg:flex items-center space-x-4 xl:space-x-8 unselectable">
                             <Link src="/">Home</Link>
                             <Link src="/">Layanan</Link>
                             <Link src="/">Tentang Kami</Link>
                             <Link src="/">Kontak</Link>
                         </div>
 
-                        <div className="flex gap-4">
+                        <div className="hidden lg:flex gap-4">
                             {auth.user ? (
                                 <ProfileDropdown className="flex items-center gap-4 border-0">
                                     {auth.user.name}
@@ -69,6 +70,11 @@ export default function Main({ auth }) {
                                 </>
                             )}
                         </div>
+
+                        {/* Mobile Hamburger */}
+                        <div className="flex lg:hidden">
+                            <Menu />
+                        </div>
                     </nav>
 
                     {/* Header */}
@@ -88,8 +94,8 @@ export default function Main({ auth }) {
 
                     <HubungiKami />
 
-                    <Footer />
                 </div>
+                <Footer />
             </main>
         </>
     );

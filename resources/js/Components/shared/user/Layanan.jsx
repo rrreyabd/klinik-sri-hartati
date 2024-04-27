@@ -37,6 +37,7 @@ const Layanan = () => {
             Icon: MdOutlineAttachMoney
         },
     ];
+
     return (
         <div className="flex flex-col py-20 gap-4">
             <h1 className="text-ForestGreen font-medium text-4xl text-center">
@@ -60,14 +61,16 @@ const Layanan = () => {
                                     <hr className="border-2 border-ForestGreen/40 w-2/5" />
                                 </div>
 
-                                <p className="text-black/40 min-h-20">
-                                    Lunasi tagihan dengan e-money
-                                </p>
+                                <div className="flex flex-col justify-between flex-grow">
+                                    <p className="text-black/40 min-h-20">
+                                        {service.description}
+                                    </p>
 
-                                <div className="flex justify-end">
-                                    <Link className="bg-Pistachio w-12 h-12 rounded-full flex justify-center items-center">
-                                        <FaArrowLeft className="text-2xl text-ForestGreen rotate-[135deg]" />
-                                    </Link>
+                                    <div className="flex justify-end">
+                                        <Link className="bg-Pistachio w-12 h-12 rounded-full flex justify-center items-center">
+                                            <FaArrowLeft className="text-2xl text-ForestGreen rotate-[135deg]" />
+                                        </Link>
+                                    </div>
                                 </div>
                             </div>
                         );
