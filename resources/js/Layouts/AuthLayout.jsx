@@ -13,12 +13,6 @@ const AuthLayout = ( { children } ) => {
               <div className="flex flex-col flex-grow py-8 space-y-8">
                 { children }
               </div>
-
-              <div className="w-full flex justify-center text-center">
-                <p className="text-sm w-11/12 text-black/50">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut.
-                </p>
-              </div>
             
             </div>
             
