@@ -15,7 +15,7 @@ export default function Login({ }) {
             {toggled ? <Head title="Daftar" /> : <Head title="Masuk" />}
 
             <AuthLayout>
-                <div className="flex flex-col items-center w-full space-y-1 mt-8">
+                <div className="flex flex-col items-center w-full space-y-1 mt-8 text-center bg-white">
                     {toggled ? (
                         <>
                             <h3 className="text-3xl font-semibold">

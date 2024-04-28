@@ -14,6 +14,7 @@ export default forwardRef(function TextInput({ type = 'text', className = '', is
             <input
                 {...props}
                 type={type}
+                autoComplete='off'
                 className={
                     'border-2 border-customBlack focus:border-ForestGreen focus:ring-ForestGreen rounded-xl shadow-sm pl-20 placeholder:font-semibold placeholder:text-sm text-sm font-semibold ' + className
                 }

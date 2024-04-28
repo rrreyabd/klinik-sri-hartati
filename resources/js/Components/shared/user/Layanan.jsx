@@ -12,14 +12,14 @@ const Layanan = () => {
             name: "Antrian Online",
             description: "Daftar dan tunggu giliran secara virtual",
             url: "/",
-            Icon: FaUsers
+            Icon: FaUsers,
         },
         {
             id: 2,
             name: "Buat Janji Temu",
             description: "Pesan waktu kunjungan dengan mudah",
             url: "/",
-            Icon: FaRegCalendarAlt
+            Icon: FaRegCalendarAlt,
         },
         {
             id: 3,
@@ -27,19 +27,19 @@ const Layanan = () => {
             description:
                 "Lihat catatan medis dan konsultasi dokter secara virtual.",
             url: "/",
-            Icon: IoDocumentText
+            Icon: IoDocumentText,
         },
         {
             id: 4,
             name: "Bayar Online",
             description: "Lunasi tagihan dengan e-money ",
             url: "/",
-            Icon: MdOutlineAttachMoney
+            Icon: MdOutlineAttachMoney,
         },
     ];
 
     return (
-        <div className="flex flex-col py-20 gap-4">
+        <div className="flex flex-col py-20 gap-4" id="layanan">
             <h1 className="text-ForestGreen font-medium text-3xl sm:text-4xl text-center">
                 Kenapa Memilih Kami?
             </h1>
@@ -48,8 +48,10 @@ const Layanan = () => {
                 {services &&
                     services.map((service) => {
                         return (
-                            <div className="bg-customWhite shadow-lg shadow-black/30 rounded-md p-8 flex flex-col gap-4"
-                            key={service.id}>
+                            <div
+                                className="bg-customWhite shadow-lg shadow-black/30 rounded-md p-8 flex flex-col gap-4"
+                                key={service.id}
+                            >
                                 <div className="bg-ForestGreen p-2 sm:p-4 w-fit rounded-full">
                                     <IconLayanan Icon={service.Icon} />
                                 </div>

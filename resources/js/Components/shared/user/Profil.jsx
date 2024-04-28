@@ -12,7 +12,7 @@ const Image = () => {
 
 const Profil = () => {
     return (
-        <div className="flex flex-col space-y-8 py-12 lg:py-20">
+        <div className="flex flex-col space-y-8 py-12 lg:py-20" id="tentang">
             <div className="flex flex-col lg:flex-row gap-4 lg:gap-0 justify-between">
                 <Image />
 

@@ -1,6 +1,6 @@
 const HubungiKami = () => {
     return (
-        <div className="py-20 flex flex-col items-center gap-12">
+        <div className="py-20 flex flex-col items-center gap-12" id="kontak">
             <h2 className="text-ForestGreen font-semibold text-4xl">
                 Hubungi Kami
             </h2>
