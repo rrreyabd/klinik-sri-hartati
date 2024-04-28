@@ -25,7 +25,7 @@ export default function Main({ auth }) {
     return (
         <>
             <Head title="Home" />
-            <main className="flex flex-col items-center lg:bg-customWhite">
+            <main className="flex flex-col items-center bg-customWhite lg:bg-customWhite">
                 <div className="px-8 md:px-0 w-full md:w-4/5 max-w-[1300px]">
 
                     {/* Nav */}

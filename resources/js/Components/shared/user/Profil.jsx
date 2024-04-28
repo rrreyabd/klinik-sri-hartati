@@ -1,17 +1,22 @@
+const Image = () => {
+    return (
+        <div className="w-full lg:w-1/2">
+            <img
+                src="/assets/image_2.png"
+                alt="Profile Image"
+                className="w-full lg:w-11/12 aspect-video"
+            />
+        </div>
+    );
+};
+
 const Profil = () => {
     return (
-        <div className="flex flex-col space-y-8 py-28">
-            <div className="flex justify-between min-h-80">
-                <div className="w-1/2 relative">
-                    <img
-                        src="/assets/image1.png"
-                        alt="Profile Image"
-                        className="w-3/4 aspect-video absolute z-10 top-8 left-8"
-                    />
-                    <div className="w-3/4 aspect-video bg-ForestGreen absolute top-0"></div>
-                </div>
+        <div className="flex flex-col space-y-8 py-12 lg:py-20">
+            <div className="flex flex-col lg:flex-row gap-4 lg:gap-0 justify-between">
+                <Image />
 
-                <div className="flex flex-col gap-4 w-1/2 pt-8">
+                <div className="flex flex-col gap-4 w-full lg:w-1/2 pt-4">
                     <h2 className="text-ForestGreen font-semibold text-4xl">
                         Klinik Sri Hartati
                     </h2>
@@ -28,17 +33,23 @@ const Profil = () => {
                 </div>
             </div>
 
-            <div className="flex shadow-md shadow-black/40 py-12 px-8">
-                <div className="text-center w-1/3 flex flex-col gap-2">
-                    <h2 className="text-4xl font-semibold">98%</h2>
+            <div className="flex flex-col sm:flex-row shadow-md shadow-black/40 py-12 px-8 gap-16 sm:gap-2">
+                <div className="text-center w-full sm:w-1/3 flex flex-col gap-2">
+                    <h2 className="text-3xl md:text-4xl text-ForestGreen font-semibold">
+                        98%
+                    </h2>
                     <p className="text-black/40">Persentase Kepuasan Pasien</p>
                 </div>
-                <div className="text-center w-1/3 flex flex-col gap-2">
-                    <h2 className="text-4xl font-semibold">2 RB+</h2>
+                <div className="text-center w-full sm:w-1/3 flex flex-col gap-2">
+                    <h2 className="text-3xl md:text-4xl text-ForestGreen font-semibold">
+                        2 RB+
+                    </h2>
                     <p className="text-black/40">Total Pasien Tertanganin</p>
                 </div>
-                <div className="text-center w-1/3 flex flex-col gap-2">
-                    <h2 className="text-4xl font-semibold">97%</h2>
+                <div className="text-center w-full sm:w-1/3 flex flex-col gap-2">
+                    <h2 className="text-3xl md:text-4xl text-ForestGreen font-semibold">
+                        97%
+                    </h2>
                     <p className="text-black/40">
                         Tingkat Keberhasilan Pengobatan
                     </p>

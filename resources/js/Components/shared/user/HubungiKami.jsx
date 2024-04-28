@@ -5,26 +5,26 @@ const HubungiKami = () => {
                 Hubungi Kami
             </h2>
 
-            <p className="w-3/5 text-center text-black/75">
+            <p className="w-full lg:w-4/5 xl:w-3/5 text-center text-black/75">
                 Silakan isi formulir kontak berikut untuk menghubungi kami. Tim
                 kami akan segera merespons pertanyaan atau permintaan Anda.
                 Terima kasih atas kepercayaan Anda pada layanan kami.
             </p>
 
-            <form className="w-3/5 flex flex-col gap-4">
-                <div className="flex justify-between gap-4">
+            <form className="w-full lg:w-4/5 xl:w-3/5 flex flex-col gap-4">
+                <div className="flex flex-col sm:flex-row justify-between gap-4">
                     <input
                         type="text"
                         name=""
                         id=""
-                        className="w-1/2 h-12 rounded-md bg-customWhite focus:border-KellyGreen border focus:ring-KellyGreen"
+                        className="w-full sm:w-1/2 h-12 rounded-md bg-customWhite focus:border-KellyGreen border focus:ring-KellyGreen"
                         placeholder="Nama Lengkap"
                     />
                     <input
                         type="text"
                         name=""
                         id=""
-                        className="w-1/2 h-12 rounded-md bg-customWhite focus:border-KellyGreen border focus:ring-KellyGreen"
+                        className="w-full sm:w-1/2 h-12 rounded-md bg-customWhite focus:border-KellyGreen border focus:ring-KellyGreen"
                         placeholder="Alamat Email"
                     />
                 </div>

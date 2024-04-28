@@ -3,10 +3,10 @@ import { Link } from "@inertiajs/react"
 
 const Header = () => {
   return (
-    <header className="w-full flex justify-between space-x-4 py-20">
+    <header className="w-full flex flex-col lg:flex-row justify-between space-x-4 py-8 lg:py-20">
         
-        <div className="flex flex-col w-1/2 gap-5">
-            <h1 className="text-5xl font-semibold tracking-wide leading-tight">
+        <div className="flex flex-col w-full lg:w-1/2 gap-5">
+            <h1 className="text-4xl sm:text-5xl font-semibold tracking-wide leading-tight">
                 Kami Peduli dengan <br /> 
 
                 <span className="bg-gradient-to-r from-Mint via-blue-500 to-Mint text-transparent bg-clip-text animate-gradient bg-300% "> 
@@ -22,7 +22,7 @@ const Header = () => {
                 Kami adalah klinik yang berkomitmen untuk memberikan pelayanan kesehatan terbaik kepada Anda dan keluarga.
             </p>
 
-            <div className="flex gap-4">
+            <div className="flex flex-col sm:flex-row gap-4">
                 <Link href="/" className="bg-ForestGreen flex items-center justify-center px-8 py-3  text-white font-semibold rounded-full">
                     Ambil Antrian
                 </Link>
@@ -34,7 +34,7 @@ const Header = () => {
         </div>
 
         
-        <div className="w-1/2 h-[355px]">
+        <div className="hidden lg:block w-1/2 h-[355px]">
             <img 
                 src="/assets/image1.png" 
                 alt="Header Image" 

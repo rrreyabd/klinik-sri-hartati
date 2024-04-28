@@ -5,19 +5,19 @@ import { Link } from "@inertiajs/react";
 const Footer = () => {
     return (
         <div className="w-full bg-ForestGreen flex justify-center py-12">
-            <div className="w-4/5 flex justify-evenly text-white max-w-[1300px]">
+            <div className="w-full md:w-4/5 px-8 md:px-0 flex flex-col sm:flex-row justify-between md:justify-evenly text-white max-w-[1300px] space-y-6 sm:space-y-0">
                 <div className="flex flex-col space-y-4">
-                    <div className="flex flex-col items-center space-y-4">
+                    <div className="flex flex-col-reverse sm:flex-col sm:items-center gap-4">
+                        <h6 className="font-semibold text-xl">Klinik Sri Hartati</h6>
                         <img
                             src="/assets/logo_white.png"
                             alt="Footer Logo"
                             width={72}
                         />
-                        <h6 className="font-semibold text-xl">Klinik Sri Hartati</h6>
                     </div>
                 </div>
 
-                <div className="flex flex-col space-y-4">
+                <div className="hidden sm:flex flex-col space-y-4">
                     <h6 className="font-semibold text-lg">Halaman</h6>
                     <div className="flex flex-col">
                       <Link href="/">Home</Link>

@@ -40,17 +40,17 @@ const Layanan = () => {
 
     return (
         <div className="flex flex-col py-20 gap-4">
-            <h1 className="text-ForestGreen font-medium text-4xl text-center">
+            <h1 className="text-ForestGreen font-medium text-3xl sm:text-4xl text-center">
                 Kenapa Memilih Kami?
             </h1>
 
-            <div className="flex gap-4 mt-14 flex-wrap md:flex-nowrap">
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mt-14">
                 {services &&
                     services.map((service) => {
                         return (
-                            <div className="bg-customWhite w-1/4 shadow-lg shadow-black/30 rounded-md p-8 flex flex-col gap-4"
+                            <div className="bg-customWhite shadow-lg shadow-black/30 rounded-md p-8 flex flex-col gap-4"
                             key={service.id}>
-                                <div className="bg-ForestGreen p-4 w-fit rounded-full">
+                                <div className="bg-ForestGreen p-2 sm:p-4 w-fit rounded-full">
                                     <IconLayanan Icon={service.Icon} />
                                 </div>
 
@@ -67,7 +67,7 @@ const Layanan = () => {
                                     </p>
 
                                     <div className="flex justify-end">
-                                        <Link className="bg-Pistachio w-12 h-12 rounded-full flex justify-center items-center">
+                                        <Link className="bg-Pistachio w-10 sm:w-12 h-10 sm:h-12 rounded-full flex justify-center items-center">
                                             <FaArrowLeft className="text-2xl text-ForestGreen rotate-[135deg]" />
                                         </Link>
                                     </div>
