@@ -16,21 +16,21 @@ const HubungiKami = () => {
                     <input
                         type="text"
                         name=""
-                        id=""
+                        id="nama"
                         className="w-full sm:w-1/2 h-12 rounded-md bg-customWhite focus:border-KellyGreen border focus:ring-KellyGreen"
                         placeholder="Nama Lengkap"
                     />
                     <input
-                        type="text"
+                        type="email"
                         name=""
-                        id=""
+                        id="email"
                         className="w-full sm:w-1/2 h-12 rounded-md bg-customWhite focus:border-KellyGreen border focus:ring-KellyGreen"
                         placeholder="Alamat Email"
                     />
                 </div>
                 <textarea
                     name=""
-                    id=""
+                    id="pesan"
                     cols="30"
                     rows="10"
                     placeholder="Pesan Kamu"

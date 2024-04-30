@@ -18,7 +18,7 @@ const Layanan = () => {
             id: 2,
             name: "Buat Janji Temu",
             description: "Pesan waktu kunjungan dengan mudah",
-            url: "/",
+            url: route('janjiTemu.index'),
             Icon: FaRegCalendarAlt,
         },
         {
@@ -69,7 +69,7 @@ const Layanan = () => {
                                     </p>
 
                                     <div className="flex justify-end">
-                                        <Link className="bg-Pistachio w-10 sm:w-12 h-10 sm:h-12 rounded-full flex justify-center items-center">
+                                        <Link href={service.url} className="bg-Pistachio w-10 sm:w-12 h-10 sm:h-12 rounded-full flex justify-center items-center">
                                             <FaArrowLeft className="text-2xl text-ForestGreen rotate-[135deg]" />
                                         </Link>
                                     </div>

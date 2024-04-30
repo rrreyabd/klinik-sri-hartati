@@ -27,15 +27,16 @@ const Menu = ({ auth }) => {
                         <div className="py-8">
                             <div className="flex gap-4 items-center">
                                 <FaUserCircle className="w-8 h-8" />
-                                <p className="font-semibold text-lg md:hidden">
+                                <p className="font-semibold text-lg">
                                     {auth.user.name
                                         .split(" ")
                                         .slice(0, 2)
                                         .join(" ")}
                                 </p>
-                                <p className="font-semibold text-lg hidden md:block">
-                                    {auth.user.name}
-                                </p>
+                            </div>
+                            <div className="flex flex-col mt-4">
+                                <Link href="/profile/mobile">Edit Profil</Link>
+                                <Link href="" className="text-red-600">Keluar</Link>
                             </div>
                         </div>
                     </>

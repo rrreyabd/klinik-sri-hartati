@@ -1,6 +1,6 @@
 import { forwardRef, useEffect, useRef } from 'react';
 
-export default forwardRef(function TextInput({ type = 'text', className = '', isFocused = false, Icon, ...props }, ref) {
+export default forwardRef(function TextInput({ id, type = 'text', className = '', isFocused = false, Icon, ...props }, ref) {
     const input = ref ? ref : useRef();
 
     useEffect(() => {
@@ -12,6 +12,7 @@ export default forwardRef(function TextInput({ type = 'text', className = '', is
     return (
         <div className='relative flex items-center'>
             <input
+                id={id}
                 {...props}
                 type={type}
                 autoComplete='off'

@@ -9,6 +9,7 @@ import { Link, Head } from "@inertiajs/react";
 import { FaChevronDown } from "react-icons/fa";
 
 export default function Main({ auth }) {
+
     // Function untuk mengarahkan ke halaman login membawa status true
     const registerRoute = () => {
         localStorage.setItem("status", JSON.stringify(true));
@@ -48,9 +49,9 @@ export default function Main({ auth }) {
                             <Link href="#kontak">Kontak</Link>
                         </div>
 
-                        <div className="hidden lg:flex gap-4">
+                        <div className="hidden sm:flex gap-4">
                             {auth.user ? (
-                                <ProfileDropdown className="flex items-center gap-4 border-0">
+                                <ProfileDropdown className="flex items-center gap-4 border-0" auth={auth}>
                                     {auth.user.name}
                                     <FaChevronDown />
                                 </ProfileDropdown>
@@ -73,7 +74,7 @@ export default function Main({ auth }) {
                         </div>
 
                         {/* Mobile Hamburger */}
-                        <div className="flex lg:hidden">
+                        <div className="flex sm:hidden">
                             <Menu auth={auth} />
                         </div>
                     </nav>
