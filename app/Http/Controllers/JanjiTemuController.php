@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -29,14 +30,29 @@ class JanjiTemuController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        //set validation
+    {   
+        $timestamp = strtotime($request->waktu);
+        $waktu = Carbon::createFromTimestamp($timestamp, 'Asia/Jakarta');
+        
+        // Validasi
         $request->validate([
             'perawatan' => 'required',
             'dokter'   => 'required',
+            'jam'   => 'required',
+            'waktu' => 'required',
         ]);
+        
+        // dd($request->waktu);
+        
+        $hasil = [
+            $request->perawatan, 
+            $request->dokter, 
+            $request->jam, 
+            $timestamp,
+            $waktu
+        ];
 
-        dd($request->all());
+        dd($hasil);
     }
 
     /**

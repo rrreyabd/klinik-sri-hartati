@@ -1,8 +1,8 @@
 import { Link, useForm } from "@inertiajs/react";
 import { useState } from "react";
 import { FaCheck } from "react-icons/fa";
-import LayananForm from "./JanjiTemu/LayananForm";
-import WaktuForm from "./JanjiTemu/WaktuForm";
+import LayananForm from "./LayananForm";
+import WaktuForm from "./WaktuForm";
 
 const JanjiTemuForm = () => {
     const steps = ["Layanan", "Waktu", "Pasien", "Detail"];
@@ -27,10 +27,21 @@ const JanjiTemuForm = () => {
         }
     };
 
-    const { data, setData, post, processing, errors, reset } = useForm({
+    // Field
+    const { data, setData, post, processing, errors } = useForm({
         dokter: "",
         perawatan: "",
+        waktu: "",
+        jam: "",
     });
+
+    // WaktuForm
+    const handleDateChange = (date) => {
+        setData("waktu", date);
+    };
+
+    console.log("waktu : " + data.waktu);
+    // WaktuForm
 
     const submit = (e) => {
         e.preventDefault();
@@ -77,11 +88,17 @@ const JanjiTemuForm = () => {
                     ))}
             </div>
 
-            <div className="">
+            <div className="min-h-[450px]">
                 {/* Layanan */}
                 {progress === "Layanan" && <LayananForm setData={setData} />}
-                {progress === "Waktu" && <WaktuForm setData={setData} />}
-                
+                {progress === "Waktu" && (
+                    <WaktuForm
+                        setData={setData}
+                        selectedDate={data.waktu}
+                        onDateChange={handleDateChange}
+                    />
+                )}
+
                 {progress === "Pasien" && <></>}
                 {progress === "Detail" && <p>Detail</p>}
             </div>

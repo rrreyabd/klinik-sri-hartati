@@ -1,6 +1,6 @@
 import Logo from "@/Components/shared/Logo";
 import FormStepper from "@/Components/shared/user/FormStepper";
-import JanjiTemuForm from "@/Components/shared/user/JanjiTemuForm";
+import JanjiTemuForm from "@/Components/shared/user/JanjiTemu/JanjiTemuForm";
 import { Head, Link } from "@inertiajs/react";
 
 const JanjiTemu = ({ auth }) => {

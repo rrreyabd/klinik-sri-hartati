@@ -39,3 +39,13 @@
 * {
     scroll-behavior: smooth;
 }
+
+#radio1:checked + #label1 {
+    color: #4F46E5; 
+    font-weight: bold;
+}
+
+#radio2:checked + #label2 {
+    color: #4F46E5; 
+    font-weight: bold;
+}
