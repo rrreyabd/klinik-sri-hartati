@@ -1,4 +1,5 @@
 import { Link } from "@inertiajs/react";
+import { motion } from "framer-motion";
 
 const Header = () => {
     return (
@@ -6,13 +7,23 @@ const Header = () => {
             <div className="flex flex-col w-full lg:w-1/2 gap-5">
                 <h1 className="text-4xl sm:text-5xl font-semibold tracking-wide leading-tight">
                     Kami Peduli dengan <br />
-                    <span className="bg-gradient-to-r from-Mint via-blue-500 to-Mint text-transparent bg-clip-text animate-gradient bg-300% ">
+                    <motion.span
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 1, delay: 0.5 }}
+                        className="bg-gradient-to-r from-Mint via-blue-500 to-Mint text-transparent bg-clip-text animate-gradient bg-300% "
+                    >
                         Kesehatan
-                    </span>{" "}
+                    </motion.span>{" "}
                     dan <br />
-                    <span className="bg-gradient-to-r from-Mint via-blue-500 to-Mint text-transparent bg-clip-text animate-gradient bg-300% ">
+                    <motion.span
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 1, delay: 1 }}
+                        className="bg-gradient-to-r from-Mint via-blue-500 to-Mint text-transparent bg-clip-text animate-gradient bg-300% "
+                    >
                         Kebahagiaan
-                    </span>{" "}
+                    </motion.span>{" "}
                     Anda
                 </h1>
 
@@ -30,7 +41,7 @@ const Header = () => {
                     </Link>
 
                     <Link
-                        href={route('janjiTemu.index')}
+                        href={route("janjiTemu.index")}
                         className="border-2 border-ForestGreen bg-customWhite text-ForestGreen flex items-center justify-center px-8 py-3 font-semibold rounded-full"
                     >
                         Atur Janji Temu

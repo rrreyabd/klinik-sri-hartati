@@ -1,11 +1,19 @@
+import { motion } from "framer-motion";
+
 const Image = () => {
+    
     return (
-        <div className="w-full lg:w-1/2">
-            <img
-                src="/assets/image_2.png"
-                alt="Profile Image"
-                className="w-full lg:w-11/12 aspect-video"
-            />
+        <div className="w-full lg:w-5/12">
+            <div className="bg-ForestGreen">
+                <motion.img
+                    src="/assets/image1.png"
+                    alt="Profile Image"
+                    className="w-full aspect-video image1"
+                    initial={{ x: 0, y: 0 }}
+                    whileInView={{ x: 16, y: -16 }}
+                    transition={{ duration: .5, delay: 1 }}
+                />
+            </div>
         </div>
     );
 };

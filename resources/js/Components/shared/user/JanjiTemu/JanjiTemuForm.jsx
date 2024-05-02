@@ -108,7 +108,7 @@ const JanjiTemuForm = ({ auth }) => {
                             {index < stepsLength - 1 && (
                                 <hr
                                     key={step}
-                                    className="border-2 border-ForestGreen w-1/3"
+                                    className="border-2 border-ForestGreen w-3/5"
                                 />
                             )}
                         </>
