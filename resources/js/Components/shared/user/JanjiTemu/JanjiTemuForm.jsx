@@ -1,15 +1,18 @@
 import { Link, useForm } from "@inertiajs/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaCheck } from "react-icons/fa";
 import LayananForm from "./LayananForm";
 import WaktuForm from "./WaktuForm";
+import PasienForm from "./PasienForm";
 
-const JanjiTemuForm = () => {
-    const steps = ["Layanan", "Waktu", "Pasien", "Detail"];
+const JanjiTemuForm = ({ auth }) => {
+    const steps = ["Layanan", "Waktu", "Pasien"];
     const stepsLength = steps.length;
 
     const [progress, setProgress] = useState(steps[0]);
     const currentStepIndex = steps.indexOf(progress);
+
+    const [isChecked, setIsChecked] = useState(false);
 
     const handleNext = () => {
         const nextStepIndex = currentStepIndex + 1;
@@ -31,23 +34,47 @@ const JanjiTemuForm = () => {
     const { data, setData, post, processing, errors } = useForm({
         dokter: "",
         perawatan: "",
-        waktu: "",
+        tanggal: "",
         jam: "",
+        nama_lengkap: "",
+        nomor_hp: "",
+        tanggal_lahir: "",
     });
 
-    // WaktuForm
+    // WaktuForm Start
     const handleDateChange = (date) => {
-        setData("waktu", date);
+        setData("tanggal", date);
     };
-
-    console.log("waktu : " + data.waktu);
-    // WaktuForm
 
     const submit = (e) => {
         e.preventDefault();
 
         post(route("janjitemu"));
     };
+
+    useEffect(() => {
+        if (isChecked) {
+            setData(prevData => ({
+                ...prevData,
+                nama_lengkap: auth.user.name,
+                nomor_hp: auth.user.id,
+                tanggal_lahir: auth.user.created_at.substring(0, 10)
+            }));
+        }
+    }, [isChecked]);
+
+
+    console.log(
+        "Dokter: " + data.dokter + "\n" +
+        "Perawatan: " + data.perawatan + "\n" +
+        "Tanggal: " + data.tanggal + "\n" +
+        "Jam: " + data.jam + "\n" +
+        "Nama Lengkap: " + data.nama_lengkap + "\n" +
+        "Nomor HP: " + data.nomor_hp + "\n" +
+        "Tanggal Lahir: " + data.tanggal_lahir + "\n" +
+        isChecked
+    );
+    
 
     return (
         <form onSubmit={submit}>
@@ -60,7 +87,7 @@ const JanjiTemuForm = () => {
                                 className="flex flex-col space-y-4 items-center"
                             >
                                 <div
-                                    className={`border-2 border-ForestGreen h-8 w-8 rounded-full relative flex justify-center transition-all items-center ${
+                                    className={`border-2 border-ForestGreen h-10 w-10 rounded-full relative flex justify-center transition-all items-center ${
                                         steps[currentStepIndex] == step
                                             ? "bg-ForestGreen"
                                             : "bg-customWhite"
@@ -90,17 +117,27 @@ const JanjiTemuForm = () => {
 
             <div className="min-h-[450px]">
                 {/* Layanan */}
-                {progress === "Layanan" && <LayananForm setData={setData} />}
+                {progress === "Layanan" && (
+                    <LayananForm setData={setData} data={data} />
+                )}
                 {progress === "Waktu" && (
                     <WaktuForm
                         setData={setData}
-                        selectedDate={data.waktu}
+                        data={data}
+                        selectedDate={data.tanggal}
                         onDateChange={handleDateChange}
                     />
                 )}
 
-                {progress === "Pasien" && <></>}
-                {progress === "Detail" && <p>Detail</p>}
+                {progress === "Pasien" && (
+                    <PasienForm
+                        setData={setData}
+                        data={data}
+                        auth={auth}
+                        isChecked={isChecked}
+                        setIsChecked={setIsChecked}
+                    />
+                )}
             </div>
 
             {/* Nav Button Start */}

@@ -6,14 +6,17 @@ import {
     SelectValue,
 } from "@/Components/ui/select";
 
-const LayananForm = ({ setData }) => {
+const LayananForm = ({ setData, data }) => {
     return (
         <div className="flex flex-col py-8 space-y-4">
             <div className="flex flex-col space-y-2">
                 <p className="font-semibold">Perawatan</p>
-                <Select onValueChange={(value) => setData("perawatan", value)}>
-                    <SelectTrigger className="w-full bg-customWhite border-2 border-ForestGreen shadow-sm shadow-customBlack/50 h-12 font-semibold">
-                        <SelectValue placeholder="Perawatan" />
+                <Select
+                    onValueChange={(value) => setData("perawatan", value)}
+                    value={data.perawatan}
+                >
+                    <SelectTrigger className="w-full bg-customWhite border-2 border-ForestGreen shadow-sm h-12 font-semibold">
+                        <SelectValue placeholder="Pilih Perawatan" />
                     </SelectTrigger>
                     <SelectContent className="bg-customWhite border-2 border-ForestGreen">
                         <SelectItem
@@ -40,9 +43,12 @@ const LayananForm = ({ setData }) => {
 
             <div className="flex flex-col space-y-2">
                 <p className="font-semibold">Dokter</p>
-                <Select onValueChange={(value) => setData("dokter", value)}>
-                    <SelectTrigger className="w-full bg-customWhite border-2 border-ForestGreen shadow-sm shadow-customBlack/50 h-12 font-semibold">
-                        <SelectValue placeholder="Dokter" />
+                <Select
+                    onValueChange={(value) => setData("dokter", value)}
+                    value={data.dokter}
+                >
+                    <SelectTrigger className="w-full bg-customWhite border-2 border-ForestGreen shadow-sm h-12 font-semibold">
+                        <SelectValue placeholder="Pilih Dokter" />
                     </SelectTrigger>
                     <SelectContent className="bg-customWhite border-2 border-ForestGreen">
                         <SelectItem

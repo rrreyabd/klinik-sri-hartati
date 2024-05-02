@@ -2,11 +2,11 @@ import { Calendar } from "@/Components/ui/calendar";
 import { pagi, sore, malam } from "@/lib/data";
 import React, { useState, useEffect } from "react";
 
-const WaktuForm = ({ setData, selectedDate, onDateChange }) => {
+const WaktuForm = ({ setData, selectedDate, onDateChange, data }) => {
     const [time, setTime] = useState("");
 
     useEffect(() => {
-        setData("waktu", selectedDate); // Menggunakan selectedDate yang diteruskan sebagai prop
+        setData("tanggal", selectedDate);
         setData("jam", time)
     }, [selectedDate, setData]);
 
@@ -15,8 +15,21 @@ const WaktuForm = ({ setData, selectedDate, onDateChange }) => {
     };
     // console.log(time)
 
+    useEffect(() => {
+        // Load saved time from local storage when component mounts
+        const savedTime = localStorage.getItem('time');
+        if (savedTime) {
+            setTime(savedTime);
+        }
+    }, []);
+    
+    useEffect(() => {
+        // Save time to local storage whenever it changes
+        localStorage.setItem('time', time);
+    }, [time]);
+
     return (
-        <div className="flex py-10">
+        <div className="flex py-8">
             <div className="flex flex-col items-center space-y-4 px-8 w-1/2">
                 <h2 className="text-xl text-center font-semibold">
                     Hari dan Tanggal
@@ -25,11 +38,11 @@ const WaktuForm = ({ setData, selectedDate, onDateChange }) => {
                     mode="single"
                     selected={selectedDate}
                     onSelect={onDateChange}
-                    className="rounded-md border"
+                    className="rounded-md shadow-lg"
                 />
             </div>
 
-            <div className="flex flex-col items-center space-y-4 px-8 w-1/2">
+            <div className="flex flex-col items-center space-y-4 px-8 w-1/2 border-l-2 border-black/10">
                 <h2 className="text-xl text-center font-semibold">Jam</h2>
                 <div className="w-fit shadow-md shadow-gray-400/50 rounded-md py-4 px-8 flex flex-col space-y-4">
                     <div className="flex flex-col space-y-2">
@@ -99,13 +112,13 @@ const RadioButton = ({ value, key, time, onOptionChange }) => {
         <label
             key={key}
             className={`
-          px-2 py-1 w-16 text-center rounded-md hover:brightness-90 transition-all font-medium cursor-pointer unselectable
+          px-2 py-1 w-16 text-center rounded-md hover:brightness-90 transition-all font-medium unselectable
           ${
               disabled.includes(value)
                   ? "bg-red-600 text-white cursor-not-allowed"
                   : time == value
-                  ? "bg-ForestGreen text-white"
-                  : "bg-[#b3b4b3]"
+                  ? "bg-ForestGreen text-white cursor-pointer"
+                  : "bg-[#b3b4b3] cursor-pointer"
           }
       `}
         >

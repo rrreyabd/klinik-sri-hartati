@@ -31,7 +31,7 @@ class JanjiTemuController extends Controller
      */
     public function store(Request $request)
     {   
-        $timestamp = strtotime($request->waktu);
+        $timestamp = strtotime($request->tanggal);
         $waktu = Carbon::createFromTimestamp($timestamp, 'Asia/Jakarta');
         
         // Validasi
@@ -39,15 +39,16 @@ class JanjiTemuController extends Controller
             'perawatan' => 'required',
             'dokter'   => 'required',
             'jam'   => 'required',
-            'waktu' => 'required',
+            'tanggal' => 'required',
+            'nama_lengkap' => 'required',
+            'nomor_hp' => 'required',
+            'tanggal_lahir' => 'required',
         ]);
         
         // dd($request->waktu);
         
         $hasil = [
-            $request->perawatan, 
-            $request->dokter, 
-            $request->jam, 
+            $request->all(),
             $timestamp,
             $waktu
         ];

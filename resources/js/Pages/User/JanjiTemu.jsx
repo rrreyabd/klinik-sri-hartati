@@ -15,7 +15,7 @@ const JanjiTemu = ({ auth }) => {
                         Janji Temu Klinik
                     </h1>
 
-                    <JanjiTemuForm />
+                    <JanjiTemuForm auth={auth} />
                 </div>
             </div>
         </div>
