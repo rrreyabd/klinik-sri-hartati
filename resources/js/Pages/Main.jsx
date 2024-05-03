@@ -43,10 +43,10 @@ export default function Main({ auth }) {
                         </Link>
 
                         <div className="hidden lg:flex items-center space-x-4 xl:space-x-8 unselectable">
-                            <Link href="#home">Home</Link>
-                            <Link href="#layanan">Layanan</Link>
-                            <Link href="#tentang">Tentang Kami</Link>
-                            <Link href="#kontak">Kontak</Link>
+                            <Link href="#home" className="text-customBlack hover:text-ForestGreen transition-all underline-custom" >Home</Link>
+                            <Link href="#layanan" className="text-customBlack hover:text-ForestGreen transition-all underline-custom" >Layanan</Link>
+                            <Link href="#tentang" className="text-customBlack hover:text-ForestGreen transition-all underline-custom" >Tentang Kami</Link>
+                            <Link href="#kontak" className="text-customBlack hover:text-ForestGreen transition-all underline-custom" >Kontak</Link>
                         </div>
 
                         <div className="hidden sm:flex gap-4">

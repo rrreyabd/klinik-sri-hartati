@@ -8,10 +8,11 @@ const Image = () => {
                 <motion.img
                     src="/assets/image1.png"
                     alt="Profile Image"
-                    className="w-full aspect-video image1"
+                    className="w-full aspect-video"
                     initial={{ x: 0, y: 0 }}
                     whileInView={{ x: 16, y: -16 }}
                     transition={{ duration: .5, delay: 1 }}
+                    viewport={{ once: true }}
                 />
             </div>
         </div>
@@ -68,3 +69,4 @@ const Profil = () => {
 };
 
 export default Profil;
+

@@ -5,10 +5,13 @@ import React, { useState, useEffect } from "react";
 const WaktuForm = ({ setData, selectedDate, onDateChange, data }) => {
     const [time, setTime] = useState("");
 
+    const today = new Date();
+    const isDisabled = (day) => day < today;
+
     useEffect(() => {
         setData("tanggal", selectedDate);
-        setData("jam", time)
-    }, [selectedDate, setData]);
+        setData("jam", time);
+    }, [selectedDate, time]);
 
     const onOptionChange = (e) => {
         setTime(e.target.value);
@@ -17,15 +20,15 @@ const WaktuForm = ({ setData, selectedDate, onDateChange, data }) => {
 
     useEffect(() => {
         // Load saved time from local storage when component mounts
-        const savedTime = localStorage.getItem('time');
+        const savedTime = localStorage.getItem("time");
         if (savedTime) {
             setTime(savedTime);
         }
     }, []);
-    
+
     useEffect(() => {
         // Save time to local storage whenever it changes
-        localStorage.setItem('time', time);
+        localStorage.setItem("time", time);
     }, [time]);
 
     return (
@@ -36,6 +39,7 @@ const WaktuForm = ({ setData, selectedDate, onDateChange, data }) => {
                 </h2>
                 <Calendar
                     mode="single"
+                    disabled={isDisabled}
                     selected={selectedDate}
                     onSelect={onDateChange}
                     className="rounded-md shadow-lg"

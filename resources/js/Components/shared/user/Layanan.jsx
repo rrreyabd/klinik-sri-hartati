@@ -26,6 +26,7 @@ const Layanan = () => {
                                 data-aos="fade-up"
                                 data-aos-duration="1000"
                                 data-aos-delay={delay}
+                                data-aos-once={true}
                                 className="bg-customWhite shadow-lg
                                 shadow-black/30 rounded-md p-8 flex flex-col
                                 gap-4"
