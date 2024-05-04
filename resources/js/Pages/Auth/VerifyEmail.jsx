@@ -17,7 +17,7 @@ export default function VerifyEmail({ status }) {
             <Head title="Verifikasi Email" />
 
             <div className="w-full sm:w-[520px] h-full sm:h-fit flex flex-col gap-2 items-center bg-white p-8 rounded-md shadow-md space-y-6 py-16">
-                <div className="bg-ForestGreen p-4 rounded-full w-fit">
+                <div className="bg-FotGreen p-4 rounded-full w-fit">
                     <IoMail className="h-12 w-12 text-white" />
                 </div>
                 <div className="mb-4 text-base text-gray-600 dark:text-gray-400 flex flex-col space-y-4">

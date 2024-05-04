@@ -5,10 +5,13 @@ import React, { useState, useEffect } from "react";
 const WaktuForm = ({ setData, selectedDate, onDateChange, data }) => {
     const [time, setTime] = useState("");
 
+    const today = new Date();
+    const isDisabled = (day) => day < today;
+
     useEffect(() => {
         setData("tanggal", selectedDate);
-        setData("jam", time)
-    }, [selectedDate, setData]);
+        setData("jam", time);
+    }, [selectedDate, time]);
 
     const onOptionChange = (e) => {
         setTime(e.target.value);
@@ -17,37 +20,38 @@ const WaktuForm = ({ setData, selectedDate, onDateChange, data }) => {
 
     useEffect(() => {
         // Load saved time from local storage when component mounts
-        const savedTime = localStorage.getItem('time');
+        const savedTime = localStorage.getItem("time");
         if (savedTime) {
             setTime(savedTime);
         }
     }, []);
-    
+
     useEffect(() => {
         // Save time to local storage whenever it changes
-        localStorage.setItem('time', time);
+        localStorage.setItem("time", time);
     }, [time]);
 
     return (
-        <div className="flex py-8">
-            <div className="flex flex-col items-center space-y-4 px-8 w-1/2">
+        <div className="flex flex-col md:flex-row gap-8 md:gap-0 py-8">
+            <div className="flex flex-col items-center space-y-4 px-8 w-full md:w-1/2">
                 <h2 className="text-xl text-center font-semibold">
                     Hari dan Tanggal
                 </h2>
                 <Calendar
                     mode="single"
+                    disabled={isDisabled}
                     selected={selectedDate}
                     onSelect={onDateChange}
                     className="rounded-md shadow-lg"
                 />
             </div>
 
-            <div className="flex flex-col items-center space-y-4 px-8 w-1/2 border-l-2 border-black/10">
+            <div className="flex flex-col items-center space-y-4 md:px-8 w-full md:w-1/2 md:border-l-2 md:border-black/10">
                 <h2 className="text-xl text-center font-semibold">Jam</h2>
-                <div className="w-fit shadow-md shadow-gray-400/50 rounded-md py-4 px-8 flex flex-col space-y-4">
+                <div className="w-full md:w-fit shadow-md shadow-gray-400/50 rounded-md py-4 px-8 flex flex-col space-y-4">
                     <div className="flex flex-col space-y-2">
                         <h3 className="font-semibold text-lg">Pagi</h3>
-                        <div className="flex space-x-4">
+                        <div className="flex flex-wrap gap-4">
                             {pagi &&
                                 pagi.map((jam) => {
                                     return (
@@ -65,7 +69,7 @@ const WaktuForm = ({ setData, selectedDate, onDateChange, data }) => {
 
                     <div className="flex flex-col space-y-2">
                         <h3 className="font-semibold text-lg">Sore</h3>
-                        <div className="flex space-x-4">
+                        <div className="flex flex-wrap gap-4">
                             {sore &&
                                 sore.map((jam) => {
                                     return (
@@ -83,7 +87,7 @@ const WaktuForm = ({ setData, selectedDate, onDateChange, data }) => {
 
                     <div className="flex flex-col space-y-2">
                         <h3 className="font-semibold text-lg">Malam</h3>
-                        <div className="flex space-x-4">
+                        <div className="flex flex-wrap gap-4">
                             {malam &&
                                 malam.map((jam) => {
                                     return (

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AntrianController;
 use App\Http\Controllers\JanjiTemuController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -33,10 +34,19 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    
+    // Profile (2)
+    Route::get('/kata-sandi', [ProfileController::class, 'editPassword'])->name('password.edit');
+    Route::get('/data-diri', [ProfileController::class, 'editDataDiri'])->name('datadiri.edit');
+    Route::patch('/data-diri', [ProfileController::class, 'updateDataDiri'])->name('datadiri.update');
 
     // Janji Temu
     Route::get('/janji-temu', [JanjiTemuController::class, 'index'])->name('janjiTemu.index');
     Route::post('/janjitemu', [JanjiTemuController::class, 'store'])->name('janjitemu');
+    
+    // Antrian Online
+    Route::get('/antrian', [AntrianController::class, 'index'])->name('antrian.index');
+
 });
 
 require __DIR__.'/auth.php';

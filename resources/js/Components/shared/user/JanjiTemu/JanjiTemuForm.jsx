@@ -12,6 +12,7 @@ const JanjiTemuForm = ({ auth }) => {
     const [progress, setProgress] = useState(steps[0]);
     const currentStepIndex = steps.indexOf(progress);
 
+    // Checkbox Pasien Form
     const [isChecked, setIsChecked] = useState(false);
 
     const handleNext = () => {
@@ -54,68 +55,118 @@ const JanjiTemuForm = ({ auth }) => {
 
     useEffect(() => {
         if (isChecked) {
-            setData(prevData => ({
+            setData((prevData) => ({
                 ...prevData,
                 nama_lengkap: auth.user.name,
                 nomor_hp: auth.user.id,
-                tanggal_lahir: auth.user.created_at.substring(0, 10)
+                tanggal_lahir: auth.user.created_at.substring(0, 10),
             }));
         }
     }, [isChecked]);
 
-
     console.log(
-        "Dokter: " + data.dokter + "\n" +
-        "Perawatan: " + data.perawatan + "\n" +
-        "Tanggal: " + data.tanggal + "\n" +
-        "Jam: " + data.jam + "\n" +
-        "Nama Lengkap: " + data.nama_lengkap + "\n" +
-        "Nomor HP: " + data.nomor_hp + "\n" +
-        "Tanggal Lahir: " + data.tanggal_lahir + "\n" +
-        isChecked
+        "Dokter: " +
+            data.dokter +
+            "\n" +
+            "Perawatan: " +
+            data.perawatan +
+            "\n" +
+            "Tanggal: " +
+            data.tanggal +
+            "\n" +
+            "Jam: " +
+            data.jam +
+            "\n" +
+            "Nama Lengkap: " +
+            data.nama_lengkap +
+            "\n" +
+            "Nomor HP: " +
+            data.nomor_hp +
+            "\n" +
+            "Tanggal Lahir: " +
+            data.tanggal_lahir +
+            "\n" +
+            isChecked
     );
-    
 
     return (
         <form onSubmit={submit}>
             <div className="flex justify-center items-center w-full pt-12">
-                {steps &&
-                    steps.map((step, index) => (
-                        <>
-                            <div
-                                key={index}
-                                className="flex flex-col space-y-4 items-center"
-                            >
-                                <div
-                                    className={`border-2 border-ForestGreen h-10 w-10 rounded-full relative flex justify-center transition-all items-center ${
-                                        steps[currentStepIndex] == step
-                                            ? "bg-ForestGreen"
-                                            : "bg-customWhite"
-                                    }`}
-                                >
-                                    <FaCheck
-                                        className={`text-${
-                                            steps[currentStepIndex] == step
-                                                ? "customWhite"
-                                                : "ForestGreen"
-                                        }`}
-                                    />
-                                    <p className="text-ForestGreen font-semibold absolute -top-8">
-                                        {step}
-                                    </p>
-                                </div>
-                            </div>
-                            {index < stepsLength - 1 && (
-                                <hr
-                                    key={step}
-                                    className="border-2 border-ForestGreen w-3/5"
-                                />
-                            )}
-                        </>
-                    ))}
+                {/* Layanan Start */}
+                <div
+                    className={`border-2 border-ForestGreen h-10 w-10 rounded-full relative flex justify-center transition-all items-center ${
+                        steps[currentStepIndex] == "Layanan"
+                            ? "bg-ForestGreen"
+                            : data.dokter && data.perawatan
+                            ? "bg-ForestGreen"
+                            : "bg-customWhite"
+                    }`}
+                >
+                    <FaCheck
+                        className={` text-customWhite ${
+                            data.dokter && data.perawatan
+                                ? "opacity-100"
+                                : "opacity-0"
+                        } `}
+                    />
+                    <p className="text-ForestGreen font-semibold absolute -top-8">
+                        Layanan
+                    </p>
+                </div>
+                {/* Layanan End */}
+
+                <hr className="border-2 border-ForestGreen w-1/4  sm:w-1/3" />
+
+                {/* Waktu Start */}
+                <div
+                    className={`border-2 border-ForestGreen h-10 w-10 rounded-full relative flex justify-center transition-all items-center ${
+                        steps[currentStepIndex] == "Waktu"
+                            ? "bg-ForestGreen"
+                            : data.tanggal && data.jam
+                            ? "bg-ForestGreen"
+                            : "bg-customWhite"
+                    }`}
+                >
+                    <FaCheck
+                        className={` text-customWhite ${
+                            data.tanggal && data.jam
+                                ? "opacity-100"
+                                : "opacity-0"
+                        } `}
+                    />
+                    <p className="text-ForestGreen font-semibold absolute -top-8">
+                        Waktu
+                    </p>
+                </div>
+                {/* Waktu End */}
+
+                <hr className="border-2 border-ForestGreen w-1/4  sm:w-1/3" />
+
+                {/* Pasien Start */}
+                <div
+                    className={`border-2 border-ForestGreen h-10 w-10 rounded-full relative flex justify-center transition-all items-center ${
+                        steps[currentStepIndex] == "Pasien"
+                            ? "bg-ForestGreen"
+                            : data.nama_lengkap && data.nomor_hp && data.tanggal_lahir
+                            ? "bg-ForestGreen"
+                            : "bg-customWhite"
+                    }`}
+                >
+                    <FaCheck
+                        className={` text-customWhite ${
+                            data.nama_lengkap && data.nomor_hp && data.tanggal_lahir
+                                ? "opacity-100"
+                                : "opacity-0"
+                        } `}
+                    />
+                    <p className="text-ForestGreen font-semibold absolute -top-8">
+                        Pasien
+                    </p>
+                </div>
+                {/* Waktu End */}
             </div>
 
-            <div className="min-h-[450px]">
+            <div className="min-h-72 sm:min-h-[450px]">
                 {/* Layanan */}
                 {progress === "Layanan" && (
                     <LayananForm setData={setData} data={data} />

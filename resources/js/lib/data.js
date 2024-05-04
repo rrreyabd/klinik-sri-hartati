@@ -7,7 +7,7 @@ export const services = [
         id: 1,
         name: "Antrian Online",
         description: "Daftar dan tunggu giliran secara virtual",
-        url: "/",
+        url: route("antrian.index"),
         Icon: FaUsers,
     },
     {

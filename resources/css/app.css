@@ -40,6 +40,30 @@
     scroll-behavior: smooth;
 }
 
+/* UNDERLINE HOVER START */
+.underline-custom {
+    position: relative;  
+  }
+  
+  .underline-custom:after {
+    position: absolute;
+    content: "";
+    height: 1px;
+    width: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+    background-color: #fff;
+    transition: all 0.3s ease;
+  }
+  
+  .underline-custom:hover:after {
+    left: 0;
+    width: 100%;
+  }
+  /* UNDERLINE HOVER END */
+  
+
 #radio1:checked + #label1 {
     color: #4F46E5; 
     font-weight: bold;
@@ -49,3 +73,4 @@
     color: #4F46E5; 
     font-weight: bold;
 }
+
