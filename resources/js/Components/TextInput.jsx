@@ -22,7 +22,7 @@ export default forwardRef(function TextInput({ id, type = 'text', className = ''
                 ref={input}
             />
             <div className='absolute left-0 w-16 h-3/5 flex justify-center items-center border-r-2 border-customBlack'>
-                {Icon && <Icon className="w-5 h-5" /> }
+                {Icon && <Icon className="w-4 h-4" /> }
             </div>
 
             

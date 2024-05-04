@@ -9,7 +9,7 @@ import {
 import { Dialog, DialogTrigger, DialogContent } from "@/Components/ui/dialog";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/Components/ui/tabs";
-import UpdatePasswordForm from "@/Pages/Profile/Partials/UpdatePasswordForm";
+import UpdatePasswordForm from "@/Components/shared/user/Profil/UpdatePasswordForm";
 import { Link } from "@inertiajs/react";
 
 const ProfileDropdown = ({ children, className, auth }) => {
@@ -19,20 +19,25 @@ const ProfileDropdown = ({ children, className, auth }) => {
                 <DropdownMenuTrigger className={`unselectable ${className}`}>
                     {children}
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-48">
-                    <DropdownMenuItem className="focus:bg-slate-100">
-                        <DialogTrigger className="w-full text-start">
-                            Edit Profil
-                        </DialogTrigger>
+                <DropdownMenuContent className="min-w-56 p-4 bg-customWhite font-semibold shadow-xl">
+                    <DropdownMenuItem>
+                        <Link href="/profile" className="w-full text-start">Profil</Link>
                     </DropdownMenuItem>
 
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem className="bg-red-600 focus:bg-red-700 text-white focus:text-white font-semibold rounded-md">
+
+                    <DropdownMenuItem>
+                        <Link className="w-full text-start">Tagihan</Link>
+                    </DropdownMenuItem>
+
+                    <DropdownMenuSeparator />
+
+                    <DropdownMenuItem>
                         <Link
                             href={route("logout")}
                             method="post"
                             as="button"
-                            className="w-full text-center"
+                            className="w-full text-start text-red-600"
                         >
                             Keluar
                         </Link>

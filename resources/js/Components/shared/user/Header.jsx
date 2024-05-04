@@ -34,7 +34,7 @@ const Header = () => {
 
                 <div className="flex flex-col sm:flex-row gap-4 mt-4 sm:mt-0">
                     <Link
-                        href="/"
+                        href={route("antrian.index")}
                         className="bg-ForestGreen flex items-center justify-center px-8 py-3  text-white font-semibold rounded-full"
                     >
                         Ambil Antrian
