@@ -13,7 +13,7 @@ const PasienForm = ({ setData, data, auth, isChecked, setIsChecked }) => {
         <div className="flex flex-col space-y-4 py-8">
             {!isChecked && (
                 <p className="text-red-600 font-medium">
-                    ⚠️ Fitur rekam medis tidak akan tersedia bagi pasien yang
+                    ⚠️ Fitur riwayat konsultasi tidak akan tersedia bagi pasien yang
                     mendaftar bukan di akunnya sendiri
                 </p>
             )}

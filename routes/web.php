@@ -3,6 +3,7 @@
 use App\Http\Controllers\AntrianController;
 use App\Http\Controllers\JanjiTemuController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TagihanController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -46,6 +47,9 @@ Route::middleware('auth')->group(function () {
     
     // Antrian Online
     Route::get('/antrian', [AntrianController::class, 'index'])->name('antrian.index');
+    
+    // Tagihan
+    Route::get('/tagihan', [TagihanController::class, 'index'])->name('tagihan.index');
 
 });
 

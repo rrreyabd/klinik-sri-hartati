@@ -46,7 +46,7 @@ export default function UpdatePasswordForm({ className = "" }) {
     };
 
     return (
-        <section className={className}>
+        <section className={`${className} `}>
             <header>
                 <h2 className="text-lg text-black font-semibold">
                     Perbarui Kata Sandi
@@ -75,7 +75,7 @@ export default function UpdatePasswordForm({ className = "" }) {
                         }
                         type="password"
                         Icon={FaKey}
-                        className="mt-1 block w-full h-12 bg-customWhite"
+                        className="mt-1 block w-2/3 h-12 bg-customWhite"
                         autoComplete="current-password"
                     />
 
@@ -101,7 +101,7 @@ export default function UpdatePasswordForm({ className = "" }) {
                         onChange={(e) => setData("password", e.target.value)}
                         type="password"
                         Icon={FaUnlockAlt}
-                        className="mt-1 block w-full h-12 bg-customWhite"
+                        className="mt-1 block w-2/3 h-12 bg-customWhite"
                         autoComplete="new-password"
                     />
 
@@ -128,7 +128,7 @@ export default function UpdatePasswordForm({ className = "" }) {
                         }
                         type="password"
                         Icon={FaUnlockAlt}
-                        className="mt-1 block w-full h-12 bg-customWhite"
+                        className="mt-1 block w-2/3 h-12 bg-customWhite"
                         autoComplete="new-password"
                     />
 
