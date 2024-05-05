@@ -24,9 +24,11 @@
     0% {
         background-position: 0% 50%;
     }
+
     50% {
         background-position: 100% 50%;
     }
+
     100% {
         background-position: 0% 50%;
     }
@@ -42,10 +44,10 @@
 
 /* UNDERLINE HOVER START */
 .underline-custom {
-    position: relative;  
-  }
-  
-  .underline-custom:after {
+    position: relative;
+}
+
+.underline-custom:after {
     position: absolute;
     content: "";
     height: 1px;
@@ -55,22 +57,40 @@
     z-index: -1;
     background-color: #fff;
     transition: all 0.3s ease;
-  }
-  
-  .underline-custom:hover:after {
+}
+
+.underline-custom:hover:after {
     left: 0;
     width: 100%;
-  }
-  /* UNDERLINE HOVER END */
-  
+}
 
-#radio1:checked + #label1 {
-    color: #4F46E5; 
+/* UNDERLINE HOVER END */
+
+/* DEPRECATED */
+#radio1:checked+#label1 {
+    color: #4f46e5;
     font-weight: bold;
 }
 
-#radio2:checked + #label2 {
-    color: #4F46E5; 
+#radio2:checked+#label2 {
+    color: #4f46e5;
     font-weight: bold;
 }
 
+/* DEPRECATED */
+
+/* width */
+.display_scroll::-webkit-scrollbar {
+    display: block;
+    width: 5px;
+}
+
+/* Track */
+.display_scroll::-webkit-scrollbar-track {
+    background: #F2F2F2;
+}
+
+/* Handle */
+.display_scroll::-webkit-scrollbar-thumb {
+    background: #015D67;
+}
