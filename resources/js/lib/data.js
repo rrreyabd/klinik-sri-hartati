@@ -82,3 +82,41 @@ export const malam = [
         value: "20.00",
     },
 ];
+
+export const StaffMenu = [
+    {
+        id: 1,
+        title: "Antrian",
+        desc: "Periksa antrian saat ini",
+        icon: "/assets/staff/1.png",
+        url: "/staff/antrian"
+    },
+    {
+        id: 2,
+        title: "Daftar Antrian",
+        desc: "Daftar antrian pasien secara langsung",
+        icon: "/assets/staff/2.png",
+        url: "/staff/antrian/tambah"
+    },
+    {
+        id: 3,
+        title: "Janji Temu",
+        desc: "Melihat daftar janji temu pasien dan dokter",
+        icon: "/assets/staff/3.png",
+        url: "/staff/janji-temu"
+    },
+    {
+        id: 4,
+        title: "Rekam Medis",
+        desc: "Melihat dan mencetak rekam medis pasien",
+        icon: "/assets/staff/4.png",
+        url: "/staff/rekam-medis"
+    },
+    {
+        id: 5,
+        title: "Pembayaran",
+        desc: "Pengelolaan tagihan",
+        icon: "/assets/staff/5.png",
+        url: "/staff/pembayaran"
+    },
+];

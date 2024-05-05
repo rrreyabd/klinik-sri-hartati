@@ -60,6 +60,7 @@ module.exports = {
                 ForestGreen: "#015D67",
                 customWhite: "#F2F2F2",
                 customBlack: "#202124",
+                customGreen: "#1BB357",
             },
         },
     },

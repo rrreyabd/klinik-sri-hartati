@@ -3,6 +3,7 @@
 use App\Http\Controllers\AntrianController;
 use App\Http\Controllers\JanjiTemuController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StaffController;
 use App\Http\Controllers\TagihanController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -51,6 +52,11 @@ Route::middleware('auth')->group(function () {
     // Tagihan
     Route::get('/tagihan', [TagihanController::class, 'index'])->name('tagihan.index');
 
+
+
+    // Staff
+    Route::get('/staff', [StaffController::class, 'index'])->name('staff.index');
+    Route::get('/staff/antrian', [StaffController::class, 'antrianIndex'])->name('staff.antrian.index');
 });
 
 require __DIR__.'/auth.php';
