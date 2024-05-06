@@ -36,7 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    
+
     // Profile (2)
     Route::get('/kata-sandi', [ProfileController::class, 'editPassword'])->name('password.edit');
     Route::get('/data-diri', [ProfileController::class, 'editDataDiri'])->name('datadiri.edit');
@@ -45,10 +45,10 @@ Route::middleware('auth')->group(function () {
     // Janji Temu
     Route::get('/janji-temu', [JanjiTemuController::class, 'index'])->name('janjiTemu.index');
     Route::post('/janjitemu', [JanjiTemuController::class, 'store'])->name('janjitemu');
-    
+
     // Antrian Online
     Route::get('/antrian', [AntrianController::class, 'index'])->name('antrian.index');
-    
+
     // Tagihan
     Route::get('/tagihan', [TagihanController::class, 'index'])->name('tagihan.index');
 
@@ -57,6 +57,8 @@ Route::middleware('auth')->group(function () {
     // Staff
     Route::get('/staff', [StaffController::class, 'index'])->name('staff.index');
     Route::get('/staff/antrian', [StaffController::class, 'antrianIndex'])->name('staff.antrian.index');
+    Route::get('/staff/janji-temu', [StaffController::class, 'janjiTemuIndex'])->name('staff.janji.temu.index');
+    Route::get('/staff/pembayaran', [StaffController::class, 'pembayaranIndex'])->name('pembayaran.temu.index');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

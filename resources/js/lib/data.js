@@ -120,3 +120,78 @@ export const StaffMenu = [
         url: "/staff/pembayaran"
     },
 ];
+
+export const pasien = [
+    {
+        Nama: "Raihan Abdillah",
+        "Waktu Antri": "10.00",
+        "Jenis Kelamin": "Pria",
+        Umur: "19",
+        Layanan: "Layanan 3",
+        Gejala: "Gejala 1",
+    },
+    {
+        Nama: "Jessindy Tanuwijaya",
+        "Waktu Antri": "11.00",
+        "Jenis Kelamin": "Perempuan",
+        Umur: "19",
+        Layanan: "Layanan 1",
+        Gejala: "Gejala 2",
+    },
+    {
+        Nama: "Alwin Liufandy",
+        "Waktu Antri": "11.00",
+        "Jenis Kelamin": "Pria",
+        Umur: "19",
+        Layanan: "Layanan 2",
+        Gejala: "Gejala 2",
+    },
+    {
+        Nama: "Raihan Abdillah",
+        "Waktu Antri": "10.00",
+        "Jenis Kelamin": "Pria",
+        Umur: "19",
+        Layanan: "Layanan 3",
+        Gejala: "Gejala 1",
+    },
+    {
+        Nama: "Jessindy Tanuwijaya",
+        "Waktu Antri": "11.00",
+        "Jenis Kelamin": "Perempuan",
+        Umur: "19",
+        Layanan: "Layanan 1",
+        Gejala: "Gejala 2",
+    },
+    {
+        Nama: "Alwin Liufandy",
+        "Waktu Antri": "11.00",
+        "Jenis Kelamin": "Pria",
+        Umur: "19",
+        Layanan: "Layanan 2",
+        Gejala: "Gejala 2",
+    },
+    {
+        Nama: "Raihan Abdillah",
+        "Waktu Antri": "10.00",
+        "Jenis Kelamin": "Pria",
+        Umur: "19",
+        Layanan: "Layanan 3",
+        Gejala: "Gejala 1",
+    },
+    {
+        Nama: "Jessindy Tanuwijaya",
+        "Waktu Antri": "11.00",
+        "Jenis Kelamin": "Perempuan",
+        Umur: "19",
+        Layanan: "Layanan 1",
+        Gejala: "Gejala 2",
+    },
+    {
+        Nama: "Alwin Liufandy",
+        "Waktu Antri": "11.00",
+        "Jenis Kelamin": "Pria",
+        Umur: "19",
+        Layanan: "Layanan 2",
+        Gejala: "Gejala 2",
+    },
+];

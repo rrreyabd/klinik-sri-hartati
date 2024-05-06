@@ -19,4 +19,12 @@ class StaffController extends Controller
     {
         return Inertia::render('Staff/StaffAntrian');
     }
+    public function janjiTemuIndex()
+    {
+        return Inertia::render('Staff/StaffJanjiTemu');
+    }
+    public function pembayaranIndex()
+    {
+        return Inertia::render('Staff/StaffPembayaran');
+    }
 }
