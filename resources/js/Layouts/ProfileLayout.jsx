@@ -12,13 +12,13 @@ const ProfileLayout = ({ children }) => {
             <main className="w-3/4 min-h-screen flex">
                 <div className="w-64 py-16 px-8 flex flex-col gap-6 border-r border-slate-300">
                     <div className="flex flex-col gap-6">
-                        <InertiaLink
+                        <Link
                             href="/"
                             className="flex items-center gap-2"
                         >
                             <ArrowLeft />
                             <p className="font-semibold">Kembali</p>
-                        </InertiaLink>
+                        </Link>
 
                         <hr className="w-full border-slate-300" />
                     </div>
