@@ -6,6 +6,16 @@ import { Head } from "@inertiajs/react";
 import { LuClock3 } from "react-icons/lu";
 
 const StaffAntrian = () => {
+    
+    const field = [
+        "Nama",
+        "Waktu Antri",
+        "Jenis Kelamin",
+        "Umur",
+        "Layanan",
+        "Gejala",
+    ];
+
     return (
         <div className="h-screen w-full bg-customWhite flex justify-center items-center">
             <Head title="Antrian" />
@@ -72,11 +82,9 @@ const StaffAntrian = () => {
 
                         <DataTable
                             data={pasien}
+                            field={field}
                             table="mt-4"
-                            thead="py-2"
-                            tbody="rounded-xl shadow-inner shadow-black/50 bg-white overflow-y-scroll overflow-x-auto h-96"
-                            tdhead="pl-4 unselectable cursor-pointer"
-                            tdbody="pl-4 py-4 border-b"
+                            tbody=" h-96"
                         />
                     </div>
                 </div>

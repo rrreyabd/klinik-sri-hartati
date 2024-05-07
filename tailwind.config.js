@@ -61,6 +61,7 @@ module.exports = {
                 customWhite: "#F2F2F2",
                 customBlack: "#202124",
                 customGreen: "#1BB357",
+                customRed: "#D72729",
             },
         },
     },

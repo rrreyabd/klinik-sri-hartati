@@ -5,10 +5,8 @@ const StaffDashboardCard = ({ id, title, desc, icon, url }) => {
     return (
         <Link
             href={url}
-            className={` ${
-                id == 1
-                    ? "bg-ForestGreen"
-                    : id > 3
+            className={`hover:brightness-90 hover:-translate-y-1 duration-500 transition-all ${
+                (id == 1) | (id == 4) | (id == 5)
                     ? "bg-ForestGreen"
                     : "bg-KellyGreen"
             } h-64 rounded-xl flex overflow-hidden shadow-xl`}
@@ -28,9 +26,9 @@ const StaffDashboardCard = ({ id, title, desc, icon, url }) => {
 
 const StaffDashboard = () => {
     return (
-        <div className="min-h-screen w-full bg-customWhite flex justify-center">
+        <div className="min-h-screen w-full bg-customWhite flex justify-center items-center">
             <Head title="Staff" />
-            <div className="w-3/4 py-16 flex flex-col gap-8 max-w-[1300px]">
+            <div className="w-3/4 flex flex-col gap-16 max-w-[1300px]">
                 <div className="flex flex-col text-center ">
                     <h1 className="font-semibold text-4xl text-ForestGreen">
                         Selamat Datang

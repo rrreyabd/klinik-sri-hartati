@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Appointment;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,12 +31,10 @@ class JanjiTemuController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {   
-        $timestamp = strtotime($request->tanggal);
-        $waktu = Carbon::createFromTimestamp($timestamp, 'Asia/Jakarta');
-        
+    {
         // Validasi
-        $request->validate([
+        $validation = $request->validate([
+            'user_id' => 'required',
             'perawatan' => 'required',
             'dokter'   => 'required',
             'jam'   => 'required',
@@ -43,17 +42,29 @@ class JanjiTemuController extends Controller
             'nama_lengkap' => 'required',
             'nomor_hp' => 'required',
             'tanggal_lahir' => 'required',
+            'jenis_kelamin' => 'required',
         ]);
-        
-        // dd($request->waktu);
-        
-        $hasil = [
-            $request->all(),
-            $timestamp,
-            $waktu
-        ];
 
-        dd($hasil);
+        $timestamp = strtotime($request->tanggal);
+        $waktu = Carbon::createFromTimestamp($timestamp, 'Asia/Jakarta');
+
+        try {
+            Appointment::create([
+                'user_id' => $validation['user_id'],
+                'doctor_id' => $validation['dokter'],
+                'treatment_id' => $validation['perawatan'],
+                'date' => $waktu,
+                'time' => $validation['jam'],
+                'name' => $validation['nama_lengkap'],
+                'birthdate' => $validation['tanggal_lahir'],
+                'gender' => $validation['jenis_kelamin'],
+                'phone_number' => $validation['nomor_hp'],
+            ]);
+
+            return redirect()->route('index')->with('status', 'Appointment created successfully');
+        } catch (\Exception $e) {
+            return redirect()->route('index')->with('error', 'Failed to create appointment');
+        }
     }
 
     /**

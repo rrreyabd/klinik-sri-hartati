@@ -13,6 +13,7 @@ import { LuCalendarClock } from "react-icons/lu";
 import { TiDocumentAdd } from "react-icons/ti";
 import { PiUserListFill } from "react-icons/pi";
 import { FaRegCreditCard } from "react-icons/fa";
+import { FiLogOut } from "react-icons/fi";
 
 const StaffSheet = () => {
     const { url } = usePage();
@@ -82,17 +83,6 @@ const StaffSheet = () => {
                             <p className="font-medium">Rekam Medis</p>
                         </Link>
                         <Link
-                            href="/staff"
-                            className={`w-full py-2 rounded-md flex gap-4 transition-all hover:text-customWhite px-4 ${
-                                url == "/staff"
-                                    ? "bg-ForestGreen text-customWhite"
-                                    : "bg-customWhite hover:text-customWhite hover:bg-ForestGreen text-gray-500 "
-                            } `}
-                        >
-                            <PiUserListFill className="text-2xl" />
-                            <p className="font-medium">Pasien</p>
-                        </Link>
-                        <Link
                             href="/staff/pembayaran"
                             className={`w-full py-2 rounded-md flex gap-4 transition-all hover:text-customWhite px-4 ${
                                 url == "/staff/pembayaran"
@@ -102,6 +92,15 @@ const StaffSheet = () => {
                         >
                             <FaRegCreditCard className="text-2xl" />
                             <p className="font-medium">Pembayaran</p>
+                        </Link>
+                        <Link
+                            href={route("logout")}
+                            method="post"
+                            as="button"
+                            className="w-full py-2 rounded-md flex gap-4 transition-all px-4 text-red-600 hover:bg-red-600 hover:text-customWhite"
+                        >
+                            <FiLogOut className="text-2xl" />
+                            <p className="font-medium">Keluar</p>
                         </Link>
                     </div>
                 </SheetHeader>

@@ -61,6 +61,7 @@ const WaktuForm = ({ setData, selectedDate, onDateChange, data }) => {
                                             value={jam.value}
                                             key={jam.id}
                                             time={time}
+                                            label={jam.label}
                                         />
                                     );
                                 })}
@@ -79,6 +80,7 @@ const WaktuForm = ({ setData, selectedDate, onDateChange, data }) => {
                                             value={jam.value}
                                             key={jam.id}
                                             time={time}
+                                            label={jam.label}
                                         />
                                     );
                                 })}
@@ -97,6 +99,7 @@ const WaktuForm = ({ setData, selectedDate, onDateChange, data }) => {
                                             value={jam.value}
                                             key={jam.id}
                                             time={time}
+                                            label={jam.label}
                                         />
                                     );
                                 })}
@@ -108,9 +111,9 @@ const WaktuForm = ({ setData, selectedDate, onDateChange, data }) => {
     );
 };
 
-const RadioButton = ({ value, key, time, onOptionChange }) => {
+const RadioButton = ({ label, value, key, time, onOptionChange }) => {
     // Jam yang tidak tersedia
-    const disabled = ["09.00", "20.00"];
+    const disabled = ["09:00:00", "20:00:00"];
 
     return (
         <label
@@ -134,7 +137,7 @@ const RadioButton = ({ value, key, time, onOptionChange }) => {
                 disabled={disabled.includes(value)}
                 className="hidden"
             />
-            {value}
+            {label}
         </label>
     );
 };
