@@ -17,7 +17,7 @@ const Layanan = () => {
                 Kenapa Memilih Kami?
             </h1>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mt-14">
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 mt-14">
                 {services &&
                     services.map((service, index) => {
                         let delay = (index * 500);

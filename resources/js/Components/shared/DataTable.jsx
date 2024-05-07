@@ -1,7 +1,7 @@
 import { ChevronDown, ChevronUp } from "lucide-react";
 import React, { useState } from "react";
 
-const DataTable = ({ data, tbody, thead, table, tdbody, tdhead }) => {
+const DataTable = ({ data, tbody, thead, table, tdbody, tdhead, field }) => {
     const [sortBy, setSortBy] = useState(null);
     const [sortOrder, setSortOrder] = useState("asc");
 
@@ -26,106 +26,40 @@ const DataTable = ({ data, tbody, thead, table, tdbody, tdhead }) => {
 
     return (
         <div className={`w-full ${table}`}>
-            <div className={`w-full ${thead} `}>
+            <div className={`w-full py-2 ${thead} `}>
                 <div className="flex w-full">
-                    <div onClick={() => handleSort("Nama")} className="w-1/6">
-                        <div
-                            className={`flex gap-2 py-2 font-semibold ${tdhead}`}
-                        >
-                            Nama {sortBy === "Nama" && Icon}
-                        </div>
-                    </div>
-                    <div
-                        onClick={() => handleSort("Waktu Antri")}
-                        className="w-1/6"
-                    >
-                        <div
-                            className={`flex gap-2 py-2 font-semibold ${tdhead}`}
-                        >
-                            Waktu Antri {sortBy === "Waktu Antri" && Icon}
-                        </div>
-                    </div>
-                    <div
-                        onClick={() => handleSort("Jenis Kelamin")}
-                        className="w-1/6"
-                    >
-                        <div
-                            className={`flex gap-2 py-2 font-semibold ${tdhead}`}
-                        >
-                            Jenis Kelamin {sortBy === "Jenis Kelamin" && Icon}
-                        </div>
-                    </div>
-                    <div onClick={() => handleSort("Umur")} className="w-1/6">
-                        <div
-                            className={`flex gap-2 py-2 font-semibold ${tdhead}`}
-                        >
-                            Umur {sortBy === "Umur" && Icon}
-                        </div>
-                    </div>
-                    <div
-                        onClick={() => handleSort("Layanan")}
-                        className="w-1/6"
-                    >
-                        <div
-                            className={`flex gap-2 py-2 font-semibold ${tdhead}`}
-                        >
-                            Layanan {sortBy === "Layanan" && Icon}
-                        </div>
-                    </div>
-                    <div onClick={() => handleSort("Gejala")} className="w-1/6">
-                        <div
-                            className={`flex gap-2 py-2 font-semibold ${tdhead}`}
-                        >
-                            Gejala {sortBy === "Gejala" && Icon}
-                        </div>
-                    </div>
+                    {field &&
+                        field.map((field, index) => (
+                            <div
+                                key={index}
+                                onClick={() => handleSort(field)}
+                                className="w-1/6"
+                            >
+                                <div
+                                    className={`flex gap-2 py-2 font-semibold pl-4 unselectable cursor-pointer ${tdhead}`}
+                                >
+                                    {field} {sortBy === field && Icon}
+                                </div>
+                            </div>
+                        ))}
                 </div>
             </div>
-            <div className={`${tbody} w-full`}>
+            <div
+                className={`${tbody} rounded-xl shadow-inner shadow-black/50 bg-white overflow-y-scroll overflow-x-auto w-full`}
+            >
                 {sortedData.map((row, index) => (
                     <div key={index} className="flex w-full">
-                        <div
-                            className={`${tdbody} w-1/6 ${
-                                index === sortedData.length - 1 ? "pb-4" : ""
-                            }`}
-                        >
-                            {row["Nama"]}
-                        </div>
-                        <div
-                            className={`${tdbody} w-1/6 ${
-                                index === sortedData.length - 1 ? "pb-4" : ""
-                            }`}
-                        >
-                            {row["Waktu Antri"]}
-                        </div>
-                        <div
-                            className={`${tdbody} w-1/6 ${
-                                index === sortedData.length - 1 ? "pb-4" : ""
-                            }`}
-                        >
-                            {row["Jenis Kelamin"]}
-                        </div>
-                        <div
-                            className={`${tdbody} w-1/6 ${
-                                index === sortedData.length - 1 ? "pb-4" : ""
-                            }`}
-                        >
-                            {row["Umur"]}
-                        </div>
-                        <div
-                            className={`${tdbody} w-1/6 ${
-                                index === sortedData.length - 1 ? "pb-4" : ""
-                            }`}
-                        >
-                            {row["Layanan"]}
-                        </div>
-                        <div
-                            className={`${tdbody} w-1/6 ${
-                                index === sortedData.length - 1 ? "pb-4" : ""
-                            }`}
-                        >
-                            {row["Gejala"]}
-                        </div>
+                        {Object.keys(row).map((key) => (
+                            <div
+                                className={`${tdbody} w-1/6 pl-4 py-4 border-b ${
+                                    index === sortedData.length - 1
+                                        ? "pb-4"
+                                        : ""
+                                }`}
+                            >
+                                {row[key]}
+                            </div>
+                        ))}
                     </div>
                 ))}
             </div>

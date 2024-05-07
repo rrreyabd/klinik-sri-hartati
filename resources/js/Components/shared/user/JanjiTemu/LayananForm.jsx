@@ -20,19 +20,19 @@ const LayananForm = ({ setData, data }) => {
                     </SelectTrigger>
                     <SelectContent className="bg-customWhite border-2 border-ForestGreen">
                         <SelectItem
-                            value="Perawatan 1"
+                            value="1"
                             className="hover:brightness-95 transition-all font-semibold"
                         >
                             Perawatan 1
                         </SelectItem>
                         <SelectItem
-                            value="Perawatan 2"
+                            value="2"
                             className="hover:brightness-95 transition-all font-semibold"
                         >
                             Perawatan 2
                         </SelectItem>
                         <SelectItem
-                            value="Perawatan 3"
+                            value="3"
                             className="hover:brightness-95 transition-all font-semibold"
                         >
                             Perawatan 3
@@ -52,19 +52,19 @@ const LayananForm = ({ setData, data }) => {
                     </SelectTrigger>
                     <SelectContent className="bg-customWhite border-2 border-ForestGreen">
                         <SelectItem
-                            value="Dokter 1"
+                            value="1"
                             className="hover:brightness-95 transition-all font-semibold"
                         >
                             Dokter 1
                         </SelectItem>
                         <SelectItem
-                            value="Dokter 2"
+                            value="2"
                             className="hover:brightness-95 transition-all font-semibold"
                         >
                             Dokter 2
                         </SelectItem>
                         <SelectItem
-                            value="Dokter 3"
+                            value="3"
                             className="hover:brightness-95 transition-all font-semibold"
                         >
                             Dokter 3

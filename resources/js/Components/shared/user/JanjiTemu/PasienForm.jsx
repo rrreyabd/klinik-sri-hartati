@@ -1,8 +1,14 @@
 import Input from "../Input";
 import { useEffect, useState } from "react";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/Components/ui/select";
 
 const PasienForm = ({ setData, data, auth, isChecked, setIsChecked }) => {
-
     // useEffect(() => {
     //     if (isChecked) {
     //         setData("nomor_hp", 123);
@@ -11,12 +17,12 @@ const PasienForm = ({ setData, data, auth, isChecked, setIsChecked }) => {
 
     return (
         <div className="flex flex-col space-y-4 py-8">
-            {!isChecked && (
+            {/* {!isChecked && (
                 <p className="text-red-600 font-medium">
-                    ⚠️ Fitur riwayat konsultasi tidak akan tersedia bagi pasien yang
-                    mendaftar bukan di akunnya sendiri
+                    ⚠️ Fitur riwayat konsultasi tidak akan tersedia bagi pasien
+                    yang mendaftar bukan di akunnya sendiri
                 </p>
-            )}
+            )} */}
 
             <Input
                 label="Nama Lengkap"
@@ -63,6 +69,34 @@ const PasienForm = ({ setData, data, auth, isChecked, setIsChecked }) => {
                 } `}
                 onChange={(e) => setData("nomor_hp", e.target.value)}
             />
+            <div className="">
+                <p className="font-semibold">Jenis Kelamin</p>
+                <Select
+                    onValueChange={(value) => setData("jenis_kelamin", value)}
+                    value={data.jenis_kelamin}
+                >
+                    <SelectTrigger className="w-full bg-customWhite border border-black/40 shadow-sm h-12 font-medium">
+                        <SelectValue
+                            placeholder="Jenis Kelamin"
+                            className="font-light"
+                        />
+                    </SelectTrigger>
+                    <SelectContent className="bg-customWhite border-2 border-ForestGreen">
+                        <SelectItem
+                            value="Laki-laki"
+                            className="hover:brightness-95 transition-all font-semibold"
+                        >
+                            Laki-laki
+                        </SelectItem>
+                        <SelectItem
+                            value="Perempuan"
+                            className="hover:brightness-95 transition-all font-semibold"
+                        >
+                            Perempuan
+                        </SelectItem>
+                    </SelectContent>
+                </Select>
+            </div>
 
             <div className="">
                 <p className="font-semibold">Tanggal Lahir</p>
@@ -71,7 +105,11 @@ const PasienForm = ({ setData, data, auth, isChecked, setIsChecked }) => {
                     name="tanggal_lahir"
                     type="date"
                     labelClassName="hidden"
-                    value={isChecked ? auth.user.created_at.substring(0, 10) : data.tanggal_lahir}
+                    value={
+                        isChecked
+                            ? auth.user.created_at.substring(0, 10)
+                            : data.tanggal_lahir
+                    }
                     id=""
                     disabled={isChecked ? true : false}
                     className={`w-full ${

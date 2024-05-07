@@ -33,12 +33,14 @@ const JanjiTemuForm = ({ auth }) => {
 
     // Field
     const { data, setData, post, processing, errors } = useForm({
+        user_id: auth.user.id,
         dokter: "",
         perawatan: "",
         tanggal: "",
         jam: "",
         nama_lengkap: "",
         nomor_hp: "",
+        jenis_kelamin: "",
         tanggal_lahir: "",
     });
 

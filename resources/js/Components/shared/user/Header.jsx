@@ -34,17 +34,17 @@ const Header = () => {
 
                 <div className="flex flex-col sm:flex-row gap-4 mt-4 sm:mt-0">
                     <Link
-                        href={route("antrian.index")}
-                        className="bg-ForestGreen flex items-center justify-center px-8 py-3  text-white font-semibold rounded-full"
+                        href={route("janjiTemu.index")}
+                        className="bg-ForestGreen flex items-center justify-center px-8 py-3 font-semibold rounded-full text-customWhite"
                     >
-                        Ambil Antrian
+                        Atur Janji Temu
                     </Link>
 
                     <Link
-                        href={route("janjiTemu.index")}
+                        href={route("antrian.index")}
                         className="border-2 border-ForestGreen bg-customWhite text-ForestGreen flex items-center justify-center px-8 py-3 font-semibold rounded-full"
                     >
-                        Atur Janji Temu
+                        Rekam Medis
                     </Link>
                 </div>
             </div>

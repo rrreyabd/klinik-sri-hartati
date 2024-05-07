@@ -20,7 +20,7 @@ return new class extends Migration
             $table->time('time');
             $table->string('name');
             $table->date('birthdate');
-            $table->enum('gender', ['Pria', 'Perempuan']);
+            $table->enum('gender', ['Laki-laki', 'Perempuan']);
             $table->string('phone_number');
             $table->timestamps();
 

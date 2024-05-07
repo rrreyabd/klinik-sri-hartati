@@ -12,7 +12,7 @@ class StaffController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Staff/Dashboard');
+        return Inertia::render('Staff/StaffDashboard');
     }
 
     public function antrianIndex()
