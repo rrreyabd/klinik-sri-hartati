@@ -61,9 +61,9 @@ class JanjiTemuController extends Controller
                 'phone_number' => $validation['nomor_hp'],
             ]);
 
-            return redirect()->route('index')->with('status', 'Appointment created successfully');
+            return redirect()->route('index')->with('status', 'Janji Temu Berhasil Dibuat!');
         } catch (\Exception $e) {
-            return redirect()->route('index')->with('error', 'Failed to create appointment');
+            return redirect()->route('index')->with('error', 'Janji Temu Gagal Dibuat');
         }
     }
 
