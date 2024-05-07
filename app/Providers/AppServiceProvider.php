@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Patient;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 use Inertia\Inertia;
@@ -26,6 +27,9 @@ class AppServiceProvider extends ServiceProvider
                 return [
                     'user' => Auth::user() ? Auth::user() : null,
                 ];
+            },
+            'patient' => function () {
+                return Auth::user() ? Patient::where('user_id', Auth::user()->id)->first() : null;
             },
         ]);
     }

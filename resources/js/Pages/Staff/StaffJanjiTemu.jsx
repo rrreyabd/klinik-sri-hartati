@@ -1,8 +1,43 @@
 import { Head, Link } from "@inertiajs/react";
 import StaffSheet from "../../Components/shared/Staff/StaffSheet";
 import { Plus } from "lucide-react";
+import { useState, useEffect } from "react";
 
-const StaffAntrian = () => {
+const getWeekDates = () => {
+    const now = new Date();
+    const startOfWeek = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate() - 3
+    );
+    const dates = Array.from({ length: 7 }, (_, i) => {
+        const date = new Date(startOfWeek);
+        date.setDate(date.getDate() + i);
+        return {
+            hari: new Intl.DateTimeFormat("id-ID", { weekday: "long" }).format(
+                date
+            ),
+            tanggal: date.getDate(),
+            fullDate: date,
+        };
+    });
+    return dates;
+};
+
+const StaffAntrian = ({ appointments }) => {
+    const today = new Date().toDateString();
+
+    console.log(appointments)
+
+    const [date, setDate] = useState(new Date());
+    const [sampleDate, setSampleDate] = useState([]);
+
+    useEffect(() => {
+        setSampleDate(getWeekDates());
+    }, []);
+
+    console.log(date);
+
     return (
         <div className="min-h-screen w-full bg-customWhite flex justify-center">
             <Head title="Janji Temu" />
@@ -46,48 +81,45 @@ const StaffAntrian = () => {
                             <hr className="border w-full" />
 
                             <div className="flex justify-between">
-                                <div className="flex flex-col gap-3 text-gray-500 justify-center">
-                                    <p className="font-medium">Minggu</p>
-                                    <button className="text-2xl font-medium h-12">
-                                        17
-                                    </button>
-                                </div>
-                                <div className="flex flex-col gap-3 text-gray-500 justify-center">
-                                    <p className="font-medium">Senin</p>
-                                    <button className="text-2xl font-medium h-12">
-                                        18
-                                    </button>
-                                </div>
-                                <div className="flex flex-col gap-3 text-gray-500 justify-center">
-                                    <p className="font-medium">Selasa</p>
-                                    <button className="text-2xl font-medium h-12">
-                                        19
-                                    </button>
-                                </div>
-                                <div className="flex flex-col gap-3 text-gray-500 justify-center w-fit">
+                                {sampleDate &&
+                                    sampleDate.map((sample, index) => {
+                                        return (
+                                            <div
+                                                className={`flex flex-col gap-3 text-gray-500 justify-center`}
+                                                key={index}
+                                            >
+                                                <p className="font-medium">
+                                                    {sample.hari}
+                                                </p>
+                                                <button
+                                                    onClick={() =>
+                                                        setDate(sample.fullDate)
+                                                    }
+                                                    className={`w-12 text-2xl font-medium h-12 ${
+                                                        sample.fullDate.toDateString() ==
+                                                        today
+                                                            ? "text-2xl font-medium bg-ForestGreen text-white rounded-full p-2"
+                                                            : sample.fullDate ==
+                                                              date
+                                                            ? "bg-gray-400 text-white rounded-full p-2"
+                                                            : ""
+                                                    } `}
+                                                >
+                                                    {sample.tanggal}
+                                                </button>
+                                            </div>
+                                        );
+                                    })}
+
+                                {/* <div className="flex flex-col gap-3 text-gray-500 justify-center w-fit">
                                     <p className="font-medium">Rabu</p>
-                                    <button className="text-2xl font-medium h-12 w-12 bg-ForestGreen text-white rounded-full p-2">
+                                    <button
+                                        onClick={() => setDate("Clicked")}
+                                        className="text-2xl font-medium h-12 w-12 bg-ForestGreen text-white rounded-full p-2"
+                                    >
                                         20
                                     </button>
-                                </div>
-                                <div className="flex flex-col gap-3 text-gray-500 justify-center">
-                                    <p className="font-medium">Kamis</p>
-                                    <button className="text-2xl font-medium h-12">
-                                        21
-                                    </button>
-                                </div>
-                                <div className="flex flex-col gap-3 text-gray-500 justify-center">
-                                    <p className="font-medium">Jumat</p>
-                                    <button className="text-2xl font-medium h-12">
-                                        22
-                                    </button>
-                                </div>
-                                <div className="flex flex-col gap-3 text-gray-500 justify-center">
-                                    <p className="font-medium">Sabtu</p>
-                                    <button className="text-2xl font-medium h-12">
-                                        23
-                                    </button>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </div>

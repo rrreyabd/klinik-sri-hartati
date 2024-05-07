@@ -8,12 +8,7 @@ import {
     SelectValue,
 } from "@/Components/ui/select";
 
-const PasienForm = ({ setData, data, auth, isChecked, setIsChecked }) => {
-    // useEffect(() => {
-    //     if (isChecked) {
-    //         setData("nomor_hp", 123);
-    //     }
-    // }, [isChecked]);
+const PasienForm = ({ setData, data, auth, patient, isChecked, setIsChecked }) => {
 
     return (
         <div className="flex flex-col space-y-4 py-8">
@@ -61,7 +56,7 @@ const PasienForm = ({ setData, data, auth, isChecked, setIsChecked }) => {
                 placeholder="Masukkan Nomor HP"
                 name="nomor_hp"
                 type="number"
-                value={isChecked ? auth.user.id : data.nomor_hp}
+                value={isChecked ? patient.phone_number : data.nomor_hp}
                 id=""
                 disabled={isChecked ? true : false}
                 className={`w-full ${
@@ -73,9 +68,12 @@ const PasienForm = ({ setData, data, auth, isChecked, setIsChecked }) => {
                 <p className="font-semibold">Jenis Kelamin</p>
                 <Select
                     onValueChange={(value) => setData("jenis_kelamin", value)}
-                    value={data.jenis_kelamin}
+                    value={isChecked ? patient.gender : data.jenis_kelamin}
+                    disabled={isChecked ? true : false}
                 >
-                    <SelectTrigger className="w-full bg-customWhite border border-black/40 shadow-sm h-12 font-medium">
+                    <SelectTrigger className={`w-full border border-black/40 shadow-sm h-12 font-medium ${
+                        isChecked ? " cursor-not-allowed bg-[#b5b5b5]" : "bg-customWhite"
+                    }  `}>
                         <SelectValue
                             placeholder="Jenis Kelamin"
                             className="font-light"
@@ -107,7 +105,7 @@ const PasienForm = ({ setData, data, auth, isChecked, setIsChecked }) => {
                     labelClassName="hidden"
                     value={
                         isChecked
-                            ? auth.user.created_at.substring(0, 10)
+                            ? patient.birthdate.substring(0, 10)
                             : data.tanggal_lahir
                     }
                     id=""

@@ -23,7 +23,9 @@ use Inertia\Inertia;
 Route::get('/', function () {
     return Inertia::render('Main', [
         'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register')
+        'canRegister' => Route::has('register'),
+        'status' => session('status'),
+        'error' => session('error'),
     ]);
 })->name('index');
 

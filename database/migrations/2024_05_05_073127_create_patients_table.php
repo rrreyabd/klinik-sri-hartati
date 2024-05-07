@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->date('birthdate');
             $table->enum('blood_type', ['A', 'B', 'AB', 'O']);
+            $table->enum('gender', ['Laki-laki', 'Perempuan']);
             $table->string('address');
             $table->string('phone_number');
             $table->timestamps();

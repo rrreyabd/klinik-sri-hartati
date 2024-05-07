@@ -5,7 +5,7 @@ import LayananForm from "./LayananForm";
 import WaktuForm from "./WaktuForm";
 import PasienForm from "./PasienForm";
 
-const JanjiTemuForm = ({ auth }) => {
+const JanjiTemuForm = ({ auth, patient }) => {
     const steps = ["Layanan", "Waktu", "Pasien"];
     const stepsLength = steps.length;
 
@@ -60,8 +60,9 @@ const JanjiTemuForm = ({ auth }) => {
             setData((prevData) => ({
                 ...prevData,
                 nama_lengkap: auth.user.name,
-                nomor_hp: auth.user.id,
-                tanggal_lahir: auth.user.created_at.substring(0, 10),
+                nomor_hp: patient.phone_number,
+                jenis_kelamin: patient.gender,
+                tanggal_lahir: patient.birthdate.substring(0, 10),
             }));
         }
     }, [isChecked]);
@@ -189,6 +190,7 @@ const JanjiTemuForm = ({ auth }) => {
                         auth={auth}
                         isChecked={isChecked}
                         setIsChecked={setIsChecked}
+                        patient={patient}
                     />
                 )}
             </div>

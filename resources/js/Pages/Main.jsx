@@ -5,8 +5,42 @@ import Layanan from "@/Components/shared/user/Layanan";
 import Profil from "@/Components/shared/user/Profil";
 import { Head, Link } from "@inertiajs/react";
 import Navbar from "@/Components/shared/user/Navbar";
+import { Toaster } from "@/Components/ui/toaster";
+import { useToast } from "@/Components/ui/use-toast";
+import { useEffect } from "react";
+import { ToastAction } from "@radix-ui/react-toast";
 
-export default function Main({ auth }) {
+export default function Main({ auth, patient, status, error }) {
+    const { toast } = useToast();
+
+    console.log(patient)
+
+    useEffect(() => {
+        if (status) {
+            toast({
+                variant: "success",
+                title: status,
+                description: "Lihat informasi janji temu Anda",
+                action: (
+                    <ToastAction
+                        altText="Lihat Detail"
+                        className="border-white border px-4 py-1 rounded-md"    
+                        descClassName="text"
+                    >
+                        <Link href="/profile">Detail</Link>
+                    </ToastAction>
+                ),
+            });
+        }
+        if (error) {
+            toast({
+                variant: "error",
+                title: error,
+                description: "Ada masalah saat membuat janji temu. Silahkan coba lagi.",
+            });
+        }
+    }, [status, error]);
+
     return (
         <>
             <Head title="Home" />
@@ -64,6 +98,7 @@ export default function Main({ auth }) {
                 </div>
                 <Footer />
             </main>
+            <Toaster />
         </>
     );
 }
