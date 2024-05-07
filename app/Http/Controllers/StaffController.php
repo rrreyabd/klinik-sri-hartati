@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Appointment;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -21,7 +22,10 @@ class StaffController extends Controller
     }
     public function janjiTemuIndex()
     {
-        return Inertia::render('Staff/StaffJanjiTemu');
+        $appointments = Appointment::all();
+        return Inertia::render('Staff/StaffJanjiTemu', [
+            'appointments' => $appointments,
+        ]);
     }
     public function pembayaranIndex()
     {

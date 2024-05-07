@@ -17,8 +17,8 @@ const StaffDashboardCard = ({ id, title, desc, icon, url }) => {
                 </h2>
                 <p className="text-customWhite/70">{desc}</p>
             </div>
-            <div className="w-1/2 flex justify-end items-end">
-                <img src={icon} alt="Icon Menu" className="h-2/3" />
+            <div className="w-1/2 flex justify-end items-end pl-4">
+                <img src={icon} alt="Icon Menu" className="max-h-2/3" />
             </div>
         </Link>
     );
@@ -38,7 +38,7 @@ const StaffDashboard = () => {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     {StaffMenu &&
                         StaffMenu.map((menu) => {
                             return (
