@@ -22,9 +22,9 @@ class StaffController extends Controller
     }
     public function janjiTemuIndex()
     {
-        $appointments = Appointment::all();
+        $appointments = Appointment::with(['treatment', 'user'])->get();
         return Inertia::render('Staff/StaffJanjiTemu', [
-            'appointments' => $appointments,
+            'appointments' => $appointments
         ]);
     }
     public function pembayaranIndex()

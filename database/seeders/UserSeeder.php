@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Faker\Factory as Faker;
 
 class UserSeeder extends Seeder
 {
@@ -59,6 +60,20 @@ class UserSeeder extends Seeder
                 $userData['updated_at'] = now();
                 User::create($userData);
             }
+        }
+
+        $faker = Faker::create();
+        
+        foreach (range(1, 10) as $index) {
+            User::create([
+                'name' => $faker->name,
+                'email' => $faker->email,
+                'role' => $faker->randomElement(['user']),
+                'password' => Hash::make('password'),
+                'email_verified_at' => now(),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
         }
     }
 }

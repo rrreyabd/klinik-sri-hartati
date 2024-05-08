@@ -20,4 +20,13 @@ class Appointment extends Model
         'gender',
         'phone_number',
     ];
+
+    public function treatment()
+    {
+        return $this->belongsTo(Treatment::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
