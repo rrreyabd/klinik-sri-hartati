@@ -22,6 +22,7 @@ return new class extends Migration
             $table->date('birthdate');
             $table->enum('gender', ['Laki-laki', 'Perempuan']);
             $table->string('phone_number');
+            $table->enum('status', ['Menunggu', 'Selesai', 'Dibatalkan']);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

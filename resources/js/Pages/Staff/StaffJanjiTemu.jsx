@@ -27,7 +27,7 @@ const getWeekDates = () => {
 const StaffAntrian = ({ appointments }) => {
     const today = new Date().toDateString();
 
-    console.log(appointments)
+    console.log(appointments);
 
     const [date, setDate] = useState(new Date());
     const [sampleDate, setSampleDate] = useState([]);
@@ -101,7 +101,7 @@ const StaffAntrian = ({ appointments }) => {
                                                             ? "text-2xl font-medium bg-ForestGreen text-white rounded-full p-2"
                                                             : sample.fullDate ==
                                                               date
-                                                            ? "bg-gray-400 text-white rounded-full p-2"
+                                                            ? "bg-KellyGreen text-white rounded-full p-2"
                                                             : ""
                                                     } `}
                                                 >
@@ -110,16 +110,17 @@ const StaffAntrian = ({ appointments }) => {
                                             </div>
                                         );
                                     })}
+                            </div>
 
-                                {/* <div className="flex flex-col gap-3 text-gray-500 justify-center w-fit">
-                                    <p className="font-medium">Rabu</p>
-                                    <button
-                                        onClick={() => setDate("Clicked")}
-                                        className="text-2xl font-medium h-12 w-12 bg-ForestGreen text-white rounded-full p-2"
-                                    >
-                                        20
-                                    </button>
-                                </div> */}
+                            <div className="flex gap-8 mt-4">
+                                <div className="flex gap-2 items-center">
+                                    <div className="h-3 w-3 bg-ForestGreen rounded-full"></div>
+                                    <p className="text-sm">Hari ini</p>
+                                </div>
+                                <div className="flex gap-2 items-center">
+                                    <div className="h-3 w-3 bg-KellyGreen rounded-full"></div>
+                                    <p className="text-sm">Tanggal dipilih</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -151,8 +152,11 @@ const StaffAntrian = ({ appointments }) => {
 
                 {/* BOTTOM */}
                 <div className="flex w-full">
-                    <div className="bg-white rounded-xl shadow-md h-64 w-full p-6 flex flex-col">
+                    <div className="bg-white rounded-xl shadow-md h-96 w-full p-6 flex flex-col">
                         <div className="w-full flex">
+                            <div className="text-center font-semibold w-1/4">
+                                #
+                            </div>
                             <div className="text-center font-semibold w-1/4">
                                 Timeline
                             </div>
@@ -169,60 +173,63 @@ const StaffAntrian = ({ appointments }) => {
 
                         <hr className="border mt-4" />
 
-                        <div className="w-full overflow-y-scroll flex flex-col gap-4 flex-grow display_scroll shadow-inner pt-4">
-                            {/*  */}
-                            <div className="w-full flex">
-                                <div className="w-1/4 flex justify-center items-center">
-                                    10.00 - 10.30
-                                </div>
-                                <div className="w-1/4 flex justify-center items-center">
-                                    Konsultasi
-                                </div>
-                                <div className="w-1/4 flex justify-center items-center">
-                                    Raihan Abdillah
-                                </div>
-                                <div className="w-1/4 flex justify-center items-center">
-                                    <div className="bg-[#D72729] text-center py-2 rounded-md w-32 text-white font-semibold text-sm">
-                                        Dibatalkan
-                                    </div>
-                                </div>
-                            </div>
-                            {/*  */}
+                        <div className="w-full overflow-y-scroll flex flex-col flex-grow display_scroll shadow-inner pt-4">
+                            {appointments &&
+                                appointments.map((appointment, index) => {
+                                    // Membuat objek Date baru dengan waktu yang diberikan
+                                    let time = new Date(
+                                        `1970-01-01T${appointment.time}Z`
+                                    );
 
-                            <div className="w-full flex">
-                                <div className="w-1/4 flex justify-center items-center">
-                                    10.00 - 10.30
-                                </div>
-                                <div className="w-1/4 flex justify-center items-center">
-                                    Konsultasi
-                                </div>
-                                <div className="w-1/4 flex justify-center items-center">
-                                    Raihan Abdillah
-                                </div>
-                                <div className="w-1/4 flex justify-center items-center">
-                                    <div className="bg-[#1BB357] text-center py-2 rounded-md w-32 text-white font-semibold text-sm">
-                                        Selesai
-                                    </div>
-                                </div>
-                            </div>
-                            {Array.from({ length: 5 }, (_, i) => (
-                                <div className="w-full flex">
-                                    <div className="w-1/4 flex justify-center items-center">
-                                        10.00 - 10.30
-                                    </div>
-                                    <div className="w-1/4 flex justify-center items-center">
-                                        Konsultasi
-                                    </div>
-                                    <div className="w-1/4 flex justify-center items-center">
-                                        Raihan Abdillah
-                                    </div>
-                                    <div className="w-1/4 flex justify-center items-center">
-                                        <div className="bg-[#E8BA5F] text-center py-2 rounded-md w-32 text-white font-semibold text-sm">
-                                            Berlangsung
+                                    // Menambahkan 30 menit ke waktu tersebut
+                                    time.setMinutes(time.getMinutes() + 30);
+
+                                    // Mendapatkan jam dan menit yang telah diubah
+                                    let hours = time.getUTCHours();
+                                    let minutes = time.getUTCMinutes();
+
+                                    // Format jam dan menit menjadi string dengan format HH:MM:SS
+                                    let timeLimit = `${hours
+                                        .toString()
+                                        .padStart(2, "0")}:${minutes
+                                        .toString()
+                                        .padStart(2, "0")}:00`;
+
+                                    return (
+                                        <div className={`w-full flex border-b py-2 ${index % 2 == 0 ? "bg-customWhite" : "bg-white"} `}>
+                                            <div className="w-1/4 flex justify-center items-center">
+                                                {index + 1}
+                                            </div>
+                                            <div className="w-1/4 flex justify-center items-center">
+                                                {appointment.time} - {timeLimit}
+                                            </div>
+                                            <div className="w-1/4 flex justify-center items-center">
+                                                {appointment.treatment.name}
+                                            </div>
+                                            <div className="w-1/4 flex justify-center items-center">
+                                                {appointment.name}
+                                            </div>
+                                            <div className="w-1/4 flex justify-center items-center">
+                                                <div
+                                                    className={`bg-[#D72729] ${
+                                                        appointment.status ==
+                                                        "Selesai"
+                                                            ? "bg-customGreen"
+                                                            : appointment.status ==
+                                                              "Dibatalkan"
+                                                            ? "bg-customRed"
+                                                            : appointment.status ==
+                                                              "Menunggu"
+                                                            ? "bg-customYellow"
+                                                            : "bg-ForestGreen"
+                                                    } text-center py-2 rounded-md w-32 text-white font-semibold text-sm`}
+                                                >
+                                                    {appointment.status}
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                            ))}
+                                    );
+                                })}
                         </div>
                     </div>
                 </div>

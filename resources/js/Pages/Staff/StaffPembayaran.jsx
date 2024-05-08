@@ -69,83 +69,81 @@ const StaffPembayaran = () => {
 
                     <InputText
                         type="search"
-                        className="border-none rounded-md shadow-md h-12 w-64"
+                        className="border-none rounded-md shadow-md h-12 w-64 focus:ring-ForestGreen"
                         onInput={(e) => setGlobalFilter(e.target.value)}
                         placeholder="Search"
                     />
                     <FaMagnifyingGlass className="absolute right-4" />
                 </div>
-
-                <DataTable
-                    value={payment.filter((row) =>
-                        isDateInRange(row["Tanggal"])
-                    )} // Filter rows based on date range
-                    globalFilter={globalFilter}
-                    tableStyle={{ minWidth: "50rem" }}
-                    removableSort
-                    paginator
-                    rows={rows}
-                    paginatorTemplate="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
-                    currentPageReportTemplate="{first} to {last} of {totalRecords}"
-
-                    className="bg-white p-4 rounded-md shadow-inner shadow-black/40"
-                    paginatorClassName="py-4 flex gap-4"
-                >
-                    <Column
-                        sortable
-                        body={(rowData, rowMeta) => rowMeta.rowIndex + 1}
-                        header="No"
-                        className="text-lg py-2 font-semibold text-center"
-                    ></Column>
-                    <Column
-                        className="py-3 border-b"
-                        sortable
-                        field="Nama Pasien"
-                        header="Nama Pasien"
-                    ></Column>
-                    <Column
-                        className="py-3 border-b"
-                        sortable
-                        field="Tanggal"
-                        header="Tanggal"
-                    ></Column>
-                    <Column
-                        className="py-3 border-b"
-                        sortable
-                        field="Nomor Pembayaran"
-                        header="Nomor Pembayaran"
-                    ></Column>
-                    <Column
-                        className="py-3 border-b"
-                        sortable
-                        field="Total"
-                        header="Total"
-                    ></Column>
-                    <Column
-                        className="py-3 border-b"
-                        sortable
-                        field="Metode Pembayaran"
-                        header="Metode Pembayaran"
-                    ></Column>
-                    <Column
-                        className="py-3 border-b"
-                        sortable
-                        field="Status Pembayaran"
-                        header="Status Pembayaran"
-                        body={(rowData) => (
-                            <span
-                                className={`text-customWhite w-40 py-1 rounded-md flex items-center justify-center font-semibold
+                    <DataTable
+                        value={payment.filter((row) =>
+                            isDateInRange(row["Tanggal"])
+                        )} // Filter rows based on date range
+                        globalFilter={globalFilter}
+                        tableStyle={{ minWidth: "50rem" }}
+                        removableSort
+                        paginator
+                        rows={rows}
+                        paginatorTemplate="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
+                        currentPageReportTemplate="{first} to {last} of {totalRecords}"
+                        className="bg-white p-4 rounded-md shadow-inner shadow-black/40"
+                        paginatorClassName="py-4 flex gap-4"
+                    >
+                        <Column
+                            sortable
+                            body={(rowData, rowMeta) => rowMeta.rowIndex + 1}
+                            header="No"
+                            className="text-lg py-2 font-semibold text-center"
+                        ></Column>
+                        <Column
+                            className="py-3 border-b"
+                            sortable
+                            field="Nama Pasien"
+                            header="Nama Pasien"
+                        ></Column>
+                        <Column
+                            className="py-3 border-b"
+                            sortable
+                            field="Tanggal"
+                            header="Tanggal"
+                        ></Column>
+                        <Column
+                            className="py-3 border-b"
+                            sortable
+                            field="Nomor Pembayaran"
+                            header="No. Pembayaran"
+                        ></Column>
+                        <Column
+                            className="py-3 border-b"
+                            sortable
+                            field="Total"
+                            header="Total"
+                        ></Column>
+                        <Column
+                            className="py-3 border-b"
+                            sortable
+                            field="Metode Pembayaran"
+                            header="Metode Pembayaran"
+                        ></Column>
+                        <Column
+                            className="py-3 border-b"
+                            sortable
+                            field="Status Pembayaran"
+                            header="Status Pembayaran"
+                            body={(rowData) => (
+                                <span
+                                    className={`text-customWhite w-40 py-1 rounded-md flex items-center justify-center font-semibold
                                 ${
                                     rowData["Status Pembayaran"] === "Lunas"
                                         ? "bg-customGreen"
                                         : "bg-customRed"
                                 }`}
-                            >
-                                {rowData["Status Pembayaran"]}
-                            </span>
-                        )}
-                    ></Column>
-                </DataTable>
+                                >
+                                    {rowData["Status Pembayaran"]}
+                                </span>
+                            )}
+                        ></Column>
+                    </DataTable>
             </div>
         </div>
     );
