@@ -31,7 +31,7 @@ const StaffDashboard = () => {
             <div className="w-3/4 flex flex-col gap-16 max-w-[1300px]">
                 <div className="flex flex-col text-center ">
                     <h1 className="font-semibold text-4xl text-ForestGreen">
-                        Selamat Datang
+                        Dashboard Staff
                     </h1>
                     <p className="text-lg text-slate-600 font-medium">
                         Ada Perlu apa hari ini?

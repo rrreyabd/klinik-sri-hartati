@@ -12,9 +12,7 @@ import { ToastAction } from "@radix-ui/react-toast";
 
 export default function Main({ auth, patient, status, error }) {
     const { toast } = useToast();
-
-    console.log(patient)
-
+    
     useEffect(() => {
         if (status) {
             toast({

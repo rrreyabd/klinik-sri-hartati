@@ -6,7 +6,7 @@ import {
     SelectValue,
 } from "@/Components/ui/select";
 
-const LayananForm = ({ setData, data }) => {
+const LayananForm = ({ setData, data, contentClassName }) => {
     return (
         <div className="flex flex-col py-8 space-y-4">
             <div className="flex flex-col space-y-2">
@@ -15,10 +15,10 @@ const LayananForm = ({ setData, data }) => {
                     onValueChange={(value) => setData("perawatan", value)}
                     value={data.perawatan}
                 >
-                    <SelectTrigger className="w-full bg-customWhite border-2 border-ForestGreen shadow-sm h-12 font-semibold">
+                    <SelectTrigger className="w-full bg-transparent border-2 border-ForestGreen shadow-sm h-12 font-semibold">
                         <SelectValue placeholder="Pilih Perawatan" />
                     </SelectTrigger>
-                    <SelectContent className="bg-customWhite border-2 border-ForestGreen">
+                    <SelectContent className={`bg-customWhite border-2 border-ForestGreen ${contentClassName} `}>
                         <SelectItem
                             value="1"
                             className="hover:brightness-95 transition-all font-semibold"
@@ -47,7 +47,7 @@ const LayananForm = ({ setData, data }) => {
                     onValueChange={(value) => setData("dokter", value)}
                     value={data.dokter}
                 >
-                    <SelectTrigger className="w-full bg-customWhite border-2 border-ForestGreen shadow-sm h-12 font-semibold">
+                    <SelectTrigger className="w-full bg-transparent border-2 border-ForestGreen shadow-sm h-12 font-semibold">
                         <SelectValue placeholder="Pilih Dokter" />
                     </SelectTrigger>
                     <SelectContent className="bg-customWhite border-2 border-ForestGreen">

@@ -5,13 +5,11 @@ import {
     SheetTitle,
     SheetTrigger,
 } from "@/Components/ui/sheet";
-import { GiHamburgerMenu } from "react-icons/gi";
 import { Link, usePage } from "@inertiajs/react";
 import { BiHomeAlt2 } from "react-icons/bi";
 import { MdAddToPhotos } from "react-icons/md";
 import { LuCalendarClock } from "react-icons/lu";
 import { TiDocumentAdd } from "react-icons/ti";
-import { PiUserListFill } from "react-icons/pi";
 import { FaRegCreditCard } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
 
@@ -21,7 +19,23 @@ const StaffSheet = () => {
     return (
         <Sheet>
             <SheetTrigger className="p-2 bg-white rounded-md shadow-md">
-                <GiHamburgerMenu className="text-2xl" />
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-menu-2"
+                >
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M4 6l16 0" />
+                    <path d="M4 12l16 0" />
+                    <path d="M4 18l16 0" />
+                </svg>
             </SheetTrigger>
             <SheetContent
                 side="left"
@@ -49,7 +63,7 @@ const StaffSheet = () => {
                             <BiHomeAlt2 className="text-2xl" />
                             <p className="font-medium">Dashboard</p>
                         </Link>
-                        <Link
+                        {/* <Link
                             href="/staff/antrian"
                             className={`w-full py-2 rounded-md flex gap-4 transition-all hover:text-customWhite px-4 ${
                                 url == "/staff/antrian"
@@ -59,7 +73,7 @@ const StaffSheet = () => {
                         >
                             <MdAddToPhotos className="text-2xl" />
                             <p className="font-medium">Antrian</p>
-                        </Link>
+                        </Link> */}
                         <Link
                             href="/staff/janji-temu"
                             className={`w-full py-2 rounded-md flex gap-4 transition-all px-4 ${
