@@ -27,8 +27,6 @@ const getWeekDates = () => {
 const StaffAntrian = ({ appointments }) => {
     const today = new Date().toDateString();
 
-    console.log(appointments);
-
     const [date, setDate] = useState(new Date());
     const [sampleDate, setSampleDate] = useState([]);
 
@@ -36,7 +34,15 @@ const StaffAntrian = ({ appointments }) => {
         setSampleDate(getWeekDates());
     }, []);
 
-    console.log(date);
+    //
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+
+    const formattedDate = `${year}-${month}-${day}`;
+
+    console.log("Date: " + formattedDate);
+    //
 
     return (
         <div className="min-h-screen w-full bg-customWhite flex justify-center">
@@ -155,9 +161,6 @@ const StaffAntrian = ({ appointments }) => {
                     <div className="bg-white rounded-xl shadow-md h-96 w-full p-6 flex flex-col">
                         <div className="w-full flex">
                             <div className="text-center font-semibold w-1/4">
-                                #
-                            </div>
-                            <div className="text-center font-semibold w-1/4">
                                 Timeline
                             </div>
                             <div className="text-center font-semibold w-1/4">
@@ -176,37 +179,45 @@ const StaffAntrian = ({ appointments }) => {
                         <div className="w-full overflow-y-scroll flex flex-col flex-grow display_scroll shadow-inner pt-4">
                             {appointments &&
                                 appointments.map((appointment, index) => {
-                                    // Membuat objek Date baru dengan waktu yang diberikan
                                     let time = new Date(
                                         `1970-01-01T${appointment.time}Z`
                                     );
 
-                                    // Menambahkan 30 menit ke waktu tersebut
                                     time.setMinutes(time.getMinutes() + 30);
 
-                                    // Mendapatkan jam dan menit yang telah diubah
                                     let hours = time.getUTCHours();
                                     let minutes = time.getUTCMinutes();
 
-                                    // Format jam dan menit menjadi string dengan format HH:MM:SS
                                     let timeLimit = `${hours
                                         .toString()
                                         .padStart(2, "0")}:${minutes
                                         .toString()
                                         .padStart(2, "0")}:00`;
 
-                                    return (
-                                        <div className={`w-full flex border-b py-2 ${index % 2 == 0 ? "bg-customWhite" : "bg-white"} `}>
+                                    console.log(
+                                        "Appointment: " + appointment.date
+                                    );
+
+                                    return appointment.date == formattedDate ? (
+                                        <div
+                                            className={`w-full flex border-b py-2`}
+                                        >
                                             <div className="w-1/4 flex justify-center items-center">
-                                                {index + 1}
-                                            </div>
-                                            <div className="w-1/4 flex justify-center items-center">
-                                                {appointment.time} - {timeLimit}
+                                                <p className="w-11">
+                                                    {appointment.time.substring(
+                                                        0,
+                                                        5
+                                                    )}
+                                                </p>
+                                                <p className="mx-2">-</p>
+                                                <p className="w-11">
+                                                    {timeLimit.substring(0, 5)}
+                                                </p>
                                             </div>
                                             <div className="w-1/4 flex justify-center items-center">
                                                 {appointment.treatment.name}
                                             </div>
-                                            <div className="w-1/4 flex justify-center items-center">
+                                            <div className="w-1/4 flex  items-center">
                                                 {appointment.name}
                                             </div>
                                             <div className="w-1/4 flex justify-center items-center">
@@ -228,7 +239,7 @@ const StaffAntrian = ({ appointments }) => {
                                                 </div>
                                             </div>
                                         </div>
-                                    );
+                                    ) : null;
                                 })}
                         </div>
                     </div>
