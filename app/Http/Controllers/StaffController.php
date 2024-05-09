@@ -22,7 +22,8 @@ class StaffController extends Controller
     }
     public function janjiTemuIndex()
     {
-        $appointments = Appointment::with(['treatment', 'user'])->get();
+        $appointments = Appointment::with(['treatment', 'user'])->orderBy('time', 'asc')->get();
+
         return Inertia::render('Staff/StaffJanjiTemu', [
             'appointments' => $appointments
         ]);
