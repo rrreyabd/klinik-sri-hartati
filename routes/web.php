@@ -47,19 +47,24 @@ Route::middleware('auth')->group(function () {
     // Janji Temu
     Route::get('/janji-temu', [JanjiTemuController::class, 'index'])->name('janjiTemu.index');
     Route::post('/janjitemu', [JanjiTemuController::class, 'store'])->name('janjitemu');
-
+    
     // Antrian Online
     Route::get('/antrian', [AntrianController::class, 'index'])->name('antrian.index');
-
+    
     // Tagihan
     Route::get('/tagihan', [TagihanController::class, 'index'])->name('tagihan.index');
-
-
-
+    
+    
+    
     // Staff
     Route::get('/staff', [StaffController::class, 'index'])->name('staff.index');
+    
     Route::get('/staff/antrian', [StaffController::class, 'antrianIndex'])->name('staff.antrian.index');
+    
     Route::get('/staff/janji-temu', [StaffController::class, 'janjiTemuIndex'])->name('staff.janji.temu.index');
+    Route::get('/staff/janji-temu/daftar', [StaffController::class, 'daftarJanjiTemuIndex'])->name('staff.daftar.janji.temu.index');
+    Route::post('/staff/janji-temu/store', [StaffController::class, 'store'])->name('staff.janji-temu.store');
+    
     Route::get('/staff/pembayaran', [StaffController::class, 'pembayaranIndex'])->name('pembayaran.temu.index');
 });
 
