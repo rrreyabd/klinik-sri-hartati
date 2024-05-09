@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AntrianController;
+use App\Http\Controllers\DokterController;
 use App\Http\Controllers\JanjiTemuController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StaffController;
@@ -66,6 +67,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/staff/janji-temu/store', [StaffController::class, 'store'])->name('staff.janji-temu.store');
     
     Route::get('/staff/pembayaran', [StaffController::class, 'pembayaranIndex'])->name('pembayaran.temu.index');
+
+
+
+    // Dokter
+    Route::get('/dokter', [DokterController::class, 'index'])->name('dokter.index');
 });
 
 require __DIR__ . '/auth.php';
