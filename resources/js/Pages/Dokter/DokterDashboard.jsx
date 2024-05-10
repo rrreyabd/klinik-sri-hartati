@@ -1,8 +1,9 @@
 import { Head, Link } from "@inertiajs/react";
 import { TbLogout } from "react-icons/tb";
 import React, { useEffect, useState } from "react";
+import DokterNav from "./DokterNav";
 
-const DokterDashboard = ({ auth, patient }) => {
+const DokterDashboard = ({ auth, appointments }) => {
     const [currentDate, setCurrentDate] = useState(new Date());
 
     useEffect(() => {
@@ -51,35 +52,15 @@ const DokterDashboard = ({ auth, patient }) => {
     return (
         <div className="bg-customWhite min-h-screen flex items-center flex-col">
             <Head title="Dokter" />
-            <header className="bg-white shadow-md h-20 w-full flex justify-center">
-                <nav className="w-3/4 flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                        <img src="/assets/logo.png" alt="Logo" width={36} />
-                        <p className="font-semibold text-lg">
-                            Klinik Sri Hartati
-                        </p>
-                    </div>
-
-                    <div className="flex gap-4 items-center">
-                        <p className="font-semibold">{auth.user.name}</p>
-                        <Link
-                            href="/logout"
-                            method="post"
-                            as="button"
-                            className="text-xl text-customRed bg-red-200 p-2 rounded-full hover:bg-red-300 transition-all duration-200 ease-in-out"
-                        >
-                            <TbLogout />
-                        </Link>
-                    </div>
-                </nav>
-            </header>
-
+            <DokterNav auth={auth} />
             <main className="flex flex-col gap-8 mt-8 w-3/4">
                 <div className="grid grid-cols-3 gap-8">
                     {/* STATUS */}
-                    <div className="h-44 bg-white shadow-md rounded-md p-4 flex flex-col">
+                    <div className="h-44 bg-white shadow-md rounded-xl p-4 flex flex-col">
                         <div className="flex gap-6 h-1/6 items-center">
-                            <p className="text-xl font-semibold">Janji Temu</p>
+                            <p className="text-xl font-semibold pl-2">
+                                Janji Temu
+                            </p>
 
                             <div className="flex gap-2 items-center">
                                 <div className="h-3 w-3 rounded-full bg-customGreen"></div>
@@ -97,12 +78,12 @@ const DokterDashboard = ({ auth, patient }) => {
                         </div>
 
                         <div className="flex justify-center items-center h-5/6">
-                          CHARTJS HERE
+                            CHARTJS HERE
                         </div>
                     </div>
 
                     {/* JENIS KELAMIN */}
-                    <div className="h-44 bg-white shadow-md rounded-md p-4 text-center">
+                    <div className="h-44 bg-white shadow-md rounded-xl p-4 text-center">
                         <p className="text-xl font-semibold h-1/6">
                             Jenis Kelamin
                         </p>
@@ -120,7 +101,7 @@ const DokterDashboard = ({ auth, patient }) => {
                                 <div className="flex gap-2 items-center">
                                     <div className="h-3 w-3 rounded-full bg-[#d72729]"></div>
                                     <p className="font-semibold text-sm text-[#d72729]">
-                                        Perempuan
+                                        Laki-laki
                                     </p>
                                 </div>
                             </div>
@@ -128,7 +109,7 @@ const DokterDashboard = ({ auth, patient }) => {
                     </div>
 
                     {/* WAKTU */}
-                    <div className="h-44 bg-white shadow-md rounded-md p-4 flex flex-col items-center gap-4 justify-center">
+                    <div className="h-44 bg-white shadow-md rounded-xl p-4 flex flex-col items-center gap-4 justify-center">
                         <div className="flex gap-4 items-center">
                             <div className="bg-ForestGreen text-white flex flex-col items-center p-2 rounded-lg w-[72px]">
                                 <p className="font-medium">Jam</p>
@@ -159,8 +140,32 @@ const DokterDashboard = ({ auth, patient }) => {
                     </div>
                 </div>
 
-                <div className="w-full h-[55vh] bg-white rounded-md shadow-md p-4">
-                <p className="text-xl font-semibold">Janji Temu Hari Ini</p>
+                <div className="w-full h-[55vh] bg-white rounded-xl shadow-md p-6 flex flex-col">
+                    <div className="flex justify-between items-center">
+                        <p className="text-xl font-semibold">
+                            Janji Temu Hari Ini
+                        </p>
+
+                        <div className="mt-4 flex items-center gap-2 justify-end">
+                            <div className="h-3 w-3 bg-ForestGreen rounded-full"></div>
+                            <p className="text-sm font-medium">
+                                Sedang Berlangsung
+                            </p>
+                        </div>
+                    </div>
+                    {/* DATATABLE */}
+                    <DataTableDokter
+                        c1="w-[60px] text-center"
+                        c2="w-[120px]"
+                        c3="w-[310px]"
+                        c4="w-[180px]"
+                        c5="w-[200px] text-center"
+                        c6="w-[150px]"
+                        appointments={appointments}
+                        hours={hours}
+                        minutes={minutes}
+                        seconds={seconds}
+                    />
                 </div>
             </main>
         </div>
@@ -168,3 +173,117 @@ const DokterDashboard = ({ auth, patient }) => {
 };
 
 export default DokterDashboard;
+
+const DataTableDokter = ({
+    c1,
+    c2,
+    c3,
+    c4,
+    c5,
+    c6,
+    appointments,
+    trClassName,
+    hours,
+    minutes,
+    seconds,
+}) => {
+    return (
+        <>
+            <table className="w-full divide-y divide-gray-200 mt-4">
+                <thead className="bg-customWhite/20 border-b border-gray-200">
+                    <tr>
+                        <th
+                            className={`py-3 px-1 text-left text-sm font-semibold text-ForestGreen uppercase tracking-wider ${c1} `}
+                        >
+                            No
+                        </th>
+                        <th
+                            className={`py-3 px-1 text-left text-sm font-semibold text-ForestGreen uppercase tracking-wider ${c2} `}
+                        >
+                            Jadwal
+                        </th>
+                        <th
+                            className={`py-3 px-1 text-left text-sm font-semibold text-ForestGreen uppercase tracking-wider ${c3} `}
+                        >
+                            Nama Pasien
+                        </th>
+                        <th
+                            className={`py-3 px-1 text-left text-sm font-semibold text-ForestGreen uppercase tracking-wider ${c4} `}
+                        >
+                            Layanan
+                        </th>
+                        <th
+                            className={`py-3 px-1 text-left text-sm font-semibold text-ForestGreen uppercase tracking-wider ${c5} `}
+                        >
+                            Jenis Kelamin
+                        </th>
+                        <th
+                            className={`py-3 px-1 text-left text-sm font-semibold text-ForestGreen uppercase tracking-wider ${c6} `}
+                        >
+                            Rekam Medis
+                        </th>
+                    </tr>
+                </thead>
+            </table>
+            <div className="min-h-72 overflow-y-scroll overflow-x-auto w-full display_scroll">
+                <table className="w-full">
+                    <tbody className="divide-y divide-gray-200">
+                        {appointments &&
+                            appointments.map((appointment, i) => {
+                                const time = new Date(
+                                    `1970-01-01T${appointment.time}Z`
+                                );
+                                time.setMinutes(time.getMinutes() + 30);
+                                const timeLimit = time
+                                    .toISOString()
+                                    .substr(11, 5);
+
+                                const realTime =
+                                    hours + ":" + minutes + ":" + seconds;
+
+                                return (
+                                    <tr
+                                        className={
+                                            realTime.substring(0, 5) >
+                                                appointment.time.substring(
+                                                    0,
+                                                    5
+                                                ) &&
+                                            realTime.substring(0, 5) <
+                                                timeLimit.substring(0, 5)
+                                                ? "bg-ForestGreen text-white"
+                                                : ""
+                                        }
+                                    >
+                                        <td className={`py-4 px-1 ${c1} `}>
+                                            {i + 1}
+                                        </td>
+                                        <td className={`py-4 px-1 ${c2} `}>
+                                            {appointment.time.substring(0, 5)} -{" "}
+                                            {timeLimit.substring(0, 5)}
+                                        </td>
+                                        <td className={`py-4 px-1 ${c3} `}>
+                                            {appointment.name}
+                                        </td>
+                                        <td className={`py-4 px-1 ${c4} `}>
+                                            {appointment.treatment.name}
+                                        </td>
+                                        <td className={`py-4 px-1 ${c5} `}>
+                                            {appointment.gender}
+                                        </td>
+                                        <td
+                                            className={`py-4 px-1 text-sm font-medium upper underline text-ForestGreen ${c6} `}
+                                        >
+                                            <Link href={route("dokter.edit")}>
+                                                Lihat Rekam Medis
+                                            </Link>
+                                        </td>
+                                    </tr>
+                                );
+                            })}
+                    </tbody>
+                </table>
+            </div>
+        </>
+    );
+};
