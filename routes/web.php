@@ -72,6 +72,7 @@ Route::middleware('auth')->group(function () {
 
     // Dokter
     Route::get('/dokter', [DokterController::class, 'index'])->name('dokter.index');
+    Route::get('/dokter/rekam/medis', [DokterController::class, 'edit'])->name('dokter.edit');
 });
 
 require __DIR__ . '/auth.php';

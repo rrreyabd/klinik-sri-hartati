@@ -1,5 +1,4 @@
 import Input from "../Input";
-import { useEffect, useState } from "react";
 import {
     Select,
     SelectContent,
