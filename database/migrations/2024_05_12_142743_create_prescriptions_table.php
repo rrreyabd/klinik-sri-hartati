@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('prescriptions', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedBigInteger('medical_records_id');
+            $table->unsignedBigInteger('medical_record_id');
             $table->string('medicine');
             $table->string('dose');
             $table->string('amount');
             $table->string('notes')->nullable();
             $table->timestamps();
 
-            $table->foreign('medical_records_id')->references('id')->on('medical_records')->onDelete('cascade');
+            $table->foreign('medical_record_id')->references('id')->on('medical_records')->onDelete('cascade');
         });
     }
 

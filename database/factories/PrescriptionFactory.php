@@ -20,7 +20,7 @@ class PrescriptionFactory extends Factory
         $recordsCount = MedicalRecord::count();
 
         return [
-            'medical_records_id' => $this->faker->numberBetween(1, $recordsCount),
+            'medical_record_id' => $this->faker->numberBetween(1, $recordsCount),
             'medicine' => $this->faker->word,
             'dose' => $this->faker->randomElement(['1 butir', '2 butir', '1 sendok teh']),
             'amount' => $this->faker->randomElement(['1x sehari', '2x sehari', '3x sehari', 'Seperlunya']),

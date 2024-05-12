@@ -228,7 +228,7 @@ export const DataTableDokter = ({
                 </thead>
             </table>
             {data.length > 1 ? (
-                <div className="min-h-72 overflow-y-scroll overflow-x-auto w-full display_scroll">
+                <div className="min-h-72 overflow-y-auto overflow-x-auto w-full display_scroll">
                     <table className="w-full">
                         <tbody className="divide-y divide-gray-200">
                             {data &&
@@ -246,6 +246,7 @@ export const DataTableDokter = ({
 
                                     return (
                                         <tr
+                                            key={i}
                                             className={
                                                 realTime.substring(0, 5) >=
                                                     appointment.time.substring(
