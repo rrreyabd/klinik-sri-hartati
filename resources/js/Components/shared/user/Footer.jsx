@@ -28,19 +28,19 @@ const Footer = () => {
                 </div>
 
                 <div className="flex flex-col space-y-4 w-full sm:w-48">
-                    <div className="flex space-x-2 items-center">
+                    <div className="flex space-x-4 items-center">
                         <FaLocationDot />
                         <p>At 123 Avenue Ltd, Indonesia</p>
                     </div>
 
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-center space-x-4">
                         <FaPhoneAlt />
                         <p>08121212121212</p>
                     </div>
 
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-center space-x-4">
                         <FaClock />
-                        <p>08.00 - 23.00</p>
+                        <p>08.00 - 22.00</p>
                     </div>
                 </div>
             </div>

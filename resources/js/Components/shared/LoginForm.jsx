@@ -92,7 +92,7 @@ const LoginForm = ({ status, canResetPassword }) => {
             </div>
 
             <PrimaryButton className="w-80 h-12" disabled={processing}>
-                Masuk
+                { processing ? 'Memproses' : 'Masuk' }
             </PrimaryButton>
 
         </form>

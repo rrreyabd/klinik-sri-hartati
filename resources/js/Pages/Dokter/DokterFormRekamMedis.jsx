@@ -39,7 +39,7 @@ const DokterFormRekamMedis = ({ auth }) => {
                 </div>
 
                 <div className="flex flex-col gap-2">
-                    <p className="font-bold uppercase text-black/50">
+                    <p className="font-semibold uppercase text-black/50">
                         Data Diri Pasien
                     </p>
                     <hr className="border" />
@@ -161,7 +161,7 @@ const DokterFormRekamMedis = ({ auth }) => {
                     </div>
 
                     <div className="flex flex-col gap-2 mt-16">
-                        <p className="font-bold uppercase text-black/50">
+                        <p className="font-semibold uppercase text-black/50">
                             Resep Obat
                         </p>
                         <hr className="border" />

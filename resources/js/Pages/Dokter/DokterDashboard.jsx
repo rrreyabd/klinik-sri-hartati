@@ -153,7 +153,9 @@ const DokterDashboard = ({ auth, appointments }) => {
                             </p>
                         </div>
                     </div>
+
                     {/* DATATABLE */}
+
                     <DataTableDokter
                         c1="w-[60px] text-center"
                         c2="w-[120px]"
@@ -161,7 +163,7 @@ const DokterDashboard = ({ auth, appointments }) => {
                         c4="w-[180px]"
                         c5="w-[200px] text-center"
                         c6="w-[150px]"
-                        appointments={appointments}
+                        data={appointments}
                         hours={hours}
                         minutes={minutes}
                         seconds={seconds}
@@ -174,14 +176,14 @@ const DokterDashboard = ({ auth, appointments }) => {
 
 export default DokterDashboard;
 
-const DataTableDokter = ({
+export const DataTableDokter = ({
     c1,
     c2,
     c3,
     c4,
     c5,
     c6,
-    appointments,
+    data,
     trClassName,
     hours,
     minutes,
@@ -225,65 +227,96 @@ const DataTableDokter = ({
                     </tr>
                 </thead>
             </table>
-            <div className="min-h-72 overflow-y-scroll overflow-x-auto w-full display_scroll">
-                <table className="w-full">
-                    <tbody className="divide-y divide-gray-200">
-                        {appointments &&
-                            appointments.map((appointment, i) => {
-                                const time = new Date(
-                                    `1970-01-01T${appointment.time}Z`
-                                );
-                                time.setMinutes(time.getMinutes() + 30);
-                                const timeLimit = time
-                                    .toISOString()
-                                    .substr(11, 5);
+            {data.length > 1 ? (
+                <div className="min-h-72 overflow-y-scroll overflow-x-auto w-full display_scroll">
+                    <table className="w-full">
+                        <tbody className="divide-y divide-gray-200">
+                            {data &&
+                                data.map((appointment, i) => {
+                                    const time = new Date(
+                                        `1970-01-01T${appointment.time}Z`
+                                    );
+                                    time.setMinutes(time.getMinutes() + 30);
+                                    const timeLimit = time
+                                        .toISOString()
+                                        .substr(11, 5);
 
-                                const realTime =
-                                    hours + ":" + minutes + ":" + seconds;
+                                    const realTime =
+                                        hours + ":" + minutes + ":" + seconds;
 
-                                return (
-                                    <tr
-                                        className={
-                                            realTime.substring(0, 5) >
-                                                appointment.time.substring(
+                                    return (
+                                        <tr
+                                            className={
+                                                realTime.substring(0, 5) >=
+                                                    appointment.time.substring(
+                                                        0,
+                                                        5
+                                                    ) &&
+                                                realTime.substring(0, 5) <
+                                                    timeLimit.substring(0, 5)
+                                                    ? "bg-ForestGreen text-white"
+                                                    : ""
+                                            }
+                                        >
+                                            <td className={`py-4 px-1 ${c1} `}>
+                                                {i + 1}
+                                            </td>
+                                            <td className={`py-4 px-1 ${c2} `}>
+                                                {appointment.time.substring(
                                                     0,
                                                     5
-                                                ) &&
-                                            realTime.substring(0, 5) <
-                                                timeLimit.substring(0, 5)
-                                                ? "bg-ForestGreen text-white"
-                                                : ""
-                                        }
-                                    >
-                                        <td className={`py-4 px-1 ${c1} `}>
-                                            {i + 1}
-                                        </td>
-                                        <td className={`py-4 px-1 ${c2} `}>
-                                            {appointment.time.substring(0, 5)} -{" "}
-                                            {timeLimit.substring(0, 5)}
-                                        </td>
-                                        <td className={`py-4 px-1 ${c3} `}>
-                                            {appointment.name}
-                                        </td>
-                                        <td className={`py-4 px-1 ${c4} `}>
-                                            {appointment.treatment.name}
-                                        </td>
-                                        <td className={`py-4 px-1 ${c5} `}>
-                                            {appointment.gender}
-                                        </td>
-                                        <td
-                                            className={`py-4 px-1 text-sm font-medium upper underline text-ForestGreen ${c6} `}
-                                        >
-                                            <Link href={route("dokter.edit")}>
-                                                Lihat Rekam Medis
-                                            </Link>
-                                        </td>
-                                    </tr>
-                                );
-                            })}
-                    </tbody>
-                </table>
-            </div>
+                                                )}{" "}
+                                                - {timeLimit.substring(0, 5)}
+                                            </td>
+                                            <td className={`py-4 px-1 ${c3} `}>
+                                                {appointment.name}
+                                            </td>
+                                            <td className={`py-4 px-1 ${c4} `}>
+                                                {appointment.treatment.name}
+                                            </td>
+                                            <td className={`py-4 px-1 ${c5} `}>
+                                                {appointment.gender}
+                                            </td>
+                                            <td
+                                                className={`py-4 px-1 text-sm font-medium upper underline ${
+                                                    realTime.substring(0, 5) >=
+                                                        appointment.time.substring(
+                                                            0,
+                                                            5
+                                                        ) &&
+                                                    realTime.substring(0, 5) <
+                                                        timeLimit.substring(
+                                                            0,
+                                                            5
+                                                        )
+                                                        ? "text-white"
+                                                        : "text-ForestGreen"
+                                                } ${c6} `}
+                                            >
+                                                <Link
+                                                    href={route(
+                                                        "dokter.pasien",
+                                                        {
+                                                            id: appointment.user_id,
+                                                        }
+                                                    )}
+                                                >
+                                                    Lihat Rekam Medis
+                                                </Link>
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
+                        </tbody>
+                    </table>
+                </div>
+            ) : (
+                <div className="flex flex-grow justify-center items-center">
+                    <h3 className="text-3xl font-medium text-gray-500">
+                        Tidak ada janji temu hari ini
+                    </h3>
+                </div>
+            )}
         </>
     );
 };
