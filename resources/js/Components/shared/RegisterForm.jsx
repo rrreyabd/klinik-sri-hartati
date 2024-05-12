@@ -28,11 +28,11 @@ const RegisterForm = () => {
     };
 
     const [passwordHidden, setPasswordHidden] = useState(true);
-    
+
     const handlePaste = (e) => {
         e.preventDefault();
-        const text = e.clipboardData.getData('text/plain');
-        inputRef.current.value = '';
+        const text = e.clipboardData.getData("text/plain");
+        inputRef.current.value = "";
     };
 
     return (
@@ -117,19 +117,23 @@ const RegisterForm = () => {
                         autoComplete="new-password"
                         Icon={FaLock}
                         placeholder="Konfirmasi Kata Sandi"
-                        onChange={(e) => setData('password_confirmation', e.target.value)}
+                        onChange={(e) =>
+                            setData("password_confirmation", e.target.value)
+                        }
                         required
                     />
                 </div>
 
                 <div className="w-80">
-                    <InputError message={errors.password_confirmation} className="mt-2" />
+                    <InputError
+                        message={errors.password_confirmation}
+                        className="mt-2"
+                    />
                 </div>
             </div>
-            
 
             <PrimaryButton className="w-80 h-12" disabled={processing}>
-                Daftar
+                {processing ? "Memproses" : "Daftar"}
             </PrimaryButton>
         </form>
     );

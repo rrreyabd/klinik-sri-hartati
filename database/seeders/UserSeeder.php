@@ -62,18 +62,6 @@ class UserSeeder extends Seeder
             }
         }
 
-        $faker = Faker::create();
-        
-        foreach (range(1, 10) as $index) {
-            User::create([
-                'name' => $faker->name,
-                'email' => $faker->email,
-                'role' => $faker->randomElement(['user']),
-                'password' => Hash::make('password'),
-                'email_verified_at' => now(),
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-        }
+        User::factory(80)->create();
     }
 }
