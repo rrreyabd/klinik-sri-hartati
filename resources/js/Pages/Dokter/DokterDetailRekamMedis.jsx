@@ -1,13 +1,13 @@
-import { Head, Link } from "@inertiajs/react";
-import DokterNav from "./DokterNav";
 import { ArrowLeft } from "lucide-react";
+import DokterNav from "./DokterNav";
+import { Head } from "@inertiajs/react";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
 
-const DokterDataDiriPasien = ({ data, patient, auth, rekam_medis }) => {
+const DokterDetailRekamMedis = ({ auth, rekam_medis, reseps }) => {
     const handleGoBack = () => {
         window.history.back();
-    }
+    };
 
     return (
         <div className="bg-customWhite min-h-screen flex items-center flex-col">
@@ -27,48 +27,10 @@ const DokterDataDiriPasien = ({ data, patient, auth, rekam_medis }) => {
                     </button>
 
                     <h1 className="text-3xl text-ForestGreen font-semibold">
-                        Data Pasien
+                        Rekam Medis
                     </h1>
 
                     <div className="w-[124px]"></div>
-                </div>
-
-                <div className="flex flex-col gap-2 mt-4">
-                    <p className="font-semibold uppercase text-black/50">
-                        Data Diri Pasien
-                    </p>
-                    <hr className="border" />
-                </div>
-
-                <div className="flex flex-col gap-4">
-                    <div className="flex font-semibold">
-                        <p className="w-36">Nama Pasien</p>
-                        <p className="px-4">:</p>
-                        <p>{data.name}</p>
-                    </div>
-                    <div className="flex font-semibold">
-                        <p className="w-36">Jenis Kelamin</p>
-                        <p className="px-4">:</p>
-                        <p>{patient.gender}</p>
-                    </div>
-                    <div className="flex font-semibold">
-                        <p className="w-36">Tanggal Lahir</p>
-                        <p className="px-4">:</p>
-                        <p>
-                            {format(
-                                new Date(patient.birthdate),
-                                "dd MMMM yyyy",
-                                {
-                                    locale: id,
-                                }
-                            )}
-                        </p>
-                    </div>
-                    <div className="flex font-semibold">
-                        <p className="w-36">Golongan Darah</p>
-                        <p className="px-4">:</p>
-                        <p>{patient.blood_type}</p>
-                    </div>
                 </div>
 
                 <div className="flex flex-col gap-2 mt-4">
@@ -77,22 +39,73 @@ const DokterDataDiriPasien = ({ data, patient, auth, rekam_medis }) => {
                     </p>
                     <hr className="border" />
                 </div>
-                <RekamMedisDataTable
-                    data={rekam_medis}
-                    c1="w-2/12"
-                    c2="w-3/12"
-                    c3="w-5/12"
-                    c4="w-2/12"
-                />
+
+                <div className="flex flex-col gap-4">
+                    <div className="flex font-semibold">
+                        <p className="w-52">Tanggal Pemeriksaan</p>
+                        <p className="px-4">:</p>
+                        <p>
+                            {format(
+                                new Date(rekam_medis.date),
+                                "dd MMMM yyyy",
+                                {
+                                    locale: id,
+                                }
+                            )}
+                        </p>
+                    </div>
+                    <div className="flex font-semibold">
+                        <p className="w-52">Diperiksa Oleh</p>
+                        <p className="px-4">:</p>
+                        <p>{rekam_medis.doctor.name}</p>
+                    </div>
+                    <div className="flex font-semibold">
+                        <p className="w-52">Berat Badan</p>
+                        <p className="px-4">:</p>
+                        <p>{rekam_medis.weight} KG</p>
+                    </div>
+                    <div className="flex font-semibold">
+                        <p className="w-52">Tekanan Darah</p>
+                        <p className="px-4">:</p>
+                        <p>{rekam_medis.blood_pressure} </p>
+                    </div>
+                    <div className="flex font-semibold">
+                        <p className="w-52">Gejala</p>
+                        <p className="px-4">:</p>
+                        <p>{rekam_medis.indication} </p>
+                    </div>
+                    <div className="flex font-semibold">
+                        <p className="w-52">Diagnosis</p>
+                        <p className="px-4">:</p>
+                        <p>{rekam_medis.diagnosis}</p>
+                    </div>
+                </div>
+
+                <div className="flex flex-col gap-4 mt-4 pb-16">
+                    <div className="flex flex-col gap-2 mt-4">
+                        <p className="font-semibold uppercase text-black/50">
+                            Resep Obat
+                        </p>
+                        <hr className="border" />
+                    </div>
+
+                    <ResepDataTable
+                        data={reseps}
+                        c1="w-1/12"
+                        c2="w-2/12"
+                        c3="w-2/12"
+                        c4="w-2/12"
+                        c5="w-5/12"
+                    />
+                </div>
             </main>
         </div>
     );
 };
 
-export default DokterDataDiriPasien;
+export default DokterDetailRekamMedis;
 
-const RekamMedisDataTable = ({ c1, c2, c3, c4, data }) => {
-    console.log(data)
+const ResepDataTable = ({ c1, c2, c3, c4, c5, data }) => {
     return (
         <div className="flex flex-col">
             <table className="w-full divide-y divide-gray-200 mt-4">
@@ -101,22 +114,27 @@ const RekamMedisDataTable = ({ c1, c2, c3, c4, data }) => {
                         <th
                             className={`py-3 px-1 text-sm font-semibold uppercase tracking-wider text-center rounded-l-xl ${c1} `}
                         >
-                            Tanggal
+                            No
                         </th>
                         <th
                             className={`py-3 px-1 text-sm font-semibold uppercase tracking-wider text-center ${c2} `}
                         >
-                            Dokter
+                            Nama Obat
                         </th>
                         <th
                             className={`py-3 px-1 text-sm font-semibold uppercase tracking-wider text-center ${c3} `}
                         >
-                            Diagnosa
+                            Dosis
                         </th>
                         <th
-                            className={`py-3 px-1 text-sm font-semibold uppercase tracking-wider text-center rounded-r-xl ${c4} `}
+                            className={`py-3 px-1 text-sm font-semibold uppercase tracking-wider text-center ${c4} `}
                         >
-                            Detail
+                            Banyak
+                        </th>
+                        <th
+                            className={`py-3 px-1 text-sm font-semibold uppercase tracking-wider text-center rounded-r-xl ${c5} `}
+                        >
+                            Catatan
                         </th>
                     </tr>
                 </thead>
@@ -129,35 +147,22 @@ const RekamMedisDataTable = ({ c1, c2, c3, c4, data }) => {
                                 data.map((data, i) => {
                                     return (
                                         <tr key={i}>
-                                            <td className={`py-4 px-4 text-center ${c1} `}>
-                                                {format(
-                                                    new Date(data.date),
-                                                    "dd MMMM yyyy",
-                                                    {
-                                                        locale: id,
-                                                    }
-                                                )}
+                                            <td
+                                                className={`py-4 px-4 text-center ${c1} `}
+                                            >
+                                                {i + 1}
                                             </td>
                                             <td className={`py-4 px-4 ${c2} `}>
-                                                {data.doctor.name}
+                                                {data.medicine}
                                             </td>
                                             <td className={`py-4 px-4 ${c3} `}>
-                                                {data.diagnosis}
+                                                {data.dose}
                                             </td>
-                                            <td
-                                                className={`py-4 px-4 text-center font-medium upper underline ${c4} `}
-                                            >
-                                                <Link
-                                                    href={route(
-                                                        "dokter.rekam-medis.detail",
-                                                        {
-                                                            id: data.id,
-                                                        }
-                                                    )}
-                                                    className="text-ForestGreen hover:brightness-125 transition-all"
-                                                >
-                                                    Detail
-                                                </Link>
+                                            <td className={`py-4 px-4 ${c4} `}>
+                                                {data.amount}
+                                            </td>
+                                            <td className={`py-4 px-4 ${c5} `}>
+                                                {data.notes}
                                             </td>
                                         </tr>
                                     );
@@ -167,8 +172,8 @@ const RekamMedisDataTable = ({ c1, c2, c3, c4, data }) => {
                 </div>
             ) : (
                 <div className="flex flex-grow justify-center items-center py-16">
-                    <h3 className="text-2xl font-medium text-gray-500">
-                        Belum ada Rekam Medis
+                    <h3 className="text-3xl font-medium text-gray-500">
+                        Resep obat tidak terdata
                     </h3>
                 </div>
             )}

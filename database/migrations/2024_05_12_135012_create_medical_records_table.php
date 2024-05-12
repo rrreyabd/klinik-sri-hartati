@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('doctor_id');
             $table->unsignedBigInteger('treatment_id');
+            $table->date('date');
             $table->string('name');
             $table->decimal('weight', 5, 2);
             $table->string('blood_pressure');
