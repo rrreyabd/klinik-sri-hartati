@@ -70,9 +70,14 @@ const DokterDetailRekamMedis = ({ auth, rekam_medis, reseps }) => {
                         <p>{rekam_medis.blood_pressure} </p>
                     </div>
                     <div className="flex font-semibold">
+                        <p className="w-52">Alergi</p>
+                        <p className="px-4">:</p>
+                        <p>{rekam_medis.allergy} </p>
+                    </div>
+                    <div className="flex font-semibold">
                         <p className="w-52">Gejala</p>
                         <p className="px-4">:</p>
-                        <p>{rekam_medis.indication} </p>
+                        <p>{rekam_medis.complaint} </p>
                     </div>
                     <div className="flex font-semibold">
                         <p className="w-52">Diagnosis</p>
@@ -112,7 +117,7 @@ const ResepDataTable = ({ c1, c2, c3, c4, c5, data }) => {
                 <thead className="bg-ForestGreen text-white">
                     <tr>
                         <th
-                            className={`py-3 px-1 text-sm font-semibold uppercase tracking-wider text-center rounded-l-xl ${c1} `}
+                            className={`py-3 px-1 text-sm font-semibold uppercase tracking-wider text-center rounded-l-md ${c1} `}
                         >
                             No
                         </th>
@@ -132,7 +137,7 @@ const ResepDataTable = ({ c1, c2, c3, c4, c5, data }) => {
                             Banyak
                         </th>
                         <th
-                            className={`py-3 px-1 text-sm font-semibold uppercase tracking-wider text-center rounded-r-xl ${c5} `}
+                            className={`py-3 px-1 text-sm font-semibold uppercase tracking-wider text-center rounded-r-md ${c5} `}
                         >
                             Catatan
                         </th>

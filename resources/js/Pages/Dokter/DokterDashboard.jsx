@@ -1,5 +1,4 @@
 import { Head, Link } from "@inertiajs/react";
-import { TbLogout } from "react-icons/tb";
 import React, { useEffect, useState } from "react";
 import DokterNav from "./DokterNav";
 

@@ -1,4 +1,4 @@
-import { Head, Link } from "@inertiajs/react";
+import { Head, Link, useForm } from "@inertiajs/react";
 import DokterNav from "./DokterNav";
 import { ArrowLeft } from "lucide-react";
 import { useState } from "react";
@@ -12,8 +12,71 @@ import {
     SelectValue,
 } from "@/Components/ui/select";
 
-const DokterFormRekamMedis = ({ auth }) => {
+const DokterFormRekamMedis = ({ auth, patientData }) => {
     const [row, setRow] = useState(5);
+
+    const handleGoBack = () => {
+        window.history.back();
+    };
+
+    const getAge = (birthDate) => {
+        const dob = new Date(birthDate);
+        const today = new Date();
+        let age = today.getFullYear() - dob.getFullYear();
+        const m = today.getMonth() - dob.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
+            age--;
+        }
+        return age;
+    };
+
+    const { data, setData, post, processing, errors } = useForm({
+        user_id: patientData.user_id,
+        doctor_id: auth.user.id,
+        date: new Date().toISOString().split("T")[0],
+        name: patientData.user.name,
+        weight: "",
+        blood_pressure: "",
+        allergy: "",
+        complaint: "",
+        diagnosis: "",
+    });
+
+    console.log(
+        "user_id: " +
+            data.user_id +
+            "\n" +
+            "doctor_id: " +
+            data.doctor_id +
+            "\n" +
+            "date: " +
+            data.date +
+            "\n" +
+            "name: " +
+            data.name +
+            "\n" +
+            "weight: " +
+            data.weight +
+            "\n" +
+            "blood_pressure: " +
+            data.blood_pressure +
+            "\n" +
+            "allergy: " +
+            data.allergy +
+            "\n" +
+            "complaint: " +
+            data.complaint +
+            "\n" +
+            "diagnosis: " +
+            data.diagnosis +
+            "\n"
+    );
+
+    const submit = (e) => {
+        e.preventDefault()
+
+        post(route('dokter.store'))
+    }
 
     return (
         <div className="bg-customWhite min-h-screen flex items-center flex-col">
@@ -21,15 +84,15 @@ const DokterFormRekamMedis = ({ auth }) => {
             <DokterNav auth={auth} />
             <main className="flex flex-col gap-8 my-8 w-3/4 bg-white p-8 shadow-md rounded-md">
                 <div className="flex justify-between">
-                    <Link
-                        href={route("dokter.index")}
+                    <button
+                        onClick={handleGoBack}
                         className="flex gap-4 items-center"
                     >
                         <div className="bg-gray-300 h-8 w-8 rounded-full flex items-center justify-center">
                             <ArrowLeft />
                         </div>
                         <p className="text-lg font-semibold">Kembali</p>
-                    </Link>
+                    </button>
 
                     <h1 className="text-3xl text-ForestGreen font-semibold">
                         Form Rekam Medis
@@ -45,36 +108,25 @@ const DokterFormRekamMedis = ({ auth }) => {
                     <hr className="border" />
                 </div>
 
-                <form>
+                <form onSubmit={submit}>
                     <div className="grid grid-cols-2 gap-x-20 gap-y-8">
                         <div className="flex flex-col gap-2">
                             <p className="font-semibold">Nama Pasien</p>
                             <input
                                 type="text"
                                 name=""
-                                id=""
-                                className="border-2 border-gray-400 rounded-md placeholder:font-semibold focus:border-ForestGreen focus:ring-ForestGreen"
+                                value={patientData.user.name}
+                                onChange={(e) =>
+                                    setData("name", e.target.value)
+                                }
+                                disabled={true}
+                                className="border-2 border-gray-400 rounded-md placeholder:font-medium focus:border-ForestGreen focus:ring-ForestGreen cursor-not-allowed"
                                 placeholder="Nama Lengkap Pasien"
                             />
                         </div>
                         <div className="flex flex-col gap-2">
-                            <p className="font-semibold">Umur</p>
-                            <input
-                                type="text"
-                                name=""
-                                id=""
-                                className="border-2 border-gray-400 rounded-md placeholder:font-semibold focus:border-ForestGreen focus:ring-ForestGreen"
-                                placeholder="Umur Pasien"
-                            />
-                        </div>
-                        <div className="flex flex-col gap-2">
                             <p className="font-semibold">Jenis Kelamin</p>
-                            <Select
-                                // onValueChange={(value) =>
-                                //     setData("jenis_kelamin", value)
-                                // }
-                                // value={data.jenis_kelamin}
-                            >
+                            <Select disabled value={patientData.gender}>
                                 <SelectTrigger
                                     className={`w-full border-2 border-gray-400 shadow-sm h-12 font-semibold text-base `}
                                 >
@@ -105,27 +157,55 @@ const DokterFormRekamMedis = ({ auth }) => {
                                 type="date"
                                 name=""
                                 id=""
-                                className="border-2 border-gray-400 rounded-md placeholder:font-semibold focus:border-ForestGreen focus:ring-ForestGreen"
+                                value={new Date().toISOString().split("T")[0]}
+                                onChange={(e) =>
+                                    setData("date", e.target.value)
+                                }
+                                className="border-2 border-gray-400 rounded-md placeholder:font-medium focus:border-ForestGreen focus:ring-ForestGreen"
                             />
                         </div>
                         <div className="flex flex-col gap-2">
-                            <p className="font-semibold">Berat Badan</p>
+                            <p className="font-semibold">Berat Badan (KG)</p>
                             <input
-                                type="text"
+                                type="number"
                                 name=""
                                 id=""
-                                className="border-2 border-gray-400 rounded-md placeholder:font-semibold focus:border-ForestGreen focus:ring-ForestGreen"
+                                value={data.weight}
+                                onChange={(e) =>
+                                    setData("weight", e.target.value)
+                                }
+                                className="border-2 border-gray-400 rounded-md placeholder:font-medium focus:border-ForestGreen focus:ring-ForestGreen"
                                 placeholder="Berat Badan Pasien"
                             />
                         </div>
                         <div className="flex flex-col gap-2">
-                            <p className="font-semibold">Tekanan Darah</p>
+                            <p className="font-semibold">
+                                Tekanan Darah (Sistolik/Diastolik)
+                            </p>
                             <input
                                 type="text"
                                 name=""
                                 id=""
-                                className="border-2 border-gray-400 rounded-md placeholder:font-semibold focus:border-ForestGreen focus:ring-ForestGreen"
+                                value={data.blood_pressure}
+                                onChange={(e) =>
+                                    setData("blood_pressure", e.target.value)
+                                }
+                                className="border-2 border-gray-400 rounded-md placeholder:font-medium focus:border-ForestGreen focus:ring-ForestGreen"
                                 placeholder="Tekanan Darah Pasien"
+                            />
+                        </div>
+                        <div className="flex flex-col gap-2">
+                            <p className="font-semibold">Alergi</p>
+                            <input
+                                type="text"
+                                name=""
+                                id=""
+                                value={data.allergy}
+                                onChange={(e) =>
+                                    setData("allergy", e.target.value)
+                                }
+                                className="border-2 border-gray-400 rounded-md placeholder:font-medium focus:border-ForestGreen focus:ring-ForestGreen"
+                                placeholder="Alergi Pasien"
                             />
                         </div>
                         <div className="flex flex-col gap-2">
@@ -134,18 +214,12 @@ const DokterFormRekamMedis = ({ auth }) => {
                                 name=""
                                 id=""
                                 rows="5"
-                                className="border-2 border-gray-400 rounded-md placeholder:font-semibold focus:border-ForestGreen focus:ring-ForestGreen"
+                                value={data.complaint}
+                                onChange={(e) =>
+                                    setData("complaint", e.target.value)
+                                }
+                                className="border-2 border-gray-400 rounded-md placeholder:font-medium focus:border-ForestGreen focus:ring-ForestGreen"
                                 placeholder="Keluhan Pasien"
-                            />
-                        </div>
-                        <div className="flex flex-col gap-2">
-                            <p className="font-semibold">Alergi</p>
-                            <textarea
-                                name=""
-                                id=""
-                                rows="5"
-                                className="border-2 border-gray-400 rounded-md placeholder:font-semibold focus:border-ForestGreen focus:ring-ForestGreen"
-                                placeholder="Alergi Pasien"
                             />
                         </div>
                         <div className="flex flex-col gap-2">
@@ -154,7 +228,11 @@ const DokterFormRekamMedis = ({ auth }) => {
                                 name=""
                                 id=""
                                 rows="5"
-                                className="border-2 border-gray-400 rounded-md placeholder:font-semibold focus:border-ForestGreen focus:ring-ForestGreen"
+                                value={data.diagnosis}
+                                onChange={(e) =>
+                                    setData("diagnosis", e.target.value)
+                                }
+                                className="border-2 border-gray-400 rounded-md placeholder:font-medium focus:border-ForestGreen focus:ring-ForestGreen"
                                 placeholder="Diagnosa Penyakit Pasien"
                             />
                         </div>
@@ -170,19 +248,15 @@ const DokterFormRekamMedis = ({ auth }) => {
                     <table className="w-full mt-8">
                         <thead className="">
                             <tr className="bg-ForestGreen text-white">
-                                <th className="px-3 py-2 font-semibold rounded-l-md">
+                                <th className="py-2 font-semibold rounded-l-md">
                                     No
                                 </th>
-                                <th className="px-3 py-2 font-semibold">
+                                <th className="py-2 font-semibold">
                                     Nama Obat
                                 </th>
-                                <th className="px-3 py-2 font-semibold">
-                                    Dosis
-                                </th>
-                                <th className="px-3 py-2 font-semibold">
-                                    Banyak
-                                </th>
-                                <th className="px-3 py-2 pr-4 font-semibold rounded-r-md">
+                                <th className="py-2 font-semibold">Dosis</th>
+                                <th className="py-2 font-semibold">Banyak</th>
+                                <th className="py-2 pr-4 font-semibold rounded-r-md">
                                     Catatan
                                 </th>
                             </tr>
@@ -191,10 +265,10 @@ const DokterFormRekamMedis = ({ auth }) => {
                         <tbody className="">
                             {Array.from({ length: row }).map((_, index) => (
                                 <tr key={index}>
-                                    <td className="px-3 text-center font-semibold w-[50px]">
+                                    <td className=" text-center font-semibold w-[50px]">
                                         <p>{index + 1}</p>
                                     </td>
-                                    <td className="px-3">
+                                    <td className="px-1 lg:px-2 xl:px-3">
                                         <input
                                             type="text"
                                             name=""
@@ -202,7 +276,7 @@ const DokterFormRekamMedis = ({ auth }) => {
                                             className="border-transparent border-b-2 border-b-gray-400 focus:ring-0 focus:border-transparent focus:border-b-ForestGreen w-[300px]"
                                         />
                                     </td>
-                                    <td className="px-3">
+                                    <td className="px-1 lg:px-2 xl:px-3">
                                         <input
                                             type="text"
                                             name=""
@@ -210,7 +284,7 @@ const DokterFormRekamMedis = ({ auth }) => {
                                             className="border-transparent border-b-2 border-b-gray-400 focus:ring-0 focus:border-transparent focus:border-b-ForestGreen w-[100px]"
                                         />
                                     </td>
-                                    <td className="px-3">
+                                    <td className="px-1 lg:px-2 xl:px-3">
                                         <input
                                             type="text"
                                             name=""
@@ -218,7 +292,7 @@ const DokterFormRekamMedis = ({ auth }) => {
                                             className="border-transparent border-b-2 border-b-gray-400 focus:ring-0 focus:border-transparent focus:border-b-ForestGreen w-[100px]"
                                         />
                                     </td>
-                                    <td className="px-3 pr-6 relative flex items-end">
+                                    <td className=" pr-6 relative flex items-end">
                                         <input
                                             type="text"
                                             name=""
