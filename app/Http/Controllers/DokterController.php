@@ -27,10 +27,41 @@ class DokterController extends Controller
         ]);
     }
 
-    public function edit()
+    public function edit($id)
     {
+        $patientData = Patient::with('user')->find($id);
+    
+        return Inertia::render('Dokter/DokterFormRekamMedis', [
+            'patientData' => $patientData
+        ]);
+    }
 
-        return Inertia::render('Dokter/DokterFormRekamMedis');
+    public function store(Request $request) {
+        $request->validate([
+            'user_id' => 'required',
+            'doctor_id' => 'required',
+            'date' => 'required',
+            'name' => 'required',
+            'weight' => 'required',
+            'blood_pressure' => 'required',
+            'allergy' => 'required',
+            'complaint' => 'required',
+            'diagnosis' => 'required',
+        ]);
+
+        $medicalRecord = MedicalRecord::create([
+            'user_id' => $request->user_id,
+            'doctor_id' => $request->doctor_id,
+            'date' => $request->date,
+            'name' => $request->name,
+            'weight' => $request->weight,
+            'blood_pressure' => $request->blood_pressure,
+            'allergy' => $request->allergy,
+            'complaint' => $request->complaint,
+            'diagnosis' => $request->diagnosis,
+        ]);
+
+        return $this->dataDiriPasien($request->user_id);
     }
 
     public function dataDiriPasien($id)

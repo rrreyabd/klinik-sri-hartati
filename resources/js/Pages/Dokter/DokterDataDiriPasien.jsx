@@ -5,9 +5,17 @@ import { format } from "date-fns";
 import { id } from "date-fns/locale";
 
 const DokterDataDiriPasien = ({ data, patient, auth, rekam_medis }) => {
-    const handleGoBack = () => {
-        window.history.back();
-    }
+
+    const getAge = (birthDate) => {
+        const dob = new Date(birthDate);
+        const today = new Date();
+        let age = today.getFullYear() - dob.getFullYear();
+        const m = today.getMonth() - dob.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
+            age--;
+        }
+        return age;
+    };
 
     return (
         <div className="bg-customWhite min-h-screen flex items-center flex-col">
@@ -16,15 +24,15 @@ const DokterDataDiriPasien = ({ data, patient, auth, rekam_medis }) => {
 
             <main className="flex flex-col gap-8 my-8 w-3/4 bg-white p-8 shadow-md rounded-md">
                 <div className="flex justify-between">
-                    <button
-                        onClick={handleGoBack}
+                    <Link
+                        href="/dokter"
                         className="flex gap-4 items-center"
                     >
                         <div className="bg-gray-300 h-8 w-8 rounded-full flex items-center justify-center">
                             <ArrowLeft />
                         </div>
                         <p className="text-lg font-semibold">Kembali</p>
-                    </button>
+                    </Link>
 
                     <h1 className="text-3xl text-ForestGreen font-semibold">
                         Data Pasien
@@ -45,6 +53,11 @@ const DokterDataDiriPasien = ({ data, patient, auth, rekam_medis }) => {
                         <p className="w-36">Nama Pasien</p>
                         <p className="px-4">:</p>
                         <p>{data.name}</p>
+                    </div>
+                    <div className="flex font-semibold">
+                        <p className="w-36">Umur</p>
+                        <p className="px-4">:</p>
+                        <p>{getAge(patient.birthdate)}</p>
                     </div>
                     <div className="flex font-semibold">
                         <p className="w-36">Jenis Kelamin</p>
@@ -77,6 +90,13 @@ const DokterDataDiriPasien = ({ data, patient, auth, rekam_medis }) => {
                     </p>
                     <hr className="border" />
                 </div>
+
+                <div className="">
+                    <Link href={route("dokter.edit", { id: patient.id })}>
+                        Tambah Rekam Medis
+                    </Link>
+                </div>
+
                 <RekamMedisDataTable
                     data={rekam_medis}
                     c1="w-2/12"
@@ -92,14 +112,13 @@ const DokterDataDiriPasien = ({ data, patient, auth, rekam_medis }) => {
 export default DokterDataDiriPasien;
 
 const RekamMedisDataTable = ({ c1, c2, c3, c4, data }) => {
-    console.log(data)
     return (
         <div className="flex flex-col">
             <table className="w-full divide-y divide-gray-200 mt-4">
                 <thead className="bg-ForestGreen text-white">
                     <tr>
                         <th
-                            className={`py-3 px-1 text-sm font-semibold uppercase tracking-wider text-center rounded-l-xl ${c1} `}
+                            className={`py-3 px-1 text-sm font-semibold uppercase tracking-wider text-cente rounded-l-md ${c1} `}
                         >
                             Tanggal
                         </th>
@@ -114,7 +133,7 @@ const RekamMedisDataTable = ({ c1, c2, c3, c4, data }) => {
                             Diagnosa
                         </th>
                         <th
-                            className={`py-3 px-1 text-sm font-semibold uppercase tracking-wider text-center rounded-r-xl ${c4} `}
+                            className={`py-3 px-1 text-sm font-semibold uppercase tracking-wider text-center rounded-r-md ${c4} `}
                         >
                             Detail
                         </th>
@@ -129,7 +148,9 @@ const RekamMedisDataTable = ({ c1, c2, c3, c4, data }) => {
                                 data.map((data, i) => {
                                     return (
                                         <tr key={i}>
-                                            <td className={`py-4 px-4 text-center ${c1} `}>
+                                            <td
+                                                className={`py-4 px-4 text-center ${c1} `}
+                                            >
                                                 {format(
                                                     new Date(data.date),
                                                     "dd MMMM yyyy",

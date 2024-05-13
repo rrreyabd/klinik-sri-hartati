@@ -18,22 +18,22 @@ const LayananForm = ({ setData, data, contentClassName }) => {
                     <SelectTrigger className="w-full bg-transparent border-2 border-ForestGreen shadow-sm h-12 font-semibold">
                         <SelectValue placeholder="Pilih Perawatan" />
                     </SelectTrigger>
-                    <SelectContent className={`bg-customWhite border-2 border-ForestGreen ${contentClassName} `}>
+                    <SelectContent className={`bg-customWhite border-2  ${contentClassName} `}>
                         <SelectItem
                             value="1"
-                            className="hover:brightness-95 transition-all font-semibold"
+                            className="x transition-all font-semibold cursor-pointer"
                         >
                             Perawatan 1
                         </SelectItem>
                         <SelectItem
                             value="2"
-                            className="hover:brightness-95 transition-all font-semibold"
+                            className="x transition-all font-semibold cursor-pointer"
                         >
                             Perawatan 2
                         </SelectItem>
                         <SelectItem
                             value="3"
-                            className="hover:brightness-95 transition-all font-semibold"
+                            className="x transition-all font-semibold cursor-pointer"
                         >
                             Perawatan 3
                         </SelectItem>
@@ -53,19 +53,19 @@ const LayananForm = ({ setData, data, contentClassName }) => {
                     <SelectContent className="bg-customWhite border-2 border-ForestGreen">
                         <SelectItem
                             value="1"
-                            className="hover:brightness-95 transition-all font-semibold"
+                            className="x transition-all font-semibold cursor-pointer"
                         >
                             Dokter 1
                         </SelectItem>
                         <SelectItem
                             value="2"
-                            className="hover:brightness-95 transition-all font-semibold"
+                            className="x transition-all font-semibold cursor-pointer"
                         >
                             Dokter 2
                         </SelectItem>
                         <SelectItem
                             value="3"
-                            className="hover:brightness-95 transition-all font-semibold"
+                            className="x transition-all font-semibold cursor-pointer"
                         >
                             Dokter 3
                         </SelectItem>

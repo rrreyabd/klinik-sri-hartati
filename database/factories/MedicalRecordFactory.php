@@ -23,12 +23,12 @@ class MedicalRecordFactory extends Factory
         return [
             'user_id' => $this->faker->numberBetween(5, $usersCount),
             'doctor_id' => 3,
-            'treatment_id' => $this->faker->numberBetween(1, 3),
             'date' => $this->faker->dateTimeBetween('-14 days', '-3 days')->format('Y-m-d'),
             'name' => $this->faker->name,
             'weight' => $this->faker->randomFloat(2, 50, 150),
             'blood_pressure' => $this->faker->randomElement(['120/80', '130/85', '140/90']),
-            'indication' => $this->faker->sentence,
+            'allergy' => $this->faker->word(),
+            'complaint' => $this->faker->sentence,
             'diagnosis' => $this->faker->sentence,
         ];
     }
