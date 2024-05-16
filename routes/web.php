@@ -28,7 +28,10 @@ Route::get('/', function () {
         'status' => session('status'),
         'error' => session('error'),
     ]);
-})->name('index')->middleware('CheckPatientData');
+})
+->name('index')
+// ->middleware('CheckPatientData')
+;
 
 // Data Diri
 Route::get('/data/input', [ProfileController::class, 'addDataDiri'])->name('data.edit')->middleware('auth');
