@@ -1,6 +1,7 @@
 import UpdateProfileInformation from "@/Components/shared/user/Profil/UpdateProfileInformationForm";
 import ProfileLayout from "@/Layouts/ProfileLayout";
 import { Head } from "@inertiajs/react";
+
 const Profile = ({ auth }) => {
     return (
         <>

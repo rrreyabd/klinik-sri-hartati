@@ -7,6 +7,13 @@ import { FaLocationDot } from "react-icons/fa6";
 import { MdBloodtype } from "react-icons/md";
 import { FaCalendarAlt } from "react-icons/fa";
 import PrimaryButton from "@/Components/PrimaryButton";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/Components/ui/select";
 
 const DataDiri = ({ auth }) => {
     const { data, setData, patch, errors, processing, recentlySuccessful } =
@@ -51,7 +58,7 @@ const DataDiri = ({ auth }) => {
 
                                 <TextInput
                                     id="nomor_telepon"
-                                    className="mt-1 block w-2/3 h-12 bg-customWhite"
+                                    className="mt-1 block w-2/3 h-12 bg-customWhite border-black/30"
                                     value={data.nomor_telepon}
                                     type="number"
                                     onChange={(e) =>
@@ -71,9 +78,53 @@ const DataDiri = ({ auth }) => {
                                     className="font-semibold"
                                 />
 
-                                <TextInput
+                                <Select
+                                    onValueChange={(value) =>
+                                        setData("golongan_darah", value)
+                                    }
+                                    value={data.golongan_darah}
+                                >
+                                    <SelectTrigger className="w-2/3 bg-transparent border-2 border-black/30 shadow-sm h-12 font-semibold rounded-xl mt-1 relative">
+                                        <div className="flex items-center pl-16">
+                                            <div className="absolute left-0 w-16 h-3/5 flex justify-center items-center border-r-2 border-customBlack">
+                                                <MdBloodtype className="w-4 h-4" />
+                                            </div>
+                                            <SelectValue placeholder="Golongan Darah" />
+                                        </div>
+                                    </SelectTrigger>
+                                    <SelectContent
+                                        className={`bg-customWhite border-2`}
+                                    >
+                                        <SelectItem
+                                            value="A"
+                                            className="x transition-all font-semibold cursor-pointer"
+                                        >
+                                            A
+                                        </SelectItem>
+                                        <SelectItem
+                                            value="B"
+                                            className="x transition-all font-semibold cursor-pointer"
+                                        >
+                                            B
+                                        </SelectItem>
+                                        <SelectItem
+                                            value="AB"
+                                            className="x transition-all font-semibold cursor-pointer"
+                                        >
+                                            AB
+                                        </SelectItem>
+                                        <SelectItem
+                                            value="O"
+                                            className="x transition-all font-semibold cursor-pointer"
+                                        >
+                                            O
+                                        </SelectItem>
+                                    </SelectContent>
+                                </Select>
+
+                                {/* <TextInput
                                     id="golongan_darah"
-                                    className="mt-1 block w-2/3 h-12 bg-customWhite"
+                                    className="mt-1 block w-2/3 h-12 bg-customWhite border-black/30"
                                     value={data.golongan_darah}
                                     onChange={(e) =>
                                         setData(
@@ -85,7 +136,7 @@ const DataDiri = ({ auth }) => {
                                     isFocused
                                     Icon={MdBloodtype}
                                     autoComplete="golongan_darah"
-                                />
+                                /> */}
                             </div>
 
                             <div className="">
@@ -97,7 +148,7 @@ const DataDiri = ({ auth }) => {
 
                                 <TextInput
                                     id="alamat"
-                                    className="mt-1 block w-2/3 h-12 bg-customWhite"
+                                    className="mt-1 block w-2/3 h-12 bg-customWhite border-black/30"
                                     value={data.alamat}
                                     onChange={(e) =>
                                         setData("alamat", e.target.value)
@@ -118,7 +169,7 @@ const DataDiri = ({ auth }) => {
 
                                 <TextInput
                                     id="tanggal_lahir"
-                                    className="mt-1 block w-2/3 h-12 bg-customWhite"
+                                    className="mt-1 block w-2/3 h-12 bg-customWhite border-black/30"
                                     value={data.tanggal_lahir}
                                     type="date"
                                     onChange={(e) =>

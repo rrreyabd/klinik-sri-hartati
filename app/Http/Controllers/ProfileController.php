@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Patient;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -65,6 +66,12 @@ class ProfileController extends Controller
     {
         return Inertia::render('User/UbahKataSandi');
     }
+
+    public function addDataDiri()
+    {
+        return Inertia::render('User/DataInputForm');
+    }
+
     public function editDataDiri()
     {
         return Inertia::render('User/DataDiri');
