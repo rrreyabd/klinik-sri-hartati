@@ -75,7 +75,7 @@ export default function UpdatePasswordForm({ className = "" }) {
                         }
                         type="password"
                         Icon={FaKey}
-                        className="mt-1 block w-2/3 h-12 bg-customWhite"
+                        className="mt-1 block w-2/3 h-12 bg-customWhite border-black/30"
                         autoComplete="current-password"
                     />
 
@@ -101,7 +101,7 @@ export default function UpdatePasswordForm({ className = "" }) {
                         onChange={(e) => setData("password", e.target.value)}
                         type="password"
                         Icon={FaUnlockAlt}
-                        className="mt-1 block w-2/3 h-12 bg-customWhite"
+                        className="mt-1 block w-2/3 h-12 bg-customWhite border-black/30"
                         autoComplete="new-password"
                     />
 
@@ -128,7 +128,7 @@ export default function UpdatePasswordForm({ className = "" }) {
                         }
                         type="password"
                         Icon={FaUnlockAlt}
-                        className="mt-1 block w-2/3 h-12 bg-customWhite"
+                        className="mt-1 block w-2/3 h-12 bg-customWhite border-black/30"
                         autoComplete="new-password"
                     />
 

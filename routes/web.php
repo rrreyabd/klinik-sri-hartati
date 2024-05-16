@@ -28,13 +28,12 @@ Route::get('/', function () {
         'status' => session('status'),
         'error' => session('error'),
     ]);
-})->name('index');
+})->name('index')->middleware('CheckPatientData');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Data Diri
+Route::get('/data/input', [ProfileController::class, 'addDataDiri'])->name('data.edit')->middleware('auth');
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'CheckPatientData'])->group(function () {
     // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

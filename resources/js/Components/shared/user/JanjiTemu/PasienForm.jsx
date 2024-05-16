@@ -70,8 +70,8 @@ const PasienForm = ({ setData, data, auth, patient, isChecked, setIsChecked }) =
                     value={isChecked ? patient.gender : data.jenis_kelamin}
                     disabled={isChecked ? true : false}
                 >
-                    <SelectTrigger className={`w-full border-2 border-gray-400 shadow-sm h-12 text-base ${
-                        isChecked ? " cursor-not-allowed bg-[#b5b5b5]" : "bg-customWhite"
+                    <SelectTrigger className={`w-full text-black border-2 shadow-sm h-12 text-base ${
+                        isChecked ? " cursor-not-allowed bg-black/50 border-black" : "bg-customWhite border-black/30"
                     }  `}>
                         <SelectValue
                             placeholder="Jenis Kelamin"
