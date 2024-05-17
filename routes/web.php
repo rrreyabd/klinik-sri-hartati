@@ -30,11 +30,13 @@ Route::get('/', function () {
     ]);
 })
 ->name('index')
-// ->middleware('CheckPatientData')
+->middleware('CheckPatientData')
 ;
 
 // Data Diri
 Route::get('/data/input', [ProfileController::class, 'addDataDiri'])->name('data.edit')->middleware('auth');
+Route::post('/data/input', [ProfileController::class, 'storeDataDiri'])->name('data.store')->middleware('auth');
+
 
 Route::middleware(['auth'])->group(function () {
     // Profile

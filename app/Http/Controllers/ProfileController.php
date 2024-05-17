@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\Patient;
+use App\Models\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -72,20 +73,69 @@ class ProfileController extends Controller
         return Inertia::render('User/DataInputForm');
     }
 
+    public function storeDataDiri(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required',
+            'birthdate' => 'required',
+            'address'   => 'required',
+            'blood_type'   => 'required',
+            'gender' => 'required',
+            'phone_number' => 'required',
+            'full_name' => 'required',
+        ]);
+
+        try {
+            $patient = Patient::create([
+                'user_id' => $request->user_id,
+                'birthdate' => $request->birthdate,
+                'address'   => $request->address,
+                'blood_type'   => $request->blood_type,
+                'gender' => $request->gender,
+                'phone_number' => $request->phone_number
+            ]);
+
+            if ($request->full_name !== Auth::user()->name) {
+                User::where('id', $request->user_id)->update(['name' => $request->full_name]);
+            }
+
+            return redirect()->route('index');
+        } catch (\Exception $e) {
+            return redirect()->route('data.edit')->with('status', 'Terjadi kesalahan saat menyimpan data. Silahkan coba lagi.');
+        }
+    }
+
+
+
     public function editDataDiri()
     {
-        return Inertia::render('User/DataDiri');
+
+        return Inertia::render('User/DataDiri', [
+            'success' => session('success'),
+            'error' => session('error'),
+        ]);
     }
 
     public function updateDataDiri(Request $request)
     {
         $request->validate([
-            'tanggal_lahir' => 'required',
-            'alamat'   => 'required',
-            'golongan_darah'   => 'required',
-            'nomor_telepon' => 'required',
+            'tanggal_lahir' => 'required|date',
+            'alamat'   => 'required|string',
+            'golongan_darah'   => 'required|string',
+            'nomor_telepon' => 'required|string',
         ]);
 
-        dd($request->all());
+        try {
+            Patient::where('user_id', Auth::user()->id)->update([
+                'birthdate' => $request->tanggal_lahir,
+                'address'   => $request->alamat,
+                'blood_type'   => $request->golongan_darah,
+                'phone_number' => $request->nomor_telepon
+            ]);
+
+            return redirect()->route('datadiri.edit')->with('success', 'Data diri berhasil diperbarui.');
+        } catch (\Exception $e) {
+            return redirect()->route('datadiri.edit')->with('error', 'Terjadi kesalahan saat menyimpan data. Silahkan coba lagi.');
+        }
     }
 }

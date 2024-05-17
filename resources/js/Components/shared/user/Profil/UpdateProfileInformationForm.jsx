@@ -5,7 +5,6 @@ import TextInput from "@/Components/TextInput";
 import { Link, useForm, usePage } from "@inertiajs/react";
 import { Transition } from "@headlessui/react";
 import { FaUser } from "react-icons/fa";
-import { Mail } from "lucide-react";
 import { IoMdMail } from "react-icons/io";
 
 export default function UpdateProfileInformation({

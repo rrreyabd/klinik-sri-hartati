@@ -14,14 +14,16 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/Components/ui/select";
+import { useEffect } from "react";
+import { useState } from "react";
 
-const DataDiri = ({ auth }) => {
+const DataDiri = ({ patient, success, error }) => {
     const { data, setData, patch, errors, processing, recentlySuccessful } =
         useForm({
-            tanggal_lahir: "",
-            alamat: "",
-            golongan_darah: "",
-            nomor_telepon: "",
+            tanggal_lahir: patient.birthdate,
+            alamat: patient.address,
+            golongan_darah: patient.blood_type,
+            nomor_telepon: patient.phone_number,
         });
 
     const submit = (e) => {
@@ -30,6 +32,18 @@ const DataDiri = ({ auth }) => {
         patch(route("datadiri.update"));
     };
 
+    const [success, setSuccess] = useState(null);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        if (success) {
+            setSuccess(success);
+        }
+        if (error) {
+            setError(error);
+        }
+    }, [success, error]);
+    
     return (
         <>
             <Head title="Ubah Data Diri" />
@@ -84,7 +98,7 @@ const DataDiri = ({ auth }) => {
                                     }
                                     value={data.golongan_darah}
                                 >
-                                    <SelectTrigger className="w-2/3 bg-transparent border-2 border-black/30 shadow-sm h-12 font-semibold rounded-xl mt-1 relative">
+                                    <SelectTrigger className="w-2/3 bg-transparent border-2 border-black/70 shadow-sm h-12 font-semibold rounded-xl mt-1 relative">
                                         <div className="flex items-center pl-16">
                                             <div className="absolute left-0 w-16 h-3/5 flex justify-center items-center border-r-2 border-customBlack">
                                                 <MdBloodtype className="w-4 h-4" />
@@ -93,7 +107,7 @@ const DataDiri = ({ auth }) => {
                                         </div>
                                     </SelectTrigger>
                                     <SelectContent
-                                        className={`bg-customWhite border-2`}
+                                        className={`bg-customWhite border-2 border-gray-300`}
                                     >
                                         <SelectItem
                                             value="A"
@@ -121,22 +135,6 @@ const DataDiri = ({ auth }) => {
                                         </SelectItem>
                                     </SelectContent>
                                 </Select>
-
-                                {/* <TextInput
-                                    id="golongan_darah"
-                                    className="mt-1 block w-2/3 h-12 bg-customWhite border-black/30"
-                                    value={data.golongan_darah}
-                                    onChange={(e) =>
-                                        setData(
-                                            "golongan_darah",
-                                            e.target.value
-                                        )
-                                    }
-                                    required
-                                    isFocused
-                                    Icon={MdBloodtype}
-                                    autoComplete="golongan_darah"
-                                /> */}
                             </div>
 
                             <div className="">
