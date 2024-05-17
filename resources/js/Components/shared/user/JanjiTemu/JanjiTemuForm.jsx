@@ -208,7 +208,7 @@ const JanjiTemuForm = ({ auth, patient }) => {
                 ) : (
                     <Link
                         href="/"
-                        className="border border-ForestGreen rounded-full px-10 py-2 text-ForestGreen font-semibold bg-customWhite"
+                        className="border border-red-600 rounded-full px-10 py-2 text-red-600 font-semibold bg-customWhite"
                     >
                         Batal
                     </Link>

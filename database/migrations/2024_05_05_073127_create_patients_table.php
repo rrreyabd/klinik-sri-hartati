@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('patients', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->unique();;
+            $table->unsignedBigInteger('user_id')->unique();
             $table->date('birthdate');
             $table->enum('blood_type', ['A', 'B', 'AB', 'O']);
             $table->enum('gender', ['Laki-laki', 'Perempuan']);
