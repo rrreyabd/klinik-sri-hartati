@@ -196,6 +196,7 @@ const JanjiTemuForm = ({ auth, patient }) => {
                         setData={setData}
                         data={data}
                         selectedDate={data.tanggal}
+                        selectedTime={data.jam}
                         onDateChange={handleDateChange}
                     />
                 )}
