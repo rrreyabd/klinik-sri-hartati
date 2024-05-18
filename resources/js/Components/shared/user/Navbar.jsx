@@ -31,7 +31,7 @@ const Navbar = ({ auth, children }) => {
             <div className="hidden sm:flex gap-4">
                 {auth.user ? (
                     <ProfileDropdown
-                        className="flex items-center gap-4 border-0"
+                        className="flex items-center gap-4 border-0 hover:text-ForestGreen transition-all"
                         auth={auth}
                     >
                         {auth.user.name}

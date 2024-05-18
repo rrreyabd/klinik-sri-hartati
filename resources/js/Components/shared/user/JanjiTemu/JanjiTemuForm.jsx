@@ -5,6 +5,19 @@ import LayananForm from "./LayananForm";
 import WaktuForm from "./WaktuForm";
 import PasienForm from "./PasienForm";
 
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "@/Components/ui/alert-dialog";
+import { BsQuestionCircle } from "react-icons/bs";
+
 const JanjiTemuForm = ({ auth, patient }) => {
     const steps = ["Layanan", "Waktu", "Pasien"];
     const stepsLength = steps.length;
@@ -150,14 +163,18 @@ const JanjiTemuForm = ({ auth, patient }) => {
                     className={`border-2 border-ForestGreen h-10 w-10 rounded-full relative flex justify-center transition-all items-center ${
                         steps[currentStepIndex] == "Pasien"
                             ? "bg-ForestGreen"
-                            : data.nama_lengkap && data.nomor_hp && data.tanggal_lahir
+                            : data.nama_lengkap &&
+                              data.nomor_hp &&
+                              data.tanggal_lahir
                             ? "bg-ForestGreen"
                             : "bg-customWhite"
                     }`}
                 >
                     <FaCheck
                         className={` text-customWhite ${
-                            data.nama_lengkap && data.nomor_hp && data.tanggal_lahir
+                            data.nama_lengkap &&
+                            data.nomor_hp &&
+                            data.tanggal_lahir
                                 ? "opacity-100"
                                 : "opacity-0"
                         } `}
@@ -215,13 +232,45 @@ const JanjiTemuForm = ({ auth, patient }) => {
                 )}
 
                 {currentStepIndex == steps.length - 1 && (
-                    <button
-                        type="submit"
-                        disabled={processing}
-                        className="border border-ForestGreen rounded-full px-10 py-2 text-customWhite font-semibold bg-ForestGreen"
-                    >
-                        {processing ? "Memproses" : "Selesai"}
-                    </button>
+                    <AlertDialog>
+                        <AlertDialogTrigger>
+                            <button
+                                type="button"
+                                className="border border-ForestGreen rounded-full px-10 py-2 text-customWhite font-semibold bg-ForestGreen"
+                            >
+                                Selesai
+                            </button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                            <AlertDialogHeader>
+                                <AlertDialogTitle>
+                                    <div className="flex flex-col items-center gap-4">
+                                        <BsQuestionCircle className="h-16 w-16 text-ForestGreen" />
+                                        <p>Apakah data sudah benar?</p>
+                                    </div>
+                                </AlertDialogTitle>
+                                <AlertDialogDescription className="text-center">
+                                    <p className="pb-4 text-base">
+                                        Pastikan data yang Anda masukkan sudah
+                                        benar. Kamu tidak dapat mengubah data
+                                        setelah menekan tombol "Selesai".
+                                    </p>
+                                </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                                <AlertDialogCancel className="border border-ForestGreen text-ForestGreen hover:text-ForestGreen rounded-full px-10 py-2 font-semibold bg-white hover:bg-customWhite">
+                                    Batal
+                                </AlertDialogCancel>
+                                <AlertDialogAction
+                                    onClick={submit}
+                                    disabled={processing}
+                                    className="border border-ForestGreen rounded-full px-10 py-2 text-white font-semibold bg-ForestGreen hover:brightness-95"
+                                >
+                                    {processing ? "Memproses" : "Selesai"}
+                                </AlertDialogAction>
+                            </AlertDialogFooter>
+                        </AlertDialogContent>
+                    </AlertDialog>
                 )}
                 {currentStepIndex !== steps.length - 1 && (
                     <button
