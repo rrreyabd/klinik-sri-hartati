@@ -2,8 +2,14 @@ import { Calendar } from "@/Components/ui/calendar";
 import { pagi, sore, malam } from "@/lib/data";
 import React, { useState, useEffect } from "react";
 
-const WaktuForm = ({ setData, selectedDate, onDateChange, data }) => {
-    const [time, setTime] = useState("");
+const WaktuForm = ({
+    setData,
+    selectedDate,
+    onDateChange,
+    data,
+    selectedTime,
+}) => {
+    const [time, setTime] = useState(data.jam);
 
     const today = new Date();
     const isDisabled = (day) => day < today;
@@ -17,19 +23,6 @@ const WaktuForm = ({ setData, selectedDate, onDateChange, data }) => {
         setTime(e.target.value);
     };
     // console.log(time)
-
-    useEffect(() => {
-        // Load saved time from local storage when component mounts
-        const savedTime = localStorage.getItem("time");
-        if (savedTime) {
-            setTime(savedTime);
-        }
-    }, []);
-
-    useEffect(() => {
-        // Save time to local storage whenever it changes
-        localStorage.setItem("time", time);
-    }, [time]);
 
     return (
         <div className="flex flex-col md:flex-row gap-8 md:gap-0 py-8">
@@ -62,6 +55,7 @@ const WaktuForm = ({ setData, selectedDate, onDateChange, data }) => {
                                             key={jam.id}
                                             time={time}
                                             label={jam.label}
+                                            data={data}
                                         />
                                     );
                                 })}
@@ -81,6 +75,7 @@ const WaktuForm = ({ setData, selectedDate, onDateChange, data }) => {
                                             key={jam.id}
                                             time={time}
                                             label={jam.label}
+                                            data={data}
                                         />
                                     );
                                 })}
@@ -100,6 +95,7 @@ const WaktuForm = ({ setData, selectedDate, onDateChange, data }) => {
                                             key={jam.id}
                                             time={time}
                                             label={jam.label}
+                                            selectedTime={selectedTime}
                                         />
                                     );
                                 })}
@@ -111,7 +107,14 @@ const WaktuForm = ({ setData, selectedDate, onDateChange, data }) => {
     );
 };
 
-const RadioButton = ({ label, value, key, time, onOptionChange }) => {
+const RadioButton = ({
+    label,
+    value,
+    key,
+    time,
+    onOptionChange,
+    selectedTime,
+}) => {
     // Jam yang tidak tersedia
     const disabled = ["09:00:00", "20:00:00"];
 
@@ -132,8 +135,10 @@ const RadioButton = ({ label, value, key, time, onOptionChange }) => {
             <input
                 type="radio"
                 value={value}
-                checked={time == value}
+                // checked={time == value}
+                checked={selectedTime}
                 onChange={onOptionChange}
+                name="time"
                 disabled={disabled.includes(value)}
                 className="hidden"
             />
