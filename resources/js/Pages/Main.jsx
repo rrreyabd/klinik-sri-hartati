@@ -37,6 +37,7 @@ export default function Main({ auth, patient, status, error }) {
                 description: "Ada masalah saat membuat janji temu. Silahkan coba lagi.",
             });
         }
+        
     }, [status, error]);
 
     return (

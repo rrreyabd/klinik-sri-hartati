@@ -82,4 +82,8 @@ Route::middleware(['auth', 'CheckPatientData'])->group(function () {
     Route::post('/dokter/rekam-medis/tambah', [DokterController::class, 'store'])->name('dokter.store');
 });
 
+Route::fallback(function () {
+    return Inertia::render('Fallback');
+});
+
 require __DIR__ . '/auth.php';
