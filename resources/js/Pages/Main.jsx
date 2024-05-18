@@ -49,28 +49,28 @@ export default function Main({ auth, patient, status, error }) {
                 <div className="px-8 md:px-0 w-full md:w-4/5 max-w-[1300px]">
                     {/* Nav */}
                     <Navbar auth={auth}>
-                        <div className="hidden lg:flex items-center space-x-4 xl:space-x-8 unselectable">
+                        <div className="hidden lg:flex items-center space-x-2 unselectable">
                             <Link
                                 href="#home"
-                                className="text-customBlack hover:text-ForestGreen transition-all underline-custom"
+                                className="text-customBlack hover:bg-[#e2e2e2] px-4 py-2 rounded-full transition-all underline-custom"
                             >
                                 Home
                             </Link>
                             <Link
                                 href="#layanan"
-                                className="text-customBlack hover:text-ForestGreen transition-all underline-custom"
+                                className="text-customBlack hover:bg-[#e2e2e2] px-4 py-2 rounded-full transition-all underline-custom"
                             >
                                 Layanan
                             </Link>
                             <Link
                                 href="#tentang"
-                                className="text-customBlack hover:text-ForestGreen transition-all underline-custom"
+                                className="text-customBlack hover:bg-[#e2e2e2] px-4 py-2 rounded-full transition-all underline-custom"
                             >
                                 Tentang Kami
                             </Link>
                             <Link
                                 href="#kontak"
-                                className="text-customBlack hover:text-ForestGreen transition-all underline-custom"
+                                className="text-customBlack hover:bg-[#e2e2e2] px-4 py-2 rounded-full transition-all underline-custom"
                             >
                                 Kontak
                             </Link>
