@@ -8,6 +8,7 @@ const WaktuForm = ({
     onDateChange,
     data,
     selectedTime,
+    validationErrors,
 }) => {
     const [time, setTime] = useState(data.jam);
 
@@ -22,7 +23,6 @@ const WaktuForm = ({
     const onOptionChange = (e) => {
         setTime(e.target.value);
     };
-    // console.log(time)
 
     return (
         <div className="flex flex-col md:flex-row gap-8 md:gap-0 py-8">
@@ -37,6 +37,11 @@ const WaktuForm = ({
                     onSelect={onDateChange}
                     className="rounded-md shadow-lg"
                 />
+                {!data.tanggal && (
+                    <p className="text-red-500 text-sm">
+                        {validationErrors.tanggal}
+                    </p>
+                )}
             </div>
 
             <div className="flex flex-col items-center space-y-4 md:px-8 w-full md:w-1/2 md:border-l-2 md:border-black/10">
@@ -102,25 +107,22 @@ const WaktuForm = ({
                         </div>
                     </div>
                 </div>
+                {!data.jam && (
+                    <p className="text-red-500 text-sm">
+                        {validationErrors.jam}
+                    </p>
+                )}
             </div>
         </div>
     );
 };
 
-const RadioButton = ({
-    label,
-    value,
-    key,
-    time,
-    onOptionChange,
-    selectedTime,
-}) => {
+const RadioButton = ({ label, value, time, onOptionChange, selectedTime }) => {
     // Jam yang tidak tersedia
     const disabled = ["09:00:00", "20:00:00"];
 
     return (
         <label
-            key={key}
             className={`
           px-2 py-1 w-16 text-center rounded-md hover:brightness-90 transition-all font-medium unselectable
           ${

@@ -12,7 +12,7 @@ const Input = ({ label, placeholder, name, type, id, className, onChange, labelC
                 value={value}
                 id={id}
                 placeholder={placeholder}
-                className={`bg-customWhite rounded-md placeholder:font-medium h-12 ${className} `}
+                className={`bg-customWhite rounded-md placeholder:font-medium h-12 focus:ring-ForestGreen focus:border-ForestGreen ${className} `}
                 onChange={onChange}
             />
         </div>
