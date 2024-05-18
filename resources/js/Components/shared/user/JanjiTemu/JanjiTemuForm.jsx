@@ -130,19 +130,7 @@ const JanjiTemuForm = ({ auth, patient }) => {
             "\n" +
             isChecked
     );
-
-    // Validasi Submit
-
-    // data.user_id;
-    // data.dokter;
-    // data.perawatan;
-    // data.tanggal;
-    // data.jam;
-    // data.nama_lengkap;
-    // data.nomor_hp;
-    // data.jenis_kelamin;
-    // data.tanggal_lahir;
-
+eb
     return (
         <form onSubmit={submit}>
             <div className="flex justify-center items-center w-full pt-12">

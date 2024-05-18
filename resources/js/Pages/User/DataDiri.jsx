@@ -14,8 +14,6 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/Components/ui/select";
-import { useEffect } from "react";
-import { useState } from "react";
 
 const DataDiri = ({ patient, success, error }) => {
     const { data, setData, patch, errors, processing, recentlySuccessful } =
@@ -31,18 +29,6 @@ const DataDiri = ({ patient, success, error }) => {
 
         patch(route("datadiri.update"));
     };
-
-    const [success, setSuccess] = useState(null);
-    const [error, setError] = useState(null);
-
-    useEffect(() => {
-        if (success) {
-            setSuccess(success);
-        }
-        if (error) {
-            setError(error);
-        }
-    }, [success, error]);
     
     return (
         <>
