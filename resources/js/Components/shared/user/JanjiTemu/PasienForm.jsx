@@ -7,30 +7,37 @@ import {
     SelectValue,
 } from "@/Components/ui/select";
 
-const PasienForm = ({ setData, data, auth, patient, isChecked, setIsChecked }) => {
-
+const PasienForm = ({
+    setData,
+    data,
+    auth,
+    patient,
+    isChecked,
+    setIsChecked,
+    validationErrors,
+}) => {
     return (
         <div className="flex flex-col space-y-4 py-8">
-            {/* {!isChecked && (
-                <p className="text-red-600 font-medium">
-                    ⚠️ Fitur riwayat konsultasi tidak akan tersedia bagi pasien
-                    yang mendaftar bukan di akunnya sendiri
-                </p>
-            )} */}
-
-            <Input
-                label="Nama Lengkap"
-                placeholder="Masukkan Nama Lengkap"
-                name="nama_lengkap"
-                type="text"
-                value={isChecked ? auth.user.name : data.nama_lengkap}
-                id=""
-                disabled={isChecked ? true : false}
-                className={`w-full ${
-                    isChecked ? " cursor-not-allowed brightness-75" : ""
-                } `}
-                onChange={(e) => setData("nama_lengkap", e.target.value)}
-            />
+            <div>
+                <Input
+                    label="Nama Lengkap"
+                    placeholder="Masukkan Nama Lengkap"
+                    name="nama_lengkap"
+                    type="text"
+                    value={isChecked ? auth.user.name : data.nama_lengkap}
+                    id=""
+                    disabled={isChecked ? true : false}
+                    className={`w-full ${
+                        isChecked ? " cursor-not-allowed brightness-75" : ""
+                    } `}
+                    onChange={(e) => setData("nama_lengkap", e.target.value)}
+                />
+                {!data.nama_lengkap && (
+                    <p className="text-red-600 text-sm font-medium">
+                        {validationErrors.nama_lengkap}
+                    </p>
+                )}
+            </div>
 
             <div className="flex items-center mb-4">
                 <input
@@ -50,29 +57,41 @@ const PasienForm = ({ setData, data, auth, patient, isChecked, setIsChecked }) =
                 </label>
             </div>
 
-            <Input
-                label="Nomor HP"
-                placeholder="Masukkan Nomor HP"
-                name="nomor_hp"
-                type="number"
-                value={isChecked ? patient.phone_number : data.nomor_hp}
-                id=""
-                disabled={isChecked ? true : false}
-                className={`w-full ${
-                    isChecked ? " cursor-not-allowed brightness-75" : ""
-                } `}
-                onChange={(e) => setData("nomor_hp", e.target.value)}
-            />
-            <div className="">
+            <div>
+                <Input
+                    label="Nomor HP"
+                    placeholder="Masukkan Nomor HP"
+                    name="nomor_hp"
+                    type="number"
+                    value={isChecked ? patient.phone_number : data.nomor_hp}
+                    id=""
+                    disabled={isChecked ? true : false}
+                    className={`w-full ${
+                        isChecked ? " cursor-not-allowed brightness-75" : ""
+                    } `}
+                    onChange={(e) => setData("nomor_hp", e.target.value)}
+                />
+                {!data.nomor_hp && (
+                    <p className="text-red-600 text-sm font-medium">
+                        {validationErrors.nomor_hp}
+                    </p>
+                )}
+            </div>
+
+            <div>
                 <p className="font-semibold">Jenis Kelamin</p>
                 <Select
                     onValueChange={(value) => setData("jenis_kelamin", value)}
                     value={isChecked ? patient.gender : data.jenis_kelamin}
                     disabled={isChecked ? true : false}
                 >
-                    <SelectTrigger className={`w-full text-black border-2 shadow-sm h-12 text-base ${
-                        isChecked ? " cursor-not-allowed bg-black/50 border-black" : "bg-customWhite border-black/30"
-                    }  `}>
+                    <SelectTrigger
+                        className={`w-full text-black border-2 shadow-sm h-12 text-base ${
+                            isChecked
+                                ? " cursor-not-allowed bg-black/50 border-black"
+                                : "bg-customWhite border-black/30"
+                        }  `}
+                    >
                         <SelectValue
                             placeholder="Jenis Kelamin"
                             className="font-light"
@@ -93,9 +112,14 @@ const PasienForm = ({ setData, data, auth, patient, isChecked, setIsChecked }) =
                         </SelectItem>
                     </SelectContent>
                 </Select>
+                {!data.jenis_kelamin && (
+                    <p className="text-red-600 text-sm font-medium">
+                        {validationErrors.jenis_kelamin}
+                    </p>
+                )}
             </div>
 
-            <div className="">
+            <div>
                 <p className="font-semibold">Tanggal Lahir</p>
                 <Input
                     label="Tahun"
@@ -112,8 +136,16 @@ const PasienForm = ({ setData, data, auth, patient, isChecked, setIsChecked }) =
                     className={`w-full ${
                         isChecked ? " cursor-not-allowed brightness-75" : ""
                     } `}
-                    onChange={(e) => setData("tanggal_lahir", e.target.value)}
+                    onChange={(e) => [
+                        setData("tanggal_lahir", e.target.value),
+                        (validationErrors.tanggal_lahir = ""),
+                    ]}
                 />
+                {validationErrors.tanggal_lahir && (
+                    <p className="text-red-600 text-sm font-medium">
+                        {validationErrors.tanggal_lahir}
+                    </p>
+                )}
             </div>
         </div>
     );

@@ -28,11 +28,37 @@ const JanjiTemuForm = ({ auth, patient }) => {
     // Checkbox Pasien Form
     const [isChecked, setIsChecked] = useState(false);
 
+    // Validasi Error State
+    const [validationErrors, setValidationErrors] = useState({});
+
     const handleNext = () => {
         const nextStepIndex = currentStepIndex + 1;
 
-        if (nextStepIndex < stepsLength) {
-            setProgress(steps[nextStepIndex]);
+        // Validasi Data
+        const errors = {};
+        if (progress === "Layanan") {
+            if (!data.dokter) errors.dokter = "Dokter harus diisi.";
+            if (!data.perawatan) errors.perawatan = "Perawatan harus diisi.";
+        } else if (progress === "Waktu") {
+            if (!data.tanggal) errors.tanggal = "Tanggal harus diisi.";
+            if (!data.jam) errors.jam = "Jam harus diisi.";
+        } else if (progress === "Pasien") {
+            if (!data.nama_lengkap)
+                errors.nama_lengkap = "Nama lengkap harus diisi.";
+            if (!data.nomor_hp) errors.nomor_hp = "Nomor HP harus diisi.";
+            if (!data.jenis_kelamin)
+                errors.jenis_kelamin = "Jenis kelamin harus diisi.";
+            if (!data.tanggal_lahir)
+                errors.tanggal_lahir = "Tanggal lahir harus diisi.";
+        }
+
+        if (Object.keys(errors).length > 0) {
+            setValidationErrors(errors);
+        } else {
+            setValidationErrors({});
+            if (nextStepIndex < stepsLength) {
+                setProgress(steps[nextStepIndex]);
+            }
         }
     };
 
@@ -104,6 +130,18 @@ const JanjiTemuForm = ({ auth, patient }) => {
             "\n" +
             isChecked
     );
+
+    // Validasi Submit
+
+    // data.user_id;
+    // data.dokter;
+    // data.perawatan;
+    // data.tanggal;
+    // data.jam;
+    // data.nama_lengkap;
+    // data.nomor_hp;
+    // data.jenis_kelamin;
+    // data.tanggal_lahir;
 
     return (
         <form onSubmit={submit}>
@@ -189,7 +227,11 @@ const JanjiTemuForm = ({ auth, patient }) => {
             <div className="min-h-72 sm:min-h-[450px]">
                 {/* Layanan */}
                 {progress === "Layanan" && (
-                    <LayananForm setData={setData} data={data} />
+                    <LayananForm
+                        setData={setData}
+                        data={data}
+                        validationErrors={validationErrors}
+                    />
                 )}
                 {progress === "Waktu" && (
                     <WaktuForm
@@ -198,6 +240,7 @@ const JanjiTemuForm = ({ auth, patient }) => {
                         selectedDate={data.tanggal}
                         selectedTime={data.jam}
                         onDateChange={handleDateChange}
+                        validationErrors={validationErrors}
                     />
                 )}
 
@@ -209,6 +252,7 @@ const JanjiTemuForm = ({ auth, patient }) => {
                         isChecked={isChecked}
                         setIsChecked={setIsChecked}
                         patient={patient}
+                        validationErrors={validationErrors}
                     />
                 )}
             </div>
@@ -219,14 +263,14 @@ const JanjiTemuForm = ({ auth, patient }) => {
                     <button
                         type="button"
                         onClick={handleBack}
-                        className="border border-ForestGreen rounded-full px-10 py-2 text-ForestGreen font-semibold bg-customWhite"
+                        className="border border-ForestGreen rounded-full px-10 py-2 text-ForestGreen font-semibold bg-customWhite hover:brightness-95 transition-all"
                     >
                         Kembali
                     </button>
                 ) : (
                     <Link
                         href="/"
-                        className="border border-red-600 rounded-full px-10 py-2 text-red-600 font-semibold bg-customWhite"
+                        className="border border-red-600 rounded-full px-10 py-2 text-red-600 font-semibold bg-customWhite hover:brightness-95"
                     >
                         Batal
                     </Link>
@@ -234,23 +278,33 @@ const JanjiTemuForm = ({ auth, patient }) => {
 
                 {currentStepIndex == steps.length - 1 && (
                     <AlertDialog>
-                        <AlertDialogTrigger>
-                            <button
+                        {data.nama_lengkap &&
+                        data.nomor_hp &&
+                        data.jenis_kelamin &&
+                        data.tanggal_lahir ? (
+                            <AlertDialogTrigger
                                 type="button"
-                                className="border border-ForestGreen rounded-full px-10 py-2 text-customWhite font-semibold bg-ForestGreen"
+                                className="border border-ForestGreen rounded-full px-10 py-2 text-customWhite font-semibold bg-ForestGreen hover:brightness-95"
                             >
                                 Selesai
-                            </button>
-                        </AlertDialogTrigger>
-                        <AlertDialogContent>
+                            </AlertDialogTrigger>
+                        ) : (
+                            <button
+                                onClick={handleNext}
+                                type="button"
+                                className="border border-ForestGreen rounded-full px-10 py-2 text-customWhite font-semibold bg-ForestGreen hover:brightness-95"
+                            >Selesai</button>
+                        )}
+
+                        <AlertDialogContent className="w-[50vw]">
                             <AlertDialogHeader>
                                 <AlertDialogTitle>
                                     <div className="flex flex-col items-center gap-4">
                                         <BsQuestionCircle className="h-16 w-16 text-ForestGreen" />
-                                        <p>Apakah data sudah benar?</p>
+                                        <p>Apakah data sudah sesuai?</p>
                                     </div>
                                 </AlertDialogTitle>
-                                <AlertDialogDescription className="text-center">
+                                <AlertDialogDescription className="">
                                     <p className="pb-4 text-base">
                                         Pastikan data yang Anda masukkan sudah
                                         benar. Kamu tidak dapat mengubah data
@@ -276,7 +330,7 @@ const JanjiTemuForm = ({ auth, patient }) => {
                 {currentStepIndex !== steps.length - 1 && (
                     <button
                         type="button"
-                        className="border border-ForestGreen rounded-full px-10 py-2 text-customWhite font-semibold bg-ForestGreen"
+                        className="border border-ForestGreen rounded-full px-10 py-2 text-customWhite font-semibold bg-ForestGreen hover:brightness-95"
                         onClick={handleNext}
                     >
                         Lanjut
