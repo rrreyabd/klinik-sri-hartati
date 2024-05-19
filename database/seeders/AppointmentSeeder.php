@@ -20,10 +20,6 @@ class AppointmentSeeder extends Seeder
                 'treatment_id' => 1,
                 'date' => "2024-05-08",
                 'time' => "08:00:00",
-                'name' => "Raihan Abdillah",
-                'birthdate' => "2004-11-18",
-                'gender' => "Laki-laki",
-                'phone_number' => "081234567890",
                 'status' => "Selesai",
             ],
         ];

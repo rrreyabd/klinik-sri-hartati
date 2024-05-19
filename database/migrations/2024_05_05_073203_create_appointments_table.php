@@ -18,10 +18,6 @@ return new class extends Migration
             $table->unsignedBigInteger('treatment_id');
             $table->date('date');
             $table->time('time');
-            $table->string('name');
-            $table->date('birthdate');
-            $table->enum('gender', ['Laki-laki', 'Perempuan']);
-            $table->string('phone_number');
             $table->enum('status', ['Menunggu', 'Selesai', 'Dibatalkan']);
             $table->timestamps();
 

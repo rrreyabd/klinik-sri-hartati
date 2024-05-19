@@ -1,9 +1,19 @@
-import StaffSheet from "@/Components/shared/Staff/StaffSheet";
 import LayananForm from "@/Components/shared/user/JanjiTemu/LayananForm";
 import WaktuForm from "@/Components/shared/user/JanjiTemu/WaktuForm";
 import { Head, Link, useForm } from "@inertiajs/react";
 import { useState } from "react";
-import StaffPasienForm from "./StaffPasienForm";
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "@/Components/ui/alert-dialog";
+import { BsQuestionCircle } from "react-icons/bs";
 
 const StaffDaftarJanjiTemu = ({ auth }) => {
     const { data, setData, post, processing, errors } = useForm({
@@ -12,25 +22,37 @@ const StaffDaftarJanjiTemu = ({ auth }) => {
         perawatan: "",
         tanggal: "",
         jam: "",
-        nama_lengkap: "",
-        nomor_hp: "",
-        jenis_kelamin: "",
-        tanggal_lahir: "",
     });
 
-    const steps = ["Layanan", "Waktu", "Pasien"];
+    const steps = ["Layanan", "Waktu"];
     const stepsLength = steps.length;
 
     const [progress, setProgress] = useState(steps[0]);
     const currentStepIndex = steps.indexOf(progress);
 
-    console.log(progress);
+    // Validasi Error State
+    const [validationErrors, setValidationErrors] = useState({});
 
     const handleNext = () => {
         const nextStepIndex = currentStepIndex + 1;
 
-        if (nextStepIndex < stepsLength) {
-            setProgress(steps[nextStepIndex]);
+        // Validasi Data
+        const errors = {};
+        if (progress === "Layanan") {
+            if (!data.dokter) errors.dokter = "Dokter harus dipilih.";
+            if (!data.perawatan) errors.perawatan = "Layanan harus dipilih.";
+        } else if (progress === "Waktu") {
+            if (!data.tanggal) errors.tanggal = " ";
+            if (!data.jam) errors.jam = " ";
+        }
+
+        if (Object.keys(errors).length > 0) {
+            setValidationErrors(errors);
+        } else {
+            setValidationErrors({});
+            if (nextStepIndex < stepsLength) {
+                setProgress(steps[nextStepIndex]);
+            }
         }
     };
 
@@ -62,38 +84,21 @@ const StaffDaftarJanjiTemu = ({ auth }) => {
             >
                 <div className="bg-white rounded-md shadow-md mt-4 border overflow-hidden">
                     <div className="px-8 py-6 flex justify-between border-b bg-ForestGreen text-white">
-                        <p className="font-semibold">Step {currentStepIndex + 1} dari 3</p>
+                        <p className="font-semibold">
+                            Step {currentStepIndex + 1} dari {steps.length}
+                        </p>
                         <div className="flex items-center gap-2">
                             <div
-                                className={`w-6 rounded-md ${
-                                    steps[currentStepIndex] == "Layanan"
-                                        ? "h-2"
-                                        : "h-1"
-                                } ${
+                                className={`w-6 rounded-md h-2 ${
                                     data.dokter && data.perawatan
-                                        ? "bg-KellyGreen"
+                                        ? "bg-customGreen"
                                         : "bg-white"
                                 } `}
                             ></div>
                             <div
-                                className={`w-6 rounded-md ${
-                                    steps[currentStepIndex] == "Waktu"
-                                        ? "h-2"
-                                        : "h-1"
-                                } ${
+                                className={`w-6 rounded-md h-2 ${
                                     data.tanggal && data.jam
-                                        ? "bg-KellyGreen"
-                                        : "bg-white"
-                                } `}
-                            ></div>
-                            <div
-                                className={`w-6 rounded-md ${
-                                    steps[currentStepIndex] == "Pasien"
-                                        ? "h-2"
-                                        : "h-1"
-                                } ${
-                                    data.nama_lengkap && data.nomor_hp && data.tanggal_lahir
-                                        ? "bg-KellyGreen"
+                                        ? "bg-customGreen"
                                         : "bg-white"
                                 } `}
                             ></div>
@@ -104,16 +109,12 @@ const StaffDaftarJanjiTemu = ({ auth }) => {
                         <h2 className="font-semibold text-xl">
                             {progress === "Layanan"
                                 ? "Layanan"
-                                : progress === "Waktu"
-                                ? "Tanggal dan Jam"
-                                : "Data Pasien"}
+                                : "Tanggal dan Jam"}
                         </h2>
                         <p className="text-sm">
                             {progress === "Layanan"
                                 ? "Silahkan memilih Perawatan dan Dokter"
-                                : progress === "Waktu"
-                                ? "Silahkan mengisi informasi Tanggal dan Jam"
-                                : "Silahkan mengisi data diri Pasien"}
+                                : "Silahkan mengisi informasi Tanggal dan Jam"}
                         </p>
                     </div>
 
@@ -123,6 +124,7 @@ const StaffDaftarJanjiTemu = ({ auth }) => {
                                 setData={setData}
                                 data={data}
                                 contentClassName="bg-white"
+                                validationErrors={validationErrors}
                             />
                         )}
                         {progress === "Waktu" && (
@@ -131,11 +133,8 @@ const StaffDaftarJanjiTemu = ({ auth }) => {
                                 data={data}
                                 selectedDate={data.tanggal}
                                 onDateChange={handleDateChange}
+                                validationErrors={validationErrors}
                             />
-                        )}
-
-                        {progress === "Pasien" && (
-                            <StaffPasienForm setData={setData} data={data} />
                         )}
                     </div>
                 </div>
@@ -159,22 +158,60 @@ const StaffDaftarJanjiTemu = ({ auth }) => {
                     )}
 
                     {currentStepIndex == steps.length - 1 && (
-                        <button
-                            type="submit"
-                            disabled={processing}
-                            className={`shadow-md bg-ForestGreen py-2 w-32 text-customWhite font-semibold rounded-md ${
-                                processing
-                                    ? "brightness-75 cursor-not-allowed"
-                                    : ""
-                            } `}
-                        >
-                            {processing ? "Memproses" : "Selesai"}
-                        </button>
+                        <AlertDialog>
+                            {data.jam && data.tanggal ? (
+                                <AlertDialogTrigger
+                                    type="button"
+                                    className="border border-ForestGreen rounded-md px-10 py-2 text-customWhite font-semibold bg-ForestGreen hover:brightness-95"
+                                >
+                                    Selesai
+                                </AlertDialogTrigger>
+                            ) : (
+                                <button
+                                    onClick={handleNext}
+                                    type="button"
+                                    className="border border-ForestGreen rounded-md px-10 py-2 text-customWhite font-semibold bg-ForestGreen hover:brightness-95"
+                                >
+                                    Selesai
+                                </button>
+                            )}
+
+                            <AlertDialogContent className="w-full lg:w-[50vw]">
+                                <AlertDialogHeader>
+                                    <AlertDialogTitle>
+                                        <div className="flex flex-col items-center gap-4">
+                                            <BsQuestionCircle className="h-16 w-16 text-ForestGreen" />
+                                            <p>Apakah data sudah sesuai?</p>
+                                        </div>
+                                    </AlertDialogTitle>
+                                    <AlertDialogDescription className="">
+                                        <p className="pb-4 text-base">
+                                            Pastikan data yang Anda masukkan
+                                            sudah benar. Kamu tidak dapat
+                                            mengubah data setelah menekan tombol
+                                            "Selesai".
+                                        </p>
+                                    </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                    <AlertDialogCancel className="border border-ForestGreen text-ForestGreen hover:text-ForestGreen rounded-md px-10 py-2 font-semibold bg-white hover:bg-customWhite">
+                                        Batal
+                                    </AlertDialogCancel>
+                                    <AlertDialogAction
+                                        onClick={submit}
+                                        disabled={processing}
+                                        className="border border-ForestGreen rounded-md px-10 py-2 text-white font-semibold bg-ForestGreen hover:brightness-95"
+                                    >
+                                        {processing ? "Memproses" : "Selesai"}
+                                    </AlertDialogAction>
+                                </AlertDialogFooter>
+                            </AlertDialogContent>
+                        </AlertDialog>
                     )}
                     {currentStepIndex !== steps.length - 1 && (
                         <button
                             type="button"
-                            className="shadow-md bg-ForestGreen py-2 w-32 text-customWhite font-semibold rounded-md"
+                            className="border border-ForestGreen rounded-md px-10 py-2 text-customWhite font-semibold bg-ForestGreen hover:brightness-95"
                             onClick={handleNext}
                         >
                             Lanjut

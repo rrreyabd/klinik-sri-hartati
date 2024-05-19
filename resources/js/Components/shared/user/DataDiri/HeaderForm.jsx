@@ -6,25 +6,12 @@ import {
 import { FaCircleInfo } from "react-icons/fa6";
 import { BsQuestionCircleFill } from "react-icons/bs";
 
-const HeaderForm = ({ auth, data, setData }) => {
-    const currentHour = new Date().getHours();
-    let greeting;
-
-    if (currentHour >= 4 && currentHour < 11) {
-        greeting = "Selamat Pagi";
-    } else if (currentHour >= 11 && currentHour < 14) {
-        greeting = "Selamat Siang";
-    } else if (currentHour >= 14 && currentHour < 18) {
-        greeting = "Selamat Sore";
-    } else {
-        greeting = "Selamat Malam";
-    }
+const HeaderForm = ({ auth }) => {
 
     return (
         <div className="flex flex-col gap-1">
             <h1 className="text-3xl font-semibold text-ForestGreen">
-                {/* {greeting}, {auth.user.email.split('@')[0]}👋 */}
-                Halo,  {auth.user.name} 👋
+                Halo, {auth.user.name} 👋
             </h1>
             <p>
                 Mohon luangkan waktu sejenak untuk mengisi formulir data pribadi.
@@ -38,7 +25,7 @@ const HeaderForm = ({ auth, data, setData }) => {
                     </p>
                 </HoverCardTrigger>
                 <HoverCardContent
-                    className="w-96 bg-ForestGreen text-white relative chat-bubble flex gap-3 items-center"
+                    className="w-96 ml-2 mb-1 bg-ForestGreen text-white relative chat-bubble flex gap-3 items-center"
                     side="top"
                     align="start"
                 >

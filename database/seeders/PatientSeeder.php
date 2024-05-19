@@ -19,6 +19,7 @@ class PatientSeeder extends Seeder
                 'user_id' => 1,
                 'birthdate' => '2004-11-18',
                 'blood_type' => 'A',
+                'gender' => 'Laki-laki',
                 'address' => 'Jl. Jalan No. 1',
                 'phone_number' => '081234567890',
             ]
