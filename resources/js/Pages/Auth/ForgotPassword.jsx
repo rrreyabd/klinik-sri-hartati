@@ -22,7 +22,7 @@ export default function ForgotPassword({ status }) {
         <>
             <Head title="Lupa Kata Sandi" />
             <div className="h-screen bg-customWhite w-full flex flex-col justify-center items-center">
-                <div className="w-full sm:w-[500px] px-8 sm:px-0 flex flex-col space-y-6">
+                <div className="w-full sm:w-[500px] px-8 sm:px-8 py-0 sm:py-8 flex flex-col space-y-6 bg-white rounded-xl shadow-md">
                     <div className="w-full flex justify-start">
                         <div className="bg-ForestGreen p-4 rounded-full">
                             <FaUnlockAlt className="w-8 h-8 text-white" />
@@ -46,17 +46,18 @@ export default function ForgotPassword({ status }) {
                         </div>
                     )}
 
-                    <form onSubmit={submit} className="flex flex-col space-y-4">
+                    <form onSubmit={submit} className="flex flex-col">
                         <TextInput
                             id="email"
                             type="email"
                             name="email"
                             value={data.email}
-                            className="w-full h-12 bg-customWhite"
+                            className="w-full h-12 bg-white"
                             isFocused={true}
                             placeholder="Alamat Email"
                             Icon={IoMail}
                             onChange={(e) => setData("email", e.target.value)}
+                            required
                         />
 
                         {errors.email ? (
@@ -75,12 +76,21 @@ export default function ForgotPassword({ status }) {
                                 Kembali
                             </Link>
 
-                            <PrimaryButton
-                                className="px-4 sm:px-6 py-2 w-1/2 sm:w-fit text-center font-semibold border-2 border-ForestGreen text-sm sm:text-base"
-                                disabled={processing}
-                            >
-                                Kirim tautan
-                            </PrimaryButton>
+                            {status ? (
+                                <PrimaryButton
+                                    className="px-4 sm:px-6 py-2 w-1/2 sm:w-fit text-center font-semibold border-2 border-ForestGreen text-sm sm:text-base"
+                                    disabled={processing}
+                                >
+                                    {processing ? 'Mengirimkan' : 'Kirim Ulang'}
+                                </PrimaryButton>
+                            ) : (
+                                <PrimaryButton
+                                    className="px-4 sm:px-6 py-2 w-1/2 sm:w-fit text-center font-semibold border-2 border-ForestGreen text-sm sm:text-base"
+                                    disabled={processing}
+                                >
+                                    {processing ? 'Mengirimkan' : 'Kirim Tautan'}
+                                </PrimaryButton>
+                            )}
                         </div>
                     </form>
                 </div>

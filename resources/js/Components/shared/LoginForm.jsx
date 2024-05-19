@@ -45,9 +45,8 @@ const LoginForm = ({ status, canResetPassword }) => {
                     isFocused={true}
                     Icon={IoMdMail}
                     onChange={(e) => setData("email", e.target.value)}
+                    required
                 />
-
-                <InputError message={errors.email} className="mt-2" />
             </div>
 
             <div className="">
@@ -62,6 +61,7 @@ const LoginForm = ({ status, canResetPassword }) => {
                         Icon={FaLock}
                         placeholder="Kata Sandi"
                         onChange={(e) => setData("password", e.target.value)}
+                        required
                     />
 
                     <button
@@ -77,24 +77,28 @@ const LoginForm = ({ status, canResetPassword }) => {
                     </button>
                 </div>
 
-                <div className="w-80">
-                    <InputError message={errors.password} className="mt-2" />
-                </div>
+                {errors.email && (
+                    <div className="w-80">
+                        <InputError
+                            message="Data yang Anda masukkan tidak sesuai."
+                            className="mt-2"
+                        />
+                    </div>
+                )}
             </div>
 
             <div className="flex w-80 justify-end">
-                <Link 
-                    href={route('password.request')}
+                <Link
+                    href={route("password.request")}
                     className="text-sm font-semibold text-ForestGreen underline"
                 >
-                        Lupa Kata Sandi?
+                    Lupa Kata Sandi?
                 </Link>
             </div>
 
             <PrimaryButton className="w-80 h-12" disabled={processing}>
-                { processing ? 'Memproses' : 'Masuk' }
+                {processing ? "Memproses" : "Masuk"}
             </PrimaryButton>
-
         </form>
     );
 };

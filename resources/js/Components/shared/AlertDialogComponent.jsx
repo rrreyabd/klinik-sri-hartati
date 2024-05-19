@@ -10,10 +10,22 @@ import {
     AlertDialogTrigger,
 } from "@/Components/ui/alert-dialog";
 
-const AlertDialogComponent = ({ trigger, title, desc, cancel, children, triggerClassName }) => {
+const AlertDialogComponent = ({
+    trigger,
+    title,
+    desc,
+    cancel,
+    children,
+    triggerClassName,
+    actionOnClick,
+    actionClassName,
+    processing,
+}) => {
     return (
         <AlertDialog>
-            <AlertDialogTrigger className={triggerClassName}>{trigger}</AlertDialogTrigger>
+            <AlertDialogTrigger className={triggerClassName}>
+                {trigger}
+            </AlertDialogTrigger>
             <AlertDialogContent className="flex flex-col gap-16">
                 <AlertDialogHeader>
                     <AlertDialogTitle>{title}</AlertDialogTitle>
@@ -21,7 +33,13 @@ const AlertDialogComponent = ({ trigger, title, desc, cancel, children, triggerC
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel>{cancel}</AlertDialogCancel>
-                    {children}
+                    <AlertDialogAction
+                        onClick={actionOnClick}
+                        className={actionClassName}
+                        disabled={processing}
+                    >
+                        {children}
+                    </AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>
         </AlertDialog>
