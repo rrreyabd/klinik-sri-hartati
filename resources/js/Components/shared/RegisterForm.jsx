@@ -51,6 +51,8 @@ const RegisterForm = () => {
                     autoComplete="name"
                     isFocused={true}
                     Icon={FaUser}
+                    required
+                    minLength="3"
                     onChange={(e) => setData("name", e.target.value)}
                 />
 
@@ -68,6 +70,7 @@ const RegisterForm = () => {
                     placeholder="Alamat Email"
                     Icon={IoMdMail}
                     onChange={(e) => setData("email", e.target.value)}
+                    required
                 />
 
                 <InputError message={errors.email} className="mt-2" />
@@ -85,6 +88,8 @@ const RegisterForm = () => {
                         Icon={FaLock}
                         placeholder="Kata Sandi"
                         onChange={(e) => setData("password", e.target.value)}
+                        required
+                        minLength="8"
                     />
 
                     <button
@@ -100,9 +105,11 @@ const RegisterForm = () => {
                     </button>
                 </div>
 
-                <div className="w-80">
-                    <InputError message={errors.password} className="mt-2" />
-                </div>
+                {errors.password ? (
+                    <p className="font-semibold text-sm text-red-600 dark:text-red-400 mt-2">
+                        {errors.password}
+                    </p>
+                ) : null}
             </div>
 
             <div>
@@ -121,6 +128,7 @@ const RegisterForm = () => {
                             setData("password_confirmation", e.target.value)
                         }
                         required
+                        minLength="8"
                     />
                 </div>
 

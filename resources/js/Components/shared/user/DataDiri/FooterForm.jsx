@@ -1,16 +1,20 @@
 import AlertDialogComponent from "@/Components/shared/AlertDialogComponent";
 import { Link } from "@inertiajs/react";
 
-const FooterForm = ({ processing }) => {
+const FooterForm = ({ processing, submit }) => {
     return (
         <div className="flex justify-between">
             <AlertDialogComponent
                 title={"Apakah Anda yakin?"}
-                desc={"Anda akan keluar dari website dan harus masuk kembali."}
+                desc={
+                    "Data Anda tidak akan tersimpan dan Anda harus masuk kembali."
+                }
                 cancel={"Batal"}
                 action={"Keluar"}
                 trigger={"Keluar"}
-                triggerClassName={"border border-red-600 px-8 py-1 rounded-md bg-red-600 text-white transition-all font-semibold hover:bg-red-700"}
+                triggerClassName={
+                    "border border-red-600 px-8 py-1 rounded-md bg-red-600 text-white transition-all font-semibold hover:bg-red-700"
+                }
             >
                 <Link
                     href={route("logout")}
@@ -22,7 +26,27 @@ const FooterForm = ({ processing }) => {
                 </Link>
             </AlertDialogComponent>
 
-            <button
+            <AlertDialogComponent
+                title={"Apakah data sudah sesuai?"}
+                desc={
+                    "Anda dapat mengubahnya di pengaturan profil. Namun, tidak ada salahnya untuk mengubahnya sekarang."
+                }
+                cancel={"Batal"}
+                action={"Keluar"}
+                trigger={"Simpan"}
+                triggerClassName={
+                    "border border-ForestGreen px-8 py-1 rounded-md bg-ForestGreen text-white transition-all hover:brightness-90 font-medium"
+                }
+                actionOnClick={submit}
+                actionClassName={`border border-ForestGreen px-8 py-1 rounded-md bg-ForestGreen text-white transition-all hover:brightness-90 font-medium ${
+                    processing && "opacity-40"
+                }`}
+                processing={processing}
+            >
+                {processing ? "Memproses" : "Simpan"}
+            </AlertDialogComponent>
+
+            {/* <button
                 type="submit"
                 className={`border border-ForestGreen px-8 py-1 rounded-md bg-ForestGreen text-white transition-all hover:brightness-90 font-medium ${
                     processing && "opacity-40"
@@ -30,7 +54,7 @@ const FooterForm = ({ processing }) => {
                 disabled={processing}
             >
                 {processing ? "Memproses" : "Simpan"}
-            </button>
+            </button> */}
         </div>
     );
 };

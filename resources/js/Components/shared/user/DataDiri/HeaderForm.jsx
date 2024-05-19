@@ -15,7 +15,7 @@ const HeaderForm = ({ auth, data, setData }) => {
     } else if (currentHour >= 11 && currentHour < 14) {
         greeting = "Selamat Siang";
     } else if (currentHour >= 14 && currentHour < 18) {
-        greeting = "Selamat Sore";p
+        greeting = "Selamat Sore";
     } else {
         greeting = "Selamat Malam";
     }

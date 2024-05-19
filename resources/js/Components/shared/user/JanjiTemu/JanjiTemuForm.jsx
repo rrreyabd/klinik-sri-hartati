@@ -130,7 +130,7 @@ const JanjiTemuForm = ({ auth, patient }) => {
             "\n" +
             isChecked
     );
-eb
+
     return (
         <form onSubmit={submit}>
             <div className="flex justify-center items-center w-full pt-12">

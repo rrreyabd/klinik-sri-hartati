@@ -35,7 +35,7 @@ const DataInputForm = ({ auth }) => {
                         setData={setData}
                         errors={errors}
                     />
-                    <FooterForm processing={processing} />
+                    <FooterForm processing={processing} submit={submit} />
                 </form>
             </div>
         </div>

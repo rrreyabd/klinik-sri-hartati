@@ -14,7 +14,7 @@ const ProfileDropdown = ({ children, className, auth }) => {
                 {children}
             </DropdownMenuTrigger>
             <DropdownMenuContent className="min-w-56 p-4 bg-customWhite font-semibold shadow-xl">
-                <DropdownMenuItem>
+                <DropdownMenuItem className="hover:bg-[#e2e2e2]">
                     <Link href="/profile" className="w-full text-start">
                         Profil
                     </Link>
@@ -22,13 +22,15 @@ const ProfileDropdown = ({ children, className, auth }) => {
 
                 <DropdownMenuSeparator />
 
-                <DropdownMenuItem>
-                    <Link href="/tagihan" className="w-full text-start">Tagihan</Link>
+                <DropdownMenuItem className="hover:bg-[#e2e2e2]">
+                    <Link href="/tagihan" className="w-full text-start">
+                        Tagihan
+                    </Link>
                 </DropdownMenuItem>
 
                 <DropdownMenuSeparator />
 
-                <DropdownMenuItem>
+                <DropdownMenuItem className="hover:bg-[#e2e2e2]">
                     <Link
                         href={route("logout")}
                         method="post"
