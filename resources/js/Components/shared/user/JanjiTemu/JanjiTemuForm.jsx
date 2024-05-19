@@ -1,9 +1,8 @@
 import { Link, useForm } from "@inertiajs/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FaCheck } from "react-icons/fa";
 import LayananForm from "./LayananForm";
 import WaktuForm from "./WaktuForm";
-import PasienForm from "./PasienForm";
 
 import {
     AlertDialog,
@@ -18,15 +17,12 @@ import {
 } from "@/Components/ui/alert-dialog";
 import { BsQuestionCircle } from "react-icons/bs";
 
-const JanjiTemuForm = ({ auth, patient }) => {
-    const steps = ["Layanan", "Waktu", "Pasien"];
+const JanjiTemuForm = ({ auth }) => {
+    const steps = ["Layanan", "Waktu"];
     const stepsLength = steps.length;
 
     const [progress, setProgress] = useState(steps[0]);
     const currentStepIndex = steps.indexOf(progress);
-
-    // Checkbox Pasien Form
-    const [isChecked, setIsChecked] = useState(false);
 
     // Validasi Error State
     const [validationErrors, setValidationErrors] = useState({});
@@ -37,19 +33,11 @@ const JanjiTemuForm = ({ auth, patient }) => {
         // Validasi Data
         const errors = {};
         if (progress === "Layanan") {
-            if (!data.dokter) errors.dokter = "Dokter harus diisi.";
-            if (!data.perawatan) errors.perawatan = "Perawatan harus diisi.";
+            if (!data.dokter) errors.dokter = "Dokter harus dipilih.";
+            if (!data.perawatan) errors.perawatan = "Layanan harus dipilih.";
         } else if (progress === "Waktu") {
             if (!data.tanggal) errors.tanggal = "Tanggal harus diisi.";
             if (!data.jam) errors.jam = "Jam harus diisi.";
-        } else if (progress === "Pasien") {
-            if (!data.nama_lengkap)
-                errors.nama_lengkap = "Nama lengkap harus diisi.";
-            if (!data.nomor_hp) errors.nomor_hp = "Nomor HP harus diisi.";
-            if (!data.jenis_kelamin)
-                errors.jenis_kelamin = "Jenis kelamin harus diisi.";
-            if (!data.tanggal_lahir)
-                errors.tanggal_lahir = "Tanggal lahir harus diisi.";
         }
 
         if (Object.keys(errors).length > 0) {
@@ -77,10 +65,6 @@ const JanjiTemuForm = ({ auth, patient }) => {
         perawatan: "",
         tanggal: "",
         jam: "",
-        nama_lengkap: "",
-        nomor_hp: "",
-        jenis_kelamin: "",
-        tanggal_lahir: "",
     });
 
     // WaktuForm Start
@@ -93,18 +77,6 @@ const JanjiTemuForm = ({ auth, patient }) => {
 
         post(route("janjitemu"));
     };
-
-    useEffect(() => {
-        if (isChecked) {
-            setData((prevData) => ({
-                ...prevData,
-                nama_lengkap: auth.user.name,
-                nomor_hp: patient.phone_number,
-                jenis_kelamin: patient.gender,
-                tanggal_lahir: patient.birthdate.substring(0, 10),
-            }));
-        }
-    }, [isChecked]);
 
     console.log(
         "Dokter: " +
@@ -127,8 +99,7 @@ const JanjiTemuForm = ({ auth, patient }) => {
             "\n" +
             "Tanggal Lahir: " +
             data.tanggal_lahir +
-            "\n" +
-            isChecked
+            "\n"
     );
 
     return (
@@ -157,7 +128,7 @@ const JanjiTemuForm = ({ auth, patient }) => {
                 </div>
                 {/* Layanan End */}
 
-                <hr className="border-2 border-ForestGreen w-1/4  sm:w-1/3" />
+                <hr className="border-2 border-ForestGreen w-2/3  sm:w-11/12" />
 
                 {/* Waktu Start */}
                 <div
@@ -178,35 +149,6 @@ const JanjiTemuForm = ({ auth, patient }) => {
                     />
                     <p className="text-ForestGreen font-semibold absolute -top-8">
                         Waktu
-                    </p>
-                </div>
-                {/* Waktu End */}
-
-                <hr className="border-2 border-ForestGreen w-1/4  sm:w-1/3" />
-
-                {/* Pasien Start */}
-                <div
-                    className={`border-2 border-ForestGreen h-10 w-10 rounded-full relative flex justify-center transition-all items-center ${
-                        steps[currentStepIndex] == "Pasien"
-                            ? "bg-ForestGreen"
-                            : data.nama_lengkap &&
-                              data.nomor_hp &&
-                              data.tanggal_lahir
-                            ? "bg-ForestGreen"
-                            : "bg-customWhite"
-                    }`}
-                >
-                    <FaCheck
-                        className={` text-customWhite ${
-                            data.nama_lengkap &&
-                            data.nomor_hp &&
-                            data.tanggal_lahir
-                                ? "opacity-100"
-                                : "opacity-0"
-                        } `}
-                    />
-                    <p className="text-ForestGreen font-semibold absolute -top-8">
-                        Pasien
                     </p>
                 </div>
                 {/* Waktu End */}
@@ -231,22 +173,10 @@ const JanjiTemuForm = ({ auth, patient }) => {
                         validationErrors={validationErrors}
                     />
                 )}
-
-                {progress === "Pasien" && (
-                    <PasienForm
-                        setData={setData}
-                        data={data}
-                        auth={auth}
-                        isChecked={isChecked}
-                        setIsChecked={setIsChecked}
-                        patient={patient}
-                        validationErrors={validationErrors}
-                    />
-                )}
             </div>
 
             {/* Nav Button Start */}
-            <div className="w-full flex justify-between">
+            <div className="w-full gap-4 sm:gap-0 flex flex-col-reverse sm:flex-row sm:justify-between">
                 {currentStepIndex > 0 ? (
                     <button
                         type="button"
@@ -258,7 +188,7 @@ const JanjiTemuForm = ({ auth, patient }) => {
                 ) : (
                     <Link
                         href="/"
-                        className="border border-red-600 rounded-full px-10 py-2 text-red-600 font-semibold bg-customWhite hover:brightness-95"
+                        className="border border-red-600 rounded-full px-10 py-2 text-red-600 font-semibold bg-customWhite hover:brightness-95 flex justify-center items-center"
                     >
                         Batal
                     </Link>
@@ -266,10 +196,7 @@ const JanjiTemuForm = ({ auth, patient }) => {
 
                 {currentStepIndex == steps.length - 1 && (
                     <AlertDialog>
-                        {data.nama_lengkap &&
-                        data.nomor_hp &&
-                        data.jenis_kelamin &&
-                        data.tanggal_lahir ? (
+                        {data.jam && data.tanggal ? (
                             <AlertDialogTrigger
                                 type="button"
                                 className="border border-ForestGreen rounded-full px-10 py-2 text-customWhite font-semibold bg-ForestGreen hover:brightness-95"
@@ -281,10 +208,12 @@ const JanjiTemuForm = ({ auth, patient }) => {
                                 onClick={handleNext}
                                 type="button"
                                 className="border border-ForestGreen rounded-full px-10 py-2 text-customWhite font-semibold bg-ForestGreen hover:brightness-95"
-                            >Selesai</button>
+                            >
+                                Selesai
+                            </button>
                         )}
 
-                        <AlertDialogContent className="w-[50vw]">
+                        <AlertDialogContent className="w-full lg:w-[50vw]">
                             <AlertDialogHeader>
                                 <AlertDialogTitle>
                                     <div className="flex flex-col items-center gap-4">

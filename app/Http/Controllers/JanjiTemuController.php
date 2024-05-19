@@ -39,10 +39,6 @@ class JanjiTemuController extends Controller
             'dokter'   => 'required',
             'jam'   => 'required',
             'tanggal' => 'required',
-            'nama_lengkap' => 'required',
-            'nomor_hp' => 'required',
-            'tanggal_lahir' => 'required',
-            'jenis_kelamin' => 'required',
         ]);
 
         $timestamp = strtotime($request->tanggal);
@@ -55,10 +51,6 @@ class JanjiTemuController extends Controller
                 'treatment_id' => $validation['perawatan'],
                 'date' => $waktu,
                 'time' => $validation['jam'],
-                'name' => $validation['nama_lengkap'],
-                'birthdate' => $validation['tanggal_lahir'],
-                'gender' => $validation['jenis_kelamin'],
-                'phone_number' => $validation['nomor_hp'],
             ]);
 
             return redirect()->route('index')->with('status', 'Janji Temu Berhasil Dibuat!');

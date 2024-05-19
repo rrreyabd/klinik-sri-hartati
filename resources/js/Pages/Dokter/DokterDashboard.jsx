@@ -48,6 +48,8 @@ const DokterDashboard = ({ auth, appointments }) => {
     const minutes = currentDate.getMinutes();
     const seconds = currentDate.getSeconds();
 
+    const [showData, setShowData] = useState(true);
+
     return (
         <div className="bg-customWhite min-h-screen flex items-center flex-col">
             <Head title="Dokter" />
@@ -141,11 +143,34 @@ const DokterDashboard = ({ auth, appointments }) => {
 
                 <div className="w-full h-[55vh] bg-white rounded-xl shadow-md p-6 flex flex-col">
                     <div className="flex justify-between items-center">
-                        <p className="text-xl font-semibold">
-                            Janji Temu Hari Ini
-                        </p>
+                        <div className="flex ml-5 gap-8 relative transition-all">
+                            <button
+                                onClick={() => setShowData(true)}
+                                className={`text-lg font-semibold py-2 w-32 hover:bg-customWhite transition-all ${
+                                    showData ? "text-ForestGreen" : "text-gray-300"
+                                }`}
+                            >
+                                Janji Temu
+                            </button>
+                            <button
+                                onClick={() => setShowData(false)}
+                                className={`text-lg font-semibold py-2 w-32 hover:bg-customWhite transition-all ${
+                                    showData ? "text-gray-300" : "text-ForestGreen"
+                                }`}
+                            >
+                                Antrian
+                            </button>
 
-                        <div className="mt-4 flex items-center gap-2 justify-end">
+                            <div
+                                className={`w-32 h-1 bg-ForestGreen bottom-0 left-0 absolute transition-transform duration-500 ease-in-out ${
+                                    showData
+                                        ? "transform translate-x-0"
+                                        : "transform translate-x-40"
+                                } `}
+                            ></div>
+                        </div>
+
+                        <div className="flex items-center gap-2 justify-end">
                             <div className="h-3 w-3 bg-ForestGreen rounded-full"></div>
                             <p className="text-sm font-medium">
                                 Sedang Berlangsung
@@ -162,6 +187,7 @@ const DokterDashboard = ({ auth, appointments }) => {
                         c4="w-[180px]"
                         c5="w-[200px] text-center"
                         c6="w-[150px]"
+                        // data={showData ? appointments : null}
                         data={appointments}
                         hours={hours}
                         minutes={minutes}

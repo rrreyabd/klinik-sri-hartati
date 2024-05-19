@@ -15,10 +15,6 @@ class Appointment extends Model
         'treatment_id',
         'date',
         'time',
-        'name',
-        'birthdate',
-        'gender',
-        'phone_number',
     ];
 
     public function treatment()

@@ -59,6 +59,34 @@ const PasienForm = ({
 
             <div>
                 <Input
+                    label="NIK"
+                    placeholder="Masukkan NIK Pasien"
+                    name="nik"
+                    type="number"
+                    value={isChecked ? patient.nik : data.nik}
+                    id=""
+                    disabled={isChecked ? true : false}
+                    className={`w-full ${
+                        isChecked ? " cursor-not-allowed brightness-75" : ""
+                    } `}
+                    onChange={(e) => {
+                        if (
+                            e.target.value.length <= 16 &&
+                            /^[0-9]*$/.test(e.target.value)
+                        ) {
+                            setData("nik", e.target.value);
+                        }
+                    }}
+                />
+                {!data.nik && (
+                    <p className="text-red-600 text-sm font-medium">
+                        {validationErrors.nik}
+                    </p>
+                )}
+            </div>
+
+            <div>
+                <Input
                     label="Nomor HP"
                     placeholder="Masukkan Nomor HP"
                     name="nomor_hp"

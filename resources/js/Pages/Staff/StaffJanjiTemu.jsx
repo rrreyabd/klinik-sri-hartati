@@ -4,7 +4,7 @@ import { Plus } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Toaster } from "@/Components/ui/toaster";
 import { useToast } from "@/Components/ui/use-toast";
-import { ToastAction } from "@/Components/ui/toast";
+import { FaCheck } from "react-icons/fa";
 
 const StaffJanjiTemu = ({ appointments, status, error }) => {
     // Variable Hari Ini
@@ -36,6 +36,7 @@ const StaffJanjiTemu = ({ appointments, status, error }) => {
             toast({
                 variant: "success",
                 title: status,
+                description: "Janji temu berhasil dibuat.",
             });
         }
         if (error) {
@@ -110,7 +111,7 @@ const StaffJanjiTemu = ({ appointments, status, error }) => {
                                                                 sample.fullDate
                                                             )
                                                         }
-                                                        className={`w-12 text-2xl font-medium h-12 ${
+                                                        className={`w-12 text-2xl font-medium h-12 transition-all ${
                                                             sample.fullDate.toDateString() ==
                                                             today
                                                                 ? "text-2xl font-medium bg-ForestGreen text-white rounded-full p-2"
@@ -211,23 +212,49 @@ const StaffJanjiTemu = ({ appointments, status, error }) => {
                                             .toString()
                                             .padStart(2, "0")}:00`;
 
-                                        console.log(
-                                            "Appointment: " + appointment.date
-                                        );
+                                        // Get Real Time
+                                        const [currentDate, setCurrentDate] =
+                                            useState(new Date());
+
+                                        useEffect(() => {
+                                            const timer = setInterval(() => {
+                                                setCurrentDate(new Date());
+                                            }, 1000);
+
+                                            return () => {
+                                                clearInterval(timer);
+                                            };
+                                        }, []);
+
+                                        const hoursNow = currentDate.getHours();
+                                        const minutesNow =
+                                            currentDate.getMinutes();
+
+                                        const realTime =
+                                            hoursNow + ":" + minutesNow;
+
+                                        let onGoing =
+                                            realTime >=
+                                                appointment.time.substring(
+                                                    0,
+                                                    5
+                                                ) && realTime < timeLimit;
 
                                         return appointment.date ==
                                             formattedDate ? (
                                             <div
-                                                className={`w-full flex border-b py-2`}
+                                                className={`w-full flex border-b py-2 `}
                                             >
                                                 <div className="w-1/4 flex items-center pl-4">
-                                                    {appointment.name}
+                                                    {appointment.user.name}
                                                 </div>
                                                 <div className="w-1/4 flex justify-center items-center">
                                                     <div
-                                                        className={`bg-[#D72729] ${
-                                                            appointment.status ==
-                                                            "Selesai"
+                                                        className={` ${
+                                                            onGoing
+                                                                ? "bg-ForestGreen"
+                                                                : appointment.status ==
+                                                                  "Selesai"
                                                                 ? "bg-customGreen"
                                                                 : appointment.status ==
                                                                   "Dibatalkan"
@@ -238,7 +265,9 @@ const StaffJanjiTemu = ({ appointments, status, error }) => {
                                                                 : "bg-ForestGreen"
                                                         } text-center py-2 rounded-md w-32 text-white font-semibold text-sm`}
                                                     >
-                                                        {appointment.status}
+                                                        {onGoing
+                                                            ? "Berlangsung"
+                                                            : appointment.status}
                                                     </div>
                                                 </div>
                                                 <div className="w-1/4 flex justify-center items-center">

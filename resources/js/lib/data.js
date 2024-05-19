@@ -103,7 +103,7 @@ export const StaffMenu = [
     },
     {
         id: 2,
-        title: "Daftar Janji Temu",
+        title: "Tambah Janji Temu",
         desc: "Daftarkan janji temu pasien dan dokter",
         icon: "/assets/staff/4.png",
         url: "/staff/janji-temu/daftar",

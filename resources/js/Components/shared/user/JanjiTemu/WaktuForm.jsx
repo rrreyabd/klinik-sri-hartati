@@ -35,10 +35,14 @@ const WaktuForm = ({
                     disabled={isDisabled}
                     selected={selectedDate}
                     onSelect={onDateChange}
-                    className="rounded-md shadow-lg"
+                    className={`rounded-md shadow-lg ${
+                        !data.tanggal && validationErrors.tanggal
+                            ? "shadow-lg shadow-red-600/50"
+                            : ""
+                    }`}
                 />
                 {!data.tanggal && (
-                    <p className="text-red-500 text-sm">
+                    <p className="text-red-500 text-base font-semibold">
                         {validationErrors.tanggal}
                     </p>
                 )}
@@ -46,7 +50,13 @@ const WaktuForm = ({
 
             <div className="flex flex-col items-center space-y-4 md:px-8 w-full md:w-1/2 md:border-l-2 md:border-black/10">
                 <h2 className="text-xl text-center font-semibold">Jam</h2>
-                <div className="w-full md:w-fit shadow-md shadow-gray-400/50 rounded-md py-4 px-8 flex flex-col space-y-4">
+                <div
+                    className={`w-full md:w-fit shadow-md shadow-gray-400/50 rounded-md py-4 px-8 flex flex-col space-y-4 ${
+                        !data.jam && validationErrors.jam
+                            ? "shadow-lg shadow-red-600/50"
+                            : ""
+                    }`}
+                >
                     <div className="flex flex-col space-y-2">
                         <h3 className="font-semibold text-lg">Pagi</h3>
                         <div className="flex flex-wrap gap-4">
@@ -108,7 +118,7 @@ const WaktuForm = ({
                     </div>
                 </div>
                 {!data.jam && (
-                    <p className="text-red-500 text-sm">
+                    <p className="text-red-500 text-base font-semibold">
                         {validationErrors.jam}
                     </p>
                 )}

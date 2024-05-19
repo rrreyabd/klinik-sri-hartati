@@ -10,7 +10,7 @@ const LayananForm = ({ setData, data, contentClassName, validationErrors }) => {
     return (
         <div className="flex flex-col py-8 space-y-4">
             <div className="flex flex-col space-y-2">
-                <p className="font-semibold">Perawatan</p>
+                <p className="font-semibold">Layanan</p>
                 <Select
                     onValueChange={(value) => setData("perawatan", value)}
                     value={data.perawatan}
@@ -40,7 +40,7 @@ const LayananForm = ({ setData, data, contentClassName, validationErrors }) => {
                     </SelectContent>
                 </Select>
                 {!data.perawatan && (
-                    <p className="text-customRed text-sm font-medium">{validationErrors.perawatan}</p>
+                    <p className="text-customRed text-sm font-semibold">{validationErrors.perawatan}</p>
                 )}
             </div>
 
@@ -53,7 +53,7 @@ const LayananForm = ({ setData, data, contentClassName, validationErrors }) => {
                     <SelectTrigger className="w-full bg-transparent border-2 border-ForestGreen shadow-sm h-12 font-semibold">
                         <SelectValue placeholder="Pilih Dokter" />
                     </SelectTrigger>
-                    <SelectContent className="bg-customWhite border-2 border-ForestGreen">
+                    <SelectContent className={`bg-customWhite border-2  ${contentClassName} `}>
                         <SelectItem
                             value="1"
                             className="x transition-all font-semibold cursor-pointer"
@@ -75,7 +75,7 @@ const LayananForm = ({ setData, data, contentClassName, validationErrors }) => {
                     </SelectContent>
                 </Select>
                 {!data.dokter && (
-                    <p className="text-customRed text-sm font-medium">{validationErrors.dokter}</p>
+                    <p className="text-customRed text-sm font-semibold">{validationErrors.dokter}</p>
                 )}
             </div>
         </div>
