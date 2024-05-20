@@ -58,23 +58,25 @@ const DokterDashboard = ({ auth, appointments }) => {
                 <div className="grid grid-cols-3 gap-8">
                     {/* STATUS */}
                     <div className="h-44 bg-white shadow-md rounded-xl p-4 flex flex-col">
-                        <div className="flex gap-6 h-1/6 items-center">
+                        <div className="flex h-1/6 items-center justify-between">
                             <p className="text-xl font-semibold pl-2">
                                 Janji Temu
                             </p>
 
-                            <div className="flex gap-2 items-center">
-                                <div className="h-3 w-3 rounded-full bg-customGreen"></div>
-                                <p className="font-semibold text-sm text-customGreen">
-                                    Selesai
-                                </p>
-                            </div>
+                            <div className="flex gap-3">
+                                <div className="flex gap-1 items-center">
+                                    <div className="h-3 w-3 rounded-full bg-customGreen"></div>
+                                    <p className="font-semibold text-sm text-customGreen">
+                                        Selesai
+                                    </p>
+                                </div>
 
-                            <div className="flex gap-2 items-center">
-                                <div className="h-3 w-3 rounded-full bg-customRed"></div>
-                                <p className="font-semibold text-sm text-customRed">
-                                    Batal
-                                </p>
+                                <div className="flex gap-1 items-center">
+                                    <div className="h-3 w-3 rounded-full bg-customRed"></div>
+                                    <p className="font-semibold text-sm text-customRed">
+                                        Batal
+                                    </p>
+                                </div>
                             </div>
                         </div>
 
@@ -89,17 +91,17 @@ const DokterDashboard = ({ auth, appointments }) => {
                             Jenis Kelamin
                         </p>
                         <div className="flex h-5/6">
-                            <div className="w-1/2 flex justify-center items-center">
+                            <div className="w-2/3 flex justify-center items-center">
                                 CHARTJS HERE
                             </div>
-                            <div className="w-1/2 flex flex-col justify-center pl-4 gap-2">
-                                <div className="flex gap-2 items-center">
+                            <div className="w-1/3 flex flex-col items-center justify-center pl-4 gap-3">
+                                <div className="flex gap-1 items-center">
                                     <div className="h-3 w-3 rounded-full bg-[#4dc5c8]"></div>
                                     <p className="font-semibold text-sm text-[#4dc5c8]">
                                         Laki-laki
                                     </p>
                                 </div>
-                                <div className="flex gap-2 items-center">
+                                <div className="flex gap-1 items-center">
                                     <div className="h-3 w-3 rounded-full bg-[#d72729]"></div>
                                     <p className="font-semibold text-sm text-[#d72729]">
                                         Laki-laki
@@ -110,7 +112,7 @@ const DokterDashboard = ({ auth, appointments }) => {
                     </div>
 
                     {/* WAKTU */}
-                    <div className="h-44 bg-white shadow-md rounded-xl p-4 flex flex-col items-center gap-4 justify-center">
+                    <div className="h-44 bg-white shadow-md rounded-xl p-4 flex flex-col items-center gap-6 justify-center">
                         <div className="flex gap-4 items-center">
                             <div className="bg-ForestGreen text-white flex flex-col items-center p-2 rounded-lg w-[72px]">
                                 <p className="font-medium">Jam</p>

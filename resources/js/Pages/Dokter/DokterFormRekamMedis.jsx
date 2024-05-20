@@ -11,10 +11,21 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/Components/ui/select";
+import {
+    AlertDialog,
+    AlertDialogCancel,
+    AlertDialogAction,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "@/Components/ui/alert-dialog";
 
 const DokterFormRekamMedis = ({ auth, patientData }) => {
     const [row, setRow] = useState(5);
-    
+
     const handleGoBack = () => {
         window.history.back();
     };
@@ -30,7 +41,7 @@ const DokterFormRekamMedis = ({ auth, patientData }) => {
         return age;
     };
 
-    const { data, setData, post, processing, errors } = useForm({
+    const { data, setData, post, processing, errors, setError } = useForm({
         user_id: patientData.user_id,
         doctor_id: auth.user.id,
         date: new Date().toISOString().split("T")[0],
@@ -44,36 +55,56 @@ const DokterFormRekamMedis = ({ auth, patientData }) => {
             medicine: "",
             dose: "",
             amount: "",
-            notes: ""
-        }))
+            notes: "",
+        })),
     });
 
     const handlePrescriptionChange = (index, field, value) => {
-        const updatedPrescriptions = data.prescriptions.map((prescription, idx) => {
-            if (index === idx) {
-                return { ...prescription, [field]: value };
+        const updatedPrescriptions = data.prescriptions.map(
+            (prescription, idx) => {
+                if (index === idx) {
+                    return { ...prescription, [field]: value };
+                }
+                return prescription;
             }
-            return prescription;
-        });
+        );
         setData("prescriptions", updatedPrescriptions);
     };
 
     const addRow = () => {
         setData("prescriptions", [
             ...data.prescriptions,
-            { name: "", dose: "", amount: "", notes: "" }
+            { name: "", dose: "", amount: "", notes: "" },
         ]);
         setRow(row + 1);
     };
 
     const removeRow = (index) => {
-        setData("prescriptions", data.prescriptions.filter((_, idx) => idx !== index));
+        setData(
+            "prescriptions",
+            data.prescriptions.filter((_, idx) => idx !== index)
+        );
         setRow(row - 1);
+    };
+
+    // Validasi Error State
+    const [validationErrors, setValidationErrors] = useState({});
+
+    const handleValidation = () => {
+        const errors = {};
+        if (!data.weight) errors.weight = "Berat badan pasien tidak boleh kosong";
+        if (!data.complaint) errors.complaint = "Keluhan pasien tidak boleh kosong";
+        if (!data.diagnosis) errors.diagnosis = "Diagnosa pasien tidak boleh kosong";
+        
+        if (Object.keys(errors).length > 0) {
+            setValidationErrors(errors);
+        }
     };
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('dokter.store'));
+
+        post(route("dokter.store"));
     };
 
     return (
@@ -175,6 +206,11 @@ const DokterFormRekamMedis = ({ auth, patientData }) => {
                                 className="border-2 border-gray-400 rounded-md placeholder:font-medium focus:border-ForestGreen focus:ring-ForestGreen"
                                 placeholder="Berat Badan Pasien"
                             />
+                            {validationErrors.weight && !data.weight && (
+                                <p className="text-red-500 font-semibold text-sm">
+                                    {validationErrors.weight}
+                                </p>
+                            )}
                         </div>
                         <div className="flex flex-col gap-2">
                             <p className="font-semibold">
@@ -219,6 +255,11 @@ const DokterFormRekamMedis = ({ auth, patientData }) => {
                                 className="border-2 border-gray-400 rounded-md placeholder:font-medium focus:border-ForestGreen focus:ring-ForestGreen"
                                 placeholder="Keluhan Pasien"
                             />
+                            {validationErrors.complaint && !data.complaint && (
+                                <p className="text-red-500 font-semibold text-sm">
+                                    {validationErrors.complaint}
+                                </p>
+                            )}
                         </div>
                         <div className="flex flex-col gap-2">
                             <p className="font-semibold">Diagnosa</p>
@@ -233,22 +274,35 @@ const DokterFormRekamMedis = ({ auth, patientData }) => {
                                 className="border-2 border-gray-400 rounded-md placeholder:font-medium focus:border-ForestGreen focus:ring-ForestGreen"
                                 placeholder="Diagnosa Penyakit Pasien"
                             />
+                            {errors.diagnosis && !data.diagnosis && (
+                                <p className="text-red-500 font-semibold text-sm">
+                                    {errors.diagnosis}
+                                </p>
+                            )}
                         </div>
                     </div>
 
                     <div className="flex flex-col gap-2 mt-16">
-                        <p className="font-semibold uppercase text-black/50">Resep Obat</p>
+                        <p className="font-semibold uppercase text-black/50">
+                            Resep Obat
+                        </p>
                         <hr className="border" />
                     </div>
 
                     <table className="w-full mt-8">
                         <thead className="">
                             <tr className="bg-ForestGreen text-white">
-                                <th className="py-2 font-semibold rounded-l-md">No</th>
-                                <th className="py-2 font-semibold">Nama Obat</th>
+                                <th className="py-2 font-semibold rounded-l-md">
+                                    No
+                                </th>
+                                <th className="py-2 font-semibold">
+                                    Nama Obat
+                                </th>
                                 <th className="py-2 font-semibold">Dosis</th>
                                 <th className="py-2 font-semibold">Banyak</th>
-                                <th className="py-2 pr-4 font-semibold rounded-r-md">Catatan</th>
+                                <th className="py-2 pr-4 font-semibold rounded-r-md">
+                                    Catatan
+                                </th>
                             </tr>
                         </thead>
                         <tbody id="resep">
@@ -260,40 +314,82 @@ const DokterFormRekamMedis = ({ auth, patientData }) => {
                                     <td className="px-1 lg:px-2 xl:px-3">
                                         <input
                                             type="text"
-                                            placeholder={index === 0 ? "Contoh: Paracetamol 200gr" : ""}
+                                            placeholder={
+                                                index === 0
+                                                    ? "Contoh: Paracetamol 200gr"
+                                                    : ""
+                                            }
                                             className="border-transparent border-b-2 border-b-gray-400 focus:ring-0 focus:border-transparent focus:border-b-ForestGreen w-[300px] placeholder:font-medium font-medium"
                                             value={prescription.medicine}
-                                            onChange={(e) => handlePrescriptionChange(index, 'medicine', e.target.value)}
+                                            onChange={(e) =>
+                                                handlePrescriptionChange(
+                                                    index,
+                                                    "medicine",
+                                                    e.target.value
+                                                )
+                                            }
                                         />
                                     </td>
                                     <td className="px-1 lg:px-2 xl:px-3">
                                         <input
                                             type="text"
-                                            placeholder={index === 0 ? "1 Sendok Teh" : ""}
+                                            placeholder={
+                                                index === 0
+                                                    ? "1 Sendok Teh"
+                                                    : ""
+                                            }
                                             className="border-transparent border-b-2 border-b-gray-400 focus:ring-0 focus:border-transparent focus:border-b-ForestGreen w-[100px] placeholder:font-medium font-medium"
                                             value={prescription.dose}
-                                            onChange={(e) => handlePrescriptionChange(index, 'dose', e.target.value)}
+                                            onChange={(e) =>
+                                                handlePrescriptionChange(
+                                                    index,
+                                                    "dose",
+                                                    e.target.value
+                                                )
+                                            }
                                         />
                                     </td>
                                     <td className="px-1 lg:px-2 xl:px-3">
                                         <input
                                             type="text"
-                                            placeholder={index === 0 ? "2x Sehari" : ""}
+                                            placeholder={
+                                                index === 0 ? "2x Sehari" : ""
+                                            }
                                             className="border-transparent border-b-2 border-b-gray-400 focus:ring-0 focus:border-transparent focus:border-b-ForestGreen w-[100px] placeholder:font-medium font-medium"
                                             value={prescription.amount}
-                                            onChange={(e) => handlePrescriptionChange(index, 'amount', e.target.value)}
+                                            onChange={(e) =>
+                                                handlePrescriptionChange(
+                                                    index,
+                                                    "amount",
+                                                    e.target.value
+                                                )
+                                            }
                                         />
                                     </td>
                                     <td className="pr-6 relative flex items-end">
                                         <input
                                             type="text"
-                                            placeholder={index === 0 ? "Hentikan konsumsi jika sudah membaik" : ""}
+                                            placeholder={
+                                                index === 0
+                                                    ? "Hentikan konsumsi jika sudah membaik"
+                                                    : ""
+                                            }
                                             className="border-transparent border-b-2 border-b-gray-400 focus:ring-0 focus:border-transparent focus:border-b-ForestGreen w-[400px] placeholder:font-medium font-medium"
                                             value={prescription.notes}
-                                            onChange={(e) => handlePrescriptionChange(index, 'notes', e.target.value)}
+                                            onChange={(e) =>
+                                                handlePrescriptionChange(
+                                                    index,
+                                                    "notes",
+                                                    e.target.value
+                                                )
+                                            }
                                         />
                                         {index + 1 === row && (
-                                            <button className="absolute right-0" type="button" onClick={() => removeRow(index)}>
+                                            <button
+                                                className="absolute right-0"
+                                                type="button"
+                                                onClick={() => removeRow(index)}
+                                            >
                                                 <MdDelete className="text-2xl text-customRed" />
                                             </button>
                                         )}
@@ -312,9 +408,51 @@ const DokterFormRekamMedis = ({ auth, patientData }) => {
                     </button>
 
                     <div className="flex justify-end mt-4">
-                        <button type="submit" className="bg-ForestGreen px-8 py-2 rounded-md text-white font-semibold">
-                            Submit
-                        </button>
+                        {data.weight && data.complaint && data.diagnosis ? (
+                            <AlertDialog>
+                                <AlertDialogTrigger
+                                    className={`bg-ForestGreen px-8 py-2 rounded-md text-white font-semibold hover:brightness-90 transition-all`}
+                                >
+                                    Simpan
+                                </AlertDialogTrigger>
+                                <AlertDialogContent className="flex flex-col gap-16">
+                                    <AlertDialogHeader>
+                                        <AlertDialogTitle>
+                                            Apakah data sudah sesuai?
+                                        </AlertDialogTitle>
+                                        <AlertDialogDescription>
+                                            Data rekam medis yang sudah disimpan
+                                            tidak dapat diubah kembali. Mohon
+                                            pastikan bahwa data yang Anda
+                                            masukkan telah benar sebelum
+                                            menyimpannya.
+                                        </AlertDialogDescription>
+                                    </AlertDialogHeader>
+                                    <AlertDialogFooter>
+                                        <AlertDialogCancel>
+                                            Batal
+                                        </AlertDialogCancel>
+                                        <AlertDialogAction
+                                            onClick={submit}
+                                            className={`border border-ForestGreen px-8 py-1 rounded-md bg-ForestGreen hover:bg-ForestGreen text-white transition-all hover:brightness-90 font-semibold ${
+                                                processing && "opacity-40"
+                                            }`}
+                                        >
+                                            {processing
+                                                ? "Menyimpan"
+                                                : "Simpan"}
+                                        </AlertDialogAction>
+                                    </AlertDialogFooter>
+                                </AlertDialogContent>
+                            </AlertDialog>
+                        ) : (
+                            <button
+                                className="bg-ForestGreen px-8 py-2 rounded-md text-white font-semibold hover:brightness-90 transition-all"
+                                onClick={handleValidation}
+                            >
+                                Simpan
+                            </button>
+                        )}
                     </div>
                 </form>
             </main>

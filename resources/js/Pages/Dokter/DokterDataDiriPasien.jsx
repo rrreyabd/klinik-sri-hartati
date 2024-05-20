@@ -3,6 +3,7 @@ import DokterNav from "./DokterNav";
 import { ArrowLeft } from "lucide-react";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
+import { FaPlus } from "react-icons/fa";
 
 const DokterDataDiriPasien = ({ data, patient, auth, rekam_medis }) => {
 
@@ -91,8 +92,9 @@ const DokterDataDiriPasien = ({ data, patient, auth, rekam_medis }) => {
                     <hr className="border" />
                 </div>
 
-                <div className="">
-                    <Link href={route("dokter.edit", { id: patient.id })}>
+                <div className="flex justify-end">
+                    <Link href={route("dokter.edit", { id: patient.id })} className="px-6 py-2 bg-ForestGreen text-white font-semibold flex items-center gap-2 rounded-md hover:brightness-90 transition-all">
+                        <FaPlus />
                         Tambah Rekam Medis
                     </Link>
                 </div>
@@ -114,11 +116,11 @@ export default DokterDataDiriPasien;
 const RekamMedisDataTable = ({ c1, c2, c3, c4, data }) => {
     return (
         <div className="flex flex-col">
-            <table className="w-full divide-y divide-gray-200 mt-4">
+            <table className="w-full divide-y divide-gray-200">
                 <thead className="bg-ForestGreen text-white">
                     <tr>
                         <th
-                            className={`py-3 px-1 text-sm font-semibold uppercase tracking-wider text-cente rounded-l-md ${c1} `}
+                            className={`py-3 px-1 text-sm font-semibold uppercase tracking-wider text-center rounded-l-md ${c1} `}
                         >
                             Tanggal
                         </th>
