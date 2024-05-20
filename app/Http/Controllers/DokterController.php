@@ -21,7 +21,7 @@ class DokterController extends Controller
         $appointments = AppointmentView::where('date', $formattedDate)
             ->orderBy('time', 'asc')
             ->get();
-            
+
         return Inertia::render('Dokter/DokterDashboard', [
             'appointments' => $appointments
         ]);
@@ -30,13 +30,14 @@ class DokterController extends Controller
     public function edit($id)
     {
         $patientData = Patient::with('user')->find($id);
-    
+
         return Inertia::render('Dokter/DokterFormRekamMedis', [
             'patientData' => $patientData
         ]);
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $request->validate([
             'user_id' => 'required',
             'doctor_id' => 'required',
@@ -60,6 +61,20 @@ class DokterController extends Controller
             'complaint' => $request->complaint,
             'diagnosis' => $request->diagnosis,
         ]);
+
+        $prescriptions = $request->prescriptions;
+
+        foreach ($prescriptions as $prescription) {
+            if (!is_null($prescription['medicine'])) {
+                Prescription::create([
+                    'medical_record_id' => $medicalRecord->id,
+                    'medicine' => $prescription['medicine'],
+                    'dose' => $prescription['dose'],
+                    'amount' => $prescription['amount'],
+                    'notes' => $prescription['notes'],
+                ]);
+            }
+        }
 
         return $this->dataDiriPasien($request->user_id);
     }
