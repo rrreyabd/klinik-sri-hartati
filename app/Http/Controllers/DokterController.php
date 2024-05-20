@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Appointment;
+use App\Models\AppointmentView;
 use App\Models\MedicalRecord;
 use App\Models\Patient;
 use App\Models\Prescription;
@@ -17,11 +18,10 @@ class DokterController extends Controller
     {
         $currentDate = Carbon::now();
         $formattedDate = $currentDate->format('Y-m-d');
-        $appointments = Appointment::where('date', $formattedDate)
-            ->with(['treatment', 'user'])
+        $appointments = AppointmentView::where('date', $formattedDate)
             ->orderBy('time', 'asc')
             ->get();
-
+            
         return Inertia::render('Dokter/DokterDashboard', [
             'appointments' => $appointments
         ]);

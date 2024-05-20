@@ -25,8 +25,9 @@ const AuthLayout = ({ children }) => {
                 </div>
             </div>
 
-            <div className="absolute -z-10 bg-Mint/40 w-11/12 h-64 top-0 rounded-b-full"></div>
-            <div className="absolute -z-20 bg-yellow-50/60 w-full h-full top-0 left-0"></div>
+            <div className="absolute -z-10 bg-Mint/40 w-11/12 h-72 top-0 left-0 rounded-r-full"></div>
+            <div className="absolute -z-10 bg-Mint/40 w-11/12 h-72 bottom-0 right-0 rounded-l-full"></div>
+            <div className="absolute -z-20 bg-gradient-to-r from-yellow-50/60 to-customWhite w-full h-full top-0 left-0"></div>
         </div>
     );
 };

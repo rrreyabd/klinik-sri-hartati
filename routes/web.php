@@ -71,7 +71,9 @@ Route::middleware(['auth', 'CheckPatientData'])->group(function () {
     Route::get('/staff/janji-temu/daftar', [StaffController::class, 'daftarJanjiTemuIndex'])->name('staff.daftar.janji.temu.index');
     Route::post('/staff/janji-temu/store', [StaffController::class, 'store'])->name('staff.janji-temu.store');
     
-    Route::get('/staff/pembayaran', [StaffController::class, 'pembayaranIndex'])->name('pembayaran.temu.index');
+    Route::get('/staff/pembayaran', [StaffController::class, 'pembayaranIndex'])->name('staff.pembayaran.index');
+    
+    Route::get('/staff/rekam-medis', [StaffController::class, 'rekamMedisIndex'])->name('staff.rekam-medis.index');
 
 
     // Dokter

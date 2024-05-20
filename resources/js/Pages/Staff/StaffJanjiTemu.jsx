@@ -228,7 +228,7 @@ const StaffJanjiTemu = ({ appointments, status, error }) => {
 
                                         const hoursNow = currentDate.getHours();
                                         const minutesNow =
-                                            currentDate.getMinutes();
+                                            currentDate.getMinutes().toString().padStart(2, '0');
 
                                         const realTime =
                                             hoursNow + ":" + minutesNow;

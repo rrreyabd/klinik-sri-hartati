@@ -37,6 +37,6 @@ class AppointmentSeeder extends Seeder
             }
         }
 
-        Appointment::factory(10)->create();
+        Appointment::factory(50)->create();
     }
 }
