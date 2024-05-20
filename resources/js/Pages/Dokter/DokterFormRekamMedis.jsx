@@ -14,7 +14,7 @@ import {
 
 const DokterFormRekamMedis = ({ auth, patientData }) => {
     const [row, setRow] = useState(5);
-
+    
     const handleGoBack = () => {
         window.history.back();
     };
@@ -40,43 +40,41 @@ const DokterFormRekamMedis = ({ auth, patientData }) => {
         allergy: "",
         complaint: "",
         diagnosis: "",
+        prescriptions: Array.from({ length: row }, () => ({
+            medicine: "",
+            dose: "",
+            amount: "",
+            notes: ""
+        }))
     });
 
-    console.log(
-        "user_id: " +
-            data.user_id +
-            "\n" +
-            "doctor_id: " +
-            data.doctor_id +
-            "\n" +
-            "date: " +
-            data.date +
-            "\n" +
-            "name: " +
-            data.name +
-            "\n" +
-            "weight: " +
-            data.weight +
-            "\n" +
-            "blood_pressure: " +
-            data.blood_pressure +
-            "\n" +
-            "allergy: " +
-            data.allergy +
-            "\n" +
-            "complaint: " +
-            data.complaint +
-            "\n" +
-            "diagnosis: " +
-            data.diagnosis +
-            "\n"
-    );
+    const handlePrescriptionChange = (index, field, value) => {
+        const updatedPrescriptions = data.prescriptions.map((prescription, idx) => {
+            if (index === idx) {
+                return { ...prescription, [field]: value };
+            }
+            return prescription;
+        });
+        setData("prescriptions", updatedPrescriptions);
+    };
+
+    const addRow = () => {
+        setData("prescriptions", [
+            ...data.prescriptions,
+            { name: "", dose: "", amount: "", notes: "" }
+        ]);
+        setRow(row + 1);
+    };
+
+    const removeRow = (index) => {
+        setData("prescriptions", data.prescriptions.filter((_, idx) => idx !== index));
+        setRow(row - 1);
+    };
 
     const submit = (e) => {
-        e.preventDefault()
-
-        post(route('dokter.store'))
-    }
+        e.preventDefault();
+        post(route('dokter.store'));
+    };
 
     return (
         <div className="bg-customWhite min-h-screen flex items-center flex-col">
@@ -239,79 +237,66 @@ const DokterFormRekamMedis = ({ auth, patientData }) => {
                     </div>
 
                     <div className="flex flex-col gap-2 mt-16">
-                        <p className="font-semibold uppercase text-black/50">
-                            Resep Obat
-                        </p>
+                        <p className="font-semibold uppercase text-black/50">Resep Obat</p>
                         <hr className="border" />
                     </div>
 
                     <table className="w-full mt-8">
                         <thead className="">
                             <tr className="bg-ForestGreen text-white">
-                                <th className="py-2 font-semibold rounded-l-md">
-                                    No
-                                </th>
-                                <th className="py-2 font-semibold">
-                                    Nama Obat
-                                </th>
+                                <th className="py-2 font-semibold rounded-l-md">No</th>
+                                <th className="py-2 font-semibold">Nama Obat</th>
                                 <th className="py-2 font-semibold">Dosis</th>
                                 <th className="py-2 font-semibold">Banyak</th>
-                                <th className="py-2 pr-4 font-semibold rounded-r-md">
-                                    Catatan
-                                </th>
+                                <th className="py-2 pr-4 font-semibold rounded-r-md">Catatan</th>
                             </tr>
                         </thead>
-                        {/* 1088 */}
-                        <tbody className="">
-                            {Array.from({ length: row }).map((_, index) => (
+                        <tbody id="resep">
+                            {data.prescriptions.map((prescription, index) => (
                                 <tr key={index}>
-                                    <td className=" text-center font-semibold w-[50px]">
+                                    <td className="text-center font-semibold w-[50px]">
                                         <p>{index + 1}</p>
                                     </td>
                                     <td className="px-1 lg:px-2 xl:px-3">
                                         <input
                                             type="text"
-                                            name=""
-                                            id=""
-                                            placeholder={index == 0 ? "Contoh : Paracetamol 200gr" : ""}
+                                            placeholder={index === 0 ? "Contoh: Paracetamol 200gr" : ""}
                                             className="border-transparent border-b-2 border-b-gray-400 focus:ring-0 focus:border-transparent focus:border-b-ForestGreen w-[300px] placeholder:font-medium font-medium"
+                                            value={prescription.medicine}
+                                            onChange={(e) => handlePrescriptionChange(index, 'medicine', e.target.value)}
                                         />
                                     </td>
                                     <td className="px-1 lg:px-2 xl:px-3">
                                         <input
                                             type="text"
-                                            name=""
-                                            id=""
-                                            placeholder={index == 0 ? "1 Sendok Teh" : ""}
+                                            placeholder={index === 0 ? "1 Sendok Teh" : ""}
                                             className="border-transparent border-b-2 border-b-gray-400 focus:ring-0 focus:border-transparent focus:border-b-ForestGreen w-[100px] placeholder:font-medium font-medium"
+                                            value={prescription.dose}
+                                            onChange={(e) => handlePrescriptionChange(index, 'dose', e.target.value)}
                                         />
                                     </td>
                                     <td className="px-1 lg:px-2 xl:px-3">
                                         <input
                                             type="text"
-                                            name=""
-                                            id=""
-                                            placeholder={index == 0 ? "2x Sehari" : ""}
+                                            placeholder={index === 0 ? "2x Sehari" : ""}
                                             className="border-transparent border-b-2 border-b-gray-400 focus:ring-0 focus:border-transparent focus:border-b-ForestGreen w-[100px] placeholder:font-medium font-medium"
+                                            value={prescription.amount}
+                                            onChange={(e) => handlePrescriptionChange(index, 'amount', e.target.value)}
                                         />
                                     </td>
-                                    <td className=" pr-6 relative flex items-end">
+                                    <td className="pr-6 relative flex items-end">
                                         <input
                                             type="text"
-                                            name=""
-                                            id=""
-                                            placeholder={index == 0 ? "Hentikan konsumsi jika sudah membaik" : ""}
+                                            placeholder={index === 0 ? "Hentikan konsumsi jika sudah membaik" : ""}
                                             className="border-transparent border-b-2 border-b-gray-400 focus:ring-0 focus:border-transparent focus:border-b-ForestGreen w-[400px] placeholder:font-medium font-medium"
+                                            value={prescription.notes}
+                                            onChange={(e) => handlePrescriptionChange(index, 'notes', e.target.value)}
                                         />
-                                        {index + 1 == row ? (
-                                            <button
-                                                className="absolute right-0"
-                                                type="button"
-                                                onClick={() => setRow(row - 1)}
-                                            >
+                                        {index + 1 === row && (
+                                            <button className="absolute right-0" type="button" onClick={() => removeRow(index)}>
                                                 <MdDelete className="text-2xl text-customRed" />
                                             </button>
-                                        ) : null}
+                                        )}
                                     </td>
                                 </tr>
                             ))}
@@ -321,16 +306,13 @@ const DokterFormRekamMedis = ({ auth, patientData }) => {
                     <button
                         className="bg-ForestGreen text-white p-2 rounded-full hover:brightness-90 transition-all mt-6 ml-2"
                         type="button"
-                        onClick={() => setRow(row + 1)}
+                        onClick={addRow}
                     >
                         <FaPlus className="text-xl" />
                     </button>
 
                     <div className="flex justify-end mt-4">
-                        <button
-                            type="submit"
-                            className="bg-ForestGreen px-8 py-2 rounded-md text-white font-semibold"
-                        >
+                        <button type="submit" className="bg-ForestGreen px-8 py-2 rounded-md text-white font-semibold">
                             Submit
                         </button>
                     </div>
