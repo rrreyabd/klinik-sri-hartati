@@ -45,8 +45,8 @@ const DokterDashboard = ({ auth, appointments }) => {
     const month = currentDate.getMonth() + 1;
     const year = currentDate.getFullYear();
     const hours = currentDate.getHours();
-    const minutes = currentDate.getMinutes();
-    const seconds = currentDate.getSeconds();
+    const minutes = currentDate.getMinutes().toString().padStart(2, "0");
+    const seconds = currentDate.getSeconds().toString().padStart(2, "0");
 
     const [showData, setShowData] = useState(true);
 
@@ -147,7 +147,9 @@ const DokterDashboard = ({ auth, appointments }) => {
                             <button
                                 onClick={() => setShowData(true)}
                                 className={`text-lg font-semibold py-2 w-32 hover:bg-customWhite transition-all ${
-                                    showData ? "text-ForestGreen" : "text-gray-300"
+                                    showData
+                                        ? "text-ForestGreen"
+                                        : "text-gray-300"
                                 }`}
                             >
                                 Janji Temu
@@ -155,7 +157,9 @@ const DokterDashboard = ({ auth, appointments }) => {
                             <button
                                 onClick={() => setShowData(false)}
                                 className={`text-lg font-semibold py-2 w-32 hover:bg-customWhite transition-all ${
-                                    showData ? "text-gray-300" : "text-ForestGreen"
+                                    showData
+                                        ? "text-gray-300"
+                                        : "text-ForestGreen"
                                 }`}
                             >
                                 Antrian
@@ -170,7 +174,7 @@ const DokterDashboard = ({ auth, appointments }) => {
                             ></div>
                         </div>
 
-                        <div className="flex items-center gap-2 justify-end">
+                        <div className="flex items-center gap-2 justify-end pr-6">
                             <div className="h-3 w-3 bg-ForestGreen rounded-full"></div>
                             <p className="text-sm font-medium">
                                 Sedang Berlangsung
@@ -298,7 +302,7 @@ export const DataTableDokter = ({
                                                 {appointment.name}
                                             </td>
                                             <td className={`py-4 px-1 ${c4} `}>
-                                                {appointment.treatment.name}
+                                                {appointment.treatment_name}
                                             </td>
                                             <td className={`py-4 px-1 ${c5} `}>
                                                 {appointment.gender}

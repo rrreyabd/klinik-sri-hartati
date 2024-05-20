@@ -63,7 +63,7 @@ const StaffSheet = () => {
                             <BiHomeAlt2 className="text-2xl" />
                             <p className="font-medium">Dashboard</p>
                         </Link>
-                        {/* <Link
+                        <Link
                             href="/staff/antrian"
                             className={`w-full py-2 rounded-md flex gap-4 transition-all hover:text-customWhite px-4 ${
                                 url == "/staff/antrian"
@@ -73,7 +73,7 @@ const StaffSheet = () => {
                         >
                             <MdAddToPhotos className="text-2xl" />
                             <p className="font-medium">Antrian</p>
-                        </Link> */}
+                        </Link>
                         <Link
                             href="/staff/janji-temu"
                             className={`w-full py-2 rounded-md flex gap-4 transition-all px-4 ${

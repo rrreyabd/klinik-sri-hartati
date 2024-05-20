@@ -10,7 +10,7 @@ import { InputText } from "primereact/inputtext";
 import { Dropdown } from "primereact/dropdown";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 
-const StaffPembayaran = () => {
+const StaffRekamMedis = () => {
     const [dateFrom, setDateFrom] = useState();
     const [dateTo, setDateTo] = useState();
 
@@ -26,12 +26,12 @@ const StaffPembayaran = () => {
 
     return (
         <div className="min-h-screen w-full bg-customWhite flex justify-center">
-            <Head title="Pembayaran" />
+            <Head title="Rekam Medis" />
             <div className="w-3/4 py-16 flex flex-col gap-4 max-w-[1300px]">
                 <header className="flex justify-between">
                     <StaffSheet />
                     <h1 className="text-4xl font-semibold text-ForestGreen">
-                        Status Pembayaran
+                        Rekam Medis
                     </h1>
                     <span className="w-10"></span>
                 </header>
@@ -176,4 +176,4 @@ const StaffPembayaran = () => {
     );
 };
 
-export default StaffPembayaran;
+export default StaffRekamMedis;

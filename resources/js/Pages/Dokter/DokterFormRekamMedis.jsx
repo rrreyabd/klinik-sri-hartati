@@ -273,7 +273,8 @@ const DokterFormRekamMedis = ({ auth, patientData }) => {
                                             type="text"
                                             name=""
                                             id=""
-                                            className="border-transparent border-b-2 border-b-gray-400 focus:ring-0 focus:border-transparent focus:border-b-ForestGreen w-[300px]"
+                                            placeholder={index == 0 ? "Contoh : Paracetamol 200gr" : ""}
+                                            className="border-transparent border-b-2 border-b-gray-400 focus:ring-0 focus:border-transparent focus:border-b-ForestGreen w-[300px] placeholder:font-medium font-medium"
                                         />
                                     </td>
                                     <td className="px-1 lg:px-2 xl:px-3">
@@ -281,7 +282,8 @@ const DokterFormRekamMedis = ({ auth, patientData }) => {
                                             type="text"
                                             name=""
                                             id=""
-                                            className="border-transparent border-b-2 border-b-gray-400 focus:ring-0 focus:border-transparent focus:border-b-ForestGreen w-[100px]"
+                                            placeholder={index == 0 ? "1 Sendok Teh" : ""}
+                                            className="border-transparent border-b-2 border-b-gray-400 focus:ring-0 focus:border-transparent focus:border-b-ForestGreen w-[100px] placeholder:font-medium font-medium"
                                         />
                                     </td>
                                     <td className="px-1 lg:px-2 xl:px-3">
@@ -289,7 +291,8 @@ const DokterFormRekamMedis = ({ auth, patientData }) => {
                                             type="text"
                                             name=""
                                             id=""
-                                            className="border-transparent border-b-2 border-b-gray-400 focus:ring-0 focus:border-transparent focus:border-b-ForestGreen w-[100px]"
+                                            placeholder={index == 0 ? "2x Sehari" : ""}
+                                            className="border-transparent border-b-2 border-b-gray-400 focus:ring-0 focus:border-transparent focus:border-b-ForestGreen w-[100px] placeholder:font-medium font-medium"
                                         />
                                     </td>
                                     <td className=" pr-6 relative flex items-end">
@@ -297,7 +300,8 @@ const DokterFormRekamMedis = ({ auth, patientData }) => {
                                             type="text"
                                             name=""
                                             id=""
-                                            className="border-transparent border-b-2 border-b-gray-400 focus:ring-0 focus:border-transparent focus:border-b-ForestGreen w-[400px]"
+                                            placeholder={index == 0 ? "Hentikan konsumsi jika sudah membaik" : ""}
+                                            className="border-transparent border-b-2 border-b-gray-400 focus:ring-0 focus:border-transparent focus:border-b-ForestGreen w-[400px] placeholder:font-medium font-medium"
                                         />
                                         {index + 1 == row ? (
                                             <button

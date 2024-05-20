@@ -69,5 +69,9 @@ class StaffController extends Controller
     {
         return Inertia::render('Staff/StaffPembayaran');
     }
+    public function rekamMedisIndex()
+    {
+        return Inertia::render('Staff/StaffRekamMedis');
+    }
 
 }
