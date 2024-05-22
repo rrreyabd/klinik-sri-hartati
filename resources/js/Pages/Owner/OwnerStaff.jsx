@@ -1,14 +1,15 @@
 import OwnerLayout from "@/Layouts/OwnerLayout";
+import { Link } from "@inertiajs/react";
 import { useState } from "react";
-import { FaEdit } from "react-icons/fa";
+import { FaEdit, FaRegTrashAlt } from "react-icons/fa";
 
-const OwnerPasien = () => {
+const OwnerStaff = () => {
     const [open, setOpen] = useState(true);
 
     return (
-        <OwnerLayout open={open} setOpen={setOpen} navTitle="Pasien">
+        <OwnerLayout open={open} setOpen={setOpen} navTitle="Staff">
             <div className="text-lg font-medium">
-                <span className="text-gray-500">Dashboard </span> &gt; Pasien
+                <span className="text-gray-500">Dashboard </span> &gt; Staff
             </div>
 
             <div className="flex justify-end mt-8">
@@ -71,6 +72,9 @@ const OwnerPasien = () => {
                                     <button>
                                         <FaEdit className="text-ForestGreen h-6 w-6" />
                                     </button>
+                                    <Link>
+                                        <FaRegTrashAlt className="text-customRed h-6 w-6" />
+                                    </Link>
                                 </td>
                             </tr>
                         ))}
@@ -102,4 +106,4 @@ const OwnerPasien = () => {
     );
 };
 
-export default OwnerPasien;
+export default OwnerStaff;

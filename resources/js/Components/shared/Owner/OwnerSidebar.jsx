@@ -1,10 +1,11 @@
 import { Link, usePage } from "@inertiajs/react";
 import { BiHomeAlt } from "react-icons/bi";
-import { FaUserInjured } from "react-icons/fa";
+import { FaUserInjured, FaUserNurse } from "react-icons/fa";
 import { RiCalendarScheduleLine } from "react-icons/ri";
 import { AiOutlineMedicineBox } from "react-icons/ai";
 import { MdOutlinePayments } from "react-icons/md";
 import { FaRegUser } from "react-icons/fa6";
+import { FaUserDoctor } from "react-icons/fa6";
 
 const menu = [
     {
@@ -13,9 +14,24 @@ const menu = [
         link: "/owner",
     },
     {
+        label: "Akun",
+        icon: <FaRegUser className="w-6 h-6" />,
+        link: "/owner/akun",
+    },
+    {
         label: "Pasien",
         icon: <FaUserInjured className="w-6 h-6" />,
         link: "/owner/pasien",
+    },
+    {
+        label: "Dokter",
+        icon: <FaUserDoctor className="w-6 h-6" />,
+        link: "/owner/dokter",
+    },
+    {
+        label: "Staff",
+        icon: <FaUserNurse className="w-6 h-6" />,
+        link: "/owner/staff",
     },
     {
         label: "Jadwal",
@@ -23,7 +39,7 @@ const menu = [
         link: "/owner/jadwal",
     },
     {
-        label: "Obat",
+        label: "Obat????",
         icon: <AiOutlineMedicineBox className="w-6 h-6" />,
         link: "/owner/obat",
     },
@@ -32,7 +48,6 @@ const menu = [
         icon: <MdOutlinePayments className="w-6 h-6" />,
         link: "/owner/pembayaran",
     },
-    { label: "Akun", icon: <FaRegUser className="w-6 h-6" />, link: "/owner/akun" },
 ];
 
 const OwnerSidebar = ({ open }) => {
