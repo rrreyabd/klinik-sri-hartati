@@ -2,7 +2,7 @@ import { Head, Link } from "@inertiajs/react";
 import { AiOutlineMenuFold, AiOutlineMenuUnfold } from "react-icons/ai";
 import { TbLogout } from "react-icons/tb";
 
-const OwnerNavbar = ({ open, setOpen }) => {
+const OwnerNavbar = ({ open, setOpen, navTitle }) => {
     return (
         <div className="h-24 flex justify-between px-16 shadow-md sticky top-0 left-0 bg-white">
             <Head title="Owner" />
@@ -22,7 +22,7 @@ const OwnerNavbar = ({ open, setOpen }) => {
                             )
                         }
                     </button>
-                    <h3 className="text-2xl font-semibold">Dashboard</h3>
+                    <h3 className="text-2xl font-semibold">{navTitle}</h3>
                 </div>
             </div>
 

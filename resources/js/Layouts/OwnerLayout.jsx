@@ -1,15 +1,15 @@
 import OwnerNavbar from "@/Components/shared/Owner/OwnerNavbar";
 import OwnerSidebar from "@/Components/shared/Owner/OwnerSidebar";
 
-const OwnerLayout = ({ children, open, setOpen }) => {
+const OwnerLayout = ({ children, open, setOpen, navTitle }) => {
     return (
         <div className="w-full min-h-screen bg-white">
-            <OwnerNavbar setOpen={setOpen} open={open} />
+            <OwnerNavbar setOpen={setOpen} open={open} navTitle={navTitle} />
             <div className="flex">
                 <OwnerSidebar open={open} />
 
                 <main
-                    className={`h-[200vh] p-8 flex flex-col flex-grow bg-customWhite items-center ${
+                    className={`p-8 flex min-h-screen flex-col flex-grow bg-customWhite items-center ${
                         open ? "ml-72" : "ml-0"
                     } transition-all duration-500 ease-in-out
                 }`}
