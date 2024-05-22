@@ -5,7 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Queue extends Model
+class PatientView extends Model
 {
-    use HasFactory;
+    protected $table = 'patient_view';
+
+    public $timestamps = false;
 }

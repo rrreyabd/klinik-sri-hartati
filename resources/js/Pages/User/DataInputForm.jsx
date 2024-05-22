@@ -12,7 +12,7 @@ const DataInputForm = ({ auth }) => {
         birthdate: "",
         blood_type: "",
         gender: "",
-        address: "",
+        // address: "",
         phone_number: "",
     });
 
@@ -26,7 +26,7 @@ const DataInputForm = ({ auth }) => {
             data.birthdate &&
             data.blood_type &&
             data.gender &&
-            data.address &&
+            // data.address &&
             data.phone_number
         ) {
             setAllFilled(true);

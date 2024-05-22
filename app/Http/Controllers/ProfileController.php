@@ -142,4 +142,11 @@ class ProfileController extends Controller
             return redirect()->route('datadiri.edit')->with('error', 'Terjadi kesalahan saat menyimpan data. Silahkan coba lagi.');
         }
     }
+
+    public function skipTour(Request $request)
+    {
+        User::where('id', Auth::user()->id)->update(['isSkipped' => true]);
+
+        return redirect()->route('index');
+    }
 }
