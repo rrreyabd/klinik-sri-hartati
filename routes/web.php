@@ -93,6 +93,8 @@ Route::get('/owner/akun', [OwnerController::class, 'akunIndex'])->name('owner.ak
 Route::get('/owner/pasien', [OwnerController::class, 'pasienIndex'])->name('owner.pasien');
 Route::get('/owner/pembayaran', [OwnerController::class, 'pembayaranIndex'])->name('owner.pembayaran');
 
+Route::get('/skip/tour', [ProfileController::class, 'skipTour'])->name('tour.skip');
+
 Route::fallback(function () {
     return Inertia::render('Fallback');
 });

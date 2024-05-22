@@ -73,7 +73,7 @@ const BodyForm = ({ auth, data, setData, errors }) => {
                 )}
             </div>
 
-            <div className="flex flex-col gap-1">
+            {/* <div className="flex flex-col gap-1">
                 <p className="font-semibold">Alamat</p>
                 <input
                     type="text"
@@ -87,7 +87,7 @@ const BodyForm = ({ auth, data, setData, errors }) => {
                         {errors.address}
                     </p>
                 )}
-            </div>
+            </div> */}
 
             <div className="flex flex-col gap-1">
                 <p className="font-semibold">Tanggal Lahir</p>
