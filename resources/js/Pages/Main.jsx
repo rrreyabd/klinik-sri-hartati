@@ -46,34 +46,36 @@ export default function Main({ auth, patient, status, error }) {
     }, [status, error]);
 
     // Joyride
-    const isSkipped = auth.user.isSkipped;
-    const [{ run, steps }, setTourState] = useState({
-        run: !isSkipped,
-        steps: [
-            {
-                content: <h2>Lets Begin</h2>,
-                locale: {
-                    skip: (
-                        <Link
-                            href="/skip/tour"
-                            className="bg-red-600 text-white px-4 py-2 rounded-md"
-                        >
-                            Skip
-                        </Link>
-                    ),
+    if (auth.user) {
+        const isSkipped = auth.user.isSkipped;
+        const [{ run, steps }, setTourState] = useState({
+            run: !isSkipped,
+            steps: [
+                {
+                    content: <h2>Lets Begin</h2>,
+                    locale: {
+                        skip: (
+                            <Link
+                                href="/skip/tour"
+                                className="bg-red-600 text-white px-4 py-2 rounded-md"
+                            >
+                                Skip
+                            </Link>
+                        ),
+                    },
+                    placement: "center",
+                    target: "body",
                 },
-                placement: "center",
-                target: "body",
-            },
-            {
-                content: <h2>Here's first step</h2>,
-                placement: "bottom",
-                target: "#step-1",
-                title: "First Step",
-            },
-        ],
-    });
-    console.log(run);
+                {
+                    content: <h2>Here's first step</h2>,
+                    placement: "bottom",
+                    target: "#step-1",
+                    title: "First Step",
+                },
+            ],
+        });
+        console.log(run);
+    }
 
     // Idle State
     const [showButton, setShowButton] = useState(false);
@@ -92,35 +94,38 @@ export default function Main({ auth, patient, status, error }) {
                 className="flex flex-col items-center bg-customWhite lg:bg-customWhite"
                 id="home"
             >
-                {showButton && (
-                    <motion.button
-                        className="fixed bottom-10 right-10 p-3 rounded-full bg-ForestGreen shadow-md flex justify-center items-center animate-bounceSlow"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 1, delay: 0.5 }}
-                        onClick={() => setTourState({ run: true })}
-                        type="button"
-                    >
-                        <FaQuestion className="h-6 w-6 text-customWhite" />
-                        <button
+                {auth.user && showButton && (
+                    <>
+                        <motion.button
+                            className="fixed bottom-10 right-10 p-3 rounded-full bg-ForestGreen shadow-md flex justify-center items-center animate-bounceSlow"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 1, delay: 0.5 }}
+                            onClick={() => setTourState({ run: true })}
                             type="button"
-                            onClick={() => setShowButton(false)}
-                            className="absolute -top-0 right-0 h-4 w-4 rounded-full bg-red-600 text-white flex justify-center items-center text-xs"
                         >
-                            <FaX className="w-3 h-3" />
-                        </button>
-                    </motion.button>
+                            <FaQuestion className="h-6 w-6 text-customWhite" />
+                            <button
+                                type="button"
+                                onClick={() => setShowButton(false)}
+                                className="absolute -top-0 right-0 h-4 w-4 rounded-full bg-red-600 text-white flex justify-center items-center text-xs"
+                            >
+                                <FaX className="w-3 h-3" />
+                            </button>
+                        </motion.button>
+
+                        <Joyride
+                            continuous
+                            callback={() => {}}
+                            run={run}
+                            steps={steps}
+                            hideCloseButton
+                            scrollToFirstStep
+                            showSkipButton
+                            showProgress
+                        />
+                    </>
                 )}
-                <Joyride
-                    continuous
-                    callback={() => {}}
-                    run={run}
-                    steps={steps}
-                    hideCloseButton
-                    scrollToFirstStep
-                    showSkipButton
-                    showProgress
-                />
                 <div className="px-8 md:px-0 w-full md:w-4/5 max-w-[1300px]">
                     {/* Nav */}
                     <Navbar auth={auth}>
@@ -128,25 +133,25 @@ export default function Main({ auth, patient, status, error }) {
                             <Link
                                 id="step-1"
                                 href="#home"
-                                className="text-customBlack hover:bg-[#e2e2e2] px-4 py-2 rounded-full transition-all underline-custom"
+                                className="text-customBlack hover:bg-[#e2e2e2] px-1 xl:px-4 py-2 rounded-full transition-all underline-custom"
                             >
                                 Home
                             </Link>
                             <Link
                                 href="#layanan"
-                                className="text-customBlack hover:bg-[#e2e2e2] px-4 py-2 rounded-full transition-all underline-custom"
+                                className="text-customBlack hover:bg-[#e2e2e2] px-1 xl:px-4 py-2 rounded-full transition-all underline-custom"
                             >
                                 Layanan
                             </Link>
                             <Link
                                 href="#tentang"
-                                className="text-customBlack hover:bg-[#e2e2e2] px-4 py-2 rounded-full transition-all underline-custom"
+                                className="text-customBlack hover:bg-[#e2e2e2] px-1 xl:px-4 py-2 rounded-full transition-all underline-custom"
                             >
                                 Tentang Kami
                             </Link>
                             <Link
                                 href="#kontak"
-                                className="text-customBlack hover:bg-[#e2e2e2] px-4 py-2 rounded-full transition-all underline-custom"
+                                className="text-customBlack hover:bg-[#e2e2e2] px-1 xl:px-4 py-2 rounded-full transition-all underline-custom"
                             >
                                 Kontak
                             </Link>
