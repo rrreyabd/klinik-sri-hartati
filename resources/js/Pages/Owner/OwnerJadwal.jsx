@@ -2,6 +2,14 @@ import OwnerLayout from "@/Layouts/OwnerLayout";
 import { Link } from "@inertiajs/react";
 import { useState } from "react";
 import { FaEdit, FaPlus, FaRegTrashAlt } from "react-icons/fa";
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/Components/ui/dialog";
 
 const OwnerJadwal = () => {
     const [open, setOpen] = useState(true);
@@ -19,9 +27,21 @@ const OwnerJadwal = () => {
                     className="rounded-md border-gray-400 w-72 placeholder:font-medium placeholder:text-gray-400 focus:border-ForestGreen focus:ring-ForestGreen"
                 />
 
-                <button className="bg-ForestGreen text-white px-4 py-1 rounded-md shadow-md flex gap-2 items-center font-semibold">
-                    <FaPlus /> Jadwal Berhalangan
-                </button>
+                <Dialog>
+                    <DialogTrigger className="bg-ForestGreen text-white px-4 py-1 rounded-md shadow-md flex gap-2 items-center font-semibold">
+                        <FaPlus /> Jadwal Berhalangan
+                    </DialogTrigger>
+                    <DialogContent>
+                        <DialogHeader>
+                            <DialogTitle>TITLE DISINI</DialogTitle>
+                            <DialogDescription>
+                                <form>
+                                    FORM DISINI
+                                </form>
+                            </DialogDescription>
+                        </DialogHeader>
+                    </DialogContent>
+                </Dialog>
             </div>
 
             <div className="overflow-hidden rounded-md border border-gray-200 shadow-md mt-8">
@@ -61,10 +81,10 @@ const OwnerJadwal = () => {
                                     18/11/2024
                                 </td>
                                 <td className="py-4 px-3 font-medium text-center">
-                                  09.00
+                                    09.00
                                 </td>
                                 <td className="py-4 px-3 font-medium text-center">
-                                  Healing
+                                    Healing
                                 </td>
                                 <td className="py-4 px-3 font-medium flex justify-center gap-2">
                                     <button>

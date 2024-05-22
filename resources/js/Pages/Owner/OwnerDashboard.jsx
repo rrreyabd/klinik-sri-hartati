@@ -10,7 +10,7 @@ const OwnerDashboard = () => {
     return (
         <>
             <OwnerLayout open={open} setOpen={setOpen} navTitle="Dashboard">
-                <div className="flex justify-between">
+                <div className="flex justify-between gap-4">
                     <SummaryContainer
                         label={"Pendapatan"}
                         value={"Rp 100.000.000"}
@@ -87,9 +87,9 @@ export default OwnerDashboard;
 
 const SummaryContainer = ({ label, value, Icon }) => {
     return (
-        <div className="h-24 shadow-md bg-white rounded-lg w-80 flex items-center px-8 py-4 gap-4">
-            <div className="p-4 rounded-xl bg-ForestGreen">
-                <Icon className="text-white h-8 w-8" />
+        <div className="h-24 shadow-md bg-white rounded-lg w-1/3 flex items-center px-8 py-4 gap-4">
+            <div className="p-2 lg:p-4 rounded-xl bg-ForestGreen">
+                <Icon className="text-white h-6 lg:h-8 w-6 lg:w-8" />
             </div>
             <div className="flex flex-col">
                 <p className="text-gray-500 font-medium">{label}</p>
