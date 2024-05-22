@@ -17,7 +17,7 @@ import {
 } from "@/Components/ui/alert-dialog";
 import { BsQuestionCircle } from "react-icons/bs";
 
-const JanjiTemuForm = ({ auth }) => {
+const JanjiTemuForm = ({ auth, treatments, doctors }) => {
     const steps = ["Layanan", "Waktu"];
     const stepsLength = steps.length;
 
@@ -161,6 +161,8 @@ const JanjiTemuForm = ({ auth }) => {
                         setData={setData}
                         data={data}
                         validationErrors={validationErrors}
+                        treatments={treatments}
+                        doctors={doctors}
                     />
                 )}
                 {progress === "Waktu" && (

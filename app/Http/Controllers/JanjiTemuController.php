@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Appointment;
+use App\Models\Doctor;
+use App\Models\Treatment;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,8 +17,12 @@ class JanjiTemuController extends Controller
      */
     public function index()
     {
-        $auth = Auth::user();
-        return Inertia::render('User/JanjiTemu');
+        $treatments = Treatment::all();
+        $doctors = Doctor::with('user')->get();
+        return Inertia::render('User/JanjiTemu', [
+            'treatments' => $treatments,
+            'doctors' => $doctors,
+        ]);
     }
 
     /**

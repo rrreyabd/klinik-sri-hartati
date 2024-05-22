@@ -18,7 +18,7 @@ class PatientFactory extends Factory
      */
     public function definition(): array
     {
-        static $number = 5;
+        static $number = 9;
 
         return [
             'user_id' => $number++,
