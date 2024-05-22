@@ -124,3 +124,75 @@ input[type=number] {
     appearance: textfield;
     -moz-appearance: textfield;
 }
+
+/* driver.js */
+/* Class assigned to popover wrapper */
+.driver-popover.driverjs-theme {
+    background-color: #015D67;
+    color: white;
+}
+
+.driver-popover.driverjs-theme .driver-popover-close-btn {
+    color: white;
+    background-color: transparent;
+    font-size: 25px;
+    font-weight: normal;
+}
+
+.driver-popover.driverjs-theme .driver-popover-close-btn:hover {
+    color: #9b9b9b;
+}
+
+
+.driver-popover.driverjs-theme .driver-popover-arrow-side-left.driver-popover-arrow {
+    border-left-color: #015D67;
+}
+
+.driver-popover.driverjs-theme .driver-popover-arrow-side-right.driver-popover-arrow {
+    border-right-color: #015D67;
+}
+
+.driver-popover.driverjs-theme .driver-popover-arrow-side-top.driver-popover-arrow {
+    border-top-color: #015D67;
+}
+
+.driver-popover.driverjs-theme .driver-popover-arrow-side-bottom.driver-popover-arrow {
+    border-bottom-color: #015D67;
+}
+
+.driver-popover.driverjs-theme button {
+    text-align: center;
+    background-color: white;
+    color: #015D67;
+    font-weight: bold;
+    font-size: small;
+    border-radius: 6px;
+}
+
+.driver-popover.driverjs-theme .driver-popover-navigation-btns {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding-top: 10px;
+}
+
+/*  */
+
+/* Arrow pointing towards the highlighted element */
+.driver-popover-arrow {}
+
+/* Title and description */
+.driver-popover-title {}
+
+.driver-popover-description {}
+
+/* Close button displayed on the top right corner */
+.driver-popover-close-btn {}
+
+/* Footer of the popover displaying progress and navigation buttons */
+.driver-popover-footer {}
+
+.driver-popover-progress-text {}
+
+.driver-popover-prev-btn {}
+
+.driver-popover-next-btn {}

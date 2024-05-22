@@ -77,7 +77,6 @@ class ProfileController extends Controller
     {
         $request->validate([
             'user_id' => 'required',
-            'nik' => 'required',
             'birthdate' => 'required',
             'address'   => 'required',
             'blood_type'   => 'required',
@@ -91,7 +90,6 @@ class ProfileController extends Controller
 
             $patient = Patient::create([
                 'user_id' => $request->user_id,
-                'NIK' => $request->nik,
                 'birthdate' => $request->birthdate,
                 'address'   => $request->address,
                 'blood_type'   => $request->blood_type,
@@ -103,7 +101,7 @@ class ProfileController extends Controller
                 User::where('id', $request->user_id)->update(['name' => $request->full_name]);
             }
 
-            return redirect()->route('index');
+            return redirect()->route('index')->with('tour', false);
         } catch (\Exception $e) {
             return redirect()->route('data.edit')->with('status', 'Terjadi kesalahan saat menyimpan data. Silahkan coba lagi.');
         }

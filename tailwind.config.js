@@ -47,7 +47,7 @@ module.exports = {
                         transform: "translateY(0)",
                         animationTimingFunction: "cubic-bezier(0, 0, 0.2, 1)",
                     },
-                }
+                },
             },
             animation: {
                 "accordion-down": "accordion-down 0.2s ease-out",
