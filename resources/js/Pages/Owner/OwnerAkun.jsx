@@ -70,7 +70,7 @@ const OwnerAkun = () => {
                 <input
                     type="text"
                     placeholder="Cari disini..."
-                    className="rounded-md border-gray-400 placeholder:font-medium placeholder:text-gray-400 focus:border-ForestGreen focus:ring-ForestGreen"
+                    className="rounded-md border-gray-400 placeholder:font-medium placeholder:text-gray-400 focus:border-ForestGreen focus:ring-ForestGreen w-72"
                 />
             </div>
 

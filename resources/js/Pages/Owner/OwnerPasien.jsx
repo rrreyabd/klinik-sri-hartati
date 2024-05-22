@@ -11,11 +11,11 @@ const OwnerPasien = () => {
                 <span className="text-gray-500">Dashboard </span> &gt; Pasien
             </div>
 
-            <div className="flex justify-end">
+            <div className="flex justify-end mt-8">
                 <input
                     type="text"
                     placeholder="Cari disini..."
-                    className="rounded-md border-gray-400 placeholder:font-medium placeholder:text-gray-400 focus:border-ForestGreen focus:ring-ForestGreen"
+                    className="rounded-md border-gray-400 placeholder:font-medium placeholder:text-gray-400 focus:border-ForestGreen focus:ring-ForestGreen w-72"
                 />
             </div>
 
