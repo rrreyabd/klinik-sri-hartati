@@ -12,7 +12,8 @@ const OwnerAkun = () => {
     return (
         <OwnerLayout open={open} setOpen={setOpen} navTitle="Akun">
             <div className="text-lg font-medium">
-                <span className="text-gray-500">Dashboard </span> &gt; Akun
+                <span className="text-gray-500">Dashboard </span> &gt; Akun &gt;{" "}
+                {showData}
             </div>
 
             <div className="flex justify-between mt-8">
@@ -82,19 +83,18 @@ const OwnerAkun = () => {
                                 No
                             </td>
                             <td className="font-semibold text-center px-3 py-4">
-                                Nama
+                                Nama {showData}
                             </td>
                             <td className="font-semibold text-center px-3 py-4">
                                 Email
                             </td>
-                            <td className="font-semibold text-center px-3 py-4">
-                                Tanggal Verifikasi
-                            </td>
+                            {showData == "Pengguna" && (
+                                <td className="font-semibold text-center px-3 py-4">
+                                    Tanggal Verifikasi
+                                </td>
+                            )}
                             <td className="font-semibold text-center px-3 py-4">
                                 Tanggal Dibuat
-                            </td>
-                            <td className="font-semibold text-center px-3 py-4">
-                                Role
                             </td>
                             <td className="font-semibold text-center px-3 py-4">
                                 Aksi
@@ -113,14 +113,13 @@ const OwnerAkun = () => {
                                 <td className="py-4 px-3 font-medium">
                                     raihan@gmail.com
                                 </td>
-                                <td className="py-4 px-3 font-medium text-center">
-                                    02/01/2004
-                                </td>
+                                {showData == "Pengguna" && (
+                                    <td className="py-4 px-3 font-medium text-center">
+                                        02/01/2004
+                                    </td>
+                                )}
                                 <td className="py-4 px-3 font-medium text-center">
                                     01/01/2004
-                                </td>
-                                <td className="py-4 px-3 font-medium text-center">
-                                    Pengguna
                                 </td>
                                 <td className="py-4 px-3 font-medium flex justify-center gap-2">
                                     <button>

@@ -91,8 +91,11 @@ Route::get('/owner', [OwnerController::class, 'index'])->name('owner.index');
 Route::get('/owner/jadwal', [OwnerController::class, 'jadwalIndex'])->name('owner.jadwal');
 Route::get('/owner/akun', [OwnerController::class, 'akunIndex'])->name('owner.akun');
 Route::get('/owner/pasien', [OwnerController::class, 'pasienIndex'])->name('owner.pasien');
+Route::get('/owner/dokter', [OwnerController::class, 'dokterIndex'])->name('owner.dokter');
+Route::get('/owner/staff', [OwnerController::class, 'staffIndex'])->name('owner.staff');
 Route::get('/owner/pembayaran', [OwnerController::class, 'pembayaranIndex'])->name('owner.pembayaran');
 
+// Skip
 Route::get('/skip/tour', [ProfileController::class, 'skipTour'])->name('tour.skip');
 
 Route::fallback(function () {

@@ -17,6 +17,14 @@ class OwnerController extends Controller
         return Inertia::render('Owner/OwnerJadwal');
     }
 
+    public function dokterIndex()
+    {
+        return Inertia::render('Owner/OwnerDokter');
+    }
+    public function staffIndex()
+    {
+        return Inertia::render('Owner/OwnerStaff');
+    }
     public function pasienIndex()
     {
         return Inertia::render('Owner/OwnerPasien');
