@@ -13,7 +13,7 @@ const Layanan = () => {
 
     return (
         <div className="flex flex-col py-20 lg:py-36 gap-8" id="layanan">
-            <h1 className="text-ForestGreen font-medium text-3xl sm:text-4xl text-center">
+            <h1 className="text-ForestGreen font-semibold text-3xl sm:text-4xl text-center">
                 Kenapa Memilih Kami?
             </h1>
 

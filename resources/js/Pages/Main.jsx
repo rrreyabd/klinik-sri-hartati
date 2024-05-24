@@ -55,7 +55,7 @@ export default function Main({ auth, patient, status, error, tour }) {
     const [isSkipped, setIsSkipped] = useState(
         tour || localStorage.getItem("isSkipped")
     );
-    
+
     {
         auth &&
             auth.user &&
@@ -76,10 +76,10 @@ export default function Main({ auth, patient, status, error, tour }) {
                                     popover: {
                                         title: "Peduli",
                                         description:
-                                            "adalah satu kata yang dapat menggambarkan kami.",
+                                            "Kami peduli dengan kesehatan Anda, kami menyediakan layanan reservasi janji temu dengan dokter yang Anda inginkan, kapanpun dan dimanapun.",
                                         side: "left",
                                         align: "start",
-                                        nextBtnText: "Lanjutkan",
+                                        nextBtnText: "Lanjut",
                                         prevBtnText: "Kembali",
                                     },
                                 },
@@ -88,10 +88,10 @@ export default function Main({ auth, patient, status, error, tour }) {
                                     popover: {
                                         title: "Janji Temu",
                                         description:
-                                            "Anda bisa klik tombol ini jika ingin membuat Janji Temu.",
+                                            "Reservasi Janji Temu adalah fitur utama dari website kami, kamu bisa dengan mudah membuat janji temu dengan dokter yang kamu inginkan, di hari dan tanggal yang kamu inginkan.",
                                         side: "top",
                                         align: "start",
-                                        nextBtnText: "Lanjutkan",
+                                        nextBtnText: "Lanjut",
                                         prevBtnText: "Kembali",
                                     },
                                 },
@@ -100,10 +100,10 @@ export default function Main({ auth, patient, status, error, tour }) {
                                     popover: {
                                         title: "Rekam Medis",
                                         description:
-                                            "Anda bisa klik tombol ini jika ingin melihat Rekam Medis milik Anda.",
+                                            "Rekam Medis adalah fitur yang memungkinkan kamu untuk melihat rekam medis kamu secara online, kapanpun dan dimanapun.",
                                         side: "top",
                                         align: "start",
-                                        nextBtnText: "Lanjutkan",
+                                        nextBtnText: "Lanjut",
                                         prevBtnText: "Kembali",
                                     },
                                 },
@@ -112,13 +112,14 @@ export default function Main({ auth, patient, status, error, tour }) {
                                         title: "Selamat!",
                                         description:
                                             "Anda telah menyelesaikan tur singkat website kami.",
-                                    showButtons: false
+                                        nextBtnText: "Selesai",
+                                        prevBtnText: "Kembali",
                                     },
                                 },
                             ],
                             onDestroyed: () => {
                                 localStorage.setItem("isSkipped", "true");
-                                setShowButton(false)
+                                setShowButton(false);
                             },
                         });
 
