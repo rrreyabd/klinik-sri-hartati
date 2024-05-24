@@ -35,14 +35,14 @@ const Header = () => {
                 <div className="flex flex-col sm:flex-row gap-4 mt-4 sm:mt-0">
                     <Link
                         href={route("janjiTemu.index")}
-                        className="bg-ForestGreen flex items-center justify-center px-8 py-3 font-semibold rounded-full text-customWhite" id="step-2"
+                        className="bg-ForestGreen flex items-center justify-center px-8 py-3 font-semibold rounded-full text-customWhite border-2 border-ForestGreen " id="step-2"
                     >
                         Atur Janji Temu
                     </Link>
 
                     <Link
                         href={route("antrian.index")}
-                        className="border-2 border-ForestGreen bg-customWhite text-ForestGreen flex items-center justify-center px-8 py-3 font-semibold rounded-full" id="step-3"
+                        className="border-2 border-ForestGreen bg-customWhite text-ForestGreen flex items-center justify-center px-8 py-3 font-semibold rounded-full btn-custom relative z-10 overflow-hidden hover:text-customWhite hover:border-ForestGreen" id="step-3"
                     >
                         Rekam Medis
                     </Link>

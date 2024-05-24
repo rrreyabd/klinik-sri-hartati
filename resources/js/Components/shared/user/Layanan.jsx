@@ -51,7 +51,7 @@ const Layanan = () => {
                                             href={service.url}
                                             className="bg-Pistachio w-10 sm:w-12 h-10 sm:h-12 rounded-full flex justify-center items-center"
                                         >
-                                            <FaArrowLeft className="text-2xl text-ForestGreen rotate-[135deg] hover:rotate-[495deg] transition-all duration-500" />
+                                            <FaArrowLeft className="text-2xl text-ForestGreen rotate-[135deg] hover:rotate-[180deg] transition-all duration-500" />
                                         </Link>
                                     </div>
                                 </div>

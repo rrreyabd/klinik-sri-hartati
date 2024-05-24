@@ -59,45 +59,22 @@ const PasienForm = ({
 
             <div>
                 <Input
-                    label="NIK"
-                    placeholder="Masukkan NIK Pasien"
-                    name="nik"
-                    type="number"
-                    value={isChecked ? patient.nik : data.nik}
-                    id=""
-                    disabled={isChecked ? true : false}
-                    className={`w-full ${
-                        isChecked ? " cursor-not-allowed brightness-75" : ""
-                    } `}
-                    onChange={(e) => {
-                        if (
-                            e.target.value.length <= 16 &&
-                            /^[0-9]*$/.test(e.target.value)
-                        ) {
-                            setData("nik", e.target.value);
-                        }
-                    }}
-                />
-                {!data.nik && (
-                    <p className="text-red-600 text-sm font-medium">
-                        {validationErrors.nik}
-                    </p>
-                )}
-            </div>
-
-            <div>
-                <Input
                     label="Nomor HP"
                     placeholder="Masukkan Nomor HP"
                     name="nomor_hp"
-                    type="number"
+                    type="text"
                     value={isChecked ? patient.phone_number : data.nomor_hp}
                     id=""
                     disabled={isChecked ? true : false}
                     className={`w-full ${
                         isChecked ? " cursor-not-allowed brightness-75" : ""
                     } `}
-                    onChange={(e) => setData("nomor_hp", e.target.value)}
+                    onChange={(e) => {
+                        const value = e.target.value;
+                        if (value.length <= 13 && /^[0-9]*$/.test(value)) {
+                            setData("nomor_hp", value);
+                        }
+                    }}
                 />
                 {!data.nomor_hp && (
                     <p className="text-red-600 text-sm font-medium">

@@ -238,7 +238,7 @@ const JanjiTemuForm = ({ auth, treatments, doctors }) => {
                                 <AlertDialogAction
                                     onClick={submit}
                                     disabled={processing}
-                                    className="border border-ForestGreen rounded-full px-10 py-2 text-white font-semibold bg-ForestGreen hover:brightness-95"
+                                    className="border border-ForestGreen rounded-full px-10 py-2 text-white font-semibold bg-ForestGreen hover:bg-ForestGreen hover:brightness-95"
                                 >
                                     {processing ? "Memproses" : "Selesai"}
                                 </AlertDialogAction>

@@ -15,7 +15,7 @@ import {
 } from "@/Components/ui/alert-dialog";
 import { BsQuestionCircle } from "react-icons/bs";
 
-const StaffDaftarJanjiTemu = ({ auth }) => {
+const StaffDaftarJanjiTemu = ({ auth, treatments, doctors }) => {
     const { data, setData, post, processing, errors } = useForm({
         user_id: auth.user.id,
         dokter: "",
@@ -125,6 +125,9 @@ const StaffDaftarJanjiTemu = ({ auth }) => {
                                 data={data}
                                 contentClassName="bg-white"
                                 validationErrors={validationErrors}
+                                treatments={treatments}
+                                doctors={doctors}
+                                optionClass={"bg-white"}
                             />
                         )}
                         {progress === "Waktu" && (

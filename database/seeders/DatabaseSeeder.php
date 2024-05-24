@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             MedicalRecordSeeder::class,
             PrescriptionSeeder::class,
             DoctorSeeder::class,
+            PaymentSeeder::class,
         ]);
     }
 }

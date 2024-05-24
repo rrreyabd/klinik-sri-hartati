@@ -196,3 +196,24 @@ input[type=number] {
 .driver-popover-prev-btn {}
 
 .driver-popover-next-btn {}
+
+
+
+/* Custom Button */
+.btn-custom:after {
+    position: absolute;
+    content: "";
+    height: 0;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    background-color: #015D67;
+    transition: all 0.3s ease;
+}
+
+.btn-custom:hover:after {
+    top: 0;
+    left: 0;
+    height: 100%;
+}

@@ -29,11 +29,16 @@ const StaffPasienForm = ({ setData, data }) => {
                 label="Nomor HP"
                 placeholder="Masukkan Nomor HP"
                 name="nomor_hp"
-                type="number"
+                type="text"
                 value={data.nomor_hp}
                 id=""
                 className={`w-full bg-white`}
-                onChange={(e) => setData("nomor_hp", e.target.value)}
+                onChange={(e) => {
+                    const value = e.target.value;
+                    if (value.length >= 10 && /^[0-9]*$/.test(value)) {
+                        setData("nomor_hp", value);
+                    }
+                }}
             />
             <div className="">
                 <p className="font-semibold">Jenis Kelamin</p>
