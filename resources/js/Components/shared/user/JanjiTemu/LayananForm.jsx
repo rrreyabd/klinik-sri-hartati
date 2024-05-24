@@ -13,6 +13,7 @@ const LayananForm = ({
     validationErrors,
     treatments,
     doctors,
+    optionClass,
 }) => {
     const formatter = new Intl.NumberFormat("id-ID");
 
@@ -35,7 +36,7 @@ const LayananForm = ({
                                 <SelectItem
                                     key={treatment.id}
                                     value={` ${treatment.id} `}
-                                    className="x transition-all font-semibold cursor-pointer py-3 bg-customWhite w-full flex justify-between border-b border-gray-300"
+                                    className={`x transition-all font-semibold cursor-pointer py-3 bg-customWhite w-full flex justify-between border-b border-gray-300 ${optionClass}`}
                                 >
                                     Rp {formatter.format(treatment.fee)} -{" "}
                                     {treatment.name}
@@ -67,7 +68,7 @@ const LayananForm = ({
                                 <SelectItem
                                     key={doctor.id}
                                     value={` ${doctor.id} `}
-                                    className="x transition-all font-semibold cursor-pointer py-3 bg-customWhite w-full flex justify-between border-b border-gray-300"
+                                    className={`x transition-all font-semibold cursor-pointer py-3 bg-customWhite w-full flex justify-between border-b border-gray-300 ${optionClass}`}
                                 >
                                     {doctor.user.name}
                                 </SelectItem>

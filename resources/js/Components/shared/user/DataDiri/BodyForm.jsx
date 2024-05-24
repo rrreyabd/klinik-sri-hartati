@@ -26,36 +26,12 @@ const BodyForm = ({ auth, data, setData, errors }) => {
             </div>
 
             <div className="flex flex-col gap-1">
-                <p className="font-semibold">Nomor Induk Kependudukan (NIK)</p>
-                <input
-                    type="number"
-                    onChange={(e) => {
-                        if (
-                            e.target.value.length <= 16 &&
-                            /^[0-9]*$/.test(e.target.value)
-                        ) {
-                            setData("nik", e.target.value);
-                        }
-                    }}
-                    value={data.nik}
-                    className="border-2 border-gray-400 rounded-md placeholder:font-medium focus:border-ForestGreen focus:ring-ForestGreen"
-                    placeholder="Contoh: 3201021504990001"
-                    required
-                />
-                {errors.nik && data.nik.length !== 16 && (
-                    <p className="text-red-600 font-semibold text-sm">
-                        {errors.nik}
-                    </p>
-                )}
-            </div>
-
-            <div className="flex flex-col gap-1">
                 <p className="font-semibold">Nomor Telepon</p>
                 <input
-                    type="number"
+                    type="text"
                     onChange={(e) => {
                         if (
-                            e.target.value.length <= 13 &&
+                            e.target.value.length >= 10 &&
                             /^[0-9]*$/.test(e.target.value)
                         ) {
                             setData("phone_number", e.target.value);
@@ -73,7 +49,7 @@ const BodyForm = ({ auth, data, setData, errors }) => {
                 )}
             </div>
 
-            {/* <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1">
                 <p className="font-semibold">Alamat</p>
                 <input
                     type="text"
@@ -87,7 +63,7 @@ const BodyForm = ({ auth, data, setData, errors }) => {
                         {errors.address}
                     </p>
                 )}
-            </div> */}
+            </div>
 
             <div className="flex flex-col gap-1">
                 <p className="font-semibold">Tanggal Lahir</p>

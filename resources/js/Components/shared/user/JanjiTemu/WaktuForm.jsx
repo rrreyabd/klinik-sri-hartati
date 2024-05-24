@@ -140,7 +140,7 @@ const RadioButton = ({ label, value, time, onOptionChange, selectedTime }) => {
                   ? "bg-red-600 text-white cursor-not-allowed"
                   : time == value
                   ? "bg-ForestGreen text-white cursor-pointer"
-                  : "bg-[#b3b4b3] cursor-pointer"
+                  : "bg-green-600 text-white cursor-pointer"
           }
       `}
         >

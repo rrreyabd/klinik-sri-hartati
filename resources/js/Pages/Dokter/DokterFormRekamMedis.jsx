@@ -196,13 +196,16 @@ const DokterFormRekamMedis = ({ auth, patientData }) => {
                         <div className="flex flex-col gap-2">
                             <p className="font-semibold">Berat Badan (KG)</p>
                             <input
-                                type="number"
+                                type="text"
                                 name=""
                                 id=""
                                 value={data.weight}
-                                onChange={(e) =>
-                                    setData("weight", e.target.value)
-                                }
+                                onChange={(e) => {
+                                    const value = e.target.value;
+                                    if (value.length <= 3 && /^[0-9]*$/.test(value)) {
+                                        setData("weight", value);
+                                    }
+                                }}
                                 className="border-2 border-gray-400 rounded-md placeholder:font-medium focus:border-ForestGreen focus:ring-ForestGreen"
                                 placeholder="Berat Badan Pasien"
                             />

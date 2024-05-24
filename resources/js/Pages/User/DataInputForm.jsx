@@ -8,11 +8,10 @@ const DataInputForm = ({ auth }) => {
     const { data, setData, post, processing, errors, setError, clearErrors } = useForm({
         user_id: auth.user.id,
         full_name: auth.user.name,
-        nik: "",
         birthdate: "",
         blood_type: "",
         gender: "",
-        // address: "",
+        address: "",
         phone_number: "",
     });
 
@@ -22,11 +21,10 @@ const DataInputForm = ({ auth }) => {
         if (
             data.user_id &&
             data.full_name &&
-            data.nik &&
             data.birthdate &&
             data.blood_type &&
             data.gender &&
-            // data.address &&
+            data.address &&
             data.phone_number
         ) {
             setAllFilled(true);
@@ -39,11 +37,7 @@ const DataInputForm = ({ auth }) => {
         clearErrors();
         let valid = true;
 
-        if (data.nik.length !== 16) {
-            setError("nik", "NIK harus terdiri dari 16 karakter.");
-            valid = false;
-        }
-        if (data.nik.length < 10) {
+        if (data.phone_number.length < 10) {
             setError("phone_number", "Nomor telepon harus valid");
             valid = false;
         }

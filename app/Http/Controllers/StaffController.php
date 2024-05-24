@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Appointment;
+use App\Models\Doctor;
+use App\Models\Treatment;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -31,9 +33,16 @@ class StaffController extends Controller
             'error' => session('error'),
         ]);
     }
-    
-    public function daftarJanjiTemuIndex() {
-        return Inertia::render('Staff/StaffDaftarJanjiTemu');
+
+    public function daftarJanjiTemuIndex()
+    {
+        $treatments = Treatment::all();
+        $doctors = Doctor::with('user')->get();
+        
+        return Inertia::render('Staff/StaffDaftarJanjiTemu', [
+            'treatments' => $treatments,
+            'doctors' => $doctors,
+        ]);
     }
 
     public function store(Request $request)
@@ -73,5 +82,4 @@ class StaffController extends Controller
     {
         return Inertia::render('Staff/StaffRekamMedis');
     }
-
 }

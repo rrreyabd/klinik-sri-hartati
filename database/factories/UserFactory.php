@@ -29,7 +29,6 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'role' => 'user',
             'password' => bcrypt('password'),
-            'isSkipped' => $this->faker->randomElement([true, false]),
             'remember_token' => null,
         ];
     }
