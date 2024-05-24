@@ -130,6 +130,7 @@ input[type=number] {
 .driver-popover.driverjs-theme {
     background-color: #015D67;
     color: white;
+    max-width: 40vw;
 }
 
 .driver-popover.driverjs-theme .driver-popover-close-btn {
@@ -170,8 +171,6 @@ input[type=number] {
 }
 
 .driver-popover.driverjs-theme .driver-popover-navigation-btns {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
     padding-top: 10px;
 }
 
@@ -181,9 +180,13 @@ input[type=number] {
 .driver-popover-arrow {}
 
 /* Title and description */
-.driver-popover-title {}
+.driver-popover.driverjs-theme .driver-popover-title {
+    font-size: x-large;
+}
 
-.driver-popover-description {}
+.driver-popover.driverjs-theme .driver-popover-description {
+    font-size: large;
+}
 
 /* Close button displayed on the top right corner */
 .driver-popover-close-btn {}
@@ -193,9 +196,20 @@ input[type=number] {
 
 .driver-popover-progress-text {}
 
-.driver-popover-prev-btn {}
+.driver-popover.driverjs-theme .driver-popover-prev-btn,
+.driver-popover.driverjs-theme .driver-popover-next-btn {
+    height: 40px;
+    font-size: large;
+    transition: filter 0.5s;
+    padding-left: 10px;
+    padding-right: 10px;
 
-.driver-popover-next-btn {}
+}
+
+.driver-popover.driverjs-theme .driver-popover-prev-btn:hover,
+.driver-popover.driverjs-theme .driver-popover-next-btn:hover {
+    filter: brightness(0.9);
+}
 
 
 

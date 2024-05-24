@@ -102,6 +102,22 @@ const JanjiTemuForm = ({ auth, treatments, doctors }) => {
             "\n"
     );
 
+    const selectedTreatment = data.perawatan
+        ? treatments.find((treatment) => treatment.id == data.perawatan)?.name
+        : null;
+
+    const selectedDoctor = data.dokter
+        ? doctors.find((doctor) => doctor.id == data.dokter)?.user.name
+        : null;
+
+    console.log(data.tanggal);
+
+    const selectedDate = data.tanggal ? new Date(data.tanggal) : null;
+    const options = { day: "numeric", month: "long", year: "numeric" };
+    const formattedDate = new Intl.DateTimeFormat("id-ID", options).format(
+        selectedDate
+    );
+
     return (
         <form onSubmit={submit}>
             <div className="flex justify-center items-center w-full pt-12">
@@ -215,30 +231,61 @@ const JanjiTemuForm = ({ auth, treatments, doctors }) => {
                             </button>
                         )}
 
-                        <AlertDialogContent className="w-full lg:w-[50vw]">
+                        <AlertDialogContent className="w-full lg:max-w-[50vw] py-8">
                             <AlertDialogHeader>
                                 <AlertDialogTitle>
                                     <div className="flex flex-col items-center gap-4">
                                         <BsQuestionCircle className="h-16 w-16 text-ForestGreen" />
-                                        <p>Apakah data sudah sesuai?</p>
+                                        <p className="text-2xl">
+                                            Apakah data sudah sesuai?
+                                        </p>
                                     </div>
                                 </AlertDialogTitle>
-                                <AlertDialogDescription className="">
-                                    <p className="pb-4 text-base">
+                                <AlertDialogDescription>
+                                    <p className="text-base text-center">
                                         Pastikan data yang Anda masukkan sudah
                                         benar. Kamu tidak dapat mengubah data
                                         setelah menekan tombol "Selesai".
                                     </p>
+                                    <p className="font-bold text-red-600 text-center uppercase">
+                                        *perlu ide design*
+                                    </p>
+                                    <div className="text-black text-base grid grid-cols-2 gap-y-12 py-8">
+                                        <div className="text-center">
+                                            <p className="font-bold text-lg">
+                                                Layanan
+                                            </p>
+                                            <p>{selectedTreatment}</p>
+                                        </div>
+                                        <div className="text-center">
+                                            <p className="font-bold text-lg">
+                                                Dokter
+                                            </p>
+                                            <p>{selectedDoctor}</p>
+                                        </div>
+                                        <div className="text-center">
+                                            <p className="font-bold text-lg">
+                                                Tanggal
+                                            </p>
+                                            <p>{formattedDate}</p>
+                                        </div>
+                                        <div className="text-center">
+                                            <p className="font-bold text-lg">
+                                                Jam
+                                            </p>
+                                            <p>{data.jam.substring(0, 5)}</p>
+                                        </div>
+                                    </div>
                                 </AlertDialogDescription>
                             </AlertDialogHeader>
                             <AlertDialogFooter>
-                                <AlertDialogCancel className="border border-ForestGreen text-ForestGreen hover:text-ForestGreen rounded-full px-10 py-2 font-semibold bg-white hover:bg-customWhite">
+                                <AlertDialogCancel className="border border-ForestGreen text-ForestGreen hover:text-ForestGreen rounded-full px-10 py-2 font-semibold bg-white hover:bg-customWhite text-lg sm:text-base">
                                     Batal
                                 </AlertDialogCancel>
                                 <AlertDialogAction
                                     onClick={submit}
                                     disabled={processing}
-                                    className="border border-ForestGreen rounded-full px-10 py-2 text-white font-semibold bg-ForestGreen hover:bg-ForestGreen hover:brightness-95"
+                                    className="border border-ForestGreen rounded-full px-10 py-2 text-white font-semibold bg-ForestGreen hover:bg-ForestGreen hover:brightness-95 text-lg sm:text-base"
                                 >
                                     {processing ? "Memproses" : "Selesai"}
                                 </AlertDialogAction>

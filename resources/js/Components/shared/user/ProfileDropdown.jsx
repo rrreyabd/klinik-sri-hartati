@@ -13,8 +13,8 @@ const ProfileDropdown = ({ children, className, auth }) => {
             <DropdownMenuTrigger className={`unselectable ${className}`}>
                 {children}
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="min-w-56 p-4 bg-customWhite font-semibold shadow-xl">
-                <DropdownMenuItem className="hover:bg-[#e2e2e2]">
+            <DropdownMenuContent className="min-w-56 py-4 bg-customWhite font-semibold shadow-xl">
+                <DropdownMenuItem className="hover:bg-[#e2e2e2] px-4 rounded-md">
                     <Link href="/profile" className="w-full text-start">
                         Profil
                     </Link>
@@ -22,7 +22,7 @@ const ProfileDropdown = ({ children, className, auth }) => {
 
                 <DropdownMenuSeparator />
 
-                <DropdownMenuItem className="hover:bg-[#e2e2e2]">
+                <DropdownMenuItem className="hover:bg-[#e2e2e2] px-4 rounded-md">
                     <Link href="/tagihan" className="w-full text-start">
                         Tagihan
                     </Link>
@@ -30,7 +30,7 @@ const ProfileDropdown = ({ children, className, auth }) => {
 
                 <DropdownMenuSeparator />
 
-                <DropdownMenuItem className="hover:bg-[#e2e2e2]">
+                <DropdownMenuItem className="hover:bg-[#e2e2e2] px-4 rounded-md">
                     <Link
                         href={route("logout")}
                         method="post"
