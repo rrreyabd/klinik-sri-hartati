@@ -49,9 +49,9 @@ const Layanan = () => {
                                     <div className="flex justify-end">
                                         <Link
                                             href={service.url}
-                                            className="bg-Pistachio w-10 sm:w-12 h-10 sm:h-12 rounded-full flex justify-center items-center"
+                                            className="bg-Pistachio w-10 sm:w-12 h-10 sm:h-12 rounded-full flex justify-center items-center rotate-[135deg] hover:rotate-[180deg] transition-all duration-500"
                                         >
-                                            <FaArrowLeft className="text-2xl text-ForestGreen rotate-[135deg] hover:rotate-[180deg] transition-all duration-500" />
+                                            <FaArrowLeft className="text-2xl text-ForestGreen" />
                                         </Link>
                                     </div>
                                 </div>

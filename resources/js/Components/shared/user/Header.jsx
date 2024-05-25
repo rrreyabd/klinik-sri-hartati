@@ -41,7 +41,7 @@ const Header = () => {
                     </Link>
 
                     <Link
-                        href={route("antrian.index")}
+                        href={route("rekam-medis.index")}
                         className="border-2 border-ForestGreen bg-customWhite text-ForestGreen flex items-center justify-center px-8 py-3 font-semibold rounded-full" id="step-3"
                     >
                         Rekam Medis

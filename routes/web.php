@@ -5,6 +5,7 @@ use App\Http\Controllers\DokterController;
 use App\Http\Controllers\JanjiTemuController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\TagihanController;
 use Illuminate\Foundation\Application;
@@ -28,6 +29,7 @@ Route::get('/', function () {
         'canRegister' => Route::has('register'),
         'status' => session('status'),
         'error' => session('error'),
+        'information' => \App\Models\Information::first(),
     ]);
 })
 ->name('index')
@@ -60,6 +62,8 @@ Route::middleware(['auth', 'CheckPatientData'])->group(function () {
     // Tagihan
     Route::get('/tagihan', [TagihanController::class, 'index'])->name('tagihan.index');
     
+    // Rekam Medis
+    Route::get('/rekam-medis', [RekamMedisController::class, 'index'])->name('rekam-medis.index');
     
     
     // Staff

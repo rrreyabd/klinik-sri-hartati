@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             PrescriptionSeeder::class,
             DoctorSeeder::class,
             PaymentSeeder::class,
+            InformationSeeder::class,
         ]);
     }
 }

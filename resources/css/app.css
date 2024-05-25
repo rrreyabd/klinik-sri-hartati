@@ -213,7 +213,7 @@ input[type=number] {
 
 
 
-/* Custom Button */
+/* Custom Button Hover Start */
 .btn-custom:after {
     position: absolute;
     content: "";
@@ -231,3 +231,29 @@ input[type=number] {
     left: 0;
     height: 100%;
 }
+
+/* Custom Button Hover End */
+
+/* Custom Underline Hover Start */
+.underline-custom {
+    position: relative;
+}
+
+.underline-custom:after {
+    position: absolute;
+    content: "";
+    height: 1px;
+    width: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+    background-color: #fff;
+    transition: all 0.3s ease;
+}
+
+.underline-custom:hover:after {
+    left: 0;
+    width: 100%;
+}
+
+/* Custom Underline Hover End */
