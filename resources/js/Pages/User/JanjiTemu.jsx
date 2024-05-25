@@ -10,8 +10,8 @@ const JanjiTemu = ({ auth, patient, treatments, doctors }) => {
             <div className="w-3/4">
                 <Logo />
 
-                <div className="flex flex-col space-y-4 mt-4 w-full">
-                    <h1 className="text-ForestGreen text-4xl font-semibold text-center">
+                <div className="flex flex-col space-y-4 w-full mt-8 sm:mt-4">
+                    <h1 className="text-ForestGreen text-3xl sm:text-4xl font-semibold text-center">
                         Janji Temu Klinik
                     </h1>
 

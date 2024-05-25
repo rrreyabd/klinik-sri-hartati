@@ -21,7 +21,7 @@ import { motion } from "framer-motion";
 import { FaQuestion } from "react-icons/fa";
 import { FaX } from "react-icons/fa6";
 
-export default function Main({ auth, patient, status, error, tour }) {
+export default function Main({ auth, patient, status, error, tour, information }) {
     const { toast } = useToast();
 
     useEffect(() => {
@@ -196,7 +196,7 @@ export default function Main({ auth, patient, status, error, tour }) {
 
                     <HubungiKami />
                 </div>
-                <Footer />
+                <Footer information={information} />
             </main>
             <Toaster />
             {auth.user && showButton && (

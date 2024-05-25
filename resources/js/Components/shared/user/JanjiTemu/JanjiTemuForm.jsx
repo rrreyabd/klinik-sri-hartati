@@ -103,7 +103,7 @@ const JanjiTemuForm = ({ auth, treatments, doctors }) => {
     );
 
     const selectedTreatment = data.perawatan
-        ? treatments.find((treatment) => treatment.id == data.perawatan)?.name
+        ? treatments.find((treatment) => treatment.id == data.perawatan)
         : null;
 
     const selectedDoctor = data.dokter
@@ -117,6 +117,8 @@ const JanjiTemuForm = ({ auth, treatments, doctors }) => {
     const formattedDate = new Intl.DateTimeFormat("id-ID", options).format(
         selectedDate
     );
+
+    const formatter = new Intl.NumberFormat("id-ID");
 
     return (
         <form onSubmit={submit}>
@@ -255,7 +257,7 @@ const JanjiTemuForm = ({ auth, treatments, doctors }) => {
                                             <p className="font-bold text-lg">
                                                 Layanan
                                             </p>
-                                            <p>{selectedTreatment}</p>
+                                            <p>{selectedTreatment.name}</p>
                                         </div>
                                         <div className="text-center">
                                             <p className="font-bold text-lg">
@@ -265,15 +267,15 @@ const JanjiTemuForm = ({ auth, treatments, doctors }) => {
                                         </div>
                                         <div className="text-center">
                                             <p className="font-bold text-lg">
-                                                Tanggal
+                                                Tanggal / Jam
                                             </p>
-                                            <p>{formattedDate}</p>
+                                            <p>{formattedDate} / {data.jam.substring(0, 5)}</p>
                                         </div>
                                         <div className="text-center">
                                             <p className="font-bold text-lg">
-                                                Jam
+                                                Biaya
                                             </p>
-                                            <p>{data.jam.substring(0, 5)}</p>
+                                            <p>Rp {formatter.format(selectedTreatment.fee)}</p>
                                         </div>
                                     </div>
                                 </AlertDialogDescription>
