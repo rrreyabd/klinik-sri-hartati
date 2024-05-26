@@ -10,6 +10,7 @@ import { FiLogOut } from "react-icons/fi";
 import { FaRegUser } from "react-icons/fa";
 import { SlDocs } from "react-icons/sl";
 import { RiBillLine } from "react-icons/ri";
+import { RiCalendarScheduleLine } from "react-icons/ri";
 
 const ProfileDropdown = ({ children, className, auth }) => {
     return (
@@ -28,6 +29,18 @@ const ProfileDropdown = ({ children, className, auth }) => {
                     </Link>
                 </DropdownMenuItem>
 
+                <DropdownMenuSeparator />
+
+                <DropdownMenuItem className="px-4 hover:bg-[#e2e2e2] rounded-md">
+                    <Link
+                        href="/jadwal"
+                        className="w-full text-start flex gap-3"
+                    >
+                        <RiCalendarScheduleLine className="h-5 w-5" />
+                        Jadwal
+                    </Link>
+                </DropdownMenuItem>
+                
                 <DropdownMenuSeparator />
 
                 <DropdownMenuItem className="px-4 hover:bg-[#e2e2e2] rounded-md">

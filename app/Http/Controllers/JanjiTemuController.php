@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Appointment;
 use App\Models\Doctor;
+use App\Models\Payment;
 use App\Models\Treatment;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -51,12 +52,32 @@ class JanjiTemuController extends Controller
         $waktu = Carbon::createFromTimestamp($timestamp, 'Asia/Jakarta');
 
         try {
-            Appointment::create([
+            $appointment = Appointment::create([
                 'user_id' => $validation['user_id'],
                 'doctor_id' => $validation['dokter'],
                 'treatment_id' => $validation['perawatan'],
                 'date' => $waktu,
                 'time' => $validation['jam'],
+            ]);
+
+            // Get the fee from the treatment
+            $treatment = Treatment::find($validation['perawatan']);
+            $fee = $treatment ? $treatment->fee : 0;
+
+            // Set the payment due to today at 24:00
+            $payment_due = Carbon::now()->addHours(2);
+
+            // Payment Code
+            $paymentCount = Payment::count() + 1;
+            $paymentCode = sprintf('%06d', $paymentCount);
+
+            Payment::create([
+                'user_id' => $validation['user_id'],
+                'appointment_id' => $appointment->id,
+                'payment_code' => 'SH' . $paymentCode,
+                'amount' => $fee,
+                'payment_due' => $payment_due,
+                'status' => 'Menunggu Pembayaran',
             ]);
 
             return redirect()->route('index')->with('status', 'Janji Temu Berhasil Dibuat!');

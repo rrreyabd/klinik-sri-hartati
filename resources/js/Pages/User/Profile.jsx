@@ -7,8 +7,8 @@ const Profile = ({ auth }) => {
         <>
             <Head title="Profil" />
             <ProfileLayout>
-                <div className="py-16 px-8 flex flex-col gap-16 flex-grow">
-                    <h1 className="text-2xl font-bold">Akun</h1>
+                <div className="md:py-16 px-8 flex flex-col md:gap-16 flex-grow">
+                    <h1 className="hidden md:block text-2xl font-bold">Akun</h1>
                     <UpdateProfileInformation className="w-full" />
                 </div>
             </ProfileLayout>

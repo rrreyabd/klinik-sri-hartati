@@ -15,9 +15,11 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('appointment_id');
+            $table->string('payment_code')->unique();
             $table->integer('amount');
             $table->dateTime('payment_due');
-            $table->string('payment_method');
+            $table->dateTime('payment_date')->nullable();
+            $table->string('payment_proof')->nullable();
             $table->enum('status', ['Menunggu Pembayaran', 'Berhasil', 'Dibatalkan'])->default('Menunggu Pembayaran');
             $table->timestamps();
 

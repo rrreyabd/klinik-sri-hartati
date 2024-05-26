@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Appointment;
 use App\Models\Doctor;
+use App\Models\Payment;
 use App\Models\Treatment;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -66,6 +67,7 @@ class StaffController extends Controller
                 'treatment_id' => $validation['perawatan'],
                 'date' => $waktu,
                 'time' => $validation['jam'],
+                
             ]);
 
             return redirect()->route('staff.janji.temu.index')->with('status', 'Janji Pasien Temu Berhasil Dibuat!');
@@ -76,7 +78,11 @@ class StaffController extends Controller
 
     public function pembayaranIndex()
     {
-        return Inertia::render('Staff/StaffPembayaran');
+        $payments = Payment::orderByRaw("FIELD(status, 'Menunggu Pembayaran', 'Berhasil', 'Dibatalkan')")->with(['user'])->get();
+        
+        return Inertia::render('Staff/StaffPembayaran', [
+            'payments' => $payments,
+        ]);
     }
     public function rekamMedisIndex()
     {

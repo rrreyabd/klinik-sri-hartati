@@ -2,9 +2,9 @@ import { FaChevronDown } from "react-icons/fa";
 import ProfileDropdown from "@/Components/shared/user/ProfileDropdown";
 import Menu from "@/Components/shared/user/Menu";
 import { Link } from "@inertiajs/react";
+import { MdOutlineLightMode } from "react-icons/md";
 
 const Navbar = ({ auth, children }) => {
-
     // Function untuk mengarahkan ke halaman login membawa status true
     const registerRoute = () => {
         localStorage.setItem("status", JSON.stringify(true));

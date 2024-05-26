@@ -22,8 +22,11 @@ class DokterController extends Controller
             ->orderBy('time', 'asc')
             ->get();
 
+        $allAppointments = AppointmentView::all();
+        
         return Inertia::render('Dokter/DokterDashboard', [
-            'appointments' => $appointments
+            'appointments' => $appointments,
+            'allAppointments' => $allAppointments,
         ]);
     }
 
