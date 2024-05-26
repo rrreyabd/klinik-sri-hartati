@@ -1,19 +1,28 @@
 import { DatePicker } from "@/Components/shared/Staff/DateRangePicker";
 import StaffSheet from "@/Components/shared/Staff/StaffSheet";
-import { payment, paymentField } from "@/lib/payment";
 import { Head } from "@inertiajs/react";
 import { useState } from "react";
-
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { InputText } from "primereact/inputtext";
 import { Dropdown } from "primereact/dropdown";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 
-const StaffPembayaran = () => {
-    const [dateFrom, setDateFrom] = useState();
-    const [dateTo, setDateTo] = useState();
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "@/Components/ui/alert-dialog";
 
+const StaffPembayaran = ({ payments }) => {
+    const [dateFrom, setDateFrom] = useState(null);
+    const [dateTo, setDateTo] = useState(null);
     const [globalFilter, setGlobalFilter] = useState(null);
     const [rows, setRows] = useState(5);
     const rowsPerPageOptions = [5, 10, 25, 50];
@@ -23,6 +32,26 @@ const StaffPembayaran = () => {
         const currentDate = new Date(date);
         return currentDate >= dateFrom && currentDate <= dateTo;
     };
+
+    // Debugging: Log the state values
+    console.log("Date From:", dateFrom);
+    console.log("Date To:", dateTo);
+    console.log("Global Filter:", globalFilter);
+
+    // Filter the payments based on date range and global filter
+    const filteredPayments = payments.filter((row) => {
+        const isInRange = isDateInRange(row.payment_date);
+        const matchesFilter = globalFilter
+            ? row.user.name.toLowerCase().includes(globalFilter.toLowerCase()) ||
+              row.payment_code.toLowerCase().includes(globalFilter.toLowerCase()) ||
+              row.payment_date.includes(globalFilter) ||
+              row.amount.toString().includes(globalFilter)
+            : true;
+        return isInRange && matchesFilter;
+    });
+
+    // Debugging: Log the filtered payments
+    console.log("Filtered Payments:", filteredPayments);
 
     return (
         <div className="min-h-screen w-full bg-customWhite flex justify-center">
@@ -37,16 +66,13 @@ const StaffPembayaran = () => {
                 </header>
 
                 <div className="py-2 mt-4 flex gap-4 items-center">
-                    <p className="font-semibold text-gray-600">
-                        Tanggal Periode :{" "}
-                    </p>
+                    <p className="font-semibold text-gray-600">Tanggal Periode : </p>
                     <DatePicker
                         label={"Tanggal Awal"}
                         date={dateFrom}
                         setDate={setDateFrom}
                         className="shadow-md w-48"
                     />
-
                     <DatePicker
                         label={"Tanggal Akhir"}
                         date={dateTo}
@@ -66,10 +92,11 @@ const StaffPembayaran = () => {
                         className="bg-white h-12 py-2 px-6 flex w-28 items-center rounded-md shadow-md"
                         panelClassName="rounded-md shadow-md overflow-hidden mt-1"
                         itemTemplate={(option) => (
-                            <div className="bg-white hover:bg-customWhite py-1 px-6">{option.label}</div>
+                            <div className="bg-white hover:bg-customWhite py-1 px-6">
+                                {option.label}
+                            </div>
                         )}
                     />
-
                     <InputText
                         type="search"
                         className="border-none rounded-md shadow-md h-12 w-64 focus:ring-ForestGreen"
@@ -78,11 +105,9 @@ const StaffPembayaran = () => {
                     />
                     <FaMagnifyingGlass className="absolute right-4" />
                 </div>
+
                 <DataTable
-                    value={payment.filter((row) =>
-                        isDateInRange(row["Tanggal"])
-                    )}
-                    globalFilter={globalFilter}
+                    value={filteredPayments}
                     tableStyle={{ minWidth: "50rem" }}
                     removableSort
                     paginator
@@ -94,7 +119,7 @@ const StaffPembayaran = () => {
                 >
                     <Column
                         body={(rowData, rowMeta) => rowMeta.rowIndex + 1}
-                        header="No"
+                        header="No &nbsp;"
                         className="text-lg py-4 font-semibold text-center"
                         headerClassName="hover:bg-ForestGreen/95 transition-all py-4 pl-4 bg-ForestGreen text-white"
                         bodyClassName="hover:bg-customWhite"
@@ -103,41 +128,32 @@ const StaffPembayaran = () => {
                         className="py-4 border-b pl-4"
                         bodyClassName="hover:bg-customWhite"
                         sortable
-                        field="Nama Pasien"
                         header="Nama Pasien &nbsp;"
                         headerClassName="hover:bg-ForestGreen/95 transition-all py-4 pl-8 bg-ForestGreen text-white"
+                        body={(rowData) => rowData.user.name}
                     ></Column>
                     <Column
                         className="py-4 border-b text-center"
                         bodyClassName="hover:bg-customWhite"
                         sortable
-                        field="Tanggal"
-                        header="Tanggal &nbsp;"
+                        body={(rowData) => rowData.payment_code}
+                        header="Kode &nbsp;"
                         headerClassName="hover:bg-ForestGreen/95 transition-all py-4 pl-8 bg-ForestGreen text-white"
                     ></Column>
                     <Column
-                        className="py-4 border-b text-center"
+                        className="py-4 border-b"
                         bodyClassName="hover:bg-customWhite"
                         sortable
-                        field="Nomor Pembayaran"
-                        header="No. Pembayaran &nbsp;"
-                        headerClassName="hover:bg-ForestGreen/95 transition-all py-4 pl-8 bg-ForestGreen text-white"
-                    ></Column>
-                    <Column
-                        className="py-4 border-b text-end pr-4"
-                        bodyClassName="hover:bg-customWhite"
-                        sortable
-                        field="Total"
-                        header="Total &nbsp;"
-                        headerClassName="hover:bg-ForestGreen/95 transition-all py-4 pl-8 bg-ForestGreen text-white"
-                        body={(rowData, rowMeta) => {
+                        header="Nominal &nbsp;"
+                        headerClassName="hover:bg-ForestGreen/95 transition-all py-4 pl-12 bg-ForestGreen text-white"
+                        body={(rowData) => {
                             const formatter = new Intl.NumberFormat("id-ID");
-
                             return (
-                                <div className="flex justify-between">
-                                    {" "}
-                                    <p>Rp </p>{" "}
-                                    <p> {formatter.format(rowData.Total)}</p>{" "}
+                                <div className="flex justify-center">
+                                    <div className="flex justify-between w-24">
+                                        <p>Rp </p>
+                                        <p>{formatter.format(rowData.amount)}</p>
+                                    </div>
                                 </div>
                             );
                         }}
@@ -146,27 +162,42 @@ const StaffPembayaran = () => {
                         className="py-4 border-b text-center"
                         bodyClassName="hover:bg-customWhite"
                         sortable
-                        field="Metode Pembayaran"
-                        header="Metode Pembayaran &nbsp;"
+                        body={(rowData) => rowData.payment_date.split(" ")[0]}
+                        header="Tanggal &nbsp;"
+                        headerClassName="hover:bg-ForestGreen/95 transition-all py-4 pl-8 bg-ForestGreen text-white"
+                    ></Column>
+                    <Column
+                        className="py-4 border-b text-center"
+                        bodyClassName="hover:bg-customWhite"
+                        sortable
+                        body={(rowData) => (
+                            <ProofModal
+                                image={rowData.payment_proof}
+                                payment_code={rowData.payment_code}
+                            />
+                        )}
+                        header="Bukti Transfer &nbsp;"
                         headerClassName="hover:bg-ForestGreen/95 transition-all py-4 pl-8 bg-ForestGreen text-white"
                     ></Column>
                     <Column
                         className="py-4 border-b flex justify-center"
                         sortable
-                        field="Status Pembayaran"
+                        field="payment_status"
                         header="Status &nbsp;"
                         bodyClassName="hover:bg-customWhite"
                         headerClassName="hover:bg-ForestGreen/95 transition-all py-4 pl-8 bg-ForestGreen text-white"
                         body={(rowData) => (
                             <span
-                                className={`text-customWhite w-32 py-1 text-sm uppercase rounded-md flex items-center justify-center font-semibold
+                                className={`text-customWhite w-32 py-1 text-sm uppercase rounded-md flex items-center justify-center font-semibold text-center
                                 ${
-                                    rowData["Status Pembayaran"] === "Lunas"
-                                        ? "bg-customGreen"
+                                    rowData.status === "Menunggu Pembayaran"
+                                        ? "bg-customYellow"
+                                        : rowData.status === "Berhasil"
+                                        ? "bg-green-600"
                                         : "bg-customRed"
                                 }`}
                             >
-                                {rowData["Status Pembayaran"]}
+                                {rowData.status}
                             </span>
                         )}
                     ></Column>
@@ -177,3 +208,34 @@ const StaffPembayaran = () => {
 };
 
 export default StaffPembayaran;
+
+const ProofModal = ({ image, payment_code }) => {
+    return image && payment_code ? (
+        <AlertDialog>
+            <AlertDialogTrigger className="underline text-ForestGreen font-medium">
+                Lihat Bukti
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+                <AlertDialogHeader>
+                    <AlertDialogTitle>
+                        Bukti Pembayaran {payment_code}
+                    </AlertDialogTitle>
+                    <AlertDialogDescription>
+                        <div className="flex justify-center">
+                            <img
+                                src={image}
+                                alt="Bukti Pembayaran"
+                                className="max-h-[80vh] max-w-96"
+                            />
+                        </div>
+                    </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                    <AlertDialogCancel>Tutup</AlertDialogCancel>
+                </AlertDialogFooter>
+            </AlertDialogContent>
+        </AlertDialog>
+    ) : (
+        "-"
+    );
+};

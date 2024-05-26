@@ -4,7 +4,7 @@ import { Link } from "@inertiajs/react";
 import { FiLogOut } from "react-icons/fi";
 import { FaRegUser } from "react-icons/fa";
 import { SlDocs } from "react-icons/sl";
-import { RiBillLine } from "react-icons/ri";
+import { RiBillLine, RiCalendarScheduleLine } from "react-icons/ri";
 
 const Menu = ({ auth }) => {
     // Function untuk mengarahkan ke halaman login membawa status true
@@ -45,6 +45,10 @@ const Menu = ({ auth }) => {
                                     <div className="py-2 rounded-md flex gap-3 items-center hover:bg-customWhite px-1 font-semibold text-lg">
                                         <FaRegUser className="h-5 w-5" />
                                         <Link href="/profile">Profil</Link>
+                                    </div>
+                                    <div className="py-2 rounded-md flex gap-3 items-center hover:bg-customWhite px-1 font-semibold text-lg">
+                                        <RiCalendarScheduleLine className="h-5 w-5" />
+                                        <Link href="/jadwal">Jadwal</Link>
                                     </div>
                                     <div className="py-2 rounded-md flex gap-3 items-center hover:bg-customWhite px-1 font-semibold text-lg">
                                         <SlDocs className="h-5 w-5" />

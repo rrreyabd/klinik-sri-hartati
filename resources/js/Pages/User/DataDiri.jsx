@@ -29,13 +29,15 @@ const DataDiri = ({ patient, success, error }) => {
 
         patch(route("datadiri.update"));
     };
-    
+
     return (
         <>
             <Head title="Ubah Data Diri" />
             <ProfileLayout>
-                <div className="py-16 px-8 flex flex-col gap-16 flex-grow">
-                    <h1 className="text-2xl font-bold">Data Diri</h1>
+                <div className="md:py-16 px-8 flex flex-col gap-16 flex-grow">
+                    <h1 className="hidden md:block text-2xl font-bold">
+                        Data Diri
+                    </h1>
 
                     <div className="">
                         <header>
@@ -58,12 +60,15 @@ const DataDiri = ({ patient, success, error }) => {
 
                                 <TextInput
                                     id="nomor_telepon"
-                                    className="mt-1 block w-2/3 h-12 bg-customWhite border-black/30"
+                                    className="mt-1 block w-full md:w-2/3 h-12 bg-customWhite border-black/30"
                                     value={data.nomor_telepon}
                                     type="text"
                                     onChange={(e) => {
                                         const value = e.target.value;
-                                        if (value.length >= 10 && /^[0-9]*$/.test(value)) {
+                                        if (
+                                            value.length >= 10 &&
+                                            /^[0-9]*$/.test(value)
+                                        ) {
                                             setData("nomor_telepon", value);
                                         }
                                     }}
@@ -87,7 +92,7 @@ const DataDiri = ({ patient, success, error }) => {
                                     }
                                     value={data.golongan_darah}
                                 >
-                                    <SelectTrigger className="w-2/3 bg-transparent border-2 border-black/70 shadow-sm h-12 font-semibold rounded-xl mt-1 relative">
+                                    <SelectTrigger className="w-full md:w-2/3 bg-transparent border-2 border-black/70 shadow-sm h-12 font-semibold rounded-xl mt-1 relative">
                                         <div className="flex items-center pl-16">
                                             <div className="absolute left-0 w-16 h-3/5 flex justify-center items-center border-r-2 border-customBlack">
                                                 <MdBloodtype className="w-4 h-4" />
@@ -135,7 +140,7 @@ const DataDiri = ({ patient, success, error }) => {
 
                                 <TextInput
                                     id="alamat"
-                                    className="mt-1 block w-2/3 h-12 bg-customWhite border-black/30"
+                                    className="mt-1 block w-full md:w-2/3 h-12 bg-customWhite border-black/30"
                                     value={data.alamat}
                                     onChange={(e) =>
                                         setData("alamat", e.target.value)
@@ -156,7 +161,7 @@ const DataDiri = ({ patient, success, error }) => {
 
                                 <TextInput
                                     id="tanggal_lahir"
-                                    className="mt-1 block w-2/3 h-12 bg-customWhite border-black/30"
+                                    className="mt-1 block w-full md:w-2/3 h-12 bg-customWhite border-black/30"
                                     value={data.tanggal_lahir}
                                     type="date"
                                     onChange={(e) =>
@@ -169,12 +174,14 @@ const DataDiri = ({ patient, success, error }) => {
                                 />
                             </div>
 
-                            <PrimaryButton
-                                className="px-6 py-2 font-semibold"
-                                disabled={processing}
-                            >
-                                Simpan Perubahan
-                            </PrimaryButton>
+                            <div className="flex items-center justify-end md:justify-start pb-8 md:pb-0">
+                                <PrimaryButton
+                                    className="px-6 py-2 font-semibold"
+                                    disabled={processing}
+                                >
+                                    Simpan Perubahan
+                                </PrimaryButton>
+                            </div>
                         </form>
                     </div>
                 </div>

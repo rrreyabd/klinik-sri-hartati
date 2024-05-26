@@ -1,8 +1,10 @@
 import { Head, Link } from "@inertiajs/react";
 import React, { useEffect, useState } from "react";
 import DokterNav from "./DokterNav";
+import GenderChart from "@/Components/shared/Dokter/GenderChart";
+import StatusChart from "@/Components/shared/Dokter/StatusChart";
 
-const DokterDashboard = ({ auth, appointments }) => {
+const DokterDashboard = ({ auth, appointments, allAppointments }) => {
     const [currentDate, setCurrentDate] = useState(new Date());
 
     useEffect(() => {
@@ -81,20 +83,20 @@ const DokterDashboard = ({ auth, appointments }) => {
                         </div>
 
                         <div className="flex justify-center items-center h-5/6">
-                            CHARTJS HERE
+                            <StatusChart data={allAppointments} />
                         </div>
                     </div>
 
                     {/* JENIS KELAMIN */}
-                    <div className="h-44 bg-white shadow-md rounded-xl p-4 text-center">
+                    <div className="h-44 bg-white shadow-md rounded-xl p-4">
                         <p className="text-xl font-semibold h-1/6">
                             Jenis Kelamin
                         </p>
                         <div className="flex h-5/6">
                             <div className="w-2/3 flex justify-center items-center">
-                                CHARTJS HERE
+                                <GenderChart data={allAppointments} />
                             </div>
-                            <div className="w-1/3 flex flex-col items-center justify-center pl-4 gap-3">
+                            <div className="w-1/3 flex flex-col items-center justify-center gap-3">
                                 <div className="flex gap-1 items-center">
                                     <div className="h-3 w-3 rounded-full bg-[#4dc5c8]"></div>
                                     <p className="font-semibold text-sm text-[#4dc5c8]">
@@ -147,33 +149,10 @@ const DokterDashboard = ({ auth, appointments }) => {
                     <div className="flex justify-between items-center">
                         <div className="flex ml-5 gap-8 relative transition-all">
                             <button
-                                onClick={() => setShowData(true)}
-                                className={`text-lg font-semibold py-2 w-32 hover:bg-customWhite transition-all ${
-                                    showData
-                                        ? "text-ForestGreen"
-                                        : "text-gray-300"
-                                }`}
+                                className={`text-lg font-semibold py-2 w-fit hover:bg-customWhite transition-all text-black`}
                             >
-                                Janji Temu
+                                Janji Temu Hari Ini
                             </button>
-                            <button
-                                onClick={() => setShowData(false)}
-                                className={`text-lg font-semibold py-2 w-32 hover:bg-customWhite transition-all ${
-                                    showData
-                                        ? "text-gray-300"
-                                        : "text-ForestGreen"
-                                }`}
-                            >
-                                Antrian
-                            </button>
-
-                            <div
-                                className={`w-32 h-1 bg-ForestGreen bottom-0 left-0 absolute transition-transform duration-500 ease-in-out ${
-                                    showData
-                                        ? "transform translate-x-0"
-                                        : "transform translate-x-40"
-                                } `}
-                            ></div>
                         </div>
 
                         <div className="flex items-center gap-2 justify-end pr-6">

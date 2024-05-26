@@ -48,7 +48,7 @@ export default function UpdateProfileInformation({
 
                     <TextInput
                         id="name"
-                        className="mt-1 block w-2/3 h-12 bg-customWhite border-black/30"
+                        className="mt-1 block w-full md:w-2/3 h-12 bg-customWhite border-black/30"
                         value={data.name}
                         onChange={(e) => setData("name", e.target.value)}
                         required
@@ -75,7 +75,7 @@ export default function UpdateProfileInformation({
                     <TextInput
                         id="email"
                         type="email"
-                        className="mt-1 block w-2/3 h-12 bg-customWhite border-black/30"
+                        className="mt-1 block w-full md:w-2/3 h-12 bg-customWhite border-black/30"
                         value={data.email}
                         onChange={(e) => setData("email", e.target.value)}
                         required
@@ -123,7 +123,7 @@ export default function UpdateProfileInformation({
                     </p>
                 </Transition>
 
-                <div className="flex items-center gap-4">
+                <div className="flex items-center justify-end md:justify-start gap-4">
                     <PrimaryButton
                         className="px-6 py-2 font-semibold"
                         disabled={processing}

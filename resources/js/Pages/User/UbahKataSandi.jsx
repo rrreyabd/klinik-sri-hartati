@@ -7,8 +7,8 @@ const UbahKataSandi = () => {
         <>
             <Head title="Ubah Kata Sandi" />
             <ProfileLayout>
-                <div className="py-16 px-8 flex flex-col gap-16 flex-growhab">
-                    <h1 className="text-2xl font-bold">Kata Sandi</h1>
+                <div className="md:py-16 px-8 flex flex-col gap-16 flex-growhab">
+                    <h1 className="hidden md:block text-2xl font-bold">Kata Sandi</h1>
                     <UpdatePasswordForm className="w-full" />
                 </div>
             </ProfileLayout>
