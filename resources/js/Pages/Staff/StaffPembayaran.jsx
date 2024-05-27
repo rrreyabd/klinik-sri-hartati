@@ -162,8 +162,8 @@ const StaffPembayaran = ({ payments }) => {
                         className="py-4 border-b text-center"
                         bodyClassName="hover:bg-customWhite"
                         sortable
-                        body={(rowData) => rowData.payment_date.split(" ")[0]}
-                        header="Tanggal &nbsp;"
+                        body={(rowData) => rowData.payment_date ? rowData.payment_date.split(" ")[0] : 'Belum dibayar'}
+                        header="Dibayar pada &nbsp;"
                         headerClassName="hover:bg-ForestGreen/95 transition-all py-4 pl-8 bg-ForestGreen text-white"
                     ></Column>
                     <Column
@@ -215,10 +215,10 @@ const ProofModal = ({ image, payment_code }) => {
             <AlertDialogTrigger className="underline text-ForestGreen font-medium">
                 Lihat Bukti
             </AlertDialogTrigger>
-            <AlertDialogContent>
+            <AlertDialogContent className="p-4">
                 <AlertDialogHeader>
-                    <AlertDialogTitle>
-                        Bukti Pembayaran {payment_code}
+                    <AlertDialogTitle className="text-center">
+                        {payment_code}
                     </AlertDialogTitle>
                     <AlertDialogDescription>
                         <div className="flex justify-center">
@@ -231,7 +231,7 @@ const ProofModal = ({ image, payment_code }) => {
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                    <AlertDialogCancel>Tutup</AlertDialogCancel>
+                    <AlertDialogCancel className="bg-ForestGreen text-white hover:brightness-95 hover:bg-ForestGreen hover:text-white">Tutup</AlertDialogCancel>
                 </AlertDialogFooter>
             </AlertDialogContent>
         </AlertDialog>

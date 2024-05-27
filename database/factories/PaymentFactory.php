@@ -28,7 +28,7 @@ class PaymentFactory extends Factory
             'amount' => $this->faker->numberBetween(50000, 200000),
             'payment_due' => $this->faker->dateTimeBetween('-3 days')->format('Y-m-d'),
             'payment_date' => $this->faker->dateTimeBetween('-4 days')->format('Y-m-d'),
-            'payment_proof' => 'https://i.pinimg.com/564x/06/0f/4b/060f4b51059a74ca7880e0a136a25788.jpg',
+            'payment_proof' => 'https://mediakonsumen.com/files/2022/06/2022-06-25T145459.955.jpg',
             'status' => 'Berhasil',
         ];
     }

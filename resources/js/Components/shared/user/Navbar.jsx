@@ -4,7 +4,7 @@ import Menu from "@/Components/shared/user/Menu";
 import { Link } from "@inertiajs/react";
 import { MdOutlineLightMode } from "react-icons/md";
 
-const Navbar = ({ auth, children }) => {
+const Navbar = ({ auth, children, className }) => {
     // Function untuk mengarahkan ke halaman login membawa status true
     const registerRoute = () => {
         localStorage.setItem("status", JSON.stringify(true));
@@ -18,7 +18,7 @@ const Navbar = ({ auth, children }) => {
     };
 
     return (
-        <nav className="flex justify-between py-6 sm:py-8">
+        <nav className={`flex justify-between py-6 sm:py-8 ${className} `}>
             <Link className="flex gap-4 items-center" href="/">
                 <img className="h-10 unselectable" src="/assets/logo.png" />
                 <p className="text-lg font-semibold unselectable">

@@ -1,5 +1,5 @@
+import { malam, pagi, sore } from "@/lib/data";
 import { Calendar } from "@/Components/ui/calendar";
-import { pagi, sore, malam } from "@/lib/data";
 import React, { useState, useEffect } from "react";
 
 const WaktuForm = ({
@@ -9,8 +9,10 @@ const WaktuForm = ({
     data,
     selectedTime,
     validationErrors,
+    appointments,
 }) => {
     const [time, setTime] = useState(data.jam);
+    const [disabledTimes, setDisabledTimes] = useState([]);
 
     const today = new Date();
     const isDisabled = (day) => day < today;
@@ -19,6 +21,39 @@ const WaktuForm = ({
         setData("tanggal", selectedDate);
         setData("jam", time);
     }, [selectedDate, time]);
+
+    useEffect(() => {
+        // Cari waktu yang sudah terdaftar untuk tanggal yang dipilih
+        if (appointments) {
+            const fullDate = new Date(selectedDate);
+            const date = fullDate.getDate().toString().padStart(2, "0");
+            const month = (fullDate.getMonth() + 1).toString().padStart(2, "0");
+            const year = fullDate.getFullYear();
+            const newSelectedDate = year + "-" + month + "-" + date;
+
+            const appointmentsForSelectedDate = appointments.filter(
+                (appointment) => {
+                    return appointment.date == newSelectedDate;
+                }
+            );
+
+            // Ambil waktu dari data janji yang sudah terdaftar
+            const disabledTimes = appointmentsForSelectedDate.map(
+                (appointment) => {
+                    return appointment.time;
+                }
+            );
+
+            // Jika waktu yang dipilih ada di dalam disabledTimes, set time menjadi null
+            if (disabledTimes.includes(time)) {
+                setTime(null);
+                setData("jam", null);
+            }
+
+            // Atur waktu-waktu yang sudah terdaftar sebagai waktu yang dinonaktifkan
+            setDisabledTimes(disabledTimes);
+        }
+    }, [selectedDate, appointments]);
 
     const onOptionChange = (e) => {
         setTime(e.target.value);
@@ -71,6 +106,9 @@ const WaktuForm = ({
                                             time={time}
                                             label={jam.label}
                                             data={data}
+                                            disabled={disabledTimes.includes(
+                                                jam.value
+                                            )}
                                         />
                                     );
                                 })}
@@ -91,6 +129,9 @@ const WaktuForm = ({
                                             time={time}
                                             label={jam.label}
                                             data={data}
+                                            disabled={disabledTimes.includes(
+                                                jam.value
+                                            )}
                                         />
                                     );
                                 })}
@@ -111,6 +152,9 @@ const WaktuForm = ({
                                             time={time}
                                             label={jam.label}
                                             selectedTime={selectedTime}
+                                            disabled={disabledTimes.includes(
+                                                jam.value
+                                            )}
                                         />
                                     );
                                 })}
@@ -127,31 +171,27 @@ const WaktuForm = ({
     );
 };
 
-const RadioButton = ({ label, value, time, onOptionChange, selectedTime }) => {
-    // Jam yang tidak tersedia
-    const disabled = ["09:00:00", "20:00:00"];
-
+const RadioButton = ({ label, value, time, onOptionChange, disabled }) => {
     return (
         <label
             className={`
-          px-2 py-1 w-16 text-center rounded-md hover:brightness-90 transition-all font-medium unselectable
-          ${
-              disabled.includes(value)
-                  ? "bg-red-600 text-white cursor-not-allowed"
-                  : time == value
-                  ? "bg-ForestGreen text-white cursor-pointer"
-                  : "bg-green-600 text-white cursor-pointer"
-          }
-      `}
+                px-2 py-1 w-16 text-center rounded-md hover:brightness-90 transition-all font-medium unselectable
+                ${
+                    disabled
+                        ? "bg-red-600 text-white cursor-not-allowed"
+                        : time === value
+                        ? "bg-ForestGreen text-white cursor-pointer"
+                        : "bg-green-600 text-white cursor-pointer"
+                }
+            `}
         >
             <input
                 type="radio"
                 value={value}
-                // checked={time == value}
-                checked={selectedTime}
+                checked={time === value}
                 onChange={onOptionChange}
                 name="time"
-                disabled={disabled.includes(value)}
+                disabled={disabled}
                 className="hidden"
             />
             {label}

@@ -32,7 +32,7 @@ const Footer = ({ information }) => {
 
                 <div className="flex flex-col space-y-4 w-full sm:w-48">
                     <div className="flex space-x-4 items-center">
-                        <FaLocationDot className="h-5 w-5" />
+                        <FaLocationDot />
                         <p>{information.address}</p>
                     </div>
 
@@ -48,7 +48,7 @@ const Footer = ({ information }) => {
                 </div>
             </div>
             <div className="w-full md:w-4/5 px-8 md:px-0 flex justify-start sm:justify-center text-white/80 text-sm">
-                <p>Copyright &copy;2024 - Klinik Sri Hartati</p>
+                <p>Copyright &copy; 2024 - Klinik Sri Hartati</p>
             </div>
         </div>
     );

@@ -1,6 +1,6 @@
 import { IoDocumentText } from "react-icons/io5";
 import { MdOutlineAttachMoney } from "react-icons/md";
-import { FaUsers, FaRegCalendarAlt } from "react-icons/fa";
+import { FaUsers, FaRegCalendarAlt, FaHistory } from "react-icons/fa";
 
 export const services = [
     // {
@@ -19,17 +19,25 @@ export const services = [
     },
     {
         id: 3,
-        name: "Akses Rekam Medis",
+        name: "Riwayat Temu",
         description:
-            "Lihat catatan medis dan konsultasi dokter secara virtual.",
+            "Telusuri riwayat janji temu Anda sebelumnya dengan mudah dan cepat.",
         url: "/",
-        Icon: IoDocumentText,
+        Icon: FaHistory,
     },
+    // {
+    //     id: 3,
+    //     name: "Akses Rekam Medis",
+    //     description:
+    //         "Lihat catatan medis dan konsultasi dokter secara virtual.",
+    //     url: "/",
+    //     Icon: IoDocumentText,
+    // },
     {
         id: 4,
         name: "Bayar Online",
         description: "Lunasi tagihan dengan e-money ",
-        url: "/",
+        url: "/tagihan",
         Icon: MdOutlineAttachMoney,
     },
 ];

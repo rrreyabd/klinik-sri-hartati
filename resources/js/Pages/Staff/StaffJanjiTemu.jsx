@@ -56,7 +56,7 @@ const StaffJanjiTemu = ({ appointments, status, error }) => {
                 <div className="w-3/4 py-16 flex flex-col gap-8 max-w-[1300px]">
                     <header className="flex justify-between">
                         <StaffSheet />
-                        <h1 className="text-4xl font-semibold text-ForestGreen">
+                        <h1 className="text-4xl font-semibold ">
                             Manajemen Janji Temu
                         </h1>
                         <span className="w-10"></span>

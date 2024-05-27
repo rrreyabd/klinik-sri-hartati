@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AntrianController;
 use App\Http\Controllers\DokterController;
+use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\JanjiTemuController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\ProfileController;
@@ -65,6 +66,9 @@ Route::middleware(['auth', 'CheckPatientData'])->group(function () {
     // Rekam Medis
     Route::get('/rekam-medis', [RekamMedisController::class, 'index'])->name('rekam-medis.index');
     
+    // Jadwal
+    Route::get('/jadwal', [JadwalController::class, 'index'])->name('jadwal.index');
+
     
     // Staff
     Route::get('/staff', [StaffController::class, 'index'])->name('staff.index');
