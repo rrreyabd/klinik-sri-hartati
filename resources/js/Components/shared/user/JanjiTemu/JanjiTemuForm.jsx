@@ -17,7 +17,7 @@ import {
 } from "@/Components/ui/alert-dialog";
 import { BsQuestionCircle } from "react-icons/bs";
 
-const JanjiTemuForm = ({ auth, treatments, doctors }) => {
+const JanjiTemuForm = ({ auth, treatments, doctors, appointments }) => {
     const steps = ["Layanan", "Waktu"];
     const stepsLength = steps.length;
 
@@ -191,6 +191,7 @@ const JanjiTemuForm = ({ auth, treatments, doctors }) => {
                         selectedTime={data.jam}
                         onDateChange={handleDateChange}
                         validationErrors={validationErrors}
+                        appointments={appointments}
                     />
                 )}
             </div>
@@ -244,10 +245,8 @@ const JanjiTemuForm = ({ auth, treatments, doctors }) => {
                                     </div>
                                 </AlertDialogTitle>
                                 <AlertDialogDescription>
-                                    <p className="text-base text-center">
-                                        Pastikan data yang Anda masukkan sudah
-                                        benar. Kamu tidak dapat mengubah data
-                                        setelah menekan tombol "Selesai".
+                                    <p className="text-base text-center text-black">
+                                        Anda diberikan waktu <span className="font-bold text-red-600"> 1 JAM </span> untuk membayar biaya janji temu sebelum janji temu dibatalkan otomatis. Pastikan data sudah sesuai dengan yang Anda inginkan.
                                     </p>
                                     <p className="font-bold text-red-600 text-center uppercase">
                                         *perlu ide design*
@@ -269,7 +268,7 @@ const JanjiTemuForm = ({ auth, treatments, doctors }) => {
                                             <p className="font-bold text-lg">
                                                 Tanggal / Jam
                                             </p>
-                                            <p>{formattedDate} / {data.jam.substring(0, 5)}</p>
+                                            <p>{formattedDate} / { data.jam ? data.jam.substring(0, 5) : null}</p>
                                         </div>
                                         <div className="text-center">
                                             <p className="font-bold text-lg">

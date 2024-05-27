@@ -1,9 +1,8 @@
 import Logo from "@/Components/shared/Logo";
-import FormStepper from "@/Components/shared/user/FormStepper";
 import JanjiTemuForm from "@/Components/shared/user/JanjiTemu/JanjiTemuForm";
-import { Head, Link } from "@inertiajs/react";
+import { Head } from "@inertiajs/react";
 
-const JanjiTemu = ({ auth, patient, treatments, doctors }) => {
+const JanjiTemu = ({ auth, patient, treatments, doctors, appointments }) => {
     return (
         <div className="flex justify-center bg-customWhite min-h-screen py-8">
             <Head title="Janji Temu" />
@@ -20,6 +19,7 @@ const JanjiTemu = ({ auth, patient, treatments, doctors }) => {
                         patient={patient}
                         treatments={treatments}
                         doctors={doctors}
+                        appointments={appointments}
                     />
                 </div>
             </div>

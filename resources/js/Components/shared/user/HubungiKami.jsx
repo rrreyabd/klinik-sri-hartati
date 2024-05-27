@@ -19,6 +19,7 @@ const HubungiKami = () => {
                         id="nama"
                         className="w-full sm:w-1/2 h-12 rounded-md bg-customWhite focus:border-KellyGreen border focus:ring-KellyGreen"
                         placeholder="Nama Lengkap"
+                        autoComplete="off"
                     />
                     <input
                         type="email"
@@ -26,6 +27,7 @@ const HubungiKami = () => {
                         id="email"
                         className="w-full sm:w-1/2 h-12 rounded-md bg-customWhite focus:border-KellyGreen border focus:ring-KellyGreen"
                         placeholder="Alamat Email"
+                        autoComplete="off"
                     />
                 </div>
                 <textarea
@@ -34,6 +36,7 @@ const HubungiKami = () => {
                     cols="30"
                     rows="10"
                     placeholder="Pesan Kamu"
+                    autoComplete="off"
                     className="w-full bg-customWhite resize-none rounded-md focus:border-KellyGreen border focus:ring-KellyGreen  "
                 ></textarea>
 

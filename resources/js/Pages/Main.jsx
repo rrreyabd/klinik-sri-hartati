@@ -29,14 +29,14 @@ export default function Main({ auth, patient, status, error, tour, information }
             toast({
                 variant: "success",
                 title: status,
-                description: "Lihat informasi janji temu Anda",
+                description: "Lihat detail pembayaran janji temu Anda",
                 action: (
                     <ToastAction
                         altText="Lihat Detail"
-                        className="border-white border px-4 py-1 rounded-md"
+                        className="border-white border px-3 py-1 text-sm"
                         descClassName="text"
                     >
-                        <Link href="/profile">Detail</Link>
+                        <Link href="/tagihan">Tagihan</Link>
                     </ToastAction>
                 ),
             });

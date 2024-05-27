@@ -20,9 +20,12 @@ class JanjiTemuController extends Controller
     {
         $treatments = Treatment::all();
         $doctors = Doctor::with('user')->get();
+        $appointments = Appointment::all();
+        
         return Inertia::render('User/JanjiTemu', [
             'treatments' => $treatments,
             'doctors' => $doctors,
+            'appointments' => $appointments,
         ]);
     }
 
@@ -65,7 +68,7 @@ class JanjiTemuController extends Controller
             $fee = $treatment ? $treatment->fee : 0;
 
             // Set the payment due to today at 24:00
-            $payment_due = Carbon::now()->addHours(2);
+            $payment_due = Carbon::now()->addHours(1);
 
             // Payment Code
             $paymentCount = Payment::count() + 1;
