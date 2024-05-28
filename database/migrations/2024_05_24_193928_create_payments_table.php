@@ -20,7 +20,7 @@ return new class extends Migration
             $table->dateTime('payment_due');
             $table->dateTime('payment_date')->nullable();
             $table->string('payment_proof')->nullable();
-            $table->enum('status', ['Menunggu Pembayaran', 'Berhasil', 'Dibatalkan'])->default('Menunggu Pembayaran');
+            $table->enum('status', ['Menunggu Pembayaran', 'Menunggu Konfirmasi', 'Berhasil', 'Dibatalkan'])->default('Menunggu Pembayaran');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

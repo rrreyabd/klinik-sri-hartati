@@ -50,7 +50,7 @@ const LoginForm = ({ status, canResetPassword }) => {
             </div>
 
             <div className="">
-                <div className="relative flex flex-col justify-center">
+                <div className="relative flex flex-col justify-center items-center">
                     <TextInput
                         id="password"
                         type={passwordHidden ? "password" : "text"}

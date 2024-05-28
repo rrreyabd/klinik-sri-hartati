@@ -2,13 +2,78 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Payment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class TagihanController extends Controller
 {
     public function index()
     {
-        return Inertia::render('User/Tagihan');
+        $payments = Payment::where('user_id', Auth::user()->id)
+            ->with(['appointment', 'user'])
+            ->orderByRaw("status = 'Menunggu Pembayaran' DESC")
+            ->orderBy('payment_date', 'desc')
+            ->get();
+
+        $pendingPayments = Payment::where('user_id', Auth::user()->id)
+            ->with(['appointment', 'user'])
+            ->where('status', 'Menunggu Pembayaran')
+            ->orderBy('payment_date', 'desc')
+            ->get();
+
+        $cancelledPayments = Payment::where('user_id', Auth::user()->id)
+            ->with(['appointment', 'user'])
+            ->where('status', 'Dibatalkan')
+            ->orderBy('payment_date', 'desc')
+            ->get();
+
+        $successPayments = Payment::where('user_id', Auth::user()->id)
+            ->with(['appointment', 'user'])
+            ->where('status', 'Berhasil')
+            ->orderBy('payment_date', 'desc')
+            ->get();
+
+        $confirmPayments = Payment::where('user_id', Auth::user()->id)
+            ->with(['appointment', 'user'])
+            ->where('status', 'Menunggu Konfirmasi')
+            ->orderBy('payment_date', 'desc')
+            ->get();
+
+        return Inertia::render('User/Tagihan', [
+            'payments' => $payments,
+            'pendingPayments' => $pendingPayments,
+            'cancelledPayments' => $cancelledPayments,
+            'successPayments' => $successPayments,
+            'confirmPayments' => $confirmPayments,
+        ]);
+    }
+
+    public function store(Request $request)
+    {
+        try {
+            $request->validate([
+                'payment_id' => 'required',
+                'payment_proof' => 'required|image',
+            ]);
+
+            // Store the file and get the path
+            $path = $request->file('payment_proof')->store('images', 'public');
+
+            // Update the payment record with the status and file path
+            $payment = Payment::find($request->payment_id);
+            $payment->update([
+                'status' => 'Menunggu Konfirmasi',
+                'payment_proof' => $path,
+                'payment_date' => now(),
+            ]);
+            
+            
+            return redirect()->back();
+            // return redirect()->route('tagihan.index');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 }

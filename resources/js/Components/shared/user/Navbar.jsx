@@ -4,7 +4,7 @@ import Menu from "@/Components/shared/user/Menu";
 import { Link } from "@inertiajs/react";
 import { MdOutlineLightMode } from "react-icons/md";
 
-const Navbar = ({ auth, children, className }) => {
+const Navbar = ({ auth, children, className, color }) => {
     // Function untuk mengarahkan ke halaman login membawa status true
     const registerRoute = () => {
         localStorage.setItem("status", JSON.stringify(true));
@@ -33,6 +33,7 @@ const Navbar = ({ auth, children, className }) => {
                     <ProfileDropdown
                         className="flex items-center gap-4 border-0 hover:text-ForestGreen transition-all"
                         auth={auth}
+                        color={color}
                     >
                         {auth.user.name}
                         <FaChevronDown />

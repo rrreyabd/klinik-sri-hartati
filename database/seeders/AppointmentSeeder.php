@@ -16,7 +16,7 @@ class AppointmentSeeder extends Seeder
         $appointments = [
             [
                 'user_id' => 1,
-                'doctor_id' => 3,
+                'doctor_id' => 6,
                 'treatment_id' => 1,
                 'date' => "2024-05-08",
                 'time' => "08:00:00",
