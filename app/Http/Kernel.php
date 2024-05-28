@@ -70,6 +70,7 @@ class Kernel extends HttpKernel
 
     protected $routeMiddleware = [
         'CheckPatientData' => \App\Http\Middleware\CheckPatientData::class,
+        'RoleCheck' => \App\Http\Middleware\RoleCheck::class,
     ];
 
 }

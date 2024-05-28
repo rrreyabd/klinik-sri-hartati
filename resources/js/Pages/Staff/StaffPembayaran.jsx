@@ -201,6 +201,7 @@ const StaffPembayaran = ({ payments }) => {
                             </span>
                         )}
                     ></Column>
+                    
                 </DataTable>
             </div>
         </div>

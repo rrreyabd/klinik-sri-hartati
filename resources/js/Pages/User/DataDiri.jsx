@@ -62,14 +62,10 @@ const DataDiri = ({ patient, success, error }) => {
                                     id="nomor_telepon"
                                     className="mt-1 block w-full md:w-2/3 h-12 bg-customWhite border-black/30"
                                     value={data.nomor_telepon}
-                                    type="text"
                                     onChange={(e) => {
                                         const value = e.target.value;
-                                        if (
-                                            value.length >= 10 &&
-                                            /^[0-9]*$/.test(value)
-                                        ) {
-                                            setData("nomor_telepon", value);
+                                        if (value.length >= 10 && /^[0-9]*$/.test(value)) {
+                                            setData( "nomor_telepon", e.target.value) // Correct way to update state
                                         }
                                     }}
                                     required
