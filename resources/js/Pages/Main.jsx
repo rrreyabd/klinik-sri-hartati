@@ -21,7 +21,14 @@ import { motion } from "framer-motion";
 import { FaQuestion } from "react-icons/fa";
 import { FaX } from "react-icons/fa6";
 
-export default function Main({ auth, patient, status, error, tour, information }) {
+export default function Main({
+    auth,
+    patient,
+    status,
+    error,
+    tour,
+    information,
+}) {
     const { toast } = useToast();
 
     useEffect(() => {
@@ -98,9 +105,9 @@ export default function Main({ auth, patient, status, error, tour, information }
                                 {
                                     element: "#step-3",
                                     popover: {
-                                        title: "Rekam Medis",
+                                        title: "Riwayat Janji Temu",
                                         description:
-                                            "Rekam Medis adalah fitur yang memungkinkan kamu untuk melihat rekam medis kamu secara online, kapanpun dan dimanapun.",
+                                            "Kamu bisa melihat riwayat janji temu yang telah kamu buat, ikuti, maupun yang sudah kamu batalkan",
                                         side: "top",
                                         align: "start",
                                         nextBtnText: "Lanjut",
@@ -136,7 +143,7 @@ export default function Main({ auth, patient, status, error, tour, information }
     useEffect(() => {
         const timer = setTimeout(() => {
             setShowButton(true);
-        }, 6);
+        }, 300000); // 5 Menit
 
         return () => clearTimeout(timer);
     }, []);
@@ -200,27 +207,38 @@ export default function Main({ auth, patient, status, error, tour, information }
             </main>
             <Toaster />
             {auth.user && showButton && (
-                <>
-                    <motion.button
-                        className="fixed bottom-10 right-10 p-3 rounded-full bg-ForestGreen shadow-md flex justify-center items-center animate-bounce transition-all hover:brightness-90"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 1, delay: 0.5 }}
-                        onClick={() =>
-                            localStorage.setItem("isSkipped", "false")
-                        }
-                        type="button"
-                    >
-                        <FaQuestion className="h-6 w-6 text-customWhite" />
-                        {/* <button
-                            type="button"
-                            onClick={() => setShowButton(false)}
-                            className="absolute -top-0 right-0 h-4 w-4 rounded-full bg-red-600 text-white flex justify-center items-center text-xs"
-                        >
-                            <FaX className="w-3 h-3" />
-                        </button> */}
-                    </motion.button>
-                </>
+                <div className="fixed top-0 left-0 z-10 w-screen h-screen bg-black/50 flex justify-center items-center">
+                    <div className="bg-white shadow-md w-2/5 rounded-md p-8 flex flex-col gap-4">
+                        <h1 className="text-3xl font-semibold">
+                            Apakah kamu masih disana?
+                        </h1>
+                        <p>
+                            Kamu telah diam di halaman ini selama 5 menit.
+                            Jika kamu membutuhkan bantuan untuk menggunakan
+                            situs kami, klik Tur Website. Jika tidak ingin
+                            melakukan apa-apa, klik Batal untuk menutup dialog
+                            ini.
+                        </p>
+
+                        <div className="flex justify-end gap-4">
+                            <button
+                                className="font-medium"
+                                onClick={() => setShowButton(false)}
+                            >
+                                Batal
+                            </button>
+                            <button
+                                className="bg-ForestGreen text-white px-4 py-2 rounded-full font-medium"
+                                onClick={() => {
+                                    localStorage.setItem("isSkipped", "false");
+                                    setShowButton(false);
+                                }}
+                            >
+                                Tur Website
+                            </button>
+                        </div>
+                    </div>
+                </div>
             )}
         </>
     );

@@ -50,12 +50,12 @@ const Menu = ({ auth }) => {
                                         <RiCalendarScheduleLine className="h-5 w-5" />
                                         <Link href="/jadwal">Jadwal</Link>
                                     </div>
-                                    <div className="py-2 rounded-md flex gap-3 items-center hover:bg-customWhite px-1 font-semibold text-lg">
+                                    {/* <div className="py-2 rounded-md flex gap-3 items-center hover:bg-customWhite px-1 font-semibold text-lg">
                                         <SlDocs className="h-5 w-5" />
                                         <Link href="/rekam-medis">
                                             Rekam Medis
                                         </Link>
-                                    </div>
+                                    </div> */}
                                     <div className="py-2 rounded-md flex gap-3 items-center hover:bg-customWhite px-1 font-semibold text-lg">
                                         <RiBillLine className="h-5 w-5" />
                                         <Link href="/tagihan">Tagihan</Link>

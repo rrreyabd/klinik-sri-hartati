@@ -41,10 +41,10 @@ const Header = () => {
                     </Link>
 
                     <Link
-                        href="/"
+                        href={route("jadwal.index")}
                         className="border-2 border-ForestGreen bg-customWhite text-ForestGreen flex items-center justify-center px-8 py-3 font-semibold rounded-full" id="step-3"
                     >
-                        Riwayat Temu
+                        Riwayat Janji Temu
                     </Link>
                     
                     {/* <Link

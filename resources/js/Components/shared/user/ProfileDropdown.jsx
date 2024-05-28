@@ -12,13 +12,13 @@ import { SlDocs } from "react-icons/sl";
 import { RiBillLine } from "react-icons/ri";
 import { RiCalendarScheduleLine } from "react-icons/ri";
 
-const ProfileDropdown = ({ children, className, auth }) => {
+const ProfileDropdown = ({ children, className, auth, color }) => {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger className={`unselectable ${className}`}>
                 {children}
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="min-w-56 py-4 bg-customWhite font-semibold shadow-xl">
+            <DropdownMenuContent className={`min-w-56 py-4 bg-customWhite font-semibold shadow-xl ${color} `}>
                 <DropdownMenuItem className="px-4 hover:bg-[#e2e2e2] rounded-md">
                     <Link
                         href="/profile"
@@ -29,7 +29,7 @@ const ProfileDropdown = ({ children, className, auth }) => {
                     </Link>
                 </DropdownMenuItem>
 
-                <DropdownMenuSeparator />
+                <DropdownMenuSeparator className={color} />
 
                 <DropdownMenuItem className="px-4 hover:bg-[#e2e2e2] rounded-md">
                     <Link
@@ -41,9 +41,9 @@ const ProfileDropdown = ({ children, className, auth }) => {
                     </Link>
                 </DropdownMenuItem>
                 
-                <DropdownMenuSeparator />
+                <DropdownMenuSeparator className={color} />
 
-                <DropdownMenuItem className="px-4 hover:bg-[#e2e2e2] rounded-md">
+                {/* <DropdownMenuItem className="px-4 hover:bg-[#e2e2e2] rounded-md">
                     <Link
                         href="/rekam-medis"
                         className="w-full text-start flex gap-3"
@@ -53,7 +53,7 @@ const ProfileDropdown = ({ children, className, auth }) => {
                     </Link>
                 </DropdownMenuItem>
 
-                <DropdownMenuSeparator />
+                <DropdownMenuSeparator className={color} /> */}
 
                 <DropdownMenuItem className="px-4 hover:bg-[#e2e2e2] rounded-md">
                     <Link
@@ -65,7 +65,7 @@ const ProfileDropdown = ({ children, className, auth }) => {
                     </Link>
                 </DropdownMenuItem>
 
-                <DropdownMenuSeparator />
+                <DropdownMenuSeparator className={color} />
 
                 <DropdownMenuItem className="hover:bg-[#e2e2e2] px-4 rounded-md flex gap-3">
                     <Link

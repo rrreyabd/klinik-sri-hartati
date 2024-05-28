@@ -62,7 +62,9 @@ Route::middleware(['auth', 'CheckPatientData'])->group(function () {
     
     // Tagihan
     Route::get('/tagihan', [TagihanController::class, 'index'])->name('tagihan.index');
+    Route::post('/tagihan', [TagihanController::class, 'store'])->name('tagihan.store');
     
+
     // Rekam Medis
     Route::get('/rekam-medis', [RekamMedisController::class, 'index'])->name('rekam-medis.index');
     
