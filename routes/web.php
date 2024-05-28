@@ -42,7 +42,7 @@ Route::get('/data/input', [ProfileController::class, 'addDataDiri'])->name('data
 Route::post('/data/input', [ProfileController::class, 'storeDataDiri'])->name('data.store')->middleware('auth');
 
 
-Route::middleware(['auth', 'CheckPatientData'])->group(function () {
+Route::middleware(['auth', 'CheckPatientData','verified','RoleCheck:user'])->group(function () {
     // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -68,9 +68,10 @@ Route::middleware(['auth', 'CheckPatientData'])->group(function () {
     
     // Jadwal
     Route::get('/jadwal', [JadwalController::class, 'index'])->name('jadwal.index');
+});
 
-    
-    // Staff
+// Staff
+Route::middleware(['auth', 'verified', 'RoleCheck:staff'])->group(function () {
     Route::get('/staff', [StaffController::class, 'index'])->name('staff.index');
     
     Route::get('/staff/antrian', [StaffController::class, 'antrianIndex'])->name('staff.antrian.index');
@@ -82,26 +83,27 @@ Route::middleware(['auth', 'CheckPatientData'])->group(function () {
     Route::get('/staff/pembayaran', [StaffController::class, 'pembayaranIndex'])->name('staff.pembayaran.index');
     
     Route::get('/staff/rekam-medis', [StaffController::class, 'rekamMedisIndex'])->name('staff.rekam-medis.index');
+});
 
-
-    // Dokter
+// Dokter
+Route::middleware(['auth', 'verified', 'RoleCheck:dokter'])->group(function () {
     Route::get('/dokter', [DokterController::class, 'index'])->name('dokter.index');
     Route::get('/dokter/pasien/{id}', [DokterController::class, 'dataDiriPasien'])->name('dokter.pasien');
     Route::get('/dokter/rekam-medis/{id}', [DokterController::class, 'detailRekamMedis'])->name('dokter.rekam-medis.detail');
     Route::get('/dokter/rekam-medis/{id}/tambah', [DokterController::class, 'edit'])->name('dokter.edit');
     Route::post('/dokter/rekam-medis/tambah', [DokterController::class, 'store'])->name('dokter.store');
-
-
 });
 
 // Owner
-Route::get('/owner', [OwnerController::class, 'index'])->name('owner.index');
-Route::get('/owner/jadwal', [OwnerController::class, 'jadwalIndex'])->name('owner.jadwal');
-Route::get('/owner/akun', [OwnerController::class, 'akunIndex'])->name('owner.akun');
-Route::get('/owner/pasien', [OwnerController::class, 'pasienIndex'])->name('owner.pasien');
-Route::get('/owner/dokter', [OwnerController::class, 'dokterIndex'])->name('owner.dokter');
-Route::get('/owner/staff', [OwnerController::class, 'staffIndex'])->name('owner.staff');
-Route::get('/owner/pembayaran', [OwnerController::class, 'pembayaranIndex'])->name('owner.pembayaran');
+Route::middleware(['auth', 'verified', 'RoleCheck:owner'])->group(function () {
+    Route::get('/owner', [OwnerController::class, 'index'])->name('owner.index');
+    Route::get('/owner/jadwal', [OwnerController::class, 'jadwalIndex'])->name('owner.jadwal');
+    Route::get('/owner/akun', [OwnerController::class, 'akunIndex'])->name('owner.akun');
+    Route::get('/owner/pasien', [OwnerController::class, 'pasienIndex'])->name('owner.pasien');
+    Route::get('/owner/dokter', [OwnerController::class, 'dokterIndex'])->name('owner.dokter');
+    Route::get('/owner/staff', [OwnerController::class, 'staffIndex'])->name('owner.staff');
+    Route::get('/owner/pembayaran', [OwnerController::class, 'pembayaranIndex'])->name('owner.pembayaran');
+});
 
 // Skip
 Route::get('/skip/tour', [ProfileController::class, 'skipTour'])->name('tour.skip');

@@ -19,10 +19,13 @@ class CheckPatientData
     {
         if (Auth::check()) {
             $user = Auth::user();
-            $data = Patient::where('user_id', $user->id)->first();
             
-            if (!$data) {
-                return redirect()->route('data.edit');
+            if ($user->role == "user") {
+                $data = Patient::where('user_id', $user->id)->first();
+
+                if (!$data) {
+                    return redirect()->route('data.edit');
+                }
             }
         }
 
