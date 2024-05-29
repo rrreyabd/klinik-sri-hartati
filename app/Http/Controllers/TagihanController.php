@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Appointment;
 use App\Models\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -68,10 +69,13 @@ class TagihanController extends Controller
                 'payment_proof' => $path,
                 'payment_date' => now(),
             ]);
-            
-            
-            return redirect()->back();
-            // return redirect()->route('tagihan.index');
+
+            $appointment = Appointment::find($payment->appointment_id);
+            $appointment->update([
+                'status' => "Menunggu Konfirmasi",
+            ]);
+
+            return redirect()->route('jadwal.index');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }

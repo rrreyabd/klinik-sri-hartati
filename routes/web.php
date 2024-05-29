@@ -10,6 +10,7 @@ use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\TagihanController;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -31,6 +32,8 @@ Route::get('/', function () {
         'status' => session('status'),
         'error' => session('error'),
         'information' => \App\Models\Information::first(),
+        'appointments' => \App\Models\Appointment::where('status', 'Selesai')->count(),
+        'notif' => Auth::check() ? \App\Models\Payment::where('user_id', Auth::user()->id)->where('status', 'Menunggu Pembayaran')->count() : 0,
     ]);
 })
 ->name('index')
@@ -38,11 +41,11 @@ Route::get('/', function () {
 ;
 
 // Data Diri
-Route::get('/data/input', [ProfileController::class, 'addDataDiri'])->name('data.edit')->middleware('auth');
-Route::post('/data/input', [ProfileController::class, 'storeDataDiri'])->name('data.store')->middleware('auth');
+Route::get('/data/input', [ProfileController::class, 'addDataDiri'])->name('data.edit')->middleware('auth', 'verified');
+Route::post('/data/input', [ProfileController::class, 'storeDataDiri'])->name('data.store')->middleware('auth', 'verified');
 
 
-Route::middleware(['auth', 'CheckPatientData','verified','RoleCheck:user'])->group(function () {
+Route::middleware(['auth', 'CheckPatientData','verified'])->group(function () {
     // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -72,8 +75,8 @@ Route::middleware(['auth', 'CheckPatientData','verified','RoleCheck:user'])->gro
     Route::get('/jadwal', [JadwalController::class, 'index'])->name('jadwal.index');
 });
 
-// Staff
-Route::middleware(['auth', 'verified', 'RoleCheck:staff'])->group(function () {
+// n
+Route::middleware(['auth', 'verified',])->group(function () {
     Route::get('/staff', [StaffController::class, 'index'])->name('staff.index');
     
     Route::get('/staff/antrian', [StaffController::class, 'antrianIndex'])->name('staff.antrian.index');
@@ -83,12 +86,14 @@ Route::middleware(['auth', 'verified', 'RoleCheck:staff'])->group(function () {
     Route::post('/staff/janji-temu/store', [StaffController::class, 'store'])->name('staff.janji-temu.store');
     
     Route::get('/staff/pembayaran', [StaffController::class, 'pembayaranIndex'])->name('staff.pembayaran.index');
+    Route::post('/konfirmasi/pembayaran', [StaffController::class, 'konfirmasiPembayaran'])->name('staff.konfirmasi');
     
+
     Route::get('/staff/rekam-medis', [StaffController::class, 'rekamMedisIndex'])->name('staff.rekam-medis.index');
 });
 
 // Dokter
-Route::middleware(['auth', 'verified', 'RoleCheck:dokter'])->group(function () {
+Route::middleware(['auth', 'verified',])->group(function () {
     Route::get('/dokter', [DokterController::class, 'index'])->name('dokter.index');
     Route::get('/dokter/pasien/{id}', [DokterController::class, 'dataDiriPasien'])->name('dokter.pasien');
     Route::get('/dokter/rekam-medis/{id}', [DokterController::class, 'detailRekamMedis'])->name('dokter.rekam-medis.detail');
@@ -97,7 +102,7 @@ Route::middleware(['auth', 'verified', 'RoleCheck:dokter'])->group(function () {
 });
 
 // Owner
-Route::middleware(['auth', 'verified', 'RoleCheck:owner'])->group(function () {
+Route::middleware(['auth', 'verified',])->group(function () {
     Route::get('/owner', [OwnerController::class, 'index'])->name('owner.index');
     Route::get('/owner/jadwal', [OwnerController::class, 'jadwalIndex'])->name('owner.jadwal');
     Route::get('/owner/akun', [OwnerController::class, 'akunIndex'])->name('owner.akun');

@@ -70,7 +70,7 @@ const LayananForm = ({
                                     value={` ${doctor.id} `}
                                     className={`x transition-all font-semibold cursor-pointer py-3 bg-customWhite w-full flex justify-between border-b border-gray-300 ${optionClass}`}
                                 >
-                                    {doctor.user.name}
+                                    {doctor.name}
                                 </SelectItem>
                             ))}
                     </SelectContent>

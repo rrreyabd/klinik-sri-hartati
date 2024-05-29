@@ -30,7 +30,7 @@ const StaffDashboard = () => {
             <Head title="Staff" />
             <div className="w-3/4 flex flex-col gap-16 max-w-[1300px]">
                 <div className="flex flex-col text-center ">
-                    <h1 className="font-semibold text-4xl text-ForestGreen">
+                    <h1 className="font-semibold text-4xl">
                         Dashboard Staff
                     </h1>
                     <p className="text-lg text-slate-600 font-medium">

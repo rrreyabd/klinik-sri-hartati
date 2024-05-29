@@ -77,6 +77,7 @@ class ProfileController extends Controller
     {
         $request->validate([
             'user_id' => 'required',
+            'nik' => 'required',
             'birthdate' => 'required',
             'address'   => 'required',
             'blood_type'   => 'required',
@@ -90,6 +91,7 @@ class ProfileController extends Controller
 
             $patient = Patient::create([
                 'user_id' => $request->user_id,
+                'nik' => $request->nik,
                 'birthdate' => $request->birthdate,
                 'address'   => $request->address,
                 'blood_type'   => $request->blood_type,

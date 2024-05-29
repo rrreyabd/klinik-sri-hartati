@@ -4,7 +4,8 @@ import AuthLayout from "@/Layouts/AuthLayout";
 import LoginForm from "@/Components/shared/LoginForm";
 import RegisterForm from "@/Components/shared/RegisterForm";
 
-export default function Login({ }) {
+export default function Login({ message }) {
+    console.log(message)
     // Ambil Data dari Local Storage
     const status = JSON.parse(localStorage.getItem('status'));
 
@@ -81,7 +82,7 @@ export default function Login({ }) {
                 </div>
 
                 {toggled ? (
-                    <RegisterForm />
+                    <RegisterForm message={message} />
                 ) : (
                     <div className="flex flex-col flex-grow justify-between">
                         <LoginForm />

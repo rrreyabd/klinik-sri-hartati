@@ -4,7 +4,7 @@ import Menu from "@/Components/shared/user/Menu";
 import { Link } from "@inertiajs/react";
 import { MdOutlineLightMode } from "react-icons/md";
 
-const Navbar = ({ auth, children, className, color }) => {
+const Navbar = ({ auth, children, className, color, notif }) => {
     // Function untuk mengarahkan ke halaman login membawa status true
     const registerRoute = () => {
         localStorage.setItem("status", JSON.stringify(true));
@@ -28,16 +28,20 @@ const Navbar = ({ auth, children, className, color }) => {
 
             {children}
 
-            <div className="hidden sm:flex gap-4">
+            <div className="hidden sm:flex gap-4 relative">
                 {auth.user ? (
-                    <ProfileDropdown
-                        className="flex items-center gap-4 border-0 hover:text-ForestGreen transition-all"
-                        auth={auth}
-                        color={color}
-                    >
-                        {auth.user.name}
-                        <FaChevronDown />
-                    </ProfileDropdown>
+                    <>
+                        <ProfileDropdown
+                            className="flex items-center gap-4 border-0 hover:text-ForestGreen transition-all "
+                            auth={auth}
+                            color={color}
+                            notif={notif}
+                        >
+                            {auth.user.name}
+
+                            <FaChevronDown />
+                        </ProfileDropdown>
+                    </>
                 ) : (
                     <>
                         <Link

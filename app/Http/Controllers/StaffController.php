@@ -26,7 +26,7 @@ class StaffController extends Controller
     }
     public function janjiTemuIndex()
     {
-        $appointments = Appointment::with(['treatment', 'user'])->orderBy('time', 'asc')->get();
+        $appointments = Appointment::with(['treatment', 'user', 'doctor'])->where('status', 'Menunggu Jadwal')->orderBy('time', 'asc')->get();
 
         return Inertia::render('Staff/StaffJanjiTemu', [
             'appointments' => $appointments,
@@ -84,6 +84,22 @@ class StaffController extends Controller
             'payments' => $payments,
         ]);
     }
+
+    public function konfirmasiPembayaran(Request $request)
+    {
+        $payment = Payment::find($request->payment_id);
+        $payment->update([
+            'status' => 'Berhasil',
+        ]);
+
+        $appointment = Appointment::find($payment->appointment_id);
+        $appointment->update([
+            'status' => 'Menunggu Jadwal',
+        ]);
+
+        return redirect()->route('staff.pembayaran.index');
+    }
+
     public function rekamMedisIndex()
     {
         return Inertia::render('Staff/StaffRekamMedis');

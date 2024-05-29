@@ -22,6 +22,7 @@ class PatientFactory extends Factory
 
         return [
             'user_id' => $number++,
+            'nik' => $this->faker->randomNumber(8, true) . $this->faker->randomNumber(8, true),
             'birthdate' => $this->faker->date(),
             'blood_type' => $this->faker->randomElement(['A', 'B', 'AB', 'O']),
             'gender' => $this->faker->randomElement(['Laki-laki', 'Perempuan']),

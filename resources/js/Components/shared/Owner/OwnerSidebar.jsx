@@ -38,11 +38,11 @@ const menu = [
         icon: <RiCalendarScheduleLine className="w-6 h-6" />,
         link: "/owner/jadwal",
     },
-    {
-        label: "Obat????",
-        icon: <AiOutlineMedicineBox className="w-6 h-6" />,
-        link: "/owner/obat",
-    },
+    // {
+    //     label: "Obat????",
+    //     icon: <AiOutlineMedicineBox className="w-6 h-6" />,
+    //     link: "/owner/obat",
+    // },
     {
         label: "Pembayaran",
         icon: <MdOutlinePayments className="w-6 h-6" />,

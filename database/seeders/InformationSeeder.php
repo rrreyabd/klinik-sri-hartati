@@ -17,8 +17,8 @@ class InformationSeeder extends Seeder
             [
                 'name' => 'Klinik Sri Hartati',
                 'email' => 'srihartati@klinik.com',
-                'phone' => '081234567890',
-                'address' => 'Jalan Raya No. 1, Jakarta Selatan',
+                'phone' => '0853-5891-2715',
+                'address' => 'Jl. Kuala Teuku Umar, Binje Baru, Kec. Datuk Tanah Datar, Kab  Batubara, Sumatera Utara, 21254',
                 'open_time' => '08:00',
                 'close_time' => '22:00',
             ]

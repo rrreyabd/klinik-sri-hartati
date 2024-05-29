@@ -28,6 +28,8 @@ export default function Main({
     error,
     tour,
     information,
+    appointments,
+    notif,
 }) {
     const { toast } = useToast();
 
@@ -157,7 +159,7 @@ export default function Main({
             >
                 <div className="px-8 md:px-0 w-full md:w-4/5 max-w-[1300px]">
                     {/* Nav */}
-                    <Navbar auth={auth}>
+                    <Navbar auth={auth} notif={notif}>
                         <div className="hidden lg:flex items-center space-x-2 unselectable">
                             <Link
                                 href="#home"
@@ -197,7 +199,7 @@ export default function Main({
                     <hr className="border border-black/10" />
 
                     {/* Profil */}
-                    <Profil />
+                    <Profil appointments={appointments} />
 
                     <hr className="border border-black/10" />
 
@@ -213,11 +215,10 @@ export default function Main({
                             Apakah kamu masih disana?
                         </h1>
                         <p>
-                            Kamu telah diam di halaman ini selama 5 menit.
-                            Jika kamu membutuhkan bantuan untuk menggunakan
-                            situs kami, klik Tur Website. Jika tidak ingin
-                            melakukan apa-apa, klik Batal untuk menutup dialog
-                            ini.
+                            Kamu telah diam di halaman ini selama 5 menit. Jika
+                            kamu membutuhkan bantuan untuk menggunakan situs
+                            kami, klik Tur Website. Jika tidak ingin melakukan
+                            apa-apa, klik Batal untuk menutup dialog ini.
                         </p>
 
                         <div className="flex justify-end gap-4">

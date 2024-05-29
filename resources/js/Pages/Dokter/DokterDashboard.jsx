@@ -52,6 +52,8 @@ const DokterDashboard = ({ auth, appointments, allAppointments }) => {
 
     const [showData, setShowData] = useState(true);
 
+    console.log(appointments)
+
     return (
         <div className="bg-customWhite min-h-screen flex items-center flex-col">
             <Head title="Dokter" />
@@ -237,7 +239,7 @@ export const DataTableDokter = ({
                     </tr>
                 </thead>
             </table>
-            {data.length > 1 ? (
+            {data.length > 0 ? (
                 <div className="min-h-72 overflow-y-auto overflow-x-auto w-full display_scroll">
                     <table className="w-full">
                         <tbody className="divide-y divide-gray-200">

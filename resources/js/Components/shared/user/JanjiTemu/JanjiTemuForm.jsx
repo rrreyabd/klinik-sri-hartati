@@ -107,7 +107,7 @@ const JanjiTemuForm = ({ auth, treatments, doctors, appointments }) => {
         : null;
 
     const selectedDoctor = data.dokter
-        ? doctors.find((doctor) => doctor.id == data.dokter)?.user.name
+        ? doctors.find((doctor) => doctor.id == data.dokter)?.name
         : null;
 
     console.log(data.tanggal);
@@ -246,32 +246,29 @@ const JanjiTemuForm = ({ auth, treatments, doctors, appointments }) => {
                                 </AlertDialogTitle>
                                 <AlertDialogDescription>
                                     <p className="text-base text-center text-black">
-                                        Anda diberikan waktu <span className="font-bold text-red-600"> 1 JAM </span> untuk membayar biaya janji temu sebelum janji temu dibatalkan otomatis. Pastikan data sudah sesuai dengan yang Anda inginkan.
-                                    </p>
-                                    <p className="font-bold text-red-600 text-center uppercase">
-                                        *perlu ide design*
+                                        Anda akan diberikan waktu <span className="font-bold text-red-600"> 60 Menit </span> untuk membayar biaya janji temu sebelum janji temu dibatalkan otomatis. Pastikan data sudah sesuai dengan yang Anda inginkan.
                                     </p>
                                     <div className="text-black text-base grid grid-cols-2 gap-y-12 py-8">
                                         <div className="text-center">
-                                            <p className="font-bold text-lg">
+                                            <p className="font-bold text-lg text-ForestGreen">
                                                 Layanan
                                             </p>
                                             <p>{selectedTreatment.name}</p>
                                         </div>
                                         <div className="text-center">
-                                            <p className="font-bold text-lg">
+                                            <p className="font-bold text-lg text-ForestGreen">
                                                 Dokter
                                             </p>
                                             <p>{selectedDoctor}</p>
                                         </div>
                                         <div className="text-center">
-                                            <p className="font-bold text-lg">
+                                            <p className="font-bold text-lg text-ForestGreen">
                                                 Tanggal / Jam
                                             </p>
                                             <p>{formattedDate} / { data.jam ? data.jam.substring(0, 5) : null}</p>
                                         </div>
                                         <div className="text-center">
-                                            <p className="font-bold text-lg">
+                                            <p className="font-bold text-lg text-ForestGreen">
                                                 Biaya
                                             </p>
                                             <p>Rp {formatter.format(selectedTreatment.fee)}</p>

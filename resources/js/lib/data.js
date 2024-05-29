@@ -22,7 +22,7 @@ export const services = [
         name: "Riwayat Temu",
         description:
             "Telusuri riwayat janji temu Anda sebelumnya dengan mudah dan cepat.",
-        url: "/",
+        url: "/jadwal",
         Icon: FaHistory,
     },
     // {

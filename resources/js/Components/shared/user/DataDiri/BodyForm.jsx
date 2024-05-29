@@ -9,7 +9,7 @@ import {
 const BodyForm = ({ auth, data, setData, errors }) => {
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-16 gap-y-6">
-            <div className="flex flex-col gap-1">
+            {/* <div className="flex flex-col gap-1">
                 <p className="font-semibold">Nama Lengkap</p>
                 <input
                     type="text"
@@ -23,6 +23,27 @@ const BodyForm = ({ auth, data, setData, errors }) => {
                         {errors.full_name}
                     </p>
                 )}
+            </div> */}
+
+            <div className="flex flex-col gap-1">
+                <p className="font-semibold">NIK</p>
+                <input
+                    type="text"
+                    onChange={(e) => {
+                        const value = e.target.value;
+                        if (value.length <= 16 && /^[0-9]*$/.test(value)) {
+                            setData("nik", value);
+                        }
+                    }}
+                    value={data.nik}
+                    className="border-2 border-gray-400 rounded-md placeholder:font-medium focus:border-ForestGreen focus:ring-ForestGreen"
+                    placeholder="12xxxxxxxxxxxxxx"
+                />
+                {errors.full_name && (
+                    <p className="text-red-600 font-semibold text-sm">
+                        {errors.full_name}
+                    </p>
+                )}
             </div>
 
             <div className="flex flex-col gap-1">
@@ -30,11 +51,9 @@ const BodyForm = ({ auth, data, setData, errors }) => {
                 <input
                     type="text"
                     onChange={(e) => {
-                        if (
-                            e.target.value.length >= 10 &&
-                            /^[0-9]*$/.test(e.target.value)
-                        ) {
-                            setData("phone_number", e.target.value);
+                        const value = e.target.value;
+                        if (value.length <= 13 && /^[0-9]*$/.test(value)) {
+                            setData("phone_number", value);
                         }
                     }}
                     value={data.phone_number}
@@ -88,7 +107,7 @@ const BodyForm = ({ auth, data, setData, errors }) => {
                     value={data.gender}
                 >
                     <SelectTrigger
-                        className={`w-full border-2 border-gray-400 shadow-sm h-12 font-semibold text-base `}
+                        className={`w-full border-2 border-gray-400 shadow-sm h-12 font-medium text-base `}
                     >
                         <SelectValue placeholder="Jenis Kelamin" className="" />
                     </SelectTrigger>

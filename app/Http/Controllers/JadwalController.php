@@ -26,7 +26,7 @@ class JadwalController extends Controller
                                         ->get();
 
         $pendingAppointments = Appointment::where('user_id', Auth::user()->id)
-                                        ->whereIn('status', ['Menunggu Jadwal', 'Menunggu Pembayaran'])
+                                        ->whereIn('status', ['Menunggu Jadwal', 'Menunggu Pembayaran', 'Menunggu Konfirmasi'])
                                         ->with(['doctor', 'treatment'])
                                         ->orderBy('date', 'desc')
                                         ->get();

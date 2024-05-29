@@ -142,10 +142,10 @@ const RekamMedisDataTable = ({ c1, c2, c3, c4, data }) => {
                     </tr>
                 </thead>
             </table>
-            {data.length > 1 ? (
+            {data.length > 0 ? (
                 <div className="max-h-72 overflow-y-auto overflow-x-auto w-full display_scroll">
                     <table className="w-full">
-                        <tbody className="divide-y divide-gray-200">
+                    <tbody className="divide-y divide-gray-200">
                             {data &&
                                 data.map((data, i) => {
                                     return (
