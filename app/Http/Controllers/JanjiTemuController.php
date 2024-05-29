@@ -6,6 +6,7 @@ use App\Models\Appointment;
 use App\Models\Doctor;
 use App\Models\Payment;
 use App\Models\Treatment;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,7 +20,7 @@ class JanjiTemuController extends Controller
     public function index()
     {
         $treatments = Treatment::all();
-        $doctors = Doctor::with('user')->get();
+        $doctors = User::where('role', 'dokter')->get();
         $appointments = Appointment::all();
         
         return Inertia::render('User/JanjiTemu', [

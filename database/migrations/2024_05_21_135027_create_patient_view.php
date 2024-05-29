@@ -19,6 +19,7 @@ class CreatePatientView extends Migration
                 patients.id AS patient_id,
                 users.name AS name,
                 users.email AS email,
+                patients.nik AS NIK,
                 patients.birthdate,
                 patients.blood_type,
                 patients.gender,

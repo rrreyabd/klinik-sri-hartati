@@ -182,13 +182,13 @@ const StaffJanjiTemu = ({ appointments, status, error }) => {
                                     Nama Pasien
                                 </div>
                                 <div className="text-center font-semibold w-1/4">
-                                    Status
+                                    Dokter
                                 </div>
                                 <div className="text-center font-semibold w-1/4">
                                     Layanan
                                 </div>
                                 <div className="text-center font-semibold w-1/4">
-                                    Timeline
+                                    Jadwal
                                 </div>
                             </div>
 
@@ -227,8 +227,10 @@ const StaffJanjiTemu = ({ appointments, status, error }) => {
                                         }, []);
 
                                         const hoursNow = currentDate.getHours();
-                                        const minutesNow =
-                                            currentDate.getMinutes().toString().padStart(2, '0');
+                                        const minutesNow = currentDate
+                                            .getMinutes()
+                                            .toString()
+                                            .padStart(2, "0");
 
                                         const realTime =
                                             hoursNow + ":" + minutesNow;
@@ -245,35 +247,16 @@ const StaffJanjiTemu = ({ appointments, status, error }) => {
                                             <div
                                                 className={`w-full flex border-b py-2 `}
                                             >
-                                                <div className="w-1/4 flex items-center pl-4">
+                                                <div className="w-1/4 text-center px-4">
                                                     {appointment.user.name}
                                                 </div>
-                                                <div className="w-1/4 flex justify-center items-center">
-                                                    <div
-                                                        className={` ${
-                                                            onGoing
-                                                                ? "bg-ForestGreen"
-                                                                : appointment.status ==
-                                                                  "Selesai"
-                                                                ? "bg-customGreen"
-                                                                : appointment.status ==
-                                                                  "Dibatalkan"
-                                                                ? "bg-customRed"
-                                                                : appointment.status ==
-                                                                  "Menunggu"
-                                                                ? "bg-customYellow"
-                                                                : "bg-ForestGreen"
-                                                        } text-center py-2 rounded-md w-32 text-white font-semibold text-sm`}
-                                                    >
-                                                        {onGoing
-                                                            ? "Berlangsung"
-                                                            : appointment.status}
-                                                    </div>
+                                                <div className="w-1/4 text-center px-4">
+                                                    {appointment.doctor.name}
                                                 </div>
-                                                <div className="w-1/4 flex justify-center items-center">
+                                                <div className="w-1/4 text-center px-4">
                                                     {appointment.treatment.name}
                                                 </div>
-                                                <div className="w-1/4 flex justify-center items-center">
+                                                <div className="w-1/4 text-center px-4 flex justify-center">
                                                     <p className="w-11">
                                                         {appointment.time.substring(
                                                             0,

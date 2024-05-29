@@ -17,6 +17,7 @@ class PatientSeeder extends Seeder
         $patients =[
             [
                 'user_id' => 1,
+                'nik' => '2749174062836512',
                 'birthdate' => '2004-11-18',
                 'blood_type' => 'A',
                 'gender' => 'Laki-laki',

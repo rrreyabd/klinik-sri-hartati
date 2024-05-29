@@ -8,6 +8,7 @@ const DataInputForm = ({ auth }) => {
     const { data, setData, post, processing, errors, setError, clearErrors } = useForm({
         user_id: auth.user.id,
         full_name: auth.user.name,
+        nik: "",
         birthdate: "",
         blood_type: "",
         gender: "",
@@ -20,7 +21,7 @@ const DataInputForm = ({ auth }) => {
     useEffect(() => {
         if (
             data.user_id &&
-            data.full_name &&
+            data.nik &&
             data.birthdate &&
             data.blood_type &&
             data.gender &&

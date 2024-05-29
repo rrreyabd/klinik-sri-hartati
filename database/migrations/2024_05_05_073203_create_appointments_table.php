@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('treatment_id');
             $table->date('date');
             $table->time('time');
-            $table->enum('status', ['Menunggu Pembayaran', 'Menunggu Jadwal', 'Selesai', 'Batal']);
+            $table->enum('status', ['Menunggu Pembayaran', 'Menunggu Konfirmasi', 'Menunggu Jadwal', 'Selesai', 'Batal']);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

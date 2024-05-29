@@ -65,7 +65,7 @@ const DataDiri = ({ patient, success, error }) => {
                                     onChange={(e) => {
                                         const value = e.target.value;
                                         if (value.length >= 10 && /^[0-9]*$/.test(value)) {
-                                            setData( "nomor_telepon", e.target.value) // Correct way to update state
+                                            setData( "nomor_telepon", e.target.value)
                                         }
                                     }}
                                     required

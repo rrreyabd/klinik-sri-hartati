@@ -58,7 +58,6 @@ const Tagihan = ({
     const submit = (e) => {
         e.preventDefault();
 
-        // Create a FormData object to handle the file upload
         const formData = new FormData();
         formData.append("payment_id", data.payment_id);
         formData.append("payment_proof", data.payment_proof);
@@ -70,6 +69,8 @@ const Tagihan = ({
             },
         });
     };
+
+    const formatter = new Intl.NumberFormat("id-ID");
 
     return (
         <WhiteNavbarLayout auth={auth} title="Tagihan">
@@ -140,40 +141,77 @@ const Tagihan = ({
                     </Select>
                 </div>
 
-                {dataPayment ? (
+                {dataPayment.length > 0 ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                         {dataPayment.map((payment) => {
+
+                            // Countdown
+                            const calculateTimeLeft = () => {
+                                let difference = +new Date(payment.payment_due) - +new Date();
+                                let timeLeft = {};
+
+                                if (difference > 0) {
+                                    timeLeft = {
+                                        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+                                        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+                                        minutes: Math.floor((difference / 1000 / 60) % 60),
+                                        seconds: Math.floor((difference / 1000) % 60),
+                                    };
+                                }
+
+                                return timeLeft;
+                            };
+
+                            const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+
+                            useEffect(() => {
+                                const timer = setTimeout(() => {
+                                    setTimeLeft(calculateTimeLeft());
+                                }, 1000);
+
+                                return () => clearTimeout(timer);
+                            });
+
                             return (
                                 <div
-                                    className={`h-72 bg-white shadow-md rounded-lg border p-4`}
+                                    className={`h-72 bg-white shadow-md rounded-lg flex flex-col justify-between border p-4`}
                                     key={payment.id}
                                 >
-                                    <div className="flex justify-end">
+                                    <div className="flex justify-between items-center">
+                                        <p className="font-bold">{payment.payment_code}</p>
                                         <div
-                                            className={`bg-ForestGreen text-white px-2 py-1 rounded-md font-semibold ${
-                                                payment.status == "Berhasil"
-                                                    ? "bg-green-600"
-                                                    : payment.status ==
-                                                      "Dibatalkan"
+                                            className={`bg-ForestGreen text-white px-2 py-1 rounded-md font-semibold ${payment.status == "Berhasil"
+                                                ? "bg-green-600"
+                                                : payment.status ==
+                                                    "Dibatalkan"
                                                     ? "bg-red-600"
                                                     : payment.status ==
-                                                      "Menunggu Pembayaran"
-                                                    ? "bg-yellow-600"
-                                                    : ""
-                                            }`}
+                                                        "Menunggu Pembayaran"
+                                                        ? "bg-yellow-600"
+                                                        : ""
+                                                }`}
                                         >
                                             {payment.status}
                                         </div>
                                     </div>
 
-                                    <div className="flex flex-col">
-                                        <p>{payment.appointment.date}</p>
-                                        <p>{payment.payment_code}</p>
-                                        <p>{payment.amount}</p>
-                                        <p>
-                                            Batas Pembayaran:{" "}
-                                            {payment.payment_due}
-                                        </p>
+                                    <div className="flex flex-col gap-2">
+                                        <div className="flex justify-between items-center font-semibold">
+                                            <p>Jadwal: </p>
+                                            <p>{payment.appointment.date} / {payment.appointment.time}</p>
+                                        </div>
+                                        <div className="flex justify-between items-center font-semibold">
+                                            <p>Batas Pembayaran: </p>
+                                            <p>
+                                                {
+                                                    timeLeft.hours > 0 && `${timeLeft.hours} Jam`
+                                                }
+                                                {timeLeft.minutes} Menit {timeLeft.seconds} Detik</p>
+                                        </div>
+                                        <div className="flex justify-between items-center text-lg font-semibold">
+                                            <p>Total: </p>
+                                            <p>Rp {formatter.format(payment.amount)}</p>
+                                        </div>
                                         {payment.payment_date && (
                                             <p>
                                                 Dibayar Pada:{" "}
@@ -183,7 +221,7 @@ const Tagihan = ({
                                         {!payment.date &&
                                             !payment.payment_proof && (
                                                 <AlertDialog
-                                                defaultOpen={false}
+                                                    defaultOpen={false}
                                                     onOpenChange={() =>
                                                         setData(
                                                             "payment_id",
@@ -191,7 +229,7 @@ const Tagihan = ({
                                                         )
                                                     }
                                                 >
-                                                    <AlertDialogTrigger>
+                                                    <AlertDialogTrigger className="w-full bg-ForestGreen text-white font-semibold py-2 px-2 rounded-md shadow-md">
                                                         Konfirmasi Pembayaran
                                                     </AlertDialogTrigger>
                                                     <AlertDialogContent>
@@ -244,11 +282,10 @@ const Tagihan = ({
                                                                 {data.payment_proof ? (
                                                                     <button
                                                                         type="submit"
-                                                                        className={`bg-ForestGreen hover:bg-ForestGreen hover:brightness-95 px-4 py-1 rounded-md text-white text-sm ${
-                                                                            processing
-                                                                                ? "cursor-not-allowed opacity-30"
-                                                                                : ""
-                                                                        }`}
+                                                                        className={`bg-ForestGreen hover:bg-ForestGreen hover:brightness-95 px-4 py-1 rounded-md text-white text-sm ${processing
+                                                                            ? "cursor-not-allowed opacity-30"
+                                                                            : ""
+                                                                            }`}
                                                                         disabled={
                                                                             processing
                                                                         }
@@ -277,7 +314,7 @@ const Tagihan = ({
                         })}
                     </div>
                 ) : (
-                    <div className="flex flex-col gap-4">
+                    <div className="flex flex-col gap-4 py-32">
                         <p className="text-center text-2xl font-semibold text-gray-500">
                             Tidak ada tagihan yang terdata
                         </p>

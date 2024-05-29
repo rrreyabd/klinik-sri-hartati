@@ -19,6 +19,7 @@ class DokterController extends Controller
         $currentDate = Carbon::now();
         $formattedDate = $currentDate->format('Y-m-d');
         $appointments = AppointmentView::where('date', $formattedDate)
+            ->where('status', 'Menunggu Jadwal')
             ->orderBy('time', 'asc')
             ->get();
 

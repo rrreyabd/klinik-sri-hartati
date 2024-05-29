@@ -7,7 +7,7 @@ import { FaUser, FaEye, FaEyeSlash } from "react-icons/fa";
 import { FaLock } from "react-icons/fa6";
 import { IoMdMail } from "react-icons/io";
 
-const RegisterForm = () => {
+const RegisterForm = ({ message }) => {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: "",
         email: "",
@@ -28,6 +28,7 @@ const RegisterForm = () => {
     };
 
     const [passwordHidden, setPasswordHidden] = useState(true);
+    const [confirmationPasswordHidden, setConfirmationPasswordHidden] = useState(true);
 
     const handlePaste = (e) => {
         e.preventDefault();
@@ -73,7 +74,12 @@ const RegisterForm = () => {
                     required
                 />
 
-                <InputError message={errors.email} className="mt-2" />
+                {errors.email && (
+                    <InputError
+                        message="Alamat email sudah dipakai"
+                        className="mt-2"
+                    />
+                )}
             </div>
 
             <div>
@@ -104,19 +110,13 @@ const RegisterForm = () => {
                         )}
                     </button>
                 </div>
-
-                {errors.password ? (
-                    <p className="font-semibold text-sm text-red-600 dark:text-red-400 mt-2">
-                        {errors.password}
-                    </p>
-                ) : null}
             </div>
 
             <div>
                 <div className="relative flex flex-col justify-center">
                     <TextInput
                         id="password_confirmation"
-                        type="password"
+                        type={confirmationPasswordHidden ? "password" : "text"}
                         name="password_confirmation"
                         value={data.password_confirmation}
                         onPaste={handlePaste}
@@ -130,13 +130,27 @@ const RegisterForm = () => {
                         required
                         minLength="8"
                     />
+
+                    <button
+                        type="button"
+                        onClick={() => setConfirmationPasswordHidden(!confirmationPasswordHidden)}
+                        className="absolute right-4"
+                    >
+                        {confirmationPasswordHidden ? (
+                            <FaEye className="w-5 h-5" />
+                        ) : (
+                            <FaEyeSlash className="w-5 h-5" />
+                        )}
+                    </button>
                 </div>
 
                 <div className="w-80">
-                    <InputError
-                        message={errors.password_confirmation}
-                        className="mt-2"
-                    />
+                    {errors.password ? (
+                        <InputError
+                            message="Konfirmasi kata sandi tidak cocok."
+                            className="mt-2"
+                        />
+                    ) : null}
                 </div>
             </div>
 

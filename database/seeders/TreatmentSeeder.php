@@ -15,19 +15,19 @@ class TreatmentSeeder extends Seeder
     {
         $treatments = [
             [
-                'name' => 'Perawatan 1',
+                'name' => 'Layanan 1',
                 'fee' => 100000,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Perawatan 2',
+                'name' => 'Layanan 2',
                 'fee' => 200000,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Perawatan 3',
+                'name' => 'Layanan 3',
                 'fee' => 300000,
                 'created_at' => now(),
                 'updated_at' => now(),

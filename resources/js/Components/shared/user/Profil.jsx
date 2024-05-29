@@ -19,7 +19,7 @@ const Image = () => {
     );
 };
 
-const Profil = () => {
+const Profil = ({ appointments }) => {
     return (
         <div className="flex flex-col space-y-12 py-12 lg:py-20" id="tentang">
             <div className="flex flex-col lg:flex-row gap-4 lg:gap-0 justify-between">
@@ -45,22 +45,22 @@ const Profil = () => {
             <div className="flex flex-col sm:flex-row shadow-md shadow-black/40 py-12 px-8 gap-16 sm:gap-2">
                 <div className="text-center w-full sm:w-1/3 flex flex-col gap-2">
                     <h2 className="text-3xl md:text-4xl text-ForestGreen font-semibold">
-                        98%
+                        {appointments}
                     </h2>
-                    <p className="text-black/40">Persentase Kepuasan Pasien</p>
+                    <p className="text-black/40">Keberhasilan Janji Temu</p>
                 </div>
                 <div className="text-center w-full sm:w-1/3 flex flex-col gap-2">
                     <h2 className="text-3xl md:text-4xl text-ForestGreen font-semibold">
-                        2 RB+
+                        1000+
                     </h2>
-                    <p className="text-black/40">Total Pasien Tertanganin</p>
+                    <p className="text-black/40">Pasien Mendapat Pelayanan</p>
                 </div>
                 <div className="text-center w-full sm:w-1/3 flex flex-col gap-2">
                     <h2 className="text-3xl md:text-4xl text-ForestGreen font-semibold">
-                        97%
+                        2010
                     </h2>
                     <p className="text-black/40">
-                        Tingkat Keberhasilan Pengobatan
+                        Melayani Sejak
                     </p>
                 </div>
             </div>

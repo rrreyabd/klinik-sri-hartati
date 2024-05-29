@@ -30,10 +30,10 @@ const Footer = ({ information }) => {
                     </div>
                 </div>
 
-                <div className="flex flex-col space-y-4 w-full sm:w-48">
+                <div className="flex flex-col space-y-4 w-full sm:w-fit">
                     <div className="flex space-x-4 items-center">
                         <FaLocationDot />
-                        <p>{information.address}</p>
+                        <p className="w-full sm:w-56">{information.address}</p>
                     </div>
 
                     <div className="flex items-center space-x-4">

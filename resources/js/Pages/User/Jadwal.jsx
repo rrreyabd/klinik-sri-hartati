@@ -35,7 +35,10 @@ const Jadwal = ({
         <WhiteNavbarLayout auth={auth} title="Jadwal">
             <div className="mt-6 flex flex-col gap-6">
                 <div className="flex justify-between">
-                    <Link href="/" className="flex gap-2 items-center font-semibold w-32 group">
+                    <Link
+                        href="/"
+                        className="flex gap-2 items-center font-semibold w-32 group"
+                    >
                         <div className="p-1 group-hover:bg-gray-200 transition-all duration-500 rounded-full">
                             <ArrowLeft className="h-6 w-6" />
                         </div>
@@ -48,7 +51,6 @@ const Jadwal = ({
                     <div className="w-32"></div>
                 </div>
 
-                {/* Dropdown */}
                 <div className="flex gap-4 items-center">
                     <p className="font-semibold">Status: </p>
 
@@ -88,34 +90,34 @@ const Jadwal = ({
                     </Select>
                 </div>
 
-                <div className="p-6 bg-white shadow-md rounded-lg">
-                    <div className="relative h-96 overflow-scroll rounded-lg border">
-                        <table className="w-full">
-                            <thead className="sticky top-0 left-0 font-semibold bg-ForestGreen text-white shadow-md">
-                                <tr>
-                                    <td className="py-4 text-center">#</td>
-                                    <td className="py-4">Tanggal</td>
-                                    <td className="py-4">Jam</td>
-                                    <td className="py-4 px-1 text-center">
-                                        Layanan
-                                    </td>
-                                    <td className="py-4 px-4">Dokter</td>
-                                    <td className="py-4 text-center w-72 px-4">
-                                        Status
-                                    </td>
-                                    {["Semua", "Menunggu"].includes(
-                                        showData
-                                    ) && (
+                {data.length > 0 ? (
+                    <div className="bg-white shadow-md rounded-lg">
+                        <div className="relative h-96 overflow-scroll rounded-lg border">
+                            <table className="w-full">
+                                <thead className="sticky top-0 left-0 font-semibold bg-ForestGreen text-white shadow-md">
+                                    <tr>
+                                        <td className="py-4 text-center">#</td>
+                                        <td className="py-4">Tanggal</td>
+                                        <td className="py-4">Jam</td>
                                         <td className="py-4 px-1 text-center">
-                                            Aksi
+                                            Layanan
                                         </td>
-                                    )}
-                                </tr>
-                            </thead>
+                                        <td className="py-4 px-4">Dokter</td>
+                                        <td className="py-4 text-center w-72 px-4">
+                                            Status
+                                        </td>
+                                        {["Semua", "Menunggu"].includes(
+                                            showData
+                                        ) && (
+                                            <td className="py-4 px-1 text-center">
+                                                Aksi
+                                            </td>
+                                        )}
+                                    </tr>
+                                </thead>
 
-                            <tbody className="divide-y divide-gray-300">
-                                {data &&
-                                    data.map((appointment, i) => {
+                                <tbody className="divide-y divide-gray-300">
+                                    {data.map((appointment, i) => {
                                         return (
                                             <tr className="font-medium">
                                                 <td className="text-center py-4 px-4">
@@ -154,6 +156,9 @@ const Jadwal = ({
                                                                 : appointment.status ==
                                                                   "Menunggu Jadwal"
                                                                 ? "bg-ForestGreen"
+                                                                : appointment.status ==
+                                                                  "Menunggu Konfirmasi"
+                                                                ? "bg-KellyGreen"
                                                                 : ""
                                                         } `}
                                                     >
@@ -165,7 +170,7 @@ const Jadwal = ({
                                                 ) && (
                                                     <td className="text-center py-4 px-2 ">
                                                         {appointment.status ==
-                                                            "Menunggu Pembayaran" && (
+                                                        "Menunggu Pembayaran" ? (
                                                             <Link
                                                                 href={route(
                                                                     "tagihan.index"
@@ -174,16 +179,34 @@ const Jadwal = ({
                                                             >
                                                                 Bayar
                                                             </Link>
+                                                        ) : (
+                                                            "-"
                                                         )}
                                                     </td>
                                                 )}
                                             </tr>
                                         );
                                     })}
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </div>
+                ) : (
+                    <div className="flex flex-col gap-4 py-32">
+                        <p className="text-center text-2xl font-semibold text-gray-500">
+                            Tidak ada jadwal yang terdata
+                        </p>
+                        <p className="text-center text-lg font-medium text-gray-500">
+                            Silahkan buat Janji Temu Anda{" "}
+                            <Link
+                                href={route("janjiTemu.index")}
+                                className="font-bold underline text-ForestGreen"
+                            >
+                                Disini
+                            </Link>
+                        </p>
+                    </div>
+                )}
             </div>
         </WhiteNavbarLayout>
     );

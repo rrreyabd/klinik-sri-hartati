@@ -23,37 +23,31 @@ const WaktuForm = ({
     }, [selectedDate, time]);
 
     useEffect(() => {
-        // Cari waktu yang sudah terdaftar untuk tanggal yang dipilih
+        // Cari waktu yang sudah terdaftar untuk tanggal dan dokter yang dipilih
         if (appointments) {
             const fullDate = new Date(selectedDate);
             const date = fullDate.getDate().toString().padStart(2, "0");
             const month = (fullDate.getMonth() + 1).toString().padStart(2, "0");
             const year = fullDate.getFullYear();
             const newSelectedDate = year + "-" + month + "-" + date;
-
-            const appointmentsForSelectedDate = appointments.filter(
+    
+            const appointmentsForSelectedDateAndDoctor = appointments.filter(
                 (appointment) => {
-                    return appointment.date == newSelectedDate;
+                    return appointment.date == newSelectedDate && appointment.doctor_id == data.dokter;
                 }
             );
-
+    
             // Ambil waktu dari data janji yang sudah terdaftar
-            const disabledTimes = appointmentsForSelectedDate.map(
+            const disabledTimes = appointmentsForSelectedDateAndDoctor.map(
                 (appointment) => {
                     return appointment.time;
                 }
             );
 
-            // Jika waktu yang dipilih ada di dalam disabledTimes, set time menjadi null
-            if (disabledTimes.includes(time)) {
-                setTime(null);
-                setData("jam", null);
-            }
-
             // Atur waktu-waktu yang sudah terdaftar sebagai waktu yang dinonaktifkan
             setDisabledTimes(disabledTimes);
         }
-    }, [selectedDate, appointments]);
+    }, [selectedDate, time, data.dokter, appointments]);
 
     const onOptionChange = (e) => {
         setTime(e.target.value);

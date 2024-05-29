@@ -61,7 +61,7 @@ class UserSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Dr. Go Younjung',
+                'name' => 'Dr. Go Youn-jung',
                 'email' => 'dokter2@dokter.com',
                 'role' => 'dokter',
                 'password' => Hash::make('password'),
