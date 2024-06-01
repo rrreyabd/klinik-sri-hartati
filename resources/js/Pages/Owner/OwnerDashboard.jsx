@@ -4,7 +4,7 @@ import { LuStethoscope } from "react-icons/lu";
 import { FaMoneyBillTransfer, FaUserDoctor } from "react-icons/fa6";
 import { FaUserNurse } from "react-icons/fa";
 
-const OwnerDashboard = () => {
+const OwnerDashboard = ({revenue,totalDoctor,totalStaff,transactions}) => {
     const [open, setOpen] = useState(true);
 
     return (
@@ -13,17 +13,17 @@ const OwnerDashboard = () => {
                 <div className="flex justify-between gap-4">
                     <SummaryContainer
                         label={"Pendapatan"}
-                        value={"Rp 100.000.000"}
+                        value={revenue}
                         Icon={FaMoneyBillTransfer}
                     />
                     <SummaryContainer
                         label={"Dokter"}
-                        value={"3"}
+                        value={totalDoctor}
                         Icon={FaUserDoctor}
                     />
                     <SummaryContainer
                         label={"Staff"}
-                        value={"5"}
+                        value={totalStaff}
                         Icon={FaUserNurse}
                     />
                 </div>
@@ -31,52 +31,21 @@ const OwnerDashboard = () => {
                 <h1 className="mt-10 text-3xl font-semibold">Transaksi</h1>
 
                 <div className="mt-4 min-h-72 overflow-y-scroll shadow-md bg-white rounded-lg flex flex-col divide-y-2 divide-gray-300">
+                    {transactions.map(transaction => (
                     <div className="h-24 px-8 flex items-center gap-6">
-                        <div className="p-3 rounded-full bg-customGreen flex items-center justify-center">
+                        <div className={`p-3 rounded-full flex items-center justify-center ${
+                                transaction.status === 'Berhasil' ? 'bg-customGreen' : 'bg-customRed'
+                            }`}>
                             <LuStethoscope className="h-8 w-8 text-white" />
                         </div>
                         <div className="flex flex-col">
                             <h4 className="text-lg font-semibold">
-                                Layanan Pemeriksaan
+                                { transaction.appointment.treatment.name }
                             </h4>
-                            <p className="text-gray-500">Jessindy Tanuwijaya</p>
+                            <p className="text-gray-500">{ transaction.user.name }</p>
                         </div>
                     </div>
-                    {/*  */}
-                    <div className="h-24 px-8 flex items-center gap-6">
-                        <div className="p-3 rounded-full bg-customRed flex items-center justify-center">
-                            <LuStethoscope className="h-8 w-8 text-white" />
-                        </div>
-                        <div className="flex flex-col">
-                            <h4 className="text-lg font-semibold">
-                                Layanan Pemeriksaan
-                            </h4>
-                            <p className="text-gray-500">Jessindy Tanuwijaya</p>
-                        </div>
-                    </div>
-                    <div className="h-24 px-8 flex items-center gap-6">
-                        <div className="p-3 rounded-full bg-customRed flex items-center justify-center">
-                            <LuStethoscope className="h-8 w-8 text-white" />
-                        </div>
-                        <div className="flex flex-col">
-                            <h4 className="text-lg font-semibold">
-                                Layanan Pemeriksaan
-                            </h4>
-                            <p className="text-gray-500">Jessindy Tanuwijaya</p>
-                        </div>
-                    </div>
-                    <div className="h-24 px-8 flex items-center gap-6">
-                        <div className="p-3 rounded-full bg-customRed flex items-center justify-center">
-                            <LuStethoscope className="h-8 w-8 text-white" />
-                        </div>
-                        <div className="flex flex-col">
-                            <h4 className="text-lg font-semibold">
-                                Layanan Pemeriksaan
-                            </h4>
-                            <p className="text-gray-500">Jessindy Tanuwijaya</p>
-                        </div>
-                    </div>
-                    {/*  */}
+                    ))}
                 </div>
             </OwnerLayout>
         </>

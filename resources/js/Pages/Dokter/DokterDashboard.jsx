@@ -85,7 +85,7 @@ const DokterDashboard = ({ auth, appointments, allAppointments }) => {
                         </div>
 
                         <div className="flex justify-center items-center h-5/6">
-                            <StatusChart data={allAppointments} />
+                                <StatusChart data={allAppointments} />
                         </div>
                     </div>
 
@@ -108,7 +108,7 @@ const DokterDashboard = ({ auth, appointments, allAppointments }) => {
                                 <div className="flex gap-1 items-center">
                                     <div className="h-3 w-3 rounded-full bg-[#d72729]"></div>
                                     <p className="font-semibold text-sm text-[#d72729]">
-                                        Laki-laki
+                                        Perempuan
                                     </p>
                                 </div>
                             </div>
