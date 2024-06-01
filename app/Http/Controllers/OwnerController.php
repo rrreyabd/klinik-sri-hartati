@@ -4,12 +4,25 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Models\Doctor;
+use App\Models\User;
+use App\Models\Payment;
+use App\Models\AppointmentView;
 
 class OwnerController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Owner/OwnerDashboard');
+        $doctor = Doctor::count();
+        $staff = User::where('role','staff')->count();
+        $revenue = Payment::where('status','Berhasil')->sum('amount');
+        $transaction = Payment::with('user','appointment.treatment')->orderBy('payment_date', 'desc')->take(5)->get();
+        return Inertia::render('Owner/OwnerDashboard',[
+            'totalDoctor' => $doctor,
+            'totalStaff' => $staff,
+            'revenue' => $revenue,
+            'transactions' => $transaction
+        ]);
     }
 
     public function jadwalIndex()
