@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Doctor;
+use App\Models\Staff;
 use App\Models\User;
 use App\Models\Payment;
+use App\Models\Patient;
 use App\Models\AppointmentView;
 
 class OwnerController extends Controller
@@ -14,7 +16,7 @@ class OwnerController extends Controller
     public function index()
     {
         $doctor = Doctor::count();
-        $staff = User::where('role','staff')->count();
+        $staff = Staff::count();
         $revenue = Payment::where('status','Berhasil')->sum('amount');
         $transaction = Payment::with('user','appointment.treatment')->orderBy('payment_date', 'desc')->take(5)->get();
         return Inertia::render('Owner/OwnerDashboard',[
@@ -32,15 +34,24 @@ class OwnerController extends Controller
 
     public function dokterIndex()
     {
-        return Inertia::render('Owner/OwnerDokter');
+        $doctor = Doctor::with('user')->get() ;
+        return Inertia::render('Owner/OwnerDokter',[
+            'doctors' => $doctor
+        ]);
     }
     public function staffIndex()
     {
-        return Inertia::render('Owner/OwnerStaff');
+        $staff = Staff::with('user')->get() ;
+        return Inertia::render('Owner/OwnerStaff',[
+            'staffs' => $staff
+        ]);
     }
     public function pasienIndex()
     {
-        return Inertia::render('Owner/OwnerPasien');
+        $patient = Patient::with('user')->get();
+        return Inertia::render('Owner/OwnerPasien',[
+            'patients' => $patient
+        ]);
     }
 
     public function pembayaranIndex()

@@ -24,7 +24,7 @@ const OwnerPembayaran = ({ payments }) => {
 
     const formatDate = (timestamp) => {
         const date = new Date(timestamp);
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const options = { year: 'numeric', month: 'short', day: 'numeric' };
         return date.toLocaleDateString('id-ID', options);
     };
 

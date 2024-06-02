@@ -1,10 +1,33 @@
 import OwnerLayout from "@/Layouts/OwnerLayout";
+import Pagination from "@/Components/Pagination";
 import { Link } from "@inertiajs/react";
 import { useState } from "react";
 import { FaEdit, FaRegTrashAlt } from "react-icons/fa";
 
-const OwnerStaff = () => {
+const OwnerStaff = ({ staffs }) => {
     const [open, setOpen] = useState(true);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [searchQuery, setSearchQuery] = useState("");
+    const itemsPerPage = 10;
+
+    const filteredData = staffs.filter(item =>
+        item.user.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = Math.min(startIndex + itemsPerPage, filteredData.length);
+    const slicedData = filteredData.slice(startIndex, endIndex);
+
+    const handlePageChange = (newPage) => {
+        setCurrentPage(newPage);
+    };
+
+    const formatDate = (timestamp) => {
+        const date = new Date(timestamp);
+        const options = { year: 'numeric', month: 'short', day: '2-digit' };
+        return date.toLocaleDateString('id-ID', options);
+    };
 
     return (
         <OwnerLayout open={open} setOpen={setOpen} navTitle="Staff">
@@ -16,6 +39,8 @@ const OwnerStaff = () => {
                 <input
                     type="text"
                     placeholder="Cari disini..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
                     className="rounded-md border-gray-400 placeholder:font-medium placeholder:text-gray-400 focus:border-ForestGreen focus:ring-ForestGreen w-72"
                 />
             </div>
@@ -48,25 +73,25 @@ const OwnerStaff = () => {
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-300">
-                        {Array.from({ length: 5 }).map((_, i) => (
+                        {slicedData.map((staff, index) => (
                             <tr>
                                 <td className="py-4 px-3 font-medium text-center">
-                                    1
+                                    {startIndex + index + 1}
                                 </td>
                                 <td className="py-4 px-3 font-medium">
-                                    Muhammad Raihan Abdillah Lubis
+                                    {staff.user.name}
                                 </td>
                                 <td className="py-4 px-3 font-medium">
-                                    Jl. Universitas, Medan, Sumatera Utara
+                                    {staff.address}
                                 </td>
                                 <td className="py-4 px-3 font-medium text-center">
-                                    081234567890
+                                    {staff.phone_number}
                                 </td>
                                 <td className="py-4 px-3 font-medium text-center">
-                                    Laki-laki
+                                    {staff.gender}
                                 </td>
                                 <td className="py-4 px-3 font-medium text-center">
-                                    18/11/2004
+                                    {formatDate(staff.birthdate)}
                                 </td>
                                 <td className="py-4 px-3 font-medium flex justify-center gap-2">
                                     <button>
@@ -82,26 +107,11 @@ const OwnerStaff = () => {
                 </table>
             </div>
 
-            <div className="flex justify-between items-center mt-6">
-                <div className="flex items-center gap-2 px-2">
-                    <div className="bg-ForestGreen text-white font-semibold w-8 h-8 rounded-full flex justify-center items-center">
-                        1
-                    </div>
-                    <div className="bg-transparent text-black font-semibold w-8 h-8 rounded-full flex justify-center items-center">
-                        2
-                    </div>
-                    <div className="bg-transparent text-black font-semibold w-8 h-8 rounded-full flex justify-center items-center">
-                        3
-                    </div>
-                    <div className="bg-transparent text-black font-semibold w-8 h-8 rounded-full flex justify-center items-center">
-                        ...
-                    </div>
-                    <div className="bg-transparent text-black font-semibold w-8 h-8 rounded-full flex justify-center items-center">
-                        10
-                    </div>
-                </div>
-                <p className="font-semibold text-black/50">Halaman 1 dari 20</p>
-            </div>
+            <Pagination
+                totalPages={totalPages}
+                currentPage={currentPage}
+                onPageChange={handlePageChange}
+            />
         </OwnerLayout>
     );
 };

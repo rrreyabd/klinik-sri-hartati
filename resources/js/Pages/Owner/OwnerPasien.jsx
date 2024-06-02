@@ -1,9 +1,32 @@
 import OwnerLayout from "@/Layouts/OwnerLayout";
+import Pagination from "@/Components/Pagination";
 import { useState } from "react";
 import { FaEdit } from "react-icons/fa";
 
-const OwnerPasien = () => {
+const OwnerPasien = ({patients}) => {
     const [open, setOpen] = useState(true);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [searchQuery, setSearchQuery] = useState("");
+    const itemsPerPage = 10;
+
+    const filteredData = patients.filter(item =>
+        item.user.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = Math.min(startIndex + itemsPerPage, filteredData.length);
+    const slicedData = filteredData.slice(startIndex, endIndex);
+
+    const handlePageChange = (newPage) => {
+        setCurrentPage(newPage);
+    };
+
+    const formatDate = (timestamp) => {
+        const date = new Date(timestamp);
+        const options = { year: 'numeric', month: 'short', day: '2-digit' };
+        return date.toLocaleDateString('id-ID', options);
+    };
 
     return (
         <OwnerLayout open={open} setOpen={setOpen} navTitle="Pasien">
@@ -15,6 +38,8 @@ const OwnerPasien = () => {
                 <input
                     type="text"
                     placeholder="Cari disini..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
                     className="rounded-md border-gray-400 placeholder:font-medium placeholder:text-gray-400 focus:border-ForestGreen focus:ring-ForestGreen w-72"
                 />
             </div>
@@ -42,30 +67,36 @@ const OwnerPasien = () => {
                                 Tanggal Lahir
                             </td>
                             <td className="font-semibold text-center px-3 py-4">
+                                Gol Darah
+                            </td>
+                            <td className="font-semibold text-center px-3 py-4">
                                 Aksi
                             </td>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-300">
-                        {Array.from({ length: 5 }).map((_, i) => (
-                            <tr>
+                        {slicedData.map((patient, index) => (
+                            <tr key={patient.id}>
                                 <td className="py-4 px-3 font-medium text-center">
-                                    1
+                                    {startIndex + index + 1}
                                 </td>
                                 <td className="py-4 px-3 font-medium">
-                                    Muhammad Raihan Abdillah Lubis
+                                    {patient.user.name}
                                 </td>
                                 <td className="py-4 px-3 font-medium">
-                                    Jl. Universitas, Medan, Sumatera Utara
+                                    {patient.address}
                                 </td>
                                 <td className="py-4 px-3 font-medium text-center">
-                                    081234567890
+                                    {patient.phone_number}
                                 </td>
                                 <td className="py-4 px-3 font-medium text-center">
-                                    Laki-laki
+                                    {patient.gender}
                                 </td>
                                 <td className="py-4 px-3 font-medium text-center">
-                                    18/11/2004
+                                    {formatDate(patient.birthdate)}
+                                </td>
+                                <td className="py-4 px-3 font-medium text-center">
+                                    {patient.blood_type}
                                 </td>
                                 <td className="py-4 px-3 font-medium flex justify-center gap-2">
                                     <button>
@@ -78,26 +109,11 @@ const OwnerPasien = () => {
                 </table>
             </div>
 
-            <div className="flex justify-between items-center mt-6">
-                <div className="flex items-center gap-2 px-2">
-                    <div className="bg-ForestGreen text-white font-semibold w-8 h-8 rounded-full flex justify-center items-center">
-                        1
-                    </div>
-                    <div className="bg-transparent text-black font-semibold w-8 h-8 rounded-full flex justify-center items-center">
-                        2
-                    </div>
-                    <div className="bg-transparent text-black font-semibold w-8 h-8 rounded-full flex justify-center items-center">
-                        3
-                    </div>
-                    <div className="bg-transparent text-black font-semibold w-8 h-8 rounded-full flex justify-center items-center">
-                        ...
-                    </div>
-                    <div className="bg-transparent text-black font-semibold w-8 h-8 rounded-full flex justify-center items-center">
-                        10
-                    </div>
-                </div>
-                <p className="font-semibold text-black/50">Halaman 1 dari 20</p>
-            </div>
+            <Pagination
+                totalPages={totalPages}
+                currentPage={currentPage}
+                onPageChange={handlePageChange}
+            />
         </OwnerLayout>
     );
 };
