@@ -1,9 +1,38 @@
 import OwnerLayout from "@/Layouts/OwnerLayout";
+import Pagination from "@/Components/Pagination";
 import { Link } from "@inertiajs/react";
 import { useState } from "react";
 
-const OwnerPembayaran = () => {
+const OwnerPembayaran = ({ payments }) => {
     const [open, setOpen] = useState(true);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [searchQuery, setSearchQuery] = useState("");
+    const itemsPerPage = 10;
+
+    const filteredData = payments.filter(item =>
+        item.user.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = Math.min(startIndex + itemsPerPage, filteredData.length);
+    const slicedData = filteredData.slice(startIndex, endIndex);
+
+    const handlePageChange = (newPage) => {
+        setCurrentPage(newPage);
+    };
+
+    const formatDate = (timestamp) => {
+        const date = new Date(timestamp);
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return date.toLocaleDateString('id-ID', options);
+    };
+
+    const formatter = new Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR',
+        minimumFractionDigits: 2,
+    });
 
     return (
         <OwnerLayout open={open} setOpen={setOpen} navTitle="Pembayaran">
@@ -15,6 +44,8 @@ const OwnerPembayaran = () => {
                 <input
                     type="text"
                     placeholder="Cari disini..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
                     className="rounded-md border-gray-400 placeholder:font-medium placeholder:text-gray-400 focus:border-ForestGreen focus:ring-ForestGreen w-72"
                 />
             </div>
@@ -23,59 +54,34 @@ const OwnerPembayaran = () => {
                 <table className="w-full bg-white h-fit">
                     <thead className="bg-ForestGreen text-white">
                         <tr>
-                            <td className="font-semibold text-center px-3 py-4">
-                                No
-                            </td>
-                            <td className="font-semibold text-center px-3 py-4">
-                                Nama
-                            </td>
-                            <td className="font-semibold text-center px-3 py-4">
-                                Layanan
-                            </td>
-                            <td className="font-semibold text-center px-3 py-4">
-                                Nominal
-                            </td>
-                            <td className="font-semibold text-center px-3 py-4">
-                                Tanggal
-                            </td>
-                            <td className="font-semibold text-center px-3 py-4">
-                                Status
-                            </td>
-                            <td className="font-semibold text-center px-3 py-4">
-                                Aksi
-                            </td>
+                            <td className="font-semibold text-center px-3 py-4">No</td>
+                            <td className="font-semibold text-center px-3 py-4">Nama</td>
+                            <td className="font-semibold text-center px-3 py-4">Layanan</td>
+                            <td className="font-semibold text-center px-3 py-4">Nominal</td>
+                            <td className="font-semibold text-center px-3 py-4">Tanggal</td>
+                            <td className="font-semibold text-center px-3 py-4">Status</td>
+                            <td className="font-semibold text-center px-3 py-4">Aksi</td>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-300">
-                        {Array.from({ length: 5 }).map((_, i) => (
-                            <tr>
+                        {slicedData.map((payment, index) => (
+                            <tr key={payment.id}>
+                                <td className="py-4 px-3 font-medium text-center">{startIndex + index + 1}</td>
+                                <td className="py-4 px-3 font-medium">{payment.user.name}</td>
+                                <td className="py-4 px-3 font-medium">{payment.appointment.treatment.name}</td>
+                                <td className="py-4 px-3 font-medium text-center">{formatter.format(payment.amount)}</td>
+                                <td className="py-4 px-3 font-medium text-center">{formatDate(payment.payment_date)}</td>
                                 <td className="py-4 px-3 font-medium text-center">
-                                    1
-                                </td>
-                                <td className="py-4 px-3 font-medium">
-                                    Muhammad Raihan Abdillah Lubis
-                                </td>
-                                <td className="py-4 px-3 font-medium">
-                                    Pemeriksaan Rutin
-                                </td>
-                                <td className="py-4 px-3 font-medium text-center">
-                                    Rp 100.000
-                                </td>
-                                <td className="py-4 px-3 font-medium text-center">
-                                    18/11/2024
-                                </td>
-                                <td className="py-4 px-3 font-medium text-center">
-                                    <div className="bg-customRed text-white px-2 py-1 text-sm rounded-md">
-                                        Gagal
+                                    <div className={`text-white px-2 py-1 text-sm rounded-md ${
+                                        payment.status === 'Berhasil' ? 'bg-customGreen' :
+                                        payment.status === 'Menunggu Pembayaran' ? 'bg-customYellow' :
+                                        'bg-customRed'
+                                    }`}>
+                                        {payment.status}
                                     </div>
                                 </td>
                                 <td className="py-4 px-3 font-medium text-center">
-                                    <Link
-                                        href=""
-                                        className="underline text-ForestGreen text-sm"
-                                    >
-                                        Lihat Bukti
-                                    </Link>
+                                    <Link href="" className="underline text-ForestGreen text-sm">Lihat Bukti</Link>
                                 </td>
                             </tr>
                         ))}
@@ -83,26 +89,11 @@ const OwnerPembayaran = () => {
                 </table>
             </div>
 
-            <div className="flex justify-between items-center mt-6">
-                <div className="flex items-center gap-2 px-2">
-                    <div className="bg-ForestGreen text-white font-semibold w-8 h-8 rounded-full flex justify-center items-center">
-                        1
-                    </div>
-                    <div className="bg-transparent text-black font-semibold w-8 h-8 rounded-full flex justify-center items-center">
-                        2
-                    </div>
-                    <div className="bg-transparent text-black font-semibold w-8 h-8 rounded-full flex justify-center items-center">
-                        3
-                    </div>
-                    <div className="bg-transparent text-black font-semibold w-8 h-8 rounded-full flex justify-center items-center">
-                        ...
-                    </div>
-                    <div className="bg-transparent text-black font-semibold w-8 h-8 rounded-full flex justify-center items-center">
-                        10
-                    </div>
-                </div>
-                <p className="font-semibold text-black/50">Halaman 1 dari 20</p>
-            </div>
+            <Pagination
+                totalPages={totalPages}
+                currentPage={currentPage}
+                onPageChange={handlePageChange}
+            />
         </OwnerLayout>
     );
 };
