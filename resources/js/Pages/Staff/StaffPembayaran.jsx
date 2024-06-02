@@ -7,6 +7,7 @@ import { Column } from "primereact/column";
 import { InputText } from "primereact/inputtext";
 import { Dropdown } from "primereact/dropdown";
 import { FaMagnifyingGlass } from "react-icons/fa6";
+import { FaCheck } from "react-icons/fa6";
 import { IoWarningOutline } from "react-icons/io5";
 
 import {
@@ -267,7 +268,9 @@ const StaffPembayaran = ({ payments }) => {
                                     </AlertDialog>
                                 );
                             } else {
-                                return <p>-</p>
+                                return <p className="flex justify-center">
+                                    <FaCheck className="text-customGreen" />
+                                </p>
                             }
                         }}
                         header="Konfirmasi &nbsp;"
