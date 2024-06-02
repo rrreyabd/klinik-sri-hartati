@@ -45,7 +45,10 @@ class OwnerController extends Controller
 
     public function pembayaranIndex()
     {
-        return Inertia::render('Owner/OwnerPembayaran');
+        $payment = Payment::with('user','appointment.treatment')->orderBy('payment_date', 'desc')->get();
+        return Inertia::render('Owner/OwnerPembayaran',[
+            'payments' => $payment
+        ]); 
     }
 
     public function akunIndex()
