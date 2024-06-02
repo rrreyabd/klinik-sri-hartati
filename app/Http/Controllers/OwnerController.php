@@ -50,6 +50,14 @@ class OwnerController extends Controller
 
     public function akunIndex()
     {
-        return Inertia::render('Owner/OwnerAkun');
+        $user = User::where('role', 'user')->get();
+        $staff = User::where('role', 'staff')->get();
+        $dokter = User::where('role', 'dokter')->get();
+
+        return Inertia::render('Owner/OwnerAkun', [
+            'user' => $user,
+            'staff' => $staff,
+            'dokter' => $dokter
+        ]);
     }
 }
