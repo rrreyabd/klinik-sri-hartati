@@ -6,14 +6,19 @@ import { FaUserNurse } from "react-icons/fa";
 
 const OwnerDashboard = ({revenue,totalDoctor,totalStaff,transactions}) => {
     const [open, setOpen] = useState(true);
-
+    const formatter = new Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR',
+        minimumFractionDigits: 2,
+    });
+    
     return (
         <>
             <OwnerLayout open={open} setOpen={setOpen} navTitle="Dashboard">
                 <div className="flex justify-between gap-4">
                     <SummaryContainer
                         label={"Pendapatan"}
-                        value={revenue}
+                        value={formatter.format(revenue)}
                         Icon={FaMoneyBillTransfer}
                     />
                     <SummaryContainer

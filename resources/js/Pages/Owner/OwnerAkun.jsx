@@ -1,13 +1,123 @@
 import OwnerLayout from "@/Layouts/OwnerLayout";
 import { Link } from "@inertiajs/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaEdit, FaRegTrashAlt } from "react-icons/fa";
 
-const OwnerAkun = () => {
+const Pagination = ({ totalPages, currentPage, onPageChange }) => {
+    const generatePageNumbers = () => {
+        const pageNumbers = [];
+        const delta = 2;
+        const range = [];
+
+        for (let i = Math.max(2, currentPage - delta); i <= Math.min(totalPages - 1, currentPage + delta); i++) {
+            range.push(i);
+        }
+
+        if (currentPage - delta > 2) {
+            range.unshift("...");
+        }
+        if (currentPage + delta < totalPages - 1) {
+            range.push("...");
+        }
+
+        range.unshift(1);
+        if (totalPages > 1) {
+            range.push(totalPages);
+        }
+
+        range.forEach((i, idx) => {
+            if (i === "...") {
+                pageNumbers.push(
+                    <div key={`ellipsis-${idx}`} className="text-black font-semibold w-8 h-8 flex justify-center items-center">
+                        {i}
+                    </div>
+                );
+            } else {
+                pageNumbers.push(
+                    <div
+                        key={i}
+                        className={`text-black font-semibold w-8 h-8 rounded-full flex justify-center items-center cursor-pointer ${
+                            i === currentPage ? 'bg-ForestGreen text-white' : ''
+                        }`}
+                        onClick={() => onPageChange(i)}
+                    >
+                        {i}
+                    </div>
+                );
+            }
+        });
+        return pageNumbers;
+    };
+
+    if (totalPages <= 1) {
+        return null;
+    }
+
+    return (
+        <div className="flex justify-between items-center mt-6">
+            <div className="flex items-center gap-2 px-2">{generatePageNumbers()}</div>
+            <p className="font-semibold text-black/50">
+                Halaman {currentPage} dari {totalPages}
+            </p>
+        </div>
+    );
+};
+
+const OwnerAkun = ({ user = [], staff = [], dokter = [] }) => {
     const [open, setOpen] = useState(true);
     const [showData, setShowData] = useState("Pengguna");
+    const [currentPage, setCurrentPage] = useState(1);
+    const [searchQuery, setSearchQuery] = useState("");
+    const itemsPerPage = 10;
 
-    console.log(showData);
+    const data = showData === 'Pengguna' ? user : showData === 'Staff' ? staff : dokter;
+
+    const filteredData = data.filter(item =>
+        item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.email.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = Math.min(startIndex + itemsPerPage, filteredData.length);
+    const slicedData = filteredData.slice(startIndex, endIndex);
+
+    const handlePageChange = (newPage) => {
+        setCurrentPage(newPage);
+    };
+
+    const handleDataChange = (newData) => {
+        setShowData(newData);
+        setCurrentPage(1); 
+    };
+
+    const renderTableRows = () => {
+        const formatDate = (timestamp) => {
+            const date = new Date(timestamp);
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return date.toLocaleDateString('id-ID', options);
+        };
+
+        return slicedData.map((item, index) => (
+            <tr key={item.id}>
+                <td className="py-4 px-3 font-medium text-center">{startIndex + index + 1}</td>
+                <td className="py-4 px-3 font-medium">{item.name}</td>
+                <td className="py-4 px-3 font-medium">{item.email}</td>
+                {showData === 'Pengguna' && (
+                    <td className="py-4 px-3 font-medium text-center">{formatDate(item.email_verified_at)}</td>
+                )}
+                <td className="py-4 px-3 font-medium text-center">{formatDate(item.created_at)}</td>
+                <td className="py-4 px-3 font-medium flex justify-center gap-2">
+                    <button>
+                        <FaEdit className="text-ForestGreen h-6 w-6" />
+                    </button>
+                    <Link href="#">
+                        <FaRegTrashAlt className="text-customRed h-6 w-6" />
+                    </Link>
+                </td>
+            </tr>
+        ));
+    };
 
     return (
         <OwnerLayout open={open} setOpen={setOpen} navTitle="Akun">
@@ -19,7 +129,7 @@ const OwnerAkun = () => {
             <div className="flex justify-between mt-8">
                 <div className="flex ml-5 relative transition-all border-b-2 border-black/20">
                     <button
-                        onClick={() => setShowData("Pengguna")}
+                        onClick={() => handleDataChange("Pengguna")}
                         className={`text-lg font-medium py-2 w-32 hover:bg-customWhite transition-all ${
                             showData == "Pengguna"
                                 ? "text-ForestGreen"
@@ -29,7 +139,7 @@ const OwnerAkun = () => {
                         Pengguna
                     </button>
                     <button
-                        onClick={() => setShowData("Staff")}
+                        onClick={() => handleDataChange("Staff")}
                         className={`text-lg font-medium py-2 w-32 hover:bg-customWhite transition-all ${
                             showData == "Staff"
                                 ? "text-ForestGreen"
@@ -39,7 +149,7 @@ const OwnerAkun = () => {
                         Staff
                     </button>
                     <button
-                        onClick={() => setShowData("Dokter")}
+                        onClick={() => handleDataChange("Dokter")}
                         className={`text-lg font-medium py-2 w-32 hover:bg-customWhite transition-all ${
                             showData == "Dokter"
                                 ? "text-ForestGreen"
@@ -53,24 +163,18 @@ const OwnerAkun = () => {
                         className={`w-32 h-1 bg-ForestGreen -bottom-1 left-0 absolute transition-transform duration-500 ease-in-out ${
                             showData === "Pengguna"
                                 ? "transform translate-x-0"
-                                : ""
-                        }
-                          ${
-                              showData === "Staff"
-                                  ? "transform translate-x-32"
-                                  : ""
-                          }
-                          ${
-                              showData === "Dokter"
-                                  ? "transform translate-x-64"
-                                  : ""
-                          } `}
+                                : showData === "Staff"
+                                ? "transform translate-x-32"
+                                : "transform translate-x-64"
+                        }`}
                     ></div>
                 </div>
 
                 <input
                     type="text"
                     placeholder="Cari disini..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
                     className="rounded-md border-gray-400 placeholder:font-medium placeholder:text-gray-400 focus:border-ForestGreen focus:ring-ForestGreen w-72"
                 />
             </div>
@@ -102,59 +206,16 @@ const OwnerAkun = () => {
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-300">
-                        {Array.from({ length: 5 }).map((_, i) => (
-                            <tr>
-                                <td className="py-4 px-3 font-medium text-center">
-                                    1
-                                </td>
-                                <td className="py-4 px-3 font-medium">
-                                    Muhammad Raihan Abdillah Lubis
-                                </td>
-                                <td className="py-4 px-3 font-medium">
-                                    raihan@gmail.com
-                                </td>
-                                {showData == "Pengguna" && (
-                                    <td className="py-4 px-3 font-medium text-center">
-                                        02/01/2004
-                                    </td>
-                                )}
-                                <td className="py-4 px-3 font-medium text-center">
-                                    01/01/2004
-                                </td>
-                                <td className="py-4 px-3 font-medium flex justify-center gap-2">
-                                    <button>
-                                        <FaEdit className="text-ForestGreen h-6 w-6" />
-                                    </button>
-                                    <Link>
-                                        <FaRegTrashAlt className="text-customRed h-6 w-6" />
-                                    </Link>
-                                </td>
-                            </tr>
-                        ))}
+                        {renderTableRows()}
                     </tbody>
                 </table>
             </div>
 
-            <div className="flex justify-between items-center mt-6">
-                <div className="flex items-center gap-2 px-2">
-                    <div className="bg-ForestGreen text-white font-semibold w-8 h-8 rounded-full flex justify-center items-center">
-                        1
-                    </div>
-                    <div className="bg-transparent text-black font-semibold w-8 h-8 rounded-full flex justify-center items-center">
-                        2
-                    </div>
-                    <div className="bg-transparent text-black font-semibold w-8 h-8 rounded-full flex justify-center items-center">
-                        3
-                    </div>
-                    <div className="bg-transparent text-black font-semibold w-8 h-8 rounded-full flex justify-center items-center">
-                        ...
-                    </div>
-                    <div className="bg-transparent text-black font-semibold w-8 h-8 rounded-full flex justify-center items-center">
-                        10
-                    </div>
-                </div>
-                <p className="font-semibold text-black/50">Halaman 1 dari 20</p>
-            </div>
+            <Pagination
+                totalPages={totalPages}
+                currentPage={currentPage}
+                onPageChange={handlePageChange}
+            />
         </OwnerLayout>
     );
 };
