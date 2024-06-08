@@ -284,7 +284,7 @@ const StaffPembayaran = ({ payments }) => {
 
 export default StaffPembayaran;
 
-const ProofModal = ({ image, payment_code }) => {
+export const ProofModal = ({ image, payment_code }) => {
     return image && payment_code ? (
         <AlertDialog>
             <AlertDialogTrigger className="underline text-ForestGreen font-medium">

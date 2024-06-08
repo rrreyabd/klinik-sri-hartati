@@ -17,9 +17,9 @@ class OwnerController extends Controller
     {
         $doctor = Doctor::count();
         $staff = Staff::count();
-        $revenue = Payment::where('status','Berhasil')->sum('amount');
-        $transaction = Payment::with('user','appointment.treatment')->orderBy('payment_date', 'desc')->take(5)->get();
-        return Inertia::render('Owner/OwnerDashboard',[
+        $revenue = Payment::where('status', 'Berhasil')->sum('amount');
+        $transaction = Payment::with('user', 'appointment.treatment')->orderBy('payment_date', 'desc')->take(5)->get();
+        return Inertia::render('Owner/OwnerDashboard', [
             'totalDoctor' => $doctor,
             'totalStaff' => $staff,
             'revenue' => $revenue,
@@ -34,32 +34,57 @@ class OwnerController extends Controller
 
     public function dokterIndex()
     {
-        $doctor = Doctor::with('user')->get() ;
-        return Inertia::render('Owner/OwnerDokter',[
+        $doctor = Doctor::with('user')->get();
+        return Inertia::render('Owner/OwnerDokter', [
             'doctors' => $doctor
         ]);
     }
+
+    public function dokterEdit($id)
+    {
+        $doctor = Doctor::with('user')->find($id);
+        return Inertia::render('Owner/OwnerDokterEdit', [
+            'doctor' => $doctor
+        ]);
+    }
+
+    public function dokterUpdate(Request $request, $id)
+    {
+        dd($request->all());
+
+        $doctor = Doctor::find($id);
+        $doctor->update($request->all());
+        return redirect()->route('owner.dokter.index');
+    }
+
+    public function dokterDelete($id)
+    {
+        $doctor = Doctor::find($id);
+        $doctor->delete();
+        return redirect()->route('owner.dokter')->with('success', 'Dokter berhasil dihapus');
+    }
+
     public function staffIndex()
     {
-        $staff = Staff::with('user')->get() ;
-        return Inertia::render('Owner/OwnerStaff',[
+        $staff = Staff::with('user')->get();
+        return Inertia::render('Owner/OwnerStaff', [
             'staffs' => $staff
         ]);
     }
     public function pasienIndex()
     {
         $patient = Patient::with('user')->get();
-        return Inertia::render('Owner/OwnerPasien',[
+        return Inertia::render('Owner/OwnerPasien', [
             'patients' => $patient
         ]);
     }
 
     public function pembayaranIndex()
     {
-        $payment = Payment::with('user','appointment.treatment')->orderBy('payment_date', 'desc')->get();
-        return Inertia::render('Owner/OwnerPembayaran',[
+        $payment = Payment::with('user', 'appointment.treatment')->orderBy('payment_date', 'desc')->get();
+        return Inertia::render('Owner/OwnerPembayaran', [
             'payments' => $payment
-        ]); 
+        ]);
     }
 
     public function akunIndex()

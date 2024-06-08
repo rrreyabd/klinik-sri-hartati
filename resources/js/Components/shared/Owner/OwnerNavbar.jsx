@@ -4,7 +4,7 @@ import { TbLogout } from "react-icons/tb";
 
 const OwnerNavbar = ({ open, setOpen, navTitle }) => {
     return (
-        <div className="h-24 flex justify-between px-16 shadow-md sticky top-0 left-0 bg-white">
+        <div className="h-24 flex justify-between px-16 shadow-md sticky top-0 left-0 bg-white z-10">
             <Head title="Owner" />
             <div className="flex gap-16 items-center">
                 <div className={`flex gap-4 items-center`}>

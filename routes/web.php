@@ -103,11 +103,16 @@ Route::middleware(['auth', 'verified',])->group(function () {
 
 // Owner
 Route::middleware(['auth', 'verified',])->group(function () {
-    Route::get('/owner', [OwnerController::class, 'index'])->name('owner.index');
+    Route::get('/owner/dashboard', [OwnerController::class, 'index'])->name('owner.index');
     Route::get('/owner/jadwal', [OwnerController::class, 'jadwalIndex'])->name('owner.jadwal');
     Route::get('/owner/akun', [OwnerController::class, 'akunIndex'])->name('owner.akun');
     Route::get('/owner/pasien', [OwnerController::class, 'pasienIndex'])->name('owner.pasien');
+    
     Route::get('/owner/dokter', [OwnerController::class, 'dokterIndex'])->name('owner.dokter');
+    Route::get('/owner/dokter/edit/{id}', [OwnerController::class, 'dokterEdit'])->name('owner.dokter.edit');
+    Route::post('/owner/dokter/update/{id}', [OwnerController::class, 'dokterUpdate'])->name('owner.dokter.update');
+    Route::get('/owner/dokter/delete/{id}', [OwnerController::class, 'dokterDelete'])->name('owner.dokter.delete');
+
     Route::get('/owner/staff', [OwnerController::class, 'staffIndex'])->name('owner.staff');
     Route::get('/owner/pembayaran', [OwnerController::class, 'pembayaranIndex'])->name('owner.pembayaran');
 });

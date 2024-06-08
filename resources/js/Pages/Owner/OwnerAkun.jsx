@@ -48,14 +48,14 @@ const OwnerAkun = ({ user = [], staff = [], dokter = [] }) => {
                     <td className="py-4 px-3 font-medium text-center">{formatDate(item.email_verified_at)}</td>
                 )}
                 <td className="py-4 px-3 font-medium text-center">{formatDate(item.created_at)}</td>
-                <td className="py-4 px-3 font-medium flex justify-center gap-2">
+                {/* <td className="py-4 px-3 font-medium flex justify-center gap-2">
                     <button>
                         <FaEdit className="text-ForestGreen h-6 w-6" />
                     </button>
                     <Link href="#">
                         <FaRegTrashAlt className="text-customRed h-6 w-6" />
                     </Link>
-                </td>
+                </td> */}
             </tr>
         ));
     };
@@ -141,9 +141,9 @@ const OwnerAkun = ({ user = [], staff = [], dokter = [] }) => {
                             <td className="font-semibold text-center px-3 py-4">
                                 Tanggal Dibuat
                             </td>
-                            <td className="font-semibold text-center px-3 py-4">
+                            {/* <td className="font-semibold text-center px-3 py-4">
                                 Aksi
-                            </td>
+                            </td> */}
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-300">

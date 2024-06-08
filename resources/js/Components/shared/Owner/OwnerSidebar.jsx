@@ -11,7 +11,7 @@ const menu = [
     {
         label: "Dashboard",
         icon: <BiHomeAlt className="w-6 h-6" />,
-        link: "/owner",
+        link: "/owner/dashboard",
     },
     {
         label: "Akun",
@@ -65,7 +65,7 @@ const OwnerSidebar = ({ open }) => {
                         key={index}
                         href={item.link}
                         className={`flex items-center gap-4 pl-16 py-4 w-full border-l-8 hover:bg-ForestGreen/20 hover:text-ForestGreen transition-all  ${
-                            url == item.link
+                            url.startsWith(item.link) // except /owner
                                 ? "border-ForestGreen text-ForestGreen bg-ForestGreen/20"
                                 : "text-gray-500 bg-white border-transparent"
                         } `}

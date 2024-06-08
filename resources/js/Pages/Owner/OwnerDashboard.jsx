@@ -33,7 +33,7 @@ const OwnerDashboard = ({revenue,totalDoctor,totalStaff,transactions}) => {
                     />
                 </div>
 
-                <h1 className="mt-10 text-3xl font-semibold">Transaksi</h1>
+                <h1 className="mt-10 text-3xl font-semibold">Transaksi Terbaru</h1>
 
                 <div className="mt-4 min-h-72 overflow-y-scroll shadow-md bg-white rounded-lg flex flex-col divide-y-2 divide-gray-300">
                     {transactions.map(transaction => (

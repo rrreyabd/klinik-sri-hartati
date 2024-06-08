@@ -2,6 +2,7 @@ import OwnerLayout from "@/Layouts/OwnerLayout";
 import Pagination from "@/Components/Pagination";
 import { Link } from "@inertiajs/react";
 import { useState } from "react";
+import { ProofModal } from "../Staff/StaffPembayaran";
 
 const OwnerPembayaran = ({ payments }) => {
     const [open, setOpen] = useState(true);
@@ -9,7 +10,7 @@ const OwnerPembayaran = ({ payments }) => {
     const [searchQuery, setSearchQuery] = useState("");
     const itemsPerPage = 10;
 
-    const filteredData = payments.filter(item =>
+    const filteredData = payments.filter((item) =>
         item.user.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
@@ -24,20 +25,17 @@ const OwnerPembayaran = ({ payments }) => {
 
     const formatDate = (timestamp) => {
         const date = new Date(timestamp);
-        const options = { year: 'numeric', month: 'short', day: 'numeric' };
-        return date.toLocaleDateString('id-ID', options);
+        const options = { year: "numeric", month: "short", day: "numeric" };
+        return date.toLocaleDateString("id-ID", options);
     };
 
-    const formatter = new Intl.NumberFormat('id-ID', {
-        style: 'currency',
-        currency: 'IDR',
-        minimumFractionDigits: 2,
-    });
+    const formatter = new Intl.NumberFormat("id-ID");
 
     return (
         <OwnerLayout open={open} setOpen={setOpen} navTitle="Pembayaran">
             <div className="text-lg font-medium">
-                <span className="text-gray-500">Dashboard </span> &gt; Pembayaran
+                <span className="text-gray-500">Dashboard </span> &gt;
+                Pembayaran
             </div>
 
             <div className="flex justify-end mt-8">
@@ -54,34 +52,69 @@ const OwnerPembayaran = ({ payments }) => {
                 <table className="w-full bg-white h-fit">
                     <thead className="bg-ForestGreen text-white">
                         <tr>
-                            <td className="font-semibold text-center px-3 py-4">No</td>
-                            <td className="font-semibold text-center px-3 py-4">Nama</td>
-                            <td className="font-semibold text-center px-3 py-4">Layanan</td>
-                            <td className="font-semibold text-center px-3 py-4">Nominal</td>
-                            <td className="font-semibold text-center px-3 py-4">Tanggal</td>
-                            <td className="font-semibold text-center px-3 py-4">Status</td>
-                            <td className="font-semibold text-center px-3 py-4">Aksi</td>
+                            <td className="font-semibold text-center px-3 py-4">
+                                No
+                            </td>
+                            <td className="font-semibold text-center px-3 py-4">
+                                Nama
+                            </td>
+                            <td className="font-semibold text-center px-3 py-4">
+                                Layanan
+                            </td>
+                            <td className="font-semibold text-center px-3 py-4">
+                                Nominal
+                            </td>
+                            <td className="font-semibold text-center px-3 py-4">
+                                Tanggal
+                            </td>
+                            <td className="font-semibold text-center px-3 py-4">
+                                Status
+                            </td>
+                            <td className="font-semibold text-center px-3 py-4">
+                                Aksi
+                            </td>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-300">
                         {slicedData.map((payment, index) => (
                             <tr key={payment.id}>
-                                <td className="py-4 px-3 font-medium text-center">{startIndex + index + 1}</td>
-                                <td className="py-4 px-3 font-medium">{payment.user.name}</td>
-                                <td className="py-4 px-3 font-medium">{payment.appointment.treatment.name}</td>
-                                <td className="py-4 px-3 font-medium text-center">{formatter.format(payment.amount)}</td>
-                                <td className="py-4 px-3 font-medium text-center">{formatDate(payment.payment_date)}</td>
                                 <td className="py-4 px-3 font-medium text-center">
-                                    <div className={`text-white px-2 py-1 text-sm rounded-md ${
-                                        payment.status === 'Berhasil' ? 'bg-customGreen' :
-                                        payment.status === 'Menunggu Pembayaran' ? 'bg-customYellow' :
-                                        'bg-customRed'
-                                    }`}>
+                                    {startIndex + index + 1}
+                                </td>
+                                <td className="py-4 px-3 font-medium">
+                                    {payment.user.name}
+                                </td>
+                                <td className="py-4 px-3 font-medium">
+                                    {payment.appointment.treatment.name}
+                                </td>
+                                <td className="py-4 px-3 font-medium flex justify-center">
+                                    <p className="w-8">Rp</p>
+                                    <p className="min-w-20 text-end">
+                                        {formatter.format(payment.amount)}
+                                    </p>
+                                </td>
+                                <td className="py-4 px-3 font-medium text-center">
+                                    {formatDate(payment.payment_date)}
+                                </td>
+                                <td className="py-4 px-3 font-medium text-center">
+                                    <div
+                                        className={`text-white px-2 py-1 text-sm rounded-md ${
+                                            payment.status === "Berhasil"
+                                                ? "bg-customGreen"
+                                                : payment.status ===
+                                                  "Menunggu Pembayaran"
+                                                ? "bg-customYellow"
+                                                : "bg-customRed"
+                                        }`}
+                                    >
                                         {payment.status}
                                     </div>
                                 </td>
                                 <td className="py-4 px-3 font-medium text-center">
-                                    <Link href="" className="underline text-ForestGreen text-sm">Lihat Bukti</Link>
+                                    <ProofModal
+                                        image={payment.payment_proof}
+                                        payment_code={payment.payment_code}
+                                    />
                                 </td>
                             </tr>
                         ))}
