@@ -69,9 +69,6 @@ const OwnerPasien = ({patients}) => {
                             <td className="font-semibold text-center px-3 py-4">
                                 Gol Darah
                             </td>
-                            <td className="font-semibold text-center px-3 py-4">
-                                Aksi
-                            </td>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-300">
@@ -83,7 +80,7 @@ const OwnerPasien = ({patients}) => {
                                 <td className="py-4 px-3 font-medium">
                                     {patient.user.name}
                                 </td>
-                                <td className="py-4 px-3 font-medium">
+                                <td className="py-4 px-3 font-medium max-w-72">
                                     {patient.address}
                                 </td>
                                 <td className="py-4 px-3 font-medium text-center">
@@ -97,11 +94,6 @@ const OwnerPasien = ({patients}) => {
                                 </td>
                                 <td className="py-4 px-3 font-medium text-center">
                                     {patient.blood_type}
-                                </td>
-                                <td className="py-4 px-3 font-medium flex justify-center gap-2">
-                                    <button>
-                                        <FaEdit className="text-ForestGreen h-6 w-6" />
-                                    </button>
                                 </td>
                             </tr>
                         ))}

@@ -11,13 +11,13 @@ class Doctor extends Model
     
     protected $fillable = [
         'user_id',
+        'nik',
         'gender',
         'phone_number',
         'address',
         'specialization',
         'birthdate',
-        'active_date',
-        'inactive_date',
+    'status',
     ];
     public function user()
     {

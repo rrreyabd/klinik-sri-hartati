@@ -13,14 +13,16 @@ return new class extends Migration
     {
         Schema::create('doctors', function (Blueprint $table) {
             $table->id();
+            $table->string('nik')->unique();
             $table->unsignedBigInteger('user_id')->unique();
             $table->string('gender');
             $table->string('phone_number');
             $table->text('address');
             $table->string('specialization');
             $table->date('birthdate');
-            $table->date('active_date');
-            $table->date('inactive_date')->nullable();
+            // $table->date('active_date');
+            // $table->date('inactive_date')->nullable();
+            $table->enum('status', ['Aktif', 'Tidak Aktif'])->default('Aktif');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

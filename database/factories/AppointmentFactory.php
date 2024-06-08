@@ -25,7 +25,8 @@ class AppointmentFactory extends Factory
         $usersCount = User::count();
         
         return [
-            'user_id' => $this->faker->numberBetween(9, $usersCount),
+            // 'user_id' => $this->faker->numberBetween(9, $usersCount),
+            'user_id' => 1,
             'doctor_id' => $this->faker->numberBetween(5, 7),
             'treatment_id' => $this->faker->randomElement([1, 2, 3]),
             'date' => $this->faker->dateTimeBetween('-3 days', '+3 days')->format('Y-m-d'),

@@ -11,6 +11,17 @@ import {
 import { Link } from "@inertiajs/react";
 import { useEffect } from "react";
 import { ArrowLeft } from "lucide-react";
+import {
+    AlertDialog,
+    AlertDialogCancel,
+    AlertDialogAction,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "@/Components/ui/alert-dialog";
 
 const Jadwal = ({
     auth,
@@ -179,6 +190,25 @@ const Jadwal = ({
                                                             >
                                                                 Bayar
                                                             </Link>
+                                                        ) : appointment.status ==
+                                                          "Selesai" ? (
+                                                            <AlertDialog>
+                                                                <AlertDialogTrigger className="text-ForestGreen underline font-semibold">
+                                                                    Lihat Resep
+                                                                </AlertDialogTrigger>
+                                                                <AlertDialogContent className="flex flex-col gap-16">
+                                                                    <AlertDialogHeader>
+                                                                        <AlertDialogDescription>
+                                                                            Resep
+                                                                        </AlertDialogDescription>
+                                                                    </AlertDialogHeader>
+                                                                    <AlertDialogFooter>
+                                                                        <AlertDialogCancel>
+                                                                            Keluar
+                                                                        </AlertDialogCancel>
+                                                                    </AlertDialogFooter>
+                                                                </AlertDialogContent>
+                                                            </AlertDialog>
                                                         ) : (
                                                             "-"
                                                         )}

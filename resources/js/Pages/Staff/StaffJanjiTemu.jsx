@@ -247,10 +247,10 @@ const StaffJanjiTemu = ({ appointments, status, error }) => {
                                             <div
                                                 className={`w-full flex border-b py-2 `}
                                             >
-                                                <div className="w-1/4 text-center px-4">
+                                                <div className="w-1/4 px-4 font-medium">
                                                     {appointment.user.name}
                                                 </div>
-                                                <div className="w-1/4 text-center px-4">
+                                                <div className="w-1/4 px-4">
                                                     {appointment.doctor.name}
                                                 </div>
                                                 <div className="w-1/4 text-center px-4">
