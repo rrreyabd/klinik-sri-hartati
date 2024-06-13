@@ -203,7 +203,7 @@ export default function Main({
 
                     <hr className="border border-black/10" />
 
-                    <HubungiKami />
+                    <HubungiKami auth={auth} />
                 </div>
                 <Footer information={information} />
             </main>
