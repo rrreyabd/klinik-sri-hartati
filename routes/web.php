@@ -9,6 +9,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\TagihanController;
+use App\Http\Controllers\MessageController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -39,6 +40,9 @@ Route::get('/', function () {
 ->name('index')
 ->middleware('CheckPatientData')
 ;
+
+// Hubungi Kami
+Route::post('/messages', [MessageController::class, 'store'])->name('message.store')->middleware('auth', 'verified');
 
 // Data Diri
 Route::get('/data/input', [ProfileController::class, 'addDataDiri'])->name('data.edit')->middleware('auth', 'verified');
