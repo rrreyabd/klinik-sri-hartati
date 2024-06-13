@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,7 +24,7 @@ class RoleCheck
             DB::setDefaultConnection($userRole);
             return $next($request);
         } else {
-            abort(404, 'Database connection not configured for this user role.');
+            return Inertia::render('Fallback');
         }
     
     }
