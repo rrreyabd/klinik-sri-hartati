@@ -67,16 +67,9 @@ const StaffJanjiTemu = ({ appointments, status, error }) => {
                             {/* TAMBAH JANJI TEMU */}
                             <div className="bg-white rounded-xl shadow-md h-44 w-full flex">
                                 <div className="p-6 w-2/3 flex flex-col gap-4">
-                                    <h2 className="text-2xl font-semibold">
-                                        Lihat jadwal janji temu pasien dengan
-                                        dokter sekarang
+                                    <h2 className="text-2xl font-semibold flex ">
+                                        Tata kelola janji temu dengan efisien: pantau jadwal, atur ulang, dan kelola detailnya di dashboard ini.
                                     </h2>
-                                    {/* <Link
-                                        href="/staff/janji-temu/daftar"
-                                        className="bg-ForestGreen text-white font-semibold text-sm py-2 px-4 rounded-md w-fit flex items-center gap-2"
-                                    >
-                                        <Plus className="w-4" /> Tambah Antrian
-                                    </Link> */}
                                 </div>
                                 <div className="w-1/3 flex justify-center items-end">
                                     <img

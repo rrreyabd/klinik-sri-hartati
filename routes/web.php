@@ -9,6 +9,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\TagihanController;
+use App\Http\Controllers\MessageController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -41,12 +42,15 @@ Route::get('/', function () {
 ->middleware('CheckPatientData')
 ;
 
+// Hubungi Kami
+Route::post('/messages', [MessageController::class, 'store'])->name('message.store')->middleware('auth', 'verified');
+
 // Data Diri
 Route::get('/data/input', [ProfileController::class, 'addDataDiri'])->name('data.edit')->middleware('auth', 'verified');
 Route::post('/data/input', [ProfileController::class, 'storeDataDiri'])->name('data.store')->middleware('auth', 'verified');
 
 
-Route::middleware(['auth', 'CheckPatientData','verified'])->group(function () {
+Route::middleware(['auth', 'CheckPatientData','verified','RoleCheck:user'])->group(function () {
     // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -77,7 +81,7 @@ Route::middleware(['auth', 'CheckPatientData','verified'])->group(function () {
 });
 
 // n
-Route::middleware(['auth', 'verified',])->group(function () {
+Route::middleware(['auth', 'verified','RoleCheck:staff'])->group(function () {
     Route::get('/staff', [StaffController::class, 'index'])->name('staff.index');
     
     Route::get('/staff/antrian', [StaffController::class, 'antrianIndex'])->name('staff.antrian.index');
@@ -94,7 +98,7 @@ Route::middleware(['auth', 'verified',])->group(function () {
 });
 
 // Dokter
-Route::middleware(['auth', 'verified',])->group(function () {
+Route::middleware(['auth', 'verified','RoleCheck:dokter'])->group(function () {
     Route::get('/dokter', [DokterController::class, 'index'])->name('dokter.index');
     Route::get('/dokter/pasien/{id}', [DokterController::class, 'dataDiriPasien'])->name('dokter.pasien');
     Route::get('/dokter/rekam-medis/{id}', [DokterController::class, 'detailRekamMedis'])->name('dokter.rekam-medis.detail');
@@ -103,7 +107,7 @@ Route::middleware(['auth', 'verified',])->group(function () {
 });
 
 // Owner
-Route::middleware(['auth', 'verified',])->group(function () {
+Route::middleware(['auth', 'verified','RoleCheck:owner'])->group(function () {
     Route::get('/owner/dashboard', [OwnerController::class, 'index'])->name('owner.index');
     Route::get('/owner/jadwal', [OwnerController::class, 'jadwalIndex'])->name('owner.jadwal');
     Route::get('/owner/akun', [OwnerController::class, 'akunIndex'])->name('owner.akun');
