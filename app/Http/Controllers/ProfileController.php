@@ -103,7 +103,7 @@ class ProfileController extends Controller
                 User::where('id', $request->user_id)->update(['name' => $request->full_name]);
             }
 
-            return redirect()->route('index')->with('tour', false);
+            return redirect()->route('index')->with('tour', "false");
         } catch (\Exception $e) {
             return redirect()->route('data.edit')->with('status', 'Terjadi kesalahan saat menyimpan data. Silahkan coba lagi.');
         }

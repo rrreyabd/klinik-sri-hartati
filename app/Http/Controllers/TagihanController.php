@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Appointment;
 use App\Models\Payment;
+use App\Models\Treatment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -42,12 +43,15 @@ class TagihanController extends Controller
             ->orderBy('payment_date', 'desc')
             ->get();
 
+        $treatments = Treatment::all();
+
         return Inertia::render('User/Tagihan', [
             'payments' => $payments,
             'pendingPayments' => $pendingPayments,
             'cancelledPayments' => $cancelledPayments,
             'successPayments' => $successPayments,
             'confirmPayments' => $confirmPayments,
+            'treatments' => $treatments,
         ]);
     }
 

@@ -226,7 +226,7 @@ const StaffPembayaran = ({ payments }) => {
                         body={(rowData) => {
                             if (rowData.status === "Menunggu Konfirmasi") {
                                 return (
-                                    <AlertDialog onOpenChange={() => setData("payment_id", rowData.id)}>
+                                    <AlertDialog onOpenChange={() => setData("payment_id", rowData.id)} defaultOpen={false}>
                                         <AlertDialogTrigger className="underline text-ForestGreen font-medium">
                                             Konfirmasi
                                         </AlertDialogTrigger>
@@ -267,9 +267,13 @@ const StaffPembayaran = ({ payments }) => {
                                         </AlertDialogContent>
                                     </AlertDialog>
                                 );
-                            } else {
+                            } else if (rowData.status === "Berhasil") {
                                 return <p className="flex justify-center">
                                     <FaCheck className="text-customGreen" />
+                                </p>
+                            } else {
+                                return <p className="flex justify-center">
+                                    -
                                 </p>
                             }
                         }}

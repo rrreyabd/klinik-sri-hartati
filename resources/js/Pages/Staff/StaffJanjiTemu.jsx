@@ -68,15 +68,15 @@ const StaffJanjiTemu = ({ appointments, status, error }) => {
                             <div className="bg-white rounded-xl shadow-md h-44 w-full flex">
                                 <div className="p-6 w-2/3 flex flex-col gap-4">
                                     <h2 className="text-2xl font-semibold">
-                                        Atur jadwal janji temu pasien dengan
+                                        Lihat jadwal janji temu pasien dengan
                                         dokter sekarang
                                     </h2>
-                                    <Link
+                                    {/* <Link
                                         href="/staff/janji-temu/daftar"
                                         className="bg-ForestGreen text-white font-semibold text-sm py-2 px-4 rounded-md w-fit flex items-center gap-2"
                                     >
                                         <Plus className="w-4" /> Tambah Antrian
-                                    </Link>
+                                    </Link> */}
                                 </div>
                                 <div className="w-1/3 flex justify-center items-end">
                                     <img
