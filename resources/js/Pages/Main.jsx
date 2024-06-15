@@ -61,16 +61,17 @@ export default function Main({
     }, [status, error]);
 
     // Driver.js
-    const [isSkipped, setIsSkipped] = useState(
-        tour || localStorage.getItem("isSkipped")
-    );
+    const [isSkipped, setIsSkipped] = useState(tour || localStorage.getItem("isSkipped") === "true");
 
-    {
+    console.log(tour)
+
+    {  
         auth &&
             auth.user &&
             useEffect(() => {
                 const interval = setInterval(() => {
                     if (
+                        tour == "false" ||
                         localStorage.getItem("isSkipped") == "false" ||
                         localStorage.getItem("isSkipped") == null
                     ) {

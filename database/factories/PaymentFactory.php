@@ -22,7 +22,8 @@ class PaymentFactory extends Factory
         $usersCount = User::count();
 
         return [
-            'user_id' => $this->faker->numberBetween(1, $usersCount),
+            // 'user_id' => $this->faker->numberBetween(1, $usersCount),
+            'user_id' => 1,
             'appointment_id' => $successAppointment->isEmpty() ? null : $this->faker->unique()->randomElement($successAppointment->pluck('id')->toArray()),
             'payment_code' => 'SH' . $this->faker->unique()->bothify('######'),
             'amount' => $this->faker->numberBetween(50000, 200000),

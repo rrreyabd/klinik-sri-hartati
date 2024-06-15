@@ -35,6 +35,7 @@ Route::get('/', function () {
         'information' => \App\Models\Information::first(),
         'appointments' => \App\Models\Appointment::where('status', 'Selesai')->count(),
         'notif' => Auth::check() ? \App\Models\Payment::where('user_id', Auth::user()->id)->where('status', 'Menunggu Pembayaran')->count() : 0,
+        'tour' => session('tour'),
     ]);
 })
 ->name('index')

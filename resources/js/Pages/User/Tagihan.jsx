@@ -34,9 +34,17 @@ const Tagihan = ({
     successPayments,
     cancelledPayments,
     confirmPayments,
+    treatments,
 }) => {
     const [showData, setShowData] = useState("Semua");
     const [dataPayment, setDataPayment] = useState(payments);
+
+    console.log(payments)
+    console.log(pendingPayments)
+    console.log(successPayments)
+    console.log(cancelledPayments)
+    console.log(confirmPayments)
+
 
     useEffect(() => {
         if (showData == "Semua") setDataPayment(payments);
@@ -45,6 +53,7 @@ const Tagihan = ({
         if (showData == "Berhasil") setDataPayment(successPayments);
         if (showData == "Dibatalkan") setDataPayment(cancelledPayments);
     }, [showData]);
+
     console.log(showData);
     const { data, setData, post, processing, errors } = useForm({
         payment_id: "",
@@ -68,6 +77,12 @@ const Tagihan = ({
                 "Content-Type": "multipart/form-data",
             },
         });
+    };
+
+    const formatDate = (timestamp) => {
+        const date = new Date(timestamp);
+        const options = { year: "numeric", month: "short", day: "numeric" };
+        return date.toLocaleDateString("id-ID", options);
     };
 
     const formatter = new Intl.NumberFormat("id-ID");
@@ -141,28 +156,40 @@ const Tagihan = ({
                     </Select>
                 </div>
 
-                {dataPayment.length > 0 ? (
+                {dataPayment ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                         {dataPayment.map((payment) => {
 
                             // Countdown
                             const calculateTimeLeft = () => {
-                                let difference = +new Date(payment.payment_due) - +new Date();
+                                let difference =
+                                    +new Date(payment.payment_due) -
+                                    +new Date();
                                 let timeLeft = {};
 
                                 if (difference > 0) {
                                     timeLeft = {
-                                        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-                                        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-                                        minutes: Math.floor((difference / 1000 / 60) % 60),
-                                        seconds: Math.floor((difference / 1000) % 60),
+                                        days: Math.floor(
+                                            difference / (1000 * 60 * 60 * 24)
+                                        ),
+                                        hours: Math.floor(
+                                            (difference / (1000 * 60 * 60)) % 24
+                                        ),
+                                        minutes: Math.floor(
+                                            (difference / 1000 / 60) % 60
+                                        ),
+                                        seconds: Math.floor(
+                                            (difference / 1000) % 60
+                                        ),
                                     };
                                 }
 
                                 return timeLeft;
                             };
 
-                            const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+                            const [timeLeft, setTimeLeft] = useState(
+                                calculateTimeLeft()
+                            );
 
                             useEffect(() => {
                                 const timer = setTimeout(() => {
@@ -173,142 +200,153 @@ const Tagihan = ({
                             });
 
                             return (
-                                <div
-                                    className={`h-72 bg-white shadow-md rounded-lg flex flex-col justify-between border p-4`}
-                                    key={payment.id}
-                                >
-                                    <div className="flex justify-between items-center">
-                                        <p className="font-bold">{payment.payment_code}</p>
-                                        <div
-                                            className={`bg-ForestGreen text-white px-2 py-1 rounded-md font-semibold ${payment.status == "Berhasil"
-                                                ? "bg-green-600"
+                                // <div className="w-full p-4 bg-white shadow-md h-52 rounded-md border-l-8 border-l-green-500">
+                                <div className="w-full p-4 pl-8 bg-white shadow-md rounded-md relative overflow-hidden flex flex-col gap-3">
+                                    <div className="flex justify-between">
+                                        <p
+                                            className={`font-semibold ${payment.status == "Berhasil"
+                                                ? "text-customGreen"
                                                 : payment.status ==
-                                                    "Dibatalkan"
-                                                    ? "bg-red-600"
+                                                    "Menunggu Pembayaran"
+                                                    ? "text-blue-600"
                                                     : payment.status ==
-                                                        "Menunggu Pembayaran"
-                                                        ? "bg-yellow-600"
-                                                        : ""
-                                                }`}
+                                                        "Menunggu Konfirmasi"
+                                                        ? "text-ForestGreen"
+                                                        : payment.status ==
+                                                            "Dibatalkan"
+                                                            ? "text-customRed"
+                                                            : null
+                                                } `}
                                         >
                                             {payment.status}
-                                        </div>
+                                        </p>
+                                        <p className="font-bold text-gray-400">
+                                            {payment.payment_code}
+                                        </p>
                                     </div>
 
-                                    <div className="flex flex-col gap-2">
-                                        <div className="flex justify-between items-center font-semibold">
-                                            <p>Jadwal: </p>
-                                            <p>{payment.appointment.date} / {payment.appointment.time}</p>
-                                        </div>
-                                        <div className="flex justify-between items-center font-semibold">
-                                            <p>Batas Pembayaran: </p>
-                                            <p>
-                                                {
-                                                    timeLeft.hours > 0 && `${timeLeft.hours} Jam`
-                                                }
-                                                {timeLeft.minutes} Menit {timeLeft.seconds} Detik</p>
-                                        </div>
-                                        <div className="flex justify-between items-center text-lg font-semibold">
-                                            <p>Total: </p>
-                                            <p>Rp {formatter.format(payment.amount)}</p>
-                                        </div>
-                                        {payment.payment_date && (
-                                            <p>
-                                                Dibayar Pada:{" "}
-                                                {payment.payment_date}
-                                            </p>
-                                        )}
-                                        {!payment.date &&
-                                            !payment.payment_proof && (
-                                                <AlertDialog
-                                                    defaultOpen={false}
-                                                    onOpenChange={() =>
-                                                        setData(
-                                                            "payment_id",
-                                                            payment.id
-                                                        )
-                                                    }
-                                                >
-                                                    <AlertDialogTrigger className="w-full bg-ForestGreen text-white font-semibold py-2 px-2 rounded-md shadow-md">
-                                                        Konfirmasi Pembayaran
-                                                    </AlertDialogTrigger>
-                                                    <AlertDialogContent>
-                                                        <form onSubmit={submit}>
-                                                            <AlertDialogHeader>
-                                                                <AlertDialogTitle>
-                                                                    Konfirmasi
-                                                                    Pembayaran  {payment.payment_code}
-                                                                </AlertDialogTitle>
-                                                                <div>
-                                                                    <p>
-                                                                        Unggah
-                                                                        bukti
-                                                                        pembayaran
-                                                                        Anda dan
-                                                                        Staff
-                                                                        kami
-                                                                        akan
-                                                                        mengkonfirmasi
-                                                                        janji
-                                                                        temu
-                                                                        Anda
-                                                                    </p>
-                                                                    <div className="py-8 flex flex-col gap-2">
-                                                                        <input
-                                                                            type="file"
-                                                                            accept="image/*"
-                                                                            id="image"
-                                                                            onChange={
-                                                                                handleFileChange
-                                                                            }
-                                                                        />
-                                                                        <p className="text-sm font-medium">
-                                                                            File
-                                                                            yang
-                                                                            diterima
-                                                                            :
-                                                                            .jpeg,
-                                                                            .jpg,
-                                                                            .png,
-                                                                            .webp:{" "}
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-                                                            </AlertDialogHeader>
-                                                            <AlertDialogFooter>
-                                                                <AlertDialogCancel>
-                                                                    Batal
-                                                                </AlertDialogCancel>
-                                                                {data.payment_proof ? (
-                                                                    <button
-                                                                        type="submit"
-                                                                        className={`bg-ForestGreen hover:bg-ForestGreen hover:brightness-95 px-4 py-1 rounded-md text-white text-sm ${processing
-                                                                            ? "cursor-not-allowed opacity-30"
-                                                                            : ""
-                                                                            }`}
-                                                                        disabled={
-                                                                            processing
-                                                                        }
-                                                                    >
-                                                                        {processing
-                                                                            ? "Mengunggah..."
-                                                                            : "Unggah"}
-                                                                    </button>
-                                                                ) : (
-                                                                    <button
-                                                                        type="submit"
-                                                                        className={`bg-ForestGreen hover:bg-ForestGreen hover:brightness-95 px-4 py-1 rounded-md text-white text-sm `}
-                                                                        disabled
-                                                                    >
-                                                                        Unggah
-                                                                    </button>
-                                                                )}
-                                                            </AlertDialogFooter>
-                                                        </form>
-                                                    </AlertDialogContent>
-                                                </AlertDialog>
-                                            )}
+                                    <div>
+                                        <p className="font-semibold text-xl">
+                                            Rp <span className="text-2xl">{formatter.format(payment.amount)}</span>
+                                        </p>
                                     </div>
+
+                                    <div className="font-medium text-base">
+                                        <div className="flex justify-between">
+                                            <p>Jadwal: </p>
+                                            <p>{formatDate(payment.appointment.date)}, {payment.appointment.time.substring(0, 5)} WIB</p>
+                                        </div>
+                                        <div className="flex justify-between">
+                                            <p>Layanan: </p>
+                                            <p>{treatments[payment.appointment.treatment_id - 1].name}</p>
+                                        </div>
+                                        {
+                                            timeLeft.minutes > 0 | timeLeft.seconds > 0 && payment.status !== 'Berhasil' ?
+                                                <div className="flex justify-between">
+                                                    <p>Batas Pembayaran: </p>
+                                                    <p>
+                                                        {timeLeft.minutes} Menit {timeLeft.seconds} Detik
+                                                    </p>
+                                                </div> : null
+                                        }
+                                    </div>
+
+                                    {payment.payment_date && (
+                                        <p className="font-medium text-sm text-gray-400">
+                                            Dibayar Pada {payment.payment_date}
+                                        </p>
+                                    )}
+
+                                    {!payment.date &&
+                                        !payment.payment_proof && payment.status == "Menunggu Pembayaran" && (
+                                            <AlertDialog
+                                                defaultOpen={false}
+                                                onOpenChange={() =>
+                                                    setData(
+                                                        "payment_id",
+                                                        payment.id
+                                                    )
+                                                }
+                                            >
+                                                <AlertDialogTrigger className="w-full bg-blue-600 text-white font-semibold py-1 px-2 rounded-md shadow-md hover:bg-blue-700 transition-all">
+                                                    Konfirmasi Pembayaran
+                                                </AlertDialogTrigger>
+                                                <AlertDialogContent>
+                                                    <form onSubmit={submit}>
+                                                        <AlertDialogHeader>
+                                                            <AlertDialogTitle>
+                                                                Konfirmasi
+                                                                Pembayaran  {payment.payment_code}
+                                                            </AlertDialogTitle>
+                                                            <div>
+                                                                <p>
+                                                                    Kirim bukti pembayaran Anda dan Staff kami akan mengkonfirmasi janji temu Anda
+                                                                </p>
+                                                                <div className="py-8 flex flex-col gap-2">
+                                                                    <input
+                                                                        type="file"
+                                                                        accept="image/*"
+                                                                        id="image"
+                                                                        onChange={
+                                                                            handleFileChange
+                                                                        }
+                                                                        className="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-ForestGreen focus:border-transparent"
+                                                                    />
+                                                                    <p className="text-sm font-medium">
+                                                                        Format file yang diterima: jpeg, jpg, png, webp
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </AlertDialogHeader>
+                                                        <AlertDialogFooter>
+                                                            <AlertDialogCancel>
+                                                                Batal
+                                                            </AlertDialogCancel>
+                                                            {data.payment_proof ? (
+                                                                <button
+                                                                    type="submit"
+                                                                    className={`bg-ForestGreen hover:bg-ForestGreen hover:brightness-95 px-4 py-1 rounded-md text-white text-sm ${processing
+                                                                        ? "cursor-not-allowed opacity-30"
+                                                                        : ""
+                                                                        }`}
+                                                                    disabled={
+                                                                        processing
+                                                                    }
+                                                                >
+                                                                    {processing
+                                                                        ? "Mengirim..."
+                                                                        : "Kirim"}
+                                                                </button>
+                                                            ) : (
+                                                                <button
+                                                                    type="submit"
+                                                                    className={`bg-ForestGreen hover:bg-ForestGreen hover:brightness-95 px-4 py-1 rounded-md text-white text-sm cursor-pointer`}
+                                                                    disabled
+                                                                >
+                                                                    Kirim
+                                                                </button>
+                                                            )}
+                                                        </AlertDialogFooter>
+                                                    </form>
+                                                </AlertDialogContent>
+                                            </AlertDialog>
+                                        )}
+
+
+                                    <div
+                                        className={`absolute left-0 top-0 h-full w-4 ${payment.status == "Berhasil"
+                                            ? "bg-customGreen"
+                                            : payment.status ==
+                                                "Menunggu Pembayaran"
+                                                ? "bg-blue-600"
+                                                : payment.status ==
+                                                    "Menunggu Konfirmasi"
+                                                    ? "bg-ForestGreen"
+                                                    : payment.status == "Dibatalkan"
+                                                        ? "bg-customRed"
+                                                        : null
+                                            } `}
+                                    ></div>
                                 </div>
                             );
                         })}

@@ -71,7 +71,7 @@ const HubungiKami = ({auth}) => {
                     rows="10"
                     placeholder="Pesan Kamu"
                     autoComplete="off"
-                    className="w-full bg-customWhite resize-none rounded-md focus:border-KellyGreen border focus:ring-KellyGreen  "
+                    className="w-full bg-customWhite resize-none rounded-md focus:border-ForestGreen border focus:ring-ForestGreen"
                 ></textarea>
 
                 <button
