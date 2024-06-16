@@ -29,7 +29,10 @@ class OwnerController extends Controller
 
     public function jadwalIndex()
     {
-        return Inertia::render('Owner/OwnerJadwal');
+        $doctors = User::where('role', 'dokter')->get();
+        return Inertia::render('Owner/OwnerJadwal', [
+            'doctors' => $doctors
+        ]);
     }
 
     public function dokterIndex()

@@ -10,6 +10,7 @@ use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\TagihanController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\ScheduleController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -36,6 +37,7 @@ Route::get('/', function () {
         'appointments' => \App\Models\Appointment::where('status', 'Selesai')->count(),
         'notif' => Auth::check() ? \App\Models\Payment::where('user_id', Auth::user()->id)->where('status', 'Menunggu Pembayaran')->count() : 0,
         'tour' => session('tour'),
+        'message' => session('message'),
     ]);
 })
 ->name('index')
@@ -120,6 +122,8 @@ Route::middleware(['auth', 'verified','RoleCheck:owner'])->group(function () {
 
     Route::get('/owner/staff', [OwnerController::class, 'staffIndex'])->name('owner.staff');
     Route::get('/owner/pembayaran', [OwnerController::class, 'pembayaranIndex'])->name('owner.pembayaran');
+
+    Route::post('/owner/schedule/store', [ScheduleController::class, 'store'])->name('schedule.store');
 });
 
 // Skip

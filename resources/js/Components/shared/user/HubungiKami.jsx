@@ -11,12 +11,16 @@ const HubungiKami = ({auth}) => {
     
     const submitMessage = async (e) => {
         e.preventDefault();
-        await post(route("message.store"));
-        setData({
-            nama: auth && auth.user ? auth.user.name : '',
-            email: auth && auth.user ? auth.user.email : '',
-            pesan: ''
-        });
+        try {
+            await post(route("message.store"));
+            setData({
+                nama: auth && auth.user ? auth.user.name : '',
+                email: auth && auth.user ? auth.user.email : '',
+                pesan: ''
+            });
+        } catch (error) {
+            console.error("Failed to post message:", error);
+        }
     };
 
     return (
@@ -75,7 +79,7 @@ const HubungiKami = ({auth}) => {
                 ></textarea>
 
                 <button
-                    className="py-4 font-semibold bg-ForestGreen rounded-md text-customWhite"
+                    className="py-4 font-semibold bg-ForestGreen rounded-md text-customWhite hover:brightness-90 transition-all"
                     type="submit"
                 >
                     Kirimkan Pesan

@@ -1,8 +1,19 @@
 import OwnerLayout from "@/Layouts/OwnerLayout";
 import Pagination from "@/Components/Pagination";
-import { Link } from "@inertiajs/react";
+import { Link, useForm } from "@inertiajs/react";
 import { useState } from "react";
 import { FaEdit, FaRegTrashAlt } from "react-icons/fa";
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "@/Components/ui/alert-dialog"
 
 const OwnerStaff = ({ staffs }) => {
     const [open, setOpen] = useState(true);
@@ -28,6 +39,17 @@ const OwnerStaff = ({ staffs }) => {
         const options = { year: 'numeric', month: 'short', day: '2-digit' };
         return date.toLocaleDateString('id-ID', options);
     };
+    
+    const { data, setData, post } = useForm({
+        name: '',
+        email: '',
+        password: '',
+        role: "staff",
+        gender: '',
+        phone_number: '',
+        address: '',
+        birthdate: '',
+    });
 
     return (
         <OwnerLayout open={open} setOpen={setOpen} navTitle="Staff">
@@ -35,7 +57,7 @@ const OwnerStaff = ({ staffs }) => {
                 <span className="text-gray-500">Dashboard </span> &gt; Staff
             </div>
 
-            <div className="flex justify-end mt-8">
+            <div className="flex justify-between mt-8">
                 <input
                     type="text"
                     placeholder="Cari disini..."
@@ -43,6 +65,24 @@ const OwnerStaff = ({ staffs }) => {
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="rounded-md border-gray-400 placeholder:font-medium placeholder:text-gray-400 focus:border-ForestGreen focus:ring-ForestGreen w-72"
                 />
+
+                <AlertDialog>
+                    <AlertDialogTrigger>Open</AlertDialogTrigger>
+                    <AlertDialogContent>
+                        <AlertDialogHeader>
+                            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                            <AlertDialogDescription>
+                                This action cannot be undone. This will permanently delete your account
+                                and remove your data from our servers.
+                            </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                            <AlertDialogAction>Continue</AlertDialogAction>
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+                </AlertDialog>
+
             </div>
 
             <div className="overflow-hidden rounded-md border border-gray-200 shadow-md mt-8">
