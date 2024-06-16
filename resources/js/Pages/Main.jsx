@@ -30,10 +30,18 @@ export default function Main({
     information,
     appointments,
     notif,
+    message,
 }) {
     const { toast } = useToast();
 
     useEffect(() => {
+        if (message) {
+            toast({
+                variant: "success",
+                title: "s",
+                description: "Lihat detail pembayaran janji temu Anda",
+            });
+        }
         if (status) {
             toast({
                 variant: "success",
@@ -65,7 +73,7 @@ export default function Main({
 
     console.log(tour)
 
-    {  
+    {
         auth &&
             auth.user &&
             useEffect(() => {
@@ -150,7 +158,7 @@ export default function Main({
 
         return () => clearTimeout(timer);
     }, []);
-
+    console.log('meesage:' + message)
     return (
         <>
             <Head title="Home" />
@@ -158,6 +166,13 @@ export default function Main({
                 className="flex flex-col items-center bg-customWhite lg:bg-customWhite"
                 id="home"
             >
+                {/* Notification */}
+                {message ?
+                    <div className="fixed w-32 bg-green-400 p-4 top-8 z-10 shadow-md">
+                        {message}
+                    </div> : null
+                } 
+                {/*  */}
                 <div className="px-8 md:px-0 w-full md:w-4/5 max-w-[1300px]">
                     {/* Nav */}
                     <Navbar auth={auth} notif={notif}>
