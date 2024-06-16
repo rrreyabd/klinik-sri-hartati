@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Doctor extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = [
         'user_id',
         'nik',
@@ -17,7 +17,7 @@ class Doctor extends Model
         'address',
         'specialization',
         'birthdate',
-    'status',
+        'status',
     ];
     public function user()
     {

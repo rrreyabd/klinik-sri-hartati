@@ -8,27 +8,25 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/Components/ui/select";
-import { ArrowLeft } from "lucide-react";
 
-const OwnerDokterEdit = ({ doctor }) => {
+const OwnerStaffAdd = () => {
     const [open, setOpen] = useState(true);
 
     const { data, setData, post, processing, errors, reset } = useForm({
-        name: doctor.user.name,
-        email: doctor.user.email,
-        nik: doctor.nik,
-        phone_number: doctor.phone_number,
-        specialization: doctor.specialization,
-        gender: doctor.gender,
-        address: doctor.address,
-        birthdate: doctor.birthdate,
-        status: doctor.status,
+        name: '',
+        email: '',
+        password: '',
+        nik: '',
+        gender: '',
+        phone_number: '',
+        address: '',
+        birthdate: '',
     });
 
     const submit = (e) => {
         e.preventDefault();
 
-        post(route("owner.dokter.update", doctor.id));
+        post(route('owner.staff.store'))
     };
 
     const handleGoBack = () => {
@@ -36,27 +34,27 @@ const OwnerDokterEdit = ({ doctor }) => {
     };
 
     return (
-        <OwnerLayout open={open} setOpen={setOpen} navTitle="Edit Dokter">
+        <OwnerLayout open={open} setOpen={setOpen} navTitle="Edit Staff">
             <div className="text-lg font-medium">
                 <span className="text-gray-500">
                     {" "}
                     <Link href="/owner"> Dashboard </Link> &gt;{" "}
-                    <Link href="/owner/dokter"> Dokter </Link>{" "}
+                    <Link href="/owner/staff"> Staff </Link>{" "}
                 </span>{" "}
-                &gt; Edit Data Dokter
+                &gt; Tambah Staff
             </div>
 
-            
+
 
             <div className="bg-white rounded-md shadow-md px-16 py-8 mt-8">
-                <h1 className="font-semibold text-2xl">Edit Data Dokter</h1>
+                <h1 className="font-semibold text-2xl">Tambah Staff</h1>
                 <hr className="my-4" />
 
                 <form onSubmit={submit}>
                     <div className="grid grid-cols-2 gap-x-16 gap-y-6">
-                        {/* Nama Dokter */}
+                        {/* Nama Staff */}
                         <div className="">
-                            <p className="font-medium">Nama Dokter</p>
+                            <p className="font-medium">Nama</p>
                             <input
                                 type="text"
                                 name=""
@@ -79,6 +77,21 @@ const OwnerDokterEdit = ({ doctor }) => {
                                 value={data.email}
                                 onChange={(e) =>
                                     setData("email", e.target.value)
+                                }
+                                className="w-full mt-1 border-2 border-black/20 rounded-md h-12"
+                            />
+                        </div>
+
+                        {/* Password */}
+                        <div className="">
+                            <p className="font-medium">Password</p>
+                            <input
+                                type="password"
+                                name=""
+                                id=""
+                                value={data.password}
+                                onChange={(e) =>
+                                    setData("password", e.target.value)
                                 }
                                 className="w-full mt-1 border-2 border-black/20 rounded-md h-12"
                             />
@@ -141,54 +154,6 @@ const OwnerDokterEdit = ({ doctor }) => {
                             />
                         </div>
 
-                        {/* Spesialis */}
-                        <div className="">
-                            <p className="font-medium">Spesialis</p>
-                            <Select
-                                defaultValue={data.specialization}
-                                onValueChange={(value) =>
-                                    setData("specialization", value)
-                                }
-                                value={data.specialization}
-                            >
-                                <SelectTrigger className="w-full mt-1 border-2 border-black/20 rounded-md h-12 font-medium">
-                                    <SelectValue placeholder="Spesialis" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem
-                                        className="font-medium text-sm py-2"
-                                        value="Umum"
-                                    >
-                                        Umum
-                                    </SelectItem>
-                                    <SelectItem
-                                        className="font-medium text-sm py-2"
-                                        value="Dermatologist"
-                                    >
-                                        Dermatologist
-                                    </SelectItem>
-                                    <SelectItem
-                                        className="font-medium text-sm py-2"
-                                        value="Cardiologist"
-                                    >
-                                        Cardiologist
-                                    </SelectItem>
-                                    <SelectItem
-                                        className="font-medium text-sm py-2"
-                                        value="Gynecologist"
-                                    >
-                                        Gynecologist
-                                    </SelectItem>
-                                    <SelectItem
-                                        className="font-medium text-sm py-2"
-                                        value="Anesthesiologist"
-                                    >
-                                        Anesthesiologist
-                                    </SelectItem>
-                                </SelectContent>
-                            </Select>
-                        </div>
-
                         {/* Jenis Kelamin */}
                         <div className="">
                             <p className="font-medium">Jenis Kelamin</p>
@@ -234,53 +199,18 @@ const OwnerDokterEdit = ({ doctor }) => {
                             />
                         </div>
 
-                        {/* Status */}
-                        <div>
-                            <p className="font-medium">Status</p>
-                            <Select
-                                defaultValue={data.status}
-                                onValueChange={(value) =>
-                                    setData("status", value)
-                                }
-                                value={data.status}
-                            >
-                                <SelectTrigger
-                                    className={`w-full mt-1 border-2 border-black/20 rounded-md h-12 font-semibold text-white ${
-                                        data.status == "Aktif"
-                                            ? "bg-ForestGreen"
-                                            : "bg-red-600"
-                                    } `}
-                                >
-                                    <SelectValue placeholder="Status" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem
-                                        className="font-medium text-sm py-2"
-                                        value="Aktif"
-                                    >
-                                        Aktif
-                                    </SelectItem>
-                                    <SelectItem
-                                        className="font-medium text-sm py-2"
-                                        value="Tidak Aktif"
-                                    >
-                                        Tidak Aktif
-                                    </SelectItem>
-                                </SelectContent>
-                            </Select>
-                        </div>
+
                     </div>
                     <div className="mt-8 flex justify-end">
                         <button
                             type="submit"
                             disabled={processing}
-                            className={`font-semibold text-white w-52 py-2 rounded-md shadow-md ${
-                                processing
-                                    ? "bg-ForestGreen/50"
-                                    : "bg-ForestGreen"
-                            } `}
+                            className={`font-semibold text-white w-52 py-2 rounded-md shadow-md ${processing
+                                ? "bg-ForestGreen/50"
+                                : "bg-ForestGreen"
+                                } `}
                         >
-                            {processing ? "Menyimpan..." : "Simpan Perubahan"}
+                            {processing ? "Menyimpan..." : "Tambah"}
                         </button>
                     </div>
                 </form>
@@ -289,4 +219,4 @@ const OwnerDokterEdit = ({ doctor }) => {
     );
 };
 
-export default OwnerDokterEdit;
+export default OwnerStaffAdd;

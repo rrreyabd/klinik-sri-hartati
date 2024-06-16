@@ -53,11 +53,9 @@ class OwnerController extends Controller
 
     public function dokterUpdate(Request $request, $id)
     {
-        dd($request->all());
-
         $doctor = Doctor::find($id);
-        $doctor->update($request->all());
-        return redirect()->route('owner.dokter.index');
+        
+        return redirect()->route('owner.dokter');
     }
 
     public function dokterDelete($id)
@@ -67,12 +65,102 @@ class OwnerController extends Controller
         return redirect()->route('owner.dokter')->with('success', 'Dokter berhasil dihapus');
     }
 
+    // Staff
     public function staffIndex()
     {
-        $staff = Staff::with('user')->get();
+        $staff = Staff::with('user')->orderBy('status', 'asc')->get();
         return Inertia::render('Owner/OwnerStaff', [
             'staffs' => $staff
         ]);
+    }
+
+    public function staffAdd()
+    {
+        return Inertia::render('Owner/OwnerStaffAdd');
+    }
+
+    public function staffStore(Request $request) {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+
+            'nik' => 'required',
+            'gender' => 'required',
+            'phone_number' => 'required',
+            'address' => 'required',
+            'birthdate' => 'required',
+        ]);
+        
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'role' => 'staff',
+            'password' => bcrypt($request->password),
+            'email_verified_at' => now(),
+        ]);
+        
+        $staff = Staff::create([
+            'user_id' => $user->id,
+            'nik' => $request->nik,
+            'gender' => $request->gender,
+            'phone_number' => $request->phone_number,
+            'address'   => $request->address,
+            'birthdate' => $request->birthdate,
+            'status'   => 'Aktif',
+        ]);
+
+        return redirect()->route('owner.staff')->with('success', 'Staff berhasil ditambahkan');
+    }
+
+    public function staffEdit($id)
+    {
+        $staff = Staff::with('user')->find($id);
+        return Inertia::render('Owner/OwnerStaffEdit', [
+            'staff' => $staff
+        ]);
+    }
+
+    public function staffUpdate(Request $request, $id)
+    {
+        $request->validate([
+            'nik' => 'required',
+            'gender' => 'required',
+            'phone_number' => 'required',
+            'address' => 'required',
+            'birthdate' => 'required',
+            'status' => 'required',
+        ]);
+
+        try {
+            $staff = Staff::findOrFail($id);
+
+            $staff->update([
+                'nik' => $request->nik,
+                'gender' => $request->gender,
+                'phone_number' => $request->phone_number,
+                'address'   => $request->address,
+                'birthdate' => $request->birthdate,
+                'status'   => $request->status,
+            ]);
+
+            $userData = array_filter($request->only('name', 'email'));
+            if (!empty($userData)) {
+                $staff->user()->update($userData);
+            }
+
+
+            return redirect()->route('owner.staff')->with('success', 'Staff berhasil diupdate');
+        } catch (\Exception $e) {
+            return redirect()->route('owner.staff')->with('error', 'Terjadi kesalahan saat menyimpan data. Silahkan coba lagi.');
+        }
+    }
+
+    public function staffDelete($id)
+    {
+        $staff = Staff::find($id);
+        $staff->delete();
+        return redirect()->route('owner.staff')->with('success', 'Staff berhasil dihapus');
     }
     public function pasienIndex()
     {

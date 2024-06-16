@@ -10,25 +10,24 @@ import {
 } from "@/Components/ui/select";
 import { ArrowLeft } from "lucide-react";
 
-const OwnerDokterEdit = ({ doctor }) => {
+const OwnerStaffEdit = ({ staff }) => {
     const [open, setOpen] = useState(true);
 
     const { data, setData, post, processing, errors, reset } = useForm({
-        name: doctor.user.name,
-        email: doctor.user.email,
-        nik: doctor.nik,
-        phone_number: doctor.phone_number,
-        specialization: doctor.specialization,
-        gender: doctor.gender,
-        address: doctor.address,
-        birthdate: doctor.birthdate,
-        status: doctor.status,
+        name: staff.user.name,
+        email: staff.user.email,
+        nik: staff.nik,
+        gender: staff.gender,
+        phone_number: staff.phone_number,
+        address: staff.address,
+        birthdate: staff.birthdate,
+        status: staff.status,
     });
 
     const submit = (e) => {
         e.preventDefault();
 
-        post(route("owner.dokter.update", doctor.id));
+        post(route("owner.staff.update", staff.id));
     };
 
     const handleGoBack = () => {
@@ -36,27 +35,27 @@ const OwnerDokterEdit = ({ doctor }) => {
     };
 
     return (
-        <OwnerLayout open={open} setOpen={setOpen} navTitle="Edit Dokter">
+        <OwnerLayout open={open} setOpen={setOpen} navTitle="Edit Staff">
             <div className="text-lg font-medium">
                 <span className="text-gray-500">
                     {" "}
                     <Link href="/owner"> Dashboard </Link> &gt;{" "}
-                    <Link href="/owner/dokter"> Dokter </Link>{" "}
+                    <Link href="/owner/staff"> Staff </Link>{" "}
                 </span>{" "}
-                &gt; Edit Data Dokter
+                &gt; Edit Data Staff
             </div>
 
             
 
             <div className="bg-white rounded-md shadow-md px-16 py-8 mt-8">
-                <h1 className="font-semibold text-2xl">Edit Data Dokter</h1>
+                <h1 className="font-semibold text-2xl">Edit Data Staff</h1>
                 <hr className="my-4" />
 
                 <form onSubmit={submit}>
                     <div className="grid grid-cols-2 gap-x-16 gap-y-6">
-                        {/* Nama Dokter */}
+                        {/* Nama Staff */}
                         <div className="">
-                            <p className="font-medium">Nama Dokter</p>
+                            <p className="font-medium">Nama Staff</p>
                             <input
                                 type="text"
                                 name=""
@@ -76,11 +75,12 @@ const OwnerDokterEdit = ({ doctor }) => {
                                 type="text"
                                 name=""
                                 id=""
+                                disabled
                                 value={data.email}
                                 onChange={(e) =>
                                     setData("email", e.target.value)
                                 }
-                                className="w-full mt-1 border-2 border-black/20 rounded-md h-12"
+                                className="w-full mt-1 border-2 border-black/20 rounded-md h-12 bg-gray-300 cursor-not-allowed"
                             />
                         </div>
 
@@ -139,54 +139,6 @@ const OwnerDokterEdit = ({ doctor }) => {
                                 }
                                 className="w-full mt-1 border-2 border-black/20 rounded-md h-12"
                             />
-                        </div>
-
-                        {/* Spesialis */}
-                        <div className="">
-                            <p className="font-medium">Spesialis</p>
-                            <Select
-                                defaultValue={data.specialization}
-                                onValueChange={(value) =>
-                                    setData("specialization", value)
-                                }
-                                value={data.specialization}
-                            >
-                                <SelectTrigger className="w-full mt-1 border-2 border-black/20 rounded-md h-12 font-medium">
-                                    <SelectValue placeholder="Spesialis" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem
-                                        className="font-medium text-sm py-2"
-                                        value="Umum"
-                                    >
-                                        Umum
-                                    </SelectItem>
-                                    <SelectItem
-                                        className="font-medium text-sm py-2"
-                                        value="Dermatologist"
-                                    >
-                                        Dermatologist
-                                    </SelectItem>
-                                    <SelectItem
-                                        className="font-medium text-sm py-2"
-                                        value="Cardiologist"
-                                    >
-                                        Cardiologist
-                                    </SelectItem>
-                                    <SelectItem
-                                        className="font-medium text-sm py-2"
-                                        value="Gynecologist"
-                                    >
-                                        Gynecologist
-                                    </SelectItem>
-                                    <SelectItem
-                                        className="font-medium text-sm py-2"
-                                        value="Anesthesiologist"
-                                    >
-                                        Anesthesiologist
-                                    </SelectItem>
-                                </SelectContent>
-                            </Select>
                         </div>
 
                         {/* Jenis Kelamin */}
@@ -289,4 +241,4 @@ const OwnerDokterEdit = ({ doctor }) => {
     );
 };
 
-export default OwnerDokterEdit;
+export default OwnerStaffEdit;

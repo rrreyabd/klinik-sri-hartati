@@ -1,19 +1,8 @@
 import OwnerLayout from "@/Layouts/OwnerLayout";
 import Pagination from "@/Components/Pagination";
-import { Link, useForm } from "@inertiajs/react";
+import { Link } from "@inertiajs/react";
 import { useState } from "react";
-import { FaEdit, FaRegTrashAlt } from "react-icons/fa";
-import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
-} from "@/Components/ui/alert-dialog"
+import { FaEdit, FaPlus } from "react-icons/fa";
 
 const OwnerStaff = ({ staffs }) => {
     const [open, setOpen] = useState(true);
@@ -39,17 +28,6 @@ const OwnerStaff = ({ staffs }) => {
         const options = { year: 'numeric', month: 'short', day: '2-digit' };
         return date.toLocaleDateString('id-ID', options);
     };
-    
-    const { data, setData, post } = useForm({
-        name: '',
-        email: '',
-        password: '',
-        role: "staff",
-        gender: '',
-        phone_number: '',
-        address: '',
-        birthdate: '',
-    });
 
     return (
         <OwnerLayout open={open} setOpen={setOpen} navTitle="Staff">
@@ -66,23 +44,13 @@ const OwnerStaff = ({ staffs }) => {
                     className="rounded-md border-gray-400 placeholder:font-medium placeholder:text-gray-400 focus:border-ForestGreen focus:ring-ForestGreen w-72"
                 />
 
-                <AlertDialog>
-                    <AlertDialogTrigger>Open</AlertDialogTrigger>
-                    <AlertDialogContent>
-                        <AlertDialogHeader>
-                            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                            <AlertDialogDescription>
-                                This action cannot be undone. This will permanently delete your account
-                                and remove your data from our servers.
-                            </AlertDialogDescription>
-                        </AlertDialogHeader>
-                        <AlertDialogFooter>
-                            <AlertDialogCancel>Cancel</AlertDialogCancel>
-                            <AlertDialogAction>Continue</AlertDialogAction>
-                        </AlertDialogFooter>
-                    </AlertDialogContent>
-                </AlertDialog>
-
+                <Link
+                    href={route('owner.staff.add')}
+                    className="bg-ForestGreen text-white rounded-md px-4 py-2 font-semibold flex gap-2 items-center"
+                >
+                    <FaPlus />
+                    Tambah Staff
+                </Link>
             </div>
 
             <div className="overflow-hidden rounded-md border border-gray-200 shadow-md mt-8">
@@ -106,6 +74,9 @@ const OwnerStaff = ({ staffs }) => {
                             </td>
                             <td className="font-semibold text-center px-3 py-4">
                                 Tanggal Lahir
+                            </td>
+                            <td className="font-semibold text-center px-3 py-4">
+                                Status
                             </td>
                             <td className="font-semibold text-center px-3 py-4">
                                 Aksi
@@ -133,13 +104,27 @@ const OwnerStaff = ({ staffs }) => {
                                 <td className="py-4 px-3 font-medium text-center">
                                     {formatDate(staff.birthdate)}
                                 </td>
+                                <td className="py-4 px-3 font-medium">
+                                    <div className="w-full flex justify-center">
+                                        <div
+                                            className={`text-white w-32 py-2 rounded-md text-sm text-center ${staff.status == "Aktif"
+                                                ? "bg-ForestGreen"
+                                                : "bg-red-600"
+                                                } `}
+                                        >
+                                            {staff.status}
+                                        </div>
+                                    </div>
+                                </td>
                                 <td className="py-4 px-3 font-medium flex justify-center gap-2">
-                                    <button>
+                                    <Link
+                                        href={route("owner.staff.edit", {
+                                            id: staff.id,
+                                        })}
+                                    >
                                         <FaEdit className="text-ForestGreen h-6 w-6" />
-                                    </button>
-                                    <Link>
-                                        <FaRegTrashAlt className="text-customRed h-6 w-6" />
                                     </Link>
+                                    {/* <OwnerDeleteAlert dataId={staff.id} routeName="owner.staff.delete" /> */}
                                 </td>
                             </tr>
                         ))}

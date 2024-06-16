@@ -16,24 +16,30 @@ class StaffSeeder extends Seeder
         $staffs = [
             [
                 'user_id' => 2,
+                'nik' => '1234567890123521',
                 'gender' => 'Laki-laki',
                 'phone_number' => '0812345678',
                 'address' => 'Jl. Medan No. 1',
                 'birthdate' => '2000-12-01',
+                'status' => 'Aktif'
             ],
             [
                 'user_id' => 3,
+                'nik' => '1234567890123522',
                 'gender' => 'Perempuan',
                 'phone_number' => '088888888888',
                 'address' => 'Jl. Medan No. 2',
                 'birthdate' => '1997-04-04',
+                'status' => 'Aktif'
             ],
             [
                 'user_id' => 4,
                 'gender' => 'Laki-laki',
+                'nik' => '1234567890123523',
                 'phone_number' => '080808080808',
                 'address' => 'Jl. Medan No. 3',
                 'birthdate' => '1997-05-07',
+                'status' => 'Tidak Aktif'
             ],
         ];
 
