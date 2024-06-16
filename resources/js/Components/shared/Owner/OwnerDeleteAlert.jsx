@@ -1,3 +1,4 @@
+import { useForm } from '@inertiajs/inertia-react';
 import {
     AlertDialog,
     AlertDialogAction,
@@ -9,11 +10,19 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/Components/ui/alert-dialog";
-import { Link } from "@inertiajs/react";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { IoWarningOutline } from "react-icons/io5";
 
 const OwnerDeleteAlert = ({ dataId, routeName }) => {
+    const { data, setData, post } = useForm({
+        id: null,
+    });
+
+    const handleDelete = () => {
+        setData('id', dataId);
+        post(routeName);
+    };
+
     return (
         <AlertDialog>
             <AlertDialogTrigger>
@@ -35,12 +44,13 @@ const OwnerDeleteAlert = ({ dataId, routeName }) => {
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel>Batal</AlertDialogCancel>
-                    <Link
-                        href={route(routeName, dataId)}
+                    <button
+                        type="submit"
                         className="text-white font-medium text-sm flex items-center justify-center bg-red-600 px-4 py-2 rounded-md"
+                        onClick={handleDelete}
                     >
                         Hapus
-                    </Link>
+                    </button>
                 </AlertDialogFooter>
             </AlertDialogContent>
         </AlertDialog>
