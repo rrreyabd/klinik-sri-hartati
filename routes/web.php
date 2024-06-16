@@ -116,6 +116,8 @@ Route::middleware(['auth', 'verified','RoleCheck:owner'])->group(function () {
     Route::get('/owner/pasien', [OwnerController::class, 'pasienIndex'])->name('owner.pasien');
     
     Route::get('/owner/dokter', [OwnerController::class, 'dokterIndex'])->name('owner.dokter');
+    Route::get('/owner/dokter/add', [OwnerController::class, 'dokterAdd'])->name('owner.dokter.add');
+    Route::post('/owner/dokter/store', [OwnerController::class, 'dokterStore'])->name('owner.dokter.store');
     Route::get('/owner/dokter/edit/{id}', [OwnerController::class, 'dokterEdit'])->name('owner.dokter.edit');
     Route::post('/owner/dokter/update/{id}', [OwnerController::class, 'dokterUpdate'])->name('owner.dokter.update');
     Route::get('/owner/dokter/delete/{id}', [OwnerController::class, 'dokterDelete'])->name('owner.dokter.delete');

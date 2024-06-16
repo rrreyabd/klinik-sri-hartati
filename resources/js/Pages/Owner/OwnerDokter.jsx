@@ -2,7 +2,7 @@ import OwnerLayout from "@/Layouts/OwnerLayout";
 import Pagination from "@/Components/Pagination";
 import { Link } from "@inertiajs/react";
 import { useState } from "react";
-import { FaEdit, FaRegTrashAlt } from "react-icons/fa";
+import { FaEdit, FaPlus, FaRegTrashAlt } from "react-icons/fa";
 import OwnerDeleteAlert from "@/Components/shared/Owner/OwnerDeleteAlert";
 
 import {
@@ -42,14 +42,14 @@ const OwnerDokter = ({ doctors }) => {
         const options = { year: "numeric", month: "short", day: "2-digit" };
         return date.toLocaleDateString("id-ID", options);
     };
-    
+
     return (
         <OwnerLayout open={open} setOpen={setOpen} navTitle="Dokter">
             <div className="text-lg font-medium">
                 <span className="text-gray-500">Dashboard </span> &gt; Dokter
             </div>
 
-            <div className="flex justify-end mt-8">
+            <div className="flex justify-between mt-8">
                 <input
                     type="text"
                     placeholder="Cari disini..."
@@ -57,6 +57,14 @@ const OwnerDokter = ({ doctors }) => {
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="rounded-md border-gray-400 placeholder:font-medium placeholder:text-gray-400 focus:border-ForestGreen focus:ring-ForestGreen w-72"
                 />
+
+                <Link
+                    href={route('owner.dokter.add')}
+                    className="bg-ForestGreen text-white rounded-md px-4 py-2 font-semibold flex gap-2 items-center"
+                >
+                    <FaPlus />
+                    Tambah Dokter
+                </Link>
             </div>
 
             <div className="overflow-hidden rounded-md border border-gray-200 shadow-md mt-8">
@@ -180,11 +188,10 @@ const OwnerDokter = ({ doctors }) => {
                                 <td className="py-4 px-3 font-medium">
                                     <div className="w-full flex justify-center">
                                         <div
-                                            className={`text-white w-32 py-2 rounded-md text-sm text-center ${
-                                                doctor.status == "Aktif"
+                                            className={`text-white w-32 py-2 rounded-md text-sm text-center ${doctor.status == "Aktif"
                                                     ? "bg-ForestGreen"
                                                     : "bg-red-600"
-                                            } `}
+                                                } `}
                                         >
                                             {doctor.status}
                                         </div>

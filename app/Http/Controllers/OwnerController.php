@@ -43,6 +43,48 @@ class OwnerController extends Controller
         ]);
     }
 
+    public function dokterAdd()
+    {
+
+        return Inertia::render('Owner/OwnerDokterAdd');
+    }
+
+    public function dokterStore(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+
+            'nik' => 'required',
+            'gender' => 'required',
+            'phone_number' => 'required',
+            'specialization' => 'required',
+            'address' => 'required',
+            'birthdate' => 'required',
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'role' => 'staff',
+            'password' => bcrypt($request->password),
+            'email_verified_at' => now(),
+        ]);
+
+        $doctor = Doctor::create([
+            'user_id' => $user->id,
+            'nik' => $request->nik,
+            'gender' => $request->gender,
+            'phone_number' => $request->phone_number,
+            'address'   => $request->address,
+            'specialization' => $request->specialization,
+            'birthdate' => $request->birthdate,
+            'status'   => 'Aktif',
+        ]);
+
+        return redirect()->route('owner.dokter')->with('success', 'Dokter berhasil ditambahkan');
+    }
     public function dokterEdit($id)
     {
         $doctor = Doctor::with('user')->find($id);
@@ -53,9 +95,39 @@ class OwnerController extends Controller
 
     public function dokterUpdate(Request $request, $id)
     {
-        $doctor = Doctor::find($id);
-        
-        return redirect()->route('owner.dokter');
+        $request->validate([
+            'nik' => 'required',
+            'gender' => 'required',
+            'phone_number' => 'required',
+            'address' => 'required',
+            'birthdate' => 'required',
+            'specialization' => 'required',
+            'status' => 'required',
+        ]);
+
+        try {
+            $doctor = Doctor::findOrFail($id);
+
+            $doctor->update([
+                'nik' => $request->nik,
+                'gender' => $request->gender,
+                'phone_number' => $request->phone_number,
+                'address'   => $request->address,
+                'birthdate' => $request->birthdate,
+                'specialization' => $request->specialization,
+                'status'   => $request->status,
+            ]);
+
+            $userData = array_filter($request->only('name', 'email'));
+            if (!empty($userData)) {
+                $doctor->user()->update($userData);
+            }
+
+
+            return redirect()->route('owner.dokter')->with('success', 'Dokter berhasil diupdate');
+        } catch (\Exception $e) {
+            return redirect()->route('owner.dokter')->with('error', 'Terjadi kesalahan saat menyimpan data. Silahkan coba lagi.');
+        }
     }
 
     public function dokterDelete($id)
@@ -79,7 +151,8 @@ class OwnerController extends Controller
         return Inertia::render('Owner/OwnerStaffAdd');
     }
 
-    public function staffStore(Request $request) {
+    public function staffStore(Request $request)
+    {
         $request->validate([
             'name' => 'required',
             'email' => 'required',
@@ -91,7 +164,7 @@ class OwnerController extends Controller
             'address' => 'required',
             'birthdate' => 'required',
         ]);
-        
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -99,7 +172,7 @@ class OwnerController extends Controller
             'password' => bcrypt($request->password),
             'email_verified_at' => now(),
         ]);
-        
+
         $staff = Staff::create([
             'user_id' => $user->id,
             'nik' => $request->nik,
