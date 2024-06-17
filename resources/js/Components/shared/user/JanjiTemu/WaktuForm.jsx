@@ -10,6 +10,7 @@ const WaktuForm = ({
     selectedTime,
     validationErrors,
     appointments,
+    schedules,
 }) => {
     const [time, setTime] = useState(data.jam);
     const [disabledTimes, setDisabledTimes] = useState([]);
@@ -24,7 +25,7 @@ const WaktuForm = ({
 
     useEffect(() => {
         // Cari waktu yang sudah terdaftar untuk tanggal dan dokter yang dipilih
-        if (appointments) {
+        if (appointments && schedules) {
             const fullDate = new Date(selectedDate);
             const date = fullDate.getDate().toString().padStart(2, "0");
             const month = (fullDate.getMonth() + 1).toString().padStart(2, "0");
@@ -37,17 +38,25 @@ const WaktuForm = ({
                 }
             );
     
-            // Ambil waktu dari data janji yang sudah terdaftar
-            const disabledTimes = appointmentsForSelectedDateAndDoctor.map(
-                (appointment) => {
-                    return appointment.time;
+            const schedulesForSelectedDateAndDoctor = schedules.filter(
+                (schedule) => {
+                    return schedule.date == newSelectedDate && schedule.doctor_id == data.dokter;
                 }
             );
-
-            // Atur waktu-waktu yang sudah terdaftar sebagai waktu yang dinonaktifkan
+    
+            // Combine the times from appointments and schedules
+            const combinedTimes = [
+                ...appointmentsForSelectedDateAndDoctor.map((appointment) => appointment.time),
+                ...schedulesForSelectedDateAndDoctor.map((schedule) => schedule.time),
+            ];
+    
+            // Remove duplicates if needed
+            const disabledTimes = Array.from(new Set(combinedTimes));
+    
             setDisabledTimes(disabledTimes);
         }
-    }, [selectedDate, time, data.dokter, appointments]);
+    
+    }, [selectedDate, time, data.dokter, appointments, schedules]);
 
     const onOptionChange = (e) => {
         setTime(e.target.value);

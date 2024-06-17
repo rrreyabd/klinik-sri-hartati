@@ -7,6 +7,7 @@ use App\Models\Doctor;
 use App\Models\Payment;
 use App\Models\Treatment;
 use App\Models\User;
+use App\Models\UnavailableSchedule;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,11 +23,13 @@ class JanjiTemuController extends Controller
         $treatments = Treatment::all();
         $doctors = User::where('role', 'dokter')->get();
         $appointments = Appointment::all();
-        
+        $unavailable_schedule = UnavailableSchedule::all();
+
         return Inertia::render('User/JanjiTemu', [
             'treatments' => $treatments,
             'doctors' => $doctors,
             'appointments' => $appointments,
+            'schedules' => $unavailable_schedule
         ]);
     }
 

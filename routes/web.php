@@ -133,6 +133,7 @@ Route::middleware(['auth', 'verified','RoleCheck:owner'])->group(function () {
     Route::get('/owner/pembayaran', [OwnerController::class, 'pembayaranIndex'])->name('owner.pembayaran');
 
     Route::post('/owner/schedule/store', [ScheduleController::class, 'store'])->name('schedule.store');
+    Route::post('/owner/schedule/destroy/{id}', [ScheduleController::class, 'destroy'])->name('schedule.destroy');
 });
 
 // Skip

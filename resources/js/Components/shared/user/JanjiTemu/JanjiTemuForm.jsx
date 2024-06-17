@@ -17,13 +17,12 @@ import {
 } from "@/Components/ui/alert-dialog";
 import { BsQuestionCircle } from "react-icons/bs";
 
-const JanjiTemuForm = ({ auth, treatments, doctors, appointments }) => {
+const JanjiTemuForm = ({ auth, treatments, doctors, appointments, schedules }) => {
     const steps = ["Layanan", "Waktu"];
     const stepsLength = steps.length;
 
     const [progress, setProgress] = useState(steps[0]);
     const currentStepIndex = steps.indexOf(progress);
-
     // Validasi Error State
     const [validationErrors, setValidationErrors] = useState({});
 
@@ -192,6 +191,7 @@ const JanjiTemuForm = ({ auth, treatments, doctors, appointments }) => {
                         onDateChange={handleDateChange}
                         validationErrors={validationErrors}
                         appointments={appointments}
+                        schedules={schedules}
                     />
                 )}
             </div>
