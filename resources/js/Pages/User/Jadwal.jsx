@@ -56,7 +56,7 @@ const Jadwal = ({
                         Kembali
                     </Link>
                     <h1 className="text-4xl font-semibold">
-                        Jadwal Janji Temu
+                        Janji Temu
                     </h1>
 
                     <div className="w-32"></div>

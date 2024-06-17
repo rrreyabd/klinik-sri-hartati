@@ -121,7 +121,7 @@ export const StaffMenu = [
         title: "Umpan Balik",
         desc: "Melihat pesan yang dikirim oleh pengguna",
         icon: "/assets/staff/3.png",
-        url: "/staff/janji-temu/umpan-balik",
+        url: "/staff/umpan-balik",
     },
     {
         id: 3,

@@ -7,7 +7,8 @@ import { useToast } from "@/Components/ui/use-toast";
 import { FaCheck } from "react-icons/fa";
 
 const StaffJanjiTemu = ({ appointments, status, error }) => {
-    // Variable Hari Ini
+
+    // Variable Data Hari Ini
     const today = new Date().toDateString();
 
     // State
@@ -68,7 +69,7 @@ const StaffJanjiTemu = ({ appointments, status, error }) => {
                             <div className="bg-white rounded-xl shadow-md h-44 w-full flex">
                                 <div className="p-6 w-2/3 flex flex-col gap-4">
                                     <h2 className="text-2xl font-semibold flex ">
-                                        Tata kelola janji temu dengan efisien: pantau jadwal, atur ulang, dan kelola detailnya di dashboard ini.
+                                        Pantau jadwal janji temu pasien. Kesehatan pasien adalah prioritas kita.
                                     </h2>
                                 </div>
                                 <div className="w-1/3 flex justify-center items-end">

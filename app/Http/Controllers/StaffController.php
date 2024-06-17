@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Appointment;
 use App\Models\Doctor;
+use App\Models\Message;
 use App\Models\Payment;
 use App\Models\Treatment;
 use Carbon\Carbon;
@@ -100,8 +101,11 @@ class StaffController extends Controller
         return redirect()->route('staff.pembayaran.index');
     }
 
-    public function rekamMedisIndex()
+    public function umpanBalikIndex()
     {
-        return Inertia::render('Staff/StaffRekamMedis');
+        $feedbacks = Message::all();
+        return Inertia::render('Staff/StaffUmpanBalik', [
+            'feedbacks' => $feedbacks,
+        ]);
     }
 }
