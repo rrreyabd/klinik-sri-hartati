@@ -1,7 +1,10 @@
 import OwnerLayout from "@/Layouts/OwnerLayout";
+import Pagination from "@/Components/Pagination";
 import { Link, useForm } from "@inertiajs/react";
 import { useState } from "react";
-import { FaEdit, FaPlus, FaRegTrashAlt } from "react-icons/fa";
+import { FaPlus, FaRegTrashAlt } from "react-icons/fa";
+import { IoWarningOutline } from "react-icons/io5";
+
 
 import {
     AlertDialog,
@@ -23,7 +26,7 @@ import {
     SelectValue,
 } from "@/Components/ui/select";
 
-const OwnerJadwal = ({ doctors }) => {
+const OwnerJadwal = ({ unavailable_schedules, doctors, userAppointments }) => {
     const [open, setOpen] = useState(true);
 
     const { data, setData, post, processing, errors } = useForm({
@@ -33,13 +36,55 @@ const OwnerJadwal = ({ doctors }) => {
         reason: "",
     });
 
-    const StoreSchedule = (e) => {
-        e.preventDefault()
+    const [currentPage, setCurrentPage] = useState(1);
+    const [searchQuery, setSearchQuery] = useState("");
+    const itemsPerPage = 10;
+    const filteredData = unavailable_schedules.filter((item) => {
+        console.log(item.user)
+        if (item.user && item.user.name) {
+            return item.user.name.toLowerCase().includes(searchQuery.toLowerCase());
+        }
+        return false; 
+    });
 
-        post(route('schedule.store'))
-    }
+    const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = Math.min(startIndex + itemsPerPage, filteredData.length);
+    const slicedData = filteredData.slice(startIndex, endIndex);
 
-    const schedules = ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00']
+    const handlePageChange = (newPage) => {
+        setCurrentPage(newPage);
+    };
+
+    const StoreSchedule = async (e) => {
+        e.preventDefault();
+        await post(route('schedule.store'));
+        window.location.reload(); 
+    };
+
+    
+    const getStatus = (time) => {
+        const appointment = userAppointments.find(appt => appt.time === time);
+        return appointment ? appointment.status : '';
+    };
+    
+    const schedules = [
+        { time: '08:00', status: getStatus('08:00:00') },
+        { time: '09:00', status: getStatus('09:00:00') },
+        { time: '10:00', status: getStatus('10:00:00') },
+        { time: '11:00', status: getStatus('11:00:00') },
+        { time: '12:00', status: getStatus('12:00:00') },
+        { time: '14:00', status: getStatus('14:00:00') },
+        { time: '15:00', status: getStatus('15:00:00') },
+        { time: '16:00', status: getStatus('16:00:00') },
+        { time: '17:00', status: getStatus('17:00:00') },
+        { time: '20:00', status: getStatus('20:00:00') },
+    ];
+
+    const handleConfirm = (unavailable_schedule_id) => {
+        setData(unavailable_schedule_id);
+        post(route("schedule.destroy", { id: unavailable_schedule_id }));
+    };
 
     return (
         <OwnerLayout open={open} setOpen={setOpen} navTitle="Jadwal">
@@ -51,6 +96,8 @@ const OwnerJadwal = ({ doctors }) => {
                 <input
                     type="text"
                     placeholder="Cari disini..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
                     className="rounded-md border-gray-400 w-72 placeholder:font-medium placeholder:text-gray-400 focus:border-ForestGreen focus:ring-ForestGreen"
                 />
 
@@ -115,20 +162,20 @@ const OwnerJadwal = ({ doctors }) => {
                                                 <SelectTrigger className="w-full bg-transparent border-2 border-gray-400 shadow-sm h-12 font-semibold focus:border-ForestGreen focus:ring-0">
                                                     <SelectValue placeholder="Pilih Jam" />
                                                 </SelectTrigger>
-                                                <SelectContent
-                                                    className={`border-2`}
-                                                >
+                                                <SelectContent className={`border-2`}>
                                                     {schedules &&
                                                         schedules.map((schedule) => (
                                                             <SelectItem
-                                                                key={schedule}
-                                                                value={`${schedule}`}
+                                                                key={schedule.time}
+                                                                value={`${schedule.time}`}
                                                                 className={`x transition-all font-semibold cursor-pointer py-3 bg-white w-full flex justify-between border-b border-gray-300`}
+                                                                disabled={schedule.status !== ''}
                                                             >
-                                                                {schedule}
+                                                                {schedule.time} {schedule.status ? `(${schedule.status})` : ''}
                                                             </SelectItem>
                                                         ))}
                                                 </SelectContent>
+
                                             </Select>
                                         </div>
                                         {/*  */}
@@ -163,6 +210,7 @@ const OwnerJadwal = ({ doctors }) => {
                 </AlertDialog>
             </div>
 
+            {unavailable_schedules.length > 0 ? (                            
             <div className="overflow-hidden rounded-md border border-gray-200 shadow-md mt-8">
                 <table className="w-full bg-white h-fit">
                     <thead className="bg-ForestGreen text-white">
@@ -188,30 +236,62 @@ const OwnerJadwal = ({ doctors }) => {
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-300">
-                        {Array.from({ length: 5 }).map((_, i) => (
-                            <tr>
+                        {slicedData.map((unavailable_schedule, index) => (
+                            <tr key={unavailable_schedule.id}>
                                 <td className="py-4 px-3 font-medium text-center">
-                                    1
+                                    {startIndex + index + 1}
                                 </td>
                                 <td className="py-4 px-3 font-medium">
-                                    Dr. John Doe
+                                    {unavailable_schedule.user.name}
                                 </td>
                                 <td className="py-4 px-3 font-medium text-center">
-                                    18/11/2024
+                                    {unavailable_schedule.date}
                                 </td>
                                 <td className="py-4 px-3 font-medium text-center">
-                                    09.00
+                                    {unavailable_schedule.time}
                                 </td>
                                 <td className="py-4 px-3 font-medium text-center">
-                                    Healing
+                                    {unavailable_schedule.reason}
                                 </td>
                                 <td className="py-4 px-3 font-medium flex justify-center gap-2">
-                                    <button>
-                                        <FaEdit className="text-ForestGreen h-6 w-6" />
-                                    </button>
-                                    <Link>
-                                        <FaRegTrashAlt className="text-customRed h-6 w-6" />
-                                    </Link>
+                                    <AlertDialog onOpenChange={() => setData(unavailable_schedule.id)} defaultOpen={false}>
+                                            <AlertDialogTrigger>
+                                                <FaRegTrashAlt className="text-customRed h-6 w-6" />
+                                            </AlertDialogTrigger>
+                                            <AlertDialogContent className="p-4 max-w-xl">
+                                                <AlertDialogHeader>
+                                                    <AlertDialogTitle>
+                                                        <div className="flex flex-col items-center gap-2">
+                                                            <IoWarningOutline className="h-20 w-20 text-customRed" />
+                                                            <p className="text-xl text-customRed text-center px-4">
+                                                                Apakah
+                                                                Anda yakin ingin membatalkan jadwal yang berhalangan
+                                                                ini?
+                                                            </p>
+                                                        </div>
+                                                    </AlertDialogTitle>
+                                                    <AlertDialogDescription className="py-2 text-lg text-center px-8 text-black">
+                                                        Pastikan konfirmasi dengan dokter terkait,
+                                                        karena menyangkut keberlangsungan janji temu dengan pasien.
+                                                    </AlertDialogDescription>
+                                                </AlertDialogHeader>
+                                                <AlertDialogFooter>
+                                                    <AlertDialogCancel className="border-none">
+                                                        Batal
+                                                    </AlertDialogCancel>
+                                                    <button
+                                                        onClick={() => handleConfirm(unavailable_schedule.id)}
+                                                        disabled={processing}
+                                                        className="font-medium text-sm bg-customRed px-4 py-2 rounded-md hover:bg-customRed hover:brightness-95 text-white"
+                                                    >
+                                                        {processing
+                                                            ? "Memproses"
+                                                            : "Hapus"}
+                                                    </button>
+                                                </AlertDialogFooter>
+                                            </AlertDialogContent>
+                                    </AlertDialog>
+                                    
                                 </td>
                             </tr>
                         ))}
@@ -219,26 +299,17 @@ const OwnerJadwal = ({ doctors }) => {
                 </table>
             </div>
 
-            <div className="flex justify-between items-center mt-6">
-                <div className="flex items-center gap-2 px-2">
-                    <div className="bg-ForestGreen text-white font-semibold w-8 h-8 rounded-full flex justify-center items-center">
-                        1
+            ) : (
+                    <div className="flex items-center justify-center h-64">
+                        <h1 className="text-3xl font-semibold text-gray-400">Tidak ada data jadwal berhalangan</h1>
                     </div>
-                    <div className="bg-transparent text-black font-semibold w-8 h-8 rounded-full flex justify-center items-center">
-                        2
-                    </div>
-                    <div className="bg-transparent text-black font-semibold w-8 h-8 rounded-full flex justify-center items-center">
-                        3
-                    </div>
-                    <div className="bg-transparent text-black font-semibold w-8 h-8 rounded-full flex justify-center items-center">
-                        ...
-                    </div>
-                    <div className="bg-transparent text-black font-semibold w-8 h-8 rounded-full flex justify-center items-center">
-                        10
-                    </div>
-                </div>
-                <p className="font-semibold text-black/50">Halaman 1 dari 20</p>
-            </div>
+                )}
+
+                <Pagination
+                    totalPages={totalPages}
+                    currentPage={currentPage}
+                    onPageChange={handlePageChange}
+                />
         </OwnerLayout>
     );
 };

@@ -2,7 +2,7 @@ import Logo from "@/Components/shared/Logo";
 import JanjiTemuForm from "@/Components/shared/user/JanjiTemu/JanjiTemuForm";
 import { Head } from "@inertiajs/react";
 
-const JanjiTemu = ({ auth, patient, treatments, doctors, appointments }) => {
+const JanjiTemu = ({ auth, patient, treatments, doctors, appointments, schedules }) => {
     return (
         <div className="flex justify-center bg-customWhite min-h-screen py-8">
             <Head title="Janji Temu" />
@@ -20,6 +20,7 @@ const JanjiTemu = ({ auth, patient, treatments, doctors, appointments }) => {
                         treatments={treatments}
                         doctors={doctors}
                         appointments={appointments}
+                        schedules={schedules}
                     />
                 </div>
             </div>

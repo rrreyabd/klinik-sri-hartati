@@ -9,6 +9,8 @@ use App\Models\Staff;
 use App\Models\User;
 use App\Models\Payment;
 use App\Models\Patient;
+use App\Models\UnavailableSchedule;
+use App\Models\Appointment;
 use App\Models\AppointmentView;
 
 class OwnerController extends Controller
@@ -29,9 +31,14 @@ class OwnerController extends Controller
 
     public function jadwalIndex()
     {
-        $doctors = User::where('role', 'dokter')->get();
+        $doctor = User::where('role', 'dokter')->get();
+        $schedules = UnavailableSchedule::with('user')->get();
+        $appointments = Appointment::all();
+        // @dd($schedules);
         return Inertia::render('Owner/OwnerJadwal', [
-            'doctors' => $doctors
+            'unavailable_schedules' => $schedules,
+            'doctors' => $doctor,
+            'userAppointments' => $appointments
         ]);
     }
 
