@@ -24,38 +24,38 @@ const WaktuForm = ({
     }, [selectedDate, time]);
 
     useEffect(() => {
-        // Cari waktu yang sudah terdaftar untuk tanggal dan dokter yang dipilih
-        if (appointments && schedules) {
-            const fullDate = new Date(selectedDate);
-            const date = fullDate.getDate().toString().padStart(2, "0");
-            const month = (fullDate.getMonth() + 1).toString().padStart(2, "0");
-            const year = fullDate.getFullYear();
-            const newSelectedDate = year + "-" + month + "-" + date;
-    
+        const fullDate = new Date(selectedDate);
+        const date = fullDate.getDate().toString().padStart(2, "0");
+        const month = (fullDate.getMonth() + 1).toString().padStart(2, "0");
+        const year = fullDate.getFullYear();
+        const newSelectedDate = `${year}-${month}-${date}`;
+
+        let disabledTimesFromAppointments = [];
+        let disabledTimesFromSchedule = [];
+
+        if (appointments) {
             const appointmentsForSelectedDateAndDoctor = appointments.filter(
-                (appointment) => {
-                    return appointment.date == newSelectedDate && appointment.doctor_id == data.dokter;
-                }
+                (appointment) => appointment.date === newSelectedDate && appointment.doctor_id == data.dokter
             );
-    
-            const schedulesForSelectedDateAndDoctor = schedules.filter(
-                (schedule) => {
-                    return schedule.date == newSelectedDate && schedule.doctor_id == data.dokter;
-                }
+
+            disabledTimesFromAppointments = appointmentsForSelectedDateAndDoctor.map(
+                (appointment) => appointment.time
             );
-    
-            // Combine the times from appointments and schedules
-            const combinedTimes = [
-                ...appointmentsForSelectedDateAndDoctor.map((appointment) => appointment.time),
-                ...schedulesForSelectedDateAndDoctor.map((schedule) => schedule.time),
-            ];
-    
-            // Remove duplicates if needed
-            const disabledTimes = Array.from(new Set(combinedTimes));
-    
-            setDisabledTimes(disabledTimes);
         }
-    
+
+        if (schedules) {
+            const scheduleForSelectedDateAndDoctor = schedules.filter(
+                (item) => item.date === newSelectedDate && item.doctor_id == data.dokter
+            );
+
+            disabledTimesFromSchedule = scheduleForSelectedDateAndDoctor.map(
+                (item) => item.time
+            );
+        }
+
+        const combinedDisabledTimes = [...new Set([...disabledTimesFromAppointments, ...disabledTimesFromSchedule])];
+        setDisabledTimes(combinedDisabledTimes);
+
     }, [selectedDate, time, data.dokter, appointments, schedules]);
 
     const onOptionChange = (e) => {

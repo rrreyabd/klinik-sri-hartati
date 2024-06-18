@@ -4,6 +4,8 @@ import { Link, useForm } from "@inertiajs/react";
 import { useState } from "react";
 import { FaPlus, FaRegTrashAlt } from "react-icons/fa";
 import { IoWarningOutline } from "react-icons/io5";
+import { useMemo } from 'react';
+
 
 import {
     AlertDialog,
@@ -39,7 +41,6 @@ const OwnerJadwal = ({ unavailable_schedules, doctors, userAppointments }) => {
     const [searchQuery, setSearchQuery] = useState("");
     const itemsPerPage = 10;
     const filteredData = unavailable_schedules.filter((item) => {
-        console.log(item.user)
         if (item.user && item.user.name) {
             return item.user.name.toLowerCase().includes(searchQuery.toLowerCase());
         }
@@ -61,6 +62,7 @@ const OwnerJadwal = ({ unavailable_schedules, doctors, userAppointments }) => {
         window.location.reload();
     };
 
+
     const getStatus = (date, time) => {
         const appointment = userAppointments.find(appt => appt.date === date && appt.time === time);
         return appointment ? appointment.status : '';
@@ -78,6 +80,36 @@ const OwnerJadwal = ({ unavailable_schedules, doctors, userAppointments }) => {
         { time: '17:00' },
         { time: '20:00' },
     ];
+
+    const handleDoctorChange = (selectedDoctor) => {
+        setData("doctor_id", selectedDoctor);
+    };
+    
+    const handleDateChange = (selectedDate) => {
+        setData("date", selectedDate);
+    };
+    
+    const getStatus = (doctor_id, date, time) => {
+        console.log("Checking status for:", doctor_id, date, time);
+        const appointment = userAppointments.find(appt => {
+            return appt.doctor_id == doctor_id && appt.date == date && appt.time == time;
+        });
+        console.log("Appointment found:", appointment);
+        return appointment ? appointment.status : '';
+    };
+    
+    const schedules = useMemo(() => [
+        { time: '08:00', status: getStatus(data.doctor_id, data.date, '08:00:00') },
+        { time: '09:00', status: getStatus(data.doctor_id, data.date, '09:00:00') },
+        { time: '10:00', status: getStatus(data.doctor_id, data.date, '10:00:00') },
+        { time: '11:00', status: getStatus(data.doctor_id, data.date, '11:00:00') },
+        { time: '12:00', status: getStatus(data.doctor_id, data.date, '12:00:00') },
+        { time: '14:00', status: getStatus(data.doctor_id, data.date, '14:00:00') },
+        { time: '15:00', status: getStatus(data.doctor_id, data.date, '15:00:00') },
+        { time: '16:00', status: getStatus(data.doctor_id, data.date, '16:00:00') },
+        { time: '17:00', status: getStatus(data.doctor_id, data.date, '17:00:00') },
+        { time: '20:00', status: getStatus(data.doctor_id, data.date, '20:00:00') },
+    ], [data.doctor_id, data.date]);
 
     const handleConfirm = (unavailable_schedule_id) => {
         setData(unavailable_schedule_id);
@@ -115,7 +147,7 @@ const OwnerJadwal = ({ unavailable_schedules, doctors, userAppointments }) => {
                                         <div className="flex flex-col gap-1">
                                             <p className="font-semibold">Nama Dokter</p>
                                             <Select
-                                                onValueChange={(value) => setData("doctor_id", value)}
+                                                onValueChange={(value) => handleDoctorChange(value)}
                                                 value={data.doctor_id}
                                             >
                                                 <SelectTrigger className="w-full bg-transparent border-2 border-gray-400 shadow-sm h-12 font-semibold focus:border-ForestGreen focus:ring-0">
@@ -145,7 +177,7 @@ const OwnerJadwal = ({ unavailable_schedules, doctors, userAppointments }) => {
                                             <input
                                                 type="date"
                                                 className="w-full border-2 border-gray-400 shadow-sm h-12 font-semibold text-sm focus:border-ForestGreen focus:ring-0 rounded-md"
-                                                onChange={(e) => setData("date", e.target.value)}
+                                                onChange={(e) => handleDateChange(e.target.value)}
                                                 value={data.date} />
                                         </div>
                                         {/*  */}
