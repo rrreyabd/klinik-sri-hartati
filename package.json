@@ -11,7 +11,7 @@
         "@tailwindcss/forms": "^0.5.3",
         "@vitejs/plugin-react": "^4.2.0",
         "autoprefixer": "^10.4.12",
-        "axios": "^1.6.4",
+        "axios": "^1.7.2",
         "laravel-vite-plugin": "^1.0.0",
         "postcss": "^8.4.31",
         "react": "^18.2.0",
@@ -51,6 +51,7 @@
         "react-day-picker": "^8.10.1",
         "react-form-stepper": "^2.0.3",
         "react-icons": "^5.1.0",
+        "socket.io-client": "^4.7.5",
         "sonner": "^1.5.0",
         "tailwind-merge": "^2.3.0",
         "tailwindcss-animate": "^1.0.7"
