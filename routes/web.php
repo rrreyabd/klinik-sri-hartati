@@ -96,7 +96,7 @@ Route::middleware(['auth', 'verified','RoleCheck:staff'])->group(function () {
     Route::post('/konfirmasi/pembayaran', [StaffController::class, 'konfirmasiPembayaran'])->name('staff.konfirmasi');
     
 
-    Route::get('/staff/rekam-medis', [StaffController::class, 'rekamMedisIndex'])->name('staff.rekam-medis.index');
+    Route::get('/staff/umpan-balik', [StaffController::class, 'umpanBalikIndex'])->name('staff.umpan-balik.index');
 });
 
 // Dokter

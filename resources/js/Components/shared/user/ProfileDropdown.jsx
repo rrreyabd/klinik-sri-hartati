@@ -39,7 +39,7 @@ const ProfileDropdown = ({ children, className, auth, color, notif }) => {
                         className="w-full text-start flex gap-3"
                     >
                         <RiCalendarScheduleLine className="h-5 w-5" />
-                        Jadwal
+                        Janji Temu
                     </Link>
                 </DropdownMenuItem>
 

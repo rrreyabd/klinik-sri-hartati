@@ -12,6 +12,7 @@ import { LuCalendarClock } from "react-icons/lu";
 import { TiDocumentAdd } from "react-icons/ti";
 import { FaRegCreditCard } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
+import { RiFeedbackLine } from "react-icons/ri";
 
 const StaffSheet = () => {
     const { url } = usePage();
@@ -63,6 +64,7 @@ const StaffSheet = () => {
                             <BiHomeAlt2 className="text-2xl" />
                             <p className="font-medium">Dashboard</p>
                         </Link>
+
                         {/* <Link
                             href="/staff/antrian"
                             className={`w-full py-2 rounded-md flex gap-4 transition-all hover:text-customWhite px-4 ${
@@ -74,6 +76,7 @@ const StaffSheet = () => {
                             <MdAddToPhotos className="text-2xl" />
                             <p className="font-medium">Antrian</p>
                         </Link> */}
+
                         <Link
                             href="/staff/janji-temu"
                             className={`w-full py-2 rounded-md flex gap-4 transition-all px-4 ${
@@ -85,7 +88,8 @@ const StaffSheet = () => {
                             <LuCalendarClock className="text-2xl" />
                             <p className="font-medium">Janji Temu</p>
                         </Link>
-                        <Link
+
+                        {/* <Link
                             href="/staff/rekam-medis"
                             className={`w-full py-2 rounded-md flex gap-4 transition-all hover:text-customWhite px-4 ${
                                 url == "/staff/rekam-medis"
@@ -95,7 +99,20 @@ const StaffSheet = () => {
                         >
                             <TiDocumentAdd className="text-2xl" />
                             <p className="font-medium">Rekam Medis</p>
+                        </Link> */}
+                        
+                        <Link
+                            href="/staff/umpan-balik"
+                            className={`w-full py-2 rounded-md flex gap-4 transition-all hover:text-customWhite px-4 ${
+                                url == "/staff/umpan-balik"
+                                    ? "bg-ForestGreen text-customWhite"
+                                    : "bg-customWhite hover:text-customWhite hover:bg-ForestGreen text-gray-500 "
+                            } `}
+                        >
+                            <RiFeedbackLine className="text-2xl" />
+                            <p className="font-medium">Umpan Balik</p>
                         </Link>
+
                         <Link
                             href="/staff/pembayaran"
                             className={`w-full py-2 rounded-md flex gap-4 transition-all hover:text-customWhite px-4 ${

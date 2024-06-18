@@ -221,7 +221,6 @@ const StaffPembayaran = ({ payments }) => {
 
                     <Column
                         className="py-4 border-b text-center"
-                        bodyClassName="hover:bg-customWhite"
                         sortable
                         body={(rowData) => {
                             if (rowData.status === "Menunggu Konfirmasi") {
@@ -231,7 +230,7 @@ const StaffPembayaran = ({ payments }) => {
                                             Konfirmasi
                                         </AlertDialogTrigger>
                                         <AlertDialogContent className="p-4 max-w-xl">
-                                            <AlertDialogHeader>
+                                            <AlertDialogHeader className="pt-4">
                                                 <AlertDialogTitle>
                                                     <div className="flex flex-col items-center gap-2">
                                                         <IoWarningOutline className="h-20 w-20 text-ForestGreen" />
