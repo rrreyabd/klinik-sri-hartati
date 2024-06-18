@@ -6,7 +6,6 @@ import { FaPlus, FaRegTrashAlt } from "react-icons/fa";
 import { IoWarningOutline } from "react-icons/io5";
 import { useMemo } from 'react';
 
-
 import {
     AlertDialog,
     AlertDialogCancel,
@@ -44,7 +43,7 @@ const OwnerJadwal = ({ unavailable_schedules, doctors, userAppointments }) => {
         if (item.user && item.user.name) {
             return item.user.name.toLowerCase().includes(searchQuery.toLowerCase());
         }
-        return false;
+        return false; 
     });
 
     const totalPages = Math.ceil(filteredData.length / itemsPerPage);
@@ -59,27 +58,8 @@ const OwnerJadwal = ({ unavailable_schedules, doctors, userAppointments }) => {
     const StoreSchedule = async (e) => {
         e.preventDefault();
         await post(route('schedule.store'));
-        window.location.reload();
+        window.location.reload(); 
     };
-
-
-    const getStatus = (date, time) => {
-        const appointment = userAppointments.find(appt => appt.date === date && appt.time === time);
-        return appointment ? appointment.status : '';
-    };
-
-    const schedules = [
-        { time: '08:00' },
-        { time: '09:00' },
-        { time: '10:00' },
-        { time: '11:00' },
-        { time: '12:00' },
-        { time: '14:00' },
-        { time: '15:00' },
-        { time: '16:00' },
-        { time: '17:00' },
-        { time: '20:00' },
-    ];
 
     const handleDoctorChange = (selectedDoctor) => {
         setData("doctor_id", selectedDoctor);
@@ -199,9 +179,9 @@ const OwnerJadwal = ({ unavailable_schedules, doctors, userAppointments }) => {
                                                                 key={schedule.time}
                                                                 value={`${schedule.time}`}
                                                                 className={`x transition-all font-semibold cursor-pointer py-3 bg-white w-full flex justify-between border-b border-gray-300`}
-                                                                disabled={getStatus(data.date, schedule.time) !== ''}
+                                                                disabled={schedule.status !== ''}
                                                             >
-                                                                {schedule.time} {getStatus(data.date, schedule.time) ? `(${getStatus(data.date, schedule.time)})` : ''}
+                                                                {schedule.time} {schedule.status ? `(${schedule.status})` : ''}
                                                             </SelectItem>
                                                         ))}
                                                 </SelectContent>
@@ -218,7 +198,7 @@ const OwnerJadwal = ({ unavailable_schedules, doctors, userAppointments }) => {
                                                 className="w-full border-2 border-gray-400 shadow-sm  font-semibold text-sm focus:border-ForestGreen focus:ring-0 rounded-md"
                                                 onChange={(e) => setData("reason", e.target.value)}
                                                 value={data.reason}
-                                            ></textarea>
+                                                ></textarea>
                                         </div>
                                         {/*  */}
                                     </div>
@@ -240,51 +220,51 @@ const OwnerJadwal = ({ unavailable_schedules, doctors, userAppointments }) => {
                 </AlertDialog>
             </div>
 
-            {unavailable_schedules.length > 0 ? (
-                <div className="overflow-hidden rounded-md border border-gray-200 shadow-md mt-8">
-                    <table className="w-full bg-white h-fit">
-                        <thead className="bg-ForestGreen text-white">
-                            <tr>
-                                <td className="font-semibold text-center px-3 py-4">
-                                    No
+            {unavailable_schedules.length > 0 ? (                            
+            <div className="overflow-hidden rounded-md border border-gray-200 shadow-md mt-8">
+                <table className="w-full bg-white h-fit">
+                    <thead className="bg-ForestGreen text-white">
+                        <tr>
+                            <td className="font-semibold text-center px-3 py-4">
+                                No
+                            </td>
+                            <td className="font-semibold text-center px-3 py-4">
+                                Nama Dokter
+                            </td>
+                            <td className="font-semibold text-center px-3 py-4">
+                                Tanggal
+                            </td>
+                            <td className="font-semibold text-center px-3 py-4">
+                                Jam
+                            </td>
+                            <td className="font-semibold text-center px-3 py-4">
+                                Alasan
+                            </td>
+                            <td className="font-semibold text-center px-3 py-4">
+                                Aksi
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-300">
+                        {slicedData.map((unavailable_schedule, index) => (
+                            <tr key={unavailable_schedule.id}>
+                                <td className="py-4 px-3 font-medium text-center">
+                                    {startIndex + index + 1}
                                 </td>
-                                <td className="font-semibold text-center px-3 py-4">
-                                    Nama Dokter
+                                <td className="py-4 px-3 font-medium">
+                                    {unavailable_schedule.user.name}
                                 </td>
-                                <td className="font-semibold text-center px-3 py-4">
-                                    Tanggal
+                                <td className="py-4 px-3 font-medium text-center">
+                                    {unavailable_schedule.date}
                                 </td>
-                                <td className="font-semibold text-center px-3 py-4">
-                                    Jam
+                                <td className="py-4 px-3 font-medium text-center">
+                                    {unavailable_schedule.time}
                                 </td>
-                                <td className="font-semibold text-center px-3 py-4">
-                                    Alasan
+                                <td className="py-4 px-3 font-medium text-center">
+                                    {unavailable_schedule.reason}
                                 </td>
-                                <td className="font-semibold text-center px-3 py-4">
-                                    Aksi
-                                </td>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-gray-300">
-                            {slicedData.map((unavailable_schedule, index) => (
-                                <tr key={unavailable_schedule.id}>
-                                    <td className="py-4 px-3 font-medium text-center">
-                                        {startIndex + index + 1}
-                                    </td>
-                                    <td className="py-4 px-3 font-medium">
-                                        {unavailable_schedule.user.name}
-                                    </td>
-                                    <td className="py-4 px-3 font-medium text-center">
-                                        {unavailable_schedule.date}
-                                    </td>
-                                    <td className="py-4 px-3 font-medium text-center">
-                                        {unavailable_schedule.time}
-                                    </td>
-                                    <td className="py-4 px-3 font-medium text-center">
-                                        {unavailable_schedule.reason}
-                                    </td>
-                                    <td className="py-4 px-3 font-medium flex justify-center gap-2">
-                                        <AlertDialog onOpenChange={() => setData(unavailable_schedule.id)} defaultOpen={false}>
+                                <td className="py-4 px-3 font-medium flex justify-center gap-2">
+                                    <AlertDialog onOpenChange={() => setData(unavailable_schedule.id)} defaultOpen={false}>
                                             <AlertDialogTrigger>
                                                 <FaRegTrashAlt className="text-customRed h-6 w-6" />
                                             </AlertDialogTrigger>
@@ -320,26 +300,26 @@ const OwnerJadwal = ({ unavailable_schedules, doctors, userAppointments }) => {
                                                     </button>
                                                 </AlertDialogFooter>
                                             </AlertDialogContent>
-                                        </AlertDialog>
-
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
+                                    </AlertDialog>
+                                    
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
 
             ) : (
-                <div className="flex items-center justify-center h-64">
-                    <h1 className="text-3xl font-semibold text-gray-400">Tidak ada data jadwal berhalangan</h1>
-                </div>
-            )}
+                    <div className="flex items-center justify-center h-64">
+                        <h1 className="text-3xl font-semibold text-gray-400">Tidak ada data jadwal berhalangan</h1>
+                    </div>
+                )}
 
-            <Pagination
-                totalPages={totalPages}
-                currentPage={currentPage}
-                onPageChange={handlePageChange}
-            />
+                <Pagination
+                    totalPages={totalPages}
+                    currentPage={currentPage}
+                    onPageChange={handlePageChange}
+                />
         </OwnerLayout>
     );
 };
