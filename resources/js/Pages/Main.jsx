@@ -72,7 +72,9 @@ export default function Main({
     const [isSkipped, setIsSkipped] = useState(tour || localStorage.getItem("isSkipped") === "true");
 
     console.log(tour)
-
+    // if (true) {
+    //     localStorage.setItem("isSkipped", "false");
+    // } else
     {
         auth &&
             auth.user &&

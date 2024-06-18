@@ -5,7 +5,7 @@ import { format } from "date-fns";
 import { id } from "date-fns/locale";
 import { FaPlus } from "react-icons/fa";
 
-const DokterDataDiriPasien = ({ data, patient, auth, rekam_medis }) => {
+const DokterDataDiriPasien = ({ data, patient, auth, rekam_medis, appointment_id }) => {
 
     const getAge = (birthDate) => {
         const dob = new Date(birthDate);
@@ -93,7 +93,7 @@ const DokterDataDiriPasien = ({ data, patient, auth, rekam_medis }) => {
                 </div>
 
                 <div className="flex justify-end">
-                    <Link href={route("dokter.edit", { id: patient.id })} className="px-6 py-2 bg-ForestGreen text-white font-semibold flex items-center gap-2 rounded-md hover:brightness-90 transition-all">
+                    <Link href={route("dokter.edit", { id: patient.id, appointment_id: appointment_id })} className="px-6 py-2 bg-ForestGreen text-white font-semibold flex items-center gap-2 rounded-md hover:brightness-90 transition-all">
                         <FaPlus />
                         Tambah Rekam Medis
                     </Link>

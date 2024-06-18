@@ -123,13 +123,13 @@ export const StaffMenu = [
         icon: "/assets/staff/3.png",
         url: "/staff/umpan-balik",
     },
-    {
-        id: 3,
-        title: "Rekam Medis",
-        desc: "Melihat dan mencetak rekam medis pasien",
-        icon: "/assets/staff/1.png",
-        url: "/staff/rekam-medis",
-    },
+    // {
+    //     id: 3,
+    //     title: "Rekam Medis",
+    //     desc: "Melihat dan mencetak rekam medis pasien",
+    //     icon: "/assets/staff/1.png",
+    //     url: "/staff/rekam-medis",
+    // },
     {
         id: 4,
         title: "Pembayaran",

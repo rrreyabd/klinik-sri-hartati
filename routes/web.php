@@ -102,9 +102,9 @@ Route::middleware(['auth', 'verified','RoleCheck:staff'])->group(function () {
 // Dokter
 Route::middleware(['auth', 'verified','RoleCheck:dokter'])->group(function () {
     Route::get('/dokter', [DokterController::class, 'index'])->name('dokter.index');
-    Route::get('/dokter/pasien/{id}', [DokterController::class, 'dataDiriPasien'])->name('dokter.pasien');
+    Route::get('/dokter/pasien/{id}/{appointment_id}', [DokterController::class, 'dataDiriPasien'])->name('dokter.pasien');
     Route::get('/dokter/rekam-medis/{id}', [DokterController::class, 'detailRekamMedis'])->name('dokter.rekam-medis.detail');
-    Route::get('/dokter/rekam-medis/{id}/tambah', [DokterController::class, 'edit'])->name('dokter.edit');
+    Route::get('/dokter/rekam-medis/{id}/{appointment_id}/tambah', [DokterController::class, 'edit'])->name('dokter.edit');
     Route::post('/dokter/rekam-medis/tambah', [DokterController::class, 'store'])->name('dokter.store');
 });
 

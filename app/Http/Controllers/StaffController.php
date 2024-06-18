@@ -103,7 +103,7 @@ class StaffController extends Controller
 
     public function umpanBalikIndex()
     {
-        $feedbacks = Message::all();
+        $feedbacks = Message::orderBy('created_at', 'desc')->get();
         return Inertia::render('Staff/StaffUmpanBalik', [
             'feedbacks' => $feedbacks,
         ]);
