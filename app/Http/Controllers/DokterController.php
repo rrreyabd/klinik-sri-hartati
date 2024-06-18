@@ -31,12 +31,13 @@ class DokterController extends Controller
         ]);
     }
 
-    public function edit($id)
+    public function edit($id, $appointment_id)
     {
         $patientData = Patient::with('user')->find($id);
 
         return Inertia::render('Dokter/DokterFormRekamMedis', [
-            'patientData' => $patientData
+            'patientData' => $patientData,
+            'appointment_id' => $appointment_id,
         ]);
     }
 
@@ -45,6 +46,7 @@ class DokterController extends Controller
         $request->validate([
             'user_id' => 'required',
             'doctor_id' => 'required',
+            'appointment_id' => 'required',
             'date' => 'required',
             'name' => 'required',
             'weight' => 'required',
@@ -57,6 +59,7 @@ class DokterController extends Controller
         $medicalRecord = MedicalRecord::create([
             'user_id' => $request->user_id,
             'doctor_id' => $request->doctor_id,
+            'appointment_id' => $request->appointment_id,
             'date' => $request->date,
             'name' => $request->name,
             'weight' => $request->weight,
@@ -69,7 +72,7 @@ class DokterController extends Controller
         $prescriptions = $request->prescriptions;
 
         foreach ($prescriptions as $prescription) {
-            if (!is_null($prescription['medicine'])) {
+            if ($prescription['medicine']) {
                 Prescription::create([
                     'medical_record_id' => $medicalRecord->id,
                     'medicine' => $prescription['medicine'],
@@ -80,20 +83,20 @@ class DokterController extends Controller
             }
         }
 
-        return $this->dataDiriPasien($request->user_id);
+        return $this->dataDiriPasien($request->user_id, $request->appointment_id);
     }
 
-    public function dataDiriPasien($id)
+    public function dataDiriPasien($id, $appointment_id)
     {
         $data = User::find($id);
         $patient = Patient::where('user_id', $id)->first();
         $rekam_medis = MedicalRecord::where('user_id', $id)->orderBy('date', 'asc')->with(['prescriptions', 'user', 'doctor'])->get();
 
-
         return Inertia::render('Dokter/DokterDataDiriPasien', [
             'data' => $data,
             'patient' => $patient,
             'rekam_medis' => $rekam_medis,
+            'appointment_id' => $appointment_id,
         ]);
     }
 

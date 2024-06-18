@@ -163,6 +163,21 @@ const WaktuForm = ({
                                 })}
                         </div>
                     </div>
+
+                    <div className="flex justify-between">
+                        <div className="flex gap-1 items-center">
+                            <div className="w-3 h-3 rounded-full bg-green-600" />
+                            <p className="font-medium">Tersedia</p>
+                        </div>
+                        <div className="flex gap-1 items-center">
+                            <div className="w-3 h-3 rounded-full bg-red-600" />
+                            <p className="font-medium">Tidak tersedia</p>
+                        </div>
+                        <div className="flex gap-1 items-center">
+                            <div className="w-3 h-3 rounded-full bg-ForestGreen" />
+                            <p className="font-medium ">Jadwal Terpilih</p>
+                        </div>
+                    </div>
                 </div>
                 {!data.jam && (
                     <p className="text-red-500 text-base font-semibold">

@@ -23,7 +23,7 @@ import {
     AlertDialogTrigger,
 } from "@/Components/ui/alert-dialog";
 
-const DokterFormRekamMedis = ({ auth, patientData }) => {
+const DokterFormRekamMedis = ({ auth, patientData, appointment_id }) => {
     const [row, setRow] = useState(5);
 
     const handleGoBack = () => {
@@ -44,6 +44,7 @@ const DokterFormRekamMedis = ({ auth, patientData }) => {
     const { data, setData, post, processing, errors, setError } = useForm({
         user_id: patientData.user_id,
         doctor_id: auth.user.id,
+        appointment_id: appointment_id,
         date: new Date().toISOString().split("T")[0],
         name: patientData.user.name,
         weight: "",

@@ -6,10 +6,10 @@ const StaffDashboardCard = ({ id, title, desc, icon, url }) => {
         <Link
             href={url}
             className={`hover:brightness-90 hover:-translate-y-1 duration-500 transition-all ${
-                (id == 1) | (id == 4) | (id == 5)
+                (id == 1) | (id == 2)
                     ? "bg-ForestGreen"
                     : "bg-KellyGreen"
-            } h-64 rounded-xl flex overflow-hidden shadow-xl`}
+            } w-5/12 h-64 rounded-xl flex overflow-hidden shadow-xl`}
         >
             <div className="w-1/2 pl-8 pt-20">
                 <h2 className="font-semibold text-2xl text-customWhite">
@@ -28,8 +28,8 @@ const StaffDashboard = () => {
     return (
         <div className="min-h-screen w-full bg-customWhite flex justify-center items-center">
             <Head title="Staff" />
-            <div className="w-3/4 flex flex-col gap-16 max-w-[1300px]">
-                <div className="flex flex-col text-center ">
+            <div className="w-full flex flex-col gap-10 max-w-[1300px]">
+                <div className="flex flex-col text-center gap-1">
                     <h1 className="font-semibold text-4xl">
                         Dashboard Staff
                     </h1>
@@ -38,7 +38,7 @@ const StaffDashboard = () => {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div className="flex flex-row flex-wrap justify-center gap-8 w-full">
                     {StaffMenu &&
                         StaffMenu.map((menu) => {
                             return (

@@ -13,38 +13,38 @@ class AppointmentSeeder extends Seeder
      */
     public function run(): void
     {
-        $appointments = [
-            [
-                'user_id' => 1,
-                'doctor_id' => 6,
-                'treatment_id' => 1,
-                'date' => "2024-05-08",
-                'time' => "08:00:00",
-                'status' => "Selesai",
-            ],
-            [
-                'user_id' => 1,
-                'doctor_id' => 5,
-                'treatment_id' => 1,
-                'date' => "2024-05-09",
-                'time' => "08:00:00",
-                'status' => "Selesai",
-            ],
-        ];
+        // $appointments = [
+        //     [
+        //         'user_id' => 1,
+        //         'doctor_id' => 6,
+        //         'treatment_id' => 1,
+        //         'date' => "2024-05-08",
+        //         'time' => "08:00:00",
+        //         'status' => "Selesai",
+        //     ],
+        //     [
+        //         'user_id' => 1,
+        //         'doctor_id' => 5,
+    //         'treatment_id' => 1,
+        //         'date' => "2024-05-09",
+        //         'time' => "08:00:00",
+        //         'status' => "Selesai",
+        //     ],
+        // ];
 
-        foreach ($appointments as $appointmentData) {
-            $appointment = Appointment::where([
-                'date' => $appointmentData['date'],
-                'time' => $appointmentData['time']
-            ])->first();
+        // foreach ($appointments as $appointmentData) {
+        //     $appointment = Appointment::where([
+        //         'date' => $appointmentData['date'],
+        //         'time' => $appointmentData['time']
+        //     ])->first();
             
-            if (!$appointment) {
-                $appointmentData['created_at'] = now();
-                $appointmentData['updated_at'] = now();
-                Appointment::create($appointmentData);
-            }
-        }
+        //     if (!$appointment) {
+        //         $appointmentData['created_at'] = now();
+        //         $appointmentData['updated_at'] = now();
+        //         Appointment::create($appointmentData);
+        //     }
+        // }
 
-    Appointment::factory(5000)->create();
+    Appointment::factory(2314)->create();
     }
 }

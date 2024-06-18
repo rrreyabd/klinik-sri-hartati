@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Appointment;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Faker\Generator as Faker;
@@ -19,11 +20,12 @@ class MedicalRecordFactory extends Factory
     public function definition(): array
     {
         $usersCount = User::count();
+        $appointmentsCount = Appointment::count();
 
         return [
-            // 'user_id' => $this->faker->numberBetween(9, $usersCount),
-            'user_id' => 1,
-            'doctor_id' => 3,
+            'user_id' => $this->faker->numberBetween(9, $usersCount),
+            // 'user_id' => 1,
+            'doctor_id' => $this->faker->numberBetween(5, 7),
             'appointment_id' => 1,
             'date' => $this->faker->dateTimeBetween('-14 days', '-3 days')->format('Y-m-d'),
             'name' => $this->faker->name,

@@ -24,6 +24,7 @@ class CreateAppointmentsView extends Migration
                 patients.gender AS gender,
                 patients.address AS address,
                 treatments.name AS treatment_name,
+                appointments.id AS appointment_id,
                 appointments.date AS date,
                 appointments.time AS time,
                 appointments.status AS status

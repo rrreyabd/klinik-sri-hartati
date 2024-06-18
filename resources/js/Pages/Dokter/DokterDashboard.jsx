@@ -255,7 +255,7 @@ export const DataTableDokter = ({
 
                                     const realTime =
                                         hours + ":" + minutes + ":" + seconds;
-
+                                    console.log('id: ' + appointment.appointment_id)
                                     return (
                                         <tr
                                             key={i}
@@ -311,6 +311,7 @@ export const DataTableDokter = ({
                                                         "dokter.pasien",
                                                         {
                                                             id: appointment.user_id,
+                                                            appointment_id: appointment.appointment_id,
                                                         }
                                                     )}
                                                 >

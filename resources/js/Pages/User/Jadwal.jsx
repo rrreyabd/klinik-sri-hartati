@@ -212,7 +212,7 @@ const Jadwal = ({
                                                                                             if (prescription.medical_record.appointment_id == appointment.id) {
                                                                                                 return (
                                                                                                     <tr className="border-b-2">
-                                                                                                        <td className="px-3 py-4">{prescription.medicine}</td>
+                                                                                                    <td className="px-3 py-4">{prescription.medicine}</td>
                                                                                                         <td className="px-3 py-4">{prescription.dose}</td>
                                                                                                         <td className="px-3 py-4">{prescription.amount}</td>
                                                                                                         <td className="px-3 py-4">{prescription.notes}</td>
