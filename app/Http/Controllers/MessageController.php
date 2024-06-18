@@ -21,6 +21,6 @@ class MessageController extends Controller
         $message->message = $request->pesan;
         $message->save();
 
-        return Inertia::render('Main')->with('message', 'Berhasil');
+        return redirect()->route('index')->with('message', 'Pesan berhasil dikirimkan!');
     }
 }

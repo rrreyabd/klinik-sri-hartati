@@ -48,8 +48,9 @@ const Menu = ({ auth }) => {
                                     </div>
                                     <div className="py-2 rounded-md flex gap-3 items-center hover:bg-customWhite px-1 font-semibold text-lg">
                                         <RiCalendarScheduleLine className="h-5 w-5" />
-                                        <Link href="/jadwal">Jadwal</Link>
+                                        <Link href="/jadwal">Janji Temu</Link>
                                     </div>
+                                    
                                     {/* <div className="py-2 rounded-md flex gap-3 items-center hover:bg-customWhite px-1 font-semibold text-lg">
                                         <SlDocs className="h-5 w-5" />
                                         <Link href="/rekam-medis">

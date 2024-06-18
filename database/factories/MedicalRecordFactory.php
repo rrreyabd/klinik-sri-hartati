@@ -21,8 +21,10 @@ class MedicalRecordFactory extends Factory
         $usersCount = User::count();
 
         return [
-            'user_id' => $this->faker->numberBetween(9, $usersCount),
+            // 'user_id' => $this->faker->numberBetween(9, $usersCount),
+            'user_id' => 1,
             'doctor_id' => 3,
+            'appointment_id' => 1,
             'date' => $this->faker->dateTimeBetween('-14 days', '-3 days')->format('Y-m-d'),
             'name' => $this->faker->name,
             'weight' => $this->faker->randomFloat(2, 50, 150),
