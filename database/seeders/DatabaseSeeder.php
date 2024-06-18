@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
             TreatmentSeeder::class,
             AppointmentSeeder::class,
             MedicalRecordSeeder::class,
-            // PrescriptionSeeder::class,
+            PrescriptionSeeder::class,
             DoctorSeeder::class,
             StaffSeeder::class,
             // PaymentSeeder::class,

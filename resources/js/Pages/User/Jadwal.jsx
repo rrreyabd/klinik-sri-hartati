@@ -29,11 +29,15 @@ const Jadwal = ({
     doneAppointments,
     pendingAppointments,
     cancelledAppointments,
+    prescriptions,
 }) => {
     const [showData, setShowData] = useState("Semua");
     const [data, setData] = useState(appointments);
+    const [filteredData, setFilteredData] = useState()
 
     console.log(showData);
+
+
 
     useEffect(() => {
         if (showData == "Semua") setData(appointments);
@@ -117,13 +121,9 @@ const Jadwal = ({
                                         <td className="py-4 text-center w-72 px-4">
                                             Status
                                         </td>
-                                        {["Semua", "Menunggu"].includes(
-                                            showData
-                                        ) && (
-                                            <td className="py-4 px-1 text-center">
-                                                Aksi
-                                            </td>
-                                        )}
+                                        <td className="py-4 px-1 text-center">
+                                            Aksi
+                                        </td>
                                     </tr>
                                 </thead>
 
@@ -154,66 +154,98 @@ const Jadwal = ({
                                                 </td>
                                                 <td className={`py-4 px-4`}>
                                                     <div
-                                                        className={`text-white font-medium text-center px-2 py-1 rounded-md w-full ${
-                                                            appointment.status ==
+                                                        className={`text-white font-medium text-center px-2 py-1 rounded-md w-full ${appointment.status ==
                                                             "Selesai"
-                                                                ? "bg-green-600"
-                                                                : appointment.status ==
-                                                                  "Batal"
+                                                            ? "bg-green-600"
+                                                            : appointment.status ==
+                                                                "Batal"
                                                                 ? "bg-red-600"
                                                                 : appointment.status ==
-                                                                  "Menunggu Pembayaran"
-                                                                ? "bg-yellow-600"
-                                                                : appointment.status ==
-                                                                  "Menunggu Jadwal"
-                                                                ? "bg-ForestGreen"
-                                                                : appointment.status ==
-                                                                  "Menunggu Konfirmasi"
-                                                                ? "bg-KellyGreen"
-                                                                : ""
-                                                        } `}
+                                                                    "Menunggu Pembayaran"
+                                                                    ? "bg-yellow-600"
+                                                                    : appointment.status ==
+                                                                        "Menunggu Jadwal"
+                                                                        ? "bg-ForestGreen"
+                                                                        : appointment.status ==
+                                                                            "Menunggu Konfirmasi"
+                                                                            ? "bg-KellyGreen"
+                                                                            : ""
+                                                            } `}
                                                     >
                                                         {appointment.status}
                                                     </div>
                                                 </td>
-                                                {["Semua", "Menunggu"].includes(
-                                                    showData
-                                                ) && (
-                                                    <td className="text-center py-4 px-2 ">
-                                                        {appointment.status ==
+
+                                                <td className="text-center py-4 px-2 ">
+                                                    {appointment.status ==
                                                         "Menunggu Pembayaran" ? (
-                                                            <Link
-                                                                href={route(
-                                                                    "tagihan.index"
-                                                                )}
-                                                                className="text-ForestGreen underline font-semibold"
-                                                            >
-                                                                Bayar
-                                                            </Link>
-                                                        ) : appointment.status ==
-                                                          "Selesai" ? (
-                                                            <AlertDialog>
-                                                                <AlertDialogTrigger className="text-ForestGreen underline font-semibold">
-                                                                    Lihat Resep
-                                                                </AlertDialogTrigger>
-                                                                <AlertDialogContent className="flex flex-col gap-16">
-                                                                    <AlertDialogHeader>
-                                                                        <AlertDialogDescription>
-                                                                            Resep
-                                                                        </AlertDialogDescription>
-                                                                    </AlertDialogHeader>
-                                                                    <AlertDialogFooter>
-                                                                        <AlertDialogCancel>
-                                                                            Keluar
-                                                                        </AlertDialogCancel>
-                                                                    </AlertDialogFooter>
-                                                                </AlertDialogContent>
-                                                            </AlertDialog>
-                                                        ) : (
-                                                            "-"
-                                                        )}
-                                                    </td>
-                                                )}
+                                                        <Link
+                                                            href={route(
+                                                                "tagihan.index"
+                                                            )}
+                                                            className="text-ForestGreen underline font-semibold"
+                                                        >
+                                                            Bayar
+                                                        </Link>
+                                                    ) : appointment.status ==
+                                                        "Selesai" ? (
+                                                        <AlertDialog>
+                                                            <AlertDialogTrigger className="text-ForestGreen underline font-semibold">
+                                                                Lihat Resep
+                                                            </AlertDialogTrigger>
+                                                            <AlertDialogContent className="flex flex-col gap-16 max-w-4xl">
+                                                                <AlertDialogHeader>
+                                                                    <div className="rounded-md overflow-hidden">
+                                                                        <table className="w-full overflow-x-scroll">
+                                                                            <thead className="bg-ForestGreen text-white font-semibold">
+                                                                                <tr className="uppercase text-center">
+                                                                                    <td className="px-3 py-2">Nama Obat</td>
+                                                                                    <td className="px-3 py-2">Dosis</td>
+                                                                                    <td className="px-3 py-2">Frekuensi</td>
+                                                                                    <td className="px-3 py-2">Catatan</td>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                {
+                                                                                    prescriptions && prescriptions.some(prescription => prescription.medical_record.appointment_id == appointment.id) ?
+                                                                                        prescriptions.map((prescription) => {
+                                                                                            if (prescription.medical_record.appointment_id == appointment.id) {
+                                                                                                return (
+                                                                                                    <tr className="border-b-2">
+                                                                                                        <td className="px-3 py-4">{prescription.medicine}</td>
+                                                                                                        <td className="px-3 py-4">{prescription.dose}</td>
+                                                                                                        <td className="px-3 py-4">{prescription.amount}</td>
+                                                                                                        <td className="px-3 py-4">{prescription.notes}</td>
+                                                                                                    </tr>
+                                                                                                );
+                                                                                            }
+                                                                                        })
+                                                                                        :
+                                                                                        <>
+                                                                                            <tr>
+                                                                                                <td colSpan={4} className="text-center">
+                                                                                                    Tidak ada resep obat yang diberikan
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                        </>
+                                                                                }
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+
+
+                                                                </AlertDialogHeader>
+                                                                <AlertDialogFooter>
+                                                                    <AlertDialogCancel>
+                                                                        Tutup
+                                                                    </AlertDialogCancel>
+                                                                </AlertDialogFooter>
+                                                            </AlertDialogContent>
+                                                        </AlertDialog>
+                                                    ) : (
+                                                        "-"
+                                                    )}
+                                                </td>
                                             </tr>
                                         );
                                     })}
